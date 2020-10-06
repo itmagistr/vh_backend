@@ -1,9 +1,15 @@
-from .models import Doctor
+from .models import Doctor, Special
 from rest_framework import serializers
+
+class SpecialSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Special
+		fields = ['uid', 'title']
 
 
 class DoctorSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Doctor
-        fields = ['uid', 'lastName', 'firstName', 'title', 'phone', 'special', 'usr']
+	special = SpecialSerializer()
+	class Meta:
+		model = Doctor
+		fields = ['uid', 'lastName', 'firstName', 'title', 'phone', 'special']
 
