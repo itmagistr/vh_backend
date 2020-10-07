@@ -4,5 +4,5 @@ from .models import *
 
 class DoctorAdmin(admin.ModelAdmin):
 	pass
-admin.site.register(Doctor, admin.ModelAdmin)
+#admin.site.register(Doctor, admin.ModelAdmin)
 admin.site.register(Special, admin.ModelAdmin)

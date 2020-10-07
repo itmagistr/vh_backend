@@ -1,16 +1,14 @@
 from django.db import models
-import uuid
+from vh_product.models import Product
 
 class MedProc(models.Model):
-	uid = models.UUIDField(default=uuid.uuid4, editable=False)
-	title = models.CharField(max_length=255)
-	description = models.TextField()
+	product = models.ForeignKey(Product, null=False, blank=False, on_delete=models.CASCADE)
 	duration = models.IntegerField(default=30)
 	class Meta:
 		verbose_name = 'Процедура'
-		verbose_name_plural = 'Процедуры'
+		verbose_name_plural = 'Специальные поля Процедуры'
 
 	def __str__(self):
-		return u"{}".format(self.title)
+		return u"{}".format(self.product.title)
 
 
