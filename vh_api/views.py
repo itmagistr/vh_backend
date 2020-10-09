@@ -2,8 +2,10 @@ from django.contrib.auth.models import User, Group
 from vh_medproc.models import *
 from vh_doctor.models import *
 from rest_framework import viewsets
+from rest_framework import generics
 from rest_framework import permissions
 from .serializers import *
+import random
 from vh_medproc.serializers import *
 from vh_doctor.serializers import *
 
@@ -45,3 +47,17 @@ class DoctorViewSet(viewsets.ReadOnlyModelViewSet):
     
     def get_queryset(self):
         return Doctor.objects.all()
+
+class DayStatusView(generics.ListAPIView):
+    serializer_class = DayStatusSerializer
+    
+    def get_queryset(self):
+        """
+        раскраска дней
+        """
+        dstart = self.kwargs['dstart']
+        dend = self.kwargs['dend']
+        nlen = 10
+        lst = random.choices([1,2,3], weights = [5, 10, 5], k = nlen)
+
+        return [{'d': el, 's': lst[el]} for el in range(nlen)]

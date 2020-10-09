@@ -13,7 +13,6 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         model = Group
         fields = ['url', 'name']
 
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Group
-        fields = ['url', 'name']
+class DayStatusSerializer(serializers.Serializer):
+    d = serializers.IntegerField()
+    s = serializers.IntegerField()
