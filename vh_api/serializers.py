@@ -14,5 +14,5 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'name']
 
 class DayStatusSerializer(serializers.Serializer):
-    d = serializers.IntegerField()
+    d = serializers.CharField(max_length=20)
     s = serializers.IntegerField()
