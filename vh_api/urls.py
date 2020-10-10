@@ -17,6 +17,7 @@ router.register(r'doctor', views.DoctorViewSet, basename='doctor')
 apipatterns = [
 	path('', include(router.urls)),
 	re_path('daystatus/(?P<dstart>\d\d\d\d-\d\d-\d\d)/(?P<dend>\d\d\d\d-\d\d-\d\d)/$', views.DayStatusView.as_view()),
+	re_path('timetatus/(?P<d>\d\d\d\d-\d\d-\d\d)/$', views.TimeStatusView.as_view()),
 ]
 urlpatterns = []
 urlpatterns += apipatterns

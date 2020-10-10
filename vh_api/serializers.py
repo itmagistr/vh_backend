@@ -16,3 +16,7 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class DayStatusSerializer(serializers.Serializer):
     d = serializers.CharField(max_length=20)
     s = serializers.IntegerField()
+
+class TimeStatusSerializer(serializers.Serializer):
+    t = serializers.CharField(max_length=5)
+    s = serializers.IntegerField()
