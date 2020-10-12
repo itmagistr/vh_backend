@@ -5,6 +5,12 @@
     </section>
     <section v-else>
       <div v-if="loading">Загрузка...</div>
+      <h2>Test requests</h2>
+      <div>
+        <button v-on:click="daystatus">API daystatus</button> <button v-on:click="tslots">API timeslots</button>
+        <button v-on:click="medproc">API medprocs</button> <button v-on:click="doctors">API timeslots</button>
+        <div>{{results}}</div>
+      </div>
       <table class="table">
         <thead>
           <th>Время</th>
@@ -30,7 +36,8 @@ export default {
       return {
           shedule: null,
           loading: true,
-          errored: false
+          errored: false,
+          results: null
       };
   },
   async created() {
@@ -44,6 +51,30 @@ export default {
           this.errored = true
         })
     .finally(() => (this.loading = false));
+  },
+  // определяйте методы в объекте `methods`
+  methods: {
+     daystatus: function () {
+      fetch('http://localhost:8000/ru/vhapi/daystatus/2020-10-10/2020-10-31/').then(stream => stream.json()).then(response => this.results = response.results).catch((error) => {
+                    console.log(error);
+                });
+    },
+     tslots: function () {
+      fetch('http://localhost:8000/ru/vhapi/timetatus/2020-10-10/').then(stream => stream.json()).then(response => this.results = response.results).catch((error) => {
+                    console.log(error);
+                });
+    },
+    medproc: function () {
+      fetch('http://localhost:8000/ru/vhapi/medproc/').then(stream => stream.json()).then(response => this.results = response.results).catch((error) => {
+                    console.log(error);
+                });
+    },
+    doctors: function () {
+      fetch('http://localhost:8000/ru/vhapi/doctor/').then(stream => stream.json()).then(response => this.results = response.results).catch((error) => {
+                    console.log(error);
+                });
+    }
+
   }
 }
 </script>
