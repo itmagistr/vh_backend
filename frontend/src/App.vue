@@ -8,7 +8,7 @@
       <h2>Test requests</h2>
       <div>
         <button v-on:click="daystatus">API daystatus</button> <button v-on:click="tslots">API timeslots</button>
-        <button v-on:click="medproc">API medprocs</button> <button v-on:click="doctors">API timeslots</button>
+        <button v-on:click="medproc">API medprocs</button> <button v-on:click="doctors">API doctors</button>
         <div>{{results}}</div>
       </div>
       <table class="table">
