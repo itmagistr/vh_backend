@@ -1,33 +1,35 @@
 <template>
-  <div class="row registration">
-    <section v-if="errored">
-      <p>We're sorry, we're not able to retrieve this information at the moment, please try back later</p>
-    </section>
-    <section v-else>
-      <div v-if="loading">Загрузка...</div>
-      <h2>Test requests</h2>
-      <div class="btn-group" role="group">
-        <button type="button" class="btn" v-on:click="daystatus">API daystatus</button>
-        <button type="button" class="btn" v-on:click="tslots">API timeslots</button>
-        <button type="button" class="btn" v-on:click="medproc">API medprocs</button>
-        <button type="button" class="btn" v-on:click="doctors">API timeslots</button>
-      </div>
-      <div> {{results}} </div>
-      <!--<table class="table">
-        <thead>
-          <th>Время</th>
-          <th>Статус</th>
-        </thead>
-        <tbody>
-          <tr v-for="(info, index) in shedule" :key="index">
-            <td>{{ info.t }}</td>
-            <td>{{ info.s }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <h1>Response "results"</h1>
-      <div>{{ shedule }}</div>-->
-    </section>
+  <div class="d-flex ">
+    <div class="row registration">
+      <section v-if="errored">
+        <p>We're sorry, we're not able to retrieve this information at the moment, please try back later</p>
+      </section>
+      <section v-else>
+        <div v-if="loading">Загрузка...</div>
+        <h2>Test requests</h2>
+        <div class="btn-group" role="group">
+          <button type="button" class="btn" v-on:click="daystatus">API daystatus</button>
+          <button type="button" class="btn" v-on:click="tslots">API timeslots</button>
+          <button type="button" class="btn" v-on:click="medproc">API medprocs</button>
+          <button type="button" class="btn" v-on:click="doctors">API timeslots</button>
+        </div>
+        <div> {{results}} </div>
+        <!--<table class="table">
+          <thead>
+            <th>Время</th>
+            <th>Статус</th>
+          </thead>
+          <tbody>
+            <tr v-for="(info, index) in shedule" :key="index">
+              <td>{{ info.t }}</td>
+              <td>{{ info.s }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <h1>Response "results"</h1>
+        <div>{{ shedule }}</div>-->
+      </section>
+    </div>
   </div>
 </template>
 
@@ -91,7 +93,7 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 section
   font-family: Avenir, Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
@@ -101,6 +103,7 @@ section
 
 .row
   padding: 10px
+
 .btn
   background: #42E1C5
   color: #FEFDFB

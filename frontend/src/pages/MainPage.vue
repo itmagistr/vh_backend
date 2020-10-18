@@ -1,5 +1,7 @@
 <template>
-<h1>wow</h1>
+    <div class="d-flex ">
+        <h1>wow</h1>
+    </div>
 </template>
 
 <script>

@@ -5,25 +5,21 @@
         Please enable it to continue.</strong>
     </noscript>
     <Header></Header>
-    <main>
-      <div class="container">
-        <div class="d-flex align-items-center justify-content-between">
-          <div class="d-flex flex-column">
-            <button class="social-btn"><i class="fab fa-instagram"></i></button>
-            <button class="social-btn"><i class="fab fa-youtube"></i></button>
-            <button class="social-btn"><i class="fab fa-facebook-f"></i></button>
-            <button class="social-btn"><i class="fab fa-vk"></i></button>
-          </div>
-          <div class="d-flex ">
-            <router-view/>
-          </div>
-          <div class="d-flex flex-column">
-            <button class="social-btn"><i class="far fa-comment-alt"></i></button>
-            <button class="social-btn"><i class="fas fa-map-marker-alt"></i></button>
-            <button class="social-btn"><i class="fas fa-route"></i></button>
-            <button class="social-btn"><i class="fas fa-phone-alt"></i></button>
-            <button class="social-btn"><i class="fab fa-telegram-plane"></i></button>
-          </div>
+    <main class="container">
+      <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex flex-column">
+          <button class="social-btn"><i class="fab fa-instagram"></i></button>
+          <button class="social-btn"><i class="fab fa-youtube"></i></button>
+          <button class="social-btn"><i class="fab fa-facebook-f"></i></button>
+          <button class="social-btn"><i class="fab fa-vk"></i></button>
+        </div>
+        <router-view/>
+        <div class="d-flex flex-column">
+          <button class="social-btn"><i class="far fa-comment-alt"></i></button>
+          <button class="social-btn"><i class="fas fa-map-marker-alt"></i></button>
+          <button class="social-btn"><i class="fas fa-route"></i></button>
+          <button class="social-btn"><i class="fas fa-phone-alt"></i></button>
+          <button class="social-btn"><i class="fab fa-telegram-plane"></i></button>
         </div>
       </div>
     </main>
@@ -39,5 +35,52 @@ export default {
 </script>
 
 <style lang="sass">
+@import "@/styles/_variables.sass"
 
+@font-face
+  font-family: "FuturaBookC"
+  src: url("//db.onlinewebfonts.com/t/e05b78cd627ded97c38881306e3601fe.eot")
+  src: url("//db.onlinewebfonts.com/t/e05b78cd627ded97c38881306e3601fe.eot?#iefix") format("embedded-opentype"),
+  url("//db.onlinewebfonts.com/t/e05b78cd627ded97c38881306e3601fe.woff2") format("woff2"),
+  url("//db.onlinewebfonts.com/t/e05b78cd627ded97c38881306e3601fe.woff") format("woff"),
+  url("//db.onlinewebfonts.com/t/e05b78cd627ded97c38881306e3601fe.ttf") format("truetype"),
+  url("//db.onlinewebfonts.com/t/e05b78cd627ded97c38881306e3601fe.svg#FuturaBookC") format("svg")
+
+.social-btn
+  display: block
+  width: 64px
+  height: 64px
+  background: rgba(254, 253, 251, 0.64)!important
+  backdrop-filter: blur(24px)!important
+  border: none
+  border-radius: 4px
+  color: $header_text
+  font-size: 22px
+  margin: 12px 0px
+
+.logo
+    font-family: Josefin Sans
+    font-style: normal
+    font-weight: 300
+    font-size: 28.925px
+    line-height: 29px
+    color: #000
+    position: relative
+    text-align: center
+
+@media screen and (max-width: 1550px)
+  header
+    display: none
+
+@media screen and (max-width: 991px)
+  .registration
+    display: none
+
+@media screen and (min-width: 1200px)
+  .container
+    max-width: 1560px
+
+@media screen and (max-width: 1200px)
+  .container
+    max-width: none
 </style>

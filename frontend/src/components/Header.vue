@@ -65,11 +65,8 @@ export default {
 </script>
 
 <style lang="sass">
-$header_text: #B8882F
-$button-color: #DFB971
+@import "@/styles/_variables.sass"
 
-$active-text-link: #00C0BB
-$active-link-line: #42E1C5
 body
   background: url('/img/img1.png') no-repeat center center fixed
   background-size: cover
@@ -160,42 +157,5 @@ nav
   right: 7.3%
   top: 304px
 
-.social-btn
-  display: block
-  width: 64px
-  height: 64px
-  background: rgba(254, 253, 251, 0.64)!important
-  backdrop-filter: blur(24px)!important
-  border: none
-  border-radius: 4px
-  color: $header_text
-  font-size: 22px
-  margin: 12px 0px
 
-.logo
-    font-family: Josefin Sans
-    font-style: normal
-    font-weight: 300
-    font-size: 28.925px
-    line-height: 29px
-    color: #000
-    position: relative
-    text-align: center
-
-
-@media screen and (max-width: 1550px)
-  header
-    display: none
-
-@media screen and (max-width: 991px)
-  .registration
-    display: none
-
-@media screen and (min-width: 1200px)
-  .container
-    max-width: 1560px
-
-@media screen and (max-width: 1200px)
-  .container
-    max-width: none
 </style>

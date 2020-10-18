@@ -1,15 +1,14 @@
 <template>
-    <div class="row registration">
-        <div class="col">
-            <div id="calendary">
-
+    <div class="d-flex">
+        <div class="row registration">
+            <div class="col">
+                <div id="calendary"></div>
+            </div>
+            <div class="col">
+                <div id="schedule"></div>
             </div>
         </div>
-        <div class="col">
-            <div id="schedule">
-
-            </div>
-        </div>
+        <div class="col useful-tips"></div>
     </div>
 </template>
 
@@ -39,10 +38,20 @@ $ocupado-main: rgba(7, 16, 19, 0.04)
 $ocupado-sec: rgba(7, 16, 19, 0.32)
 
 .registration
-  background: rgba(254, 253, 251, 0.64)
-  backdrop-filter: blur(16px)
-  border-radius: 16px
-  max-width: 752px
+    background: rgba(254, 253, 251, 0.64)
+    backdrop-filter: blur(16px)
+    border-radius: 16px
+    width: 752px
+    height: 586px
+    margin: 0px 4px 0px 0px
+
+.useful-tips
+    background: rgba(254, 253, 251, 0.64)
+    backdrop-filter: blur(16px)
+    border-radius: 16px
+    width: 265px
+    height: 586px
+    margin: 0px 0px 0px 4px
 
 #calendary, #schedule
   background: white
@@ -117,7 +126,6 @@ $ocupado-sec: rgba(7, 16, 19, 0.32)
 .days-none
   color: $no-places-sec
 
-
 //
 .profi
   background-color: $profi-main
@@ -127,5 +135,4 @@ $ocupado-sec: rgba(7, 16, 19, 0.32)
 
 .no-places
   background-color: $no-places-main
-
 </style>
