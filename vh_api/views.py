@@ -53,9 +53,17 @@ class MedProcViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class DoctorViewSet(viewsets.ReadOnlyModelViewSet):
-	serializer_class = DoctorSerializer
+	serializer_class = DoctorRuSerializer
 	http_method_names = ['get']
 	
+	def get_serializer_class(self):
+		logger.info(translation.get_language())
+
+		if 'ru' in translation.get_language():
+			# using 'in' because it can be set to something like 'es-ES; es'
+			return DoctorRuSerializer
+		return DoctorEnSerializer
+
 	def get_queryset(self):
 		return Doctor.objects.all()
 

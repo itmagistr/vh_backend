@@ -42,9 +42,11 @@ INSTALLED_APPS = [
 	'rest_framework',
 	'corsheaders',
 	'vh_api',
+	'vh_rating',
 	'vh_product',
 	'vh_medproc',
 	'vh_human',
+	'vh_employee',
 	'vh_client',
 	'vh_doctor',
 	'vh_backend'
