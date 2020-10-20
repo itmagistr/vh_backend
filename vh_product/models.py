@@ -17,4 +17,6 @@ class Product(PolymorphicModel):
 	def __str__(self):
 		return u"{}.{}".format(self.code, self.title_check)
 
-	
+	def _product_role( self ):
+		return self.__class__.__name__
+	product_role = property(_product_role)

@@ -143,6 +143,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
+	'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework.authentication.SessionAuthentication',),
 	'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
 	'PAGE_SIZE': 50
 }
@@ -162,15 +163,15 @@ CORS_URLS_REGEX = r'^/.*/vhapi/.*$'
 import os
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'root': {
-        'handlers': ['console'],
-        'level': 'INFO',
-    },
+	'version': 1,
+	'disable_existing_loggers': False,
+	'handlers': {
+		'console': {
+			'class': 'logging.StreamHandler',
+		},
+	},
+	'root': {
+		'handlers': ['console'],
+		'level': 'INFO',
+	},
 }

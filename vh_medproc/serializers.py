@@ -15,7 +15,7 @@ class MedProcEnSerializer(serializers.ModelSerializer):
 	# #product = ProductSerializer()
 	class Meta:
 		model = MedProc
-		fields = ['uid', 'title', 'title_check', 'description', 'price', 'price_old', 'duration']
+		fields = ['uid', 'code', 'title', 'title_check', 'description', 'price', 'price_old', 'duration']
 
 class MedProcRuSerializer(serializers.ModelSerializer):
 	title = serializers.CharField(source='title_ru')
@@ -23,5 +23,9 @@ class MedProcRuSerializer(serializers.ModelSerializer):
 	description = serializers.CharField(source='description_ru')
 	class Meta:
 		model = MedProc
-		fields = ['uid', 'title', 'title_check', 'description', 'price', 'price_old', 'duration']
+		fields = ['uid', 'code', 'title', 'title_check', 'description', 'price', 'price_old', 'duration']
 
+
+class MedProcFilterSerializer(serializers.Serializer):
+    mp_code = serializers.CharField(max_length=20, allow_blank=True)
+    mp_title = serializers.CharField(max_length=50, allow_blank=True)

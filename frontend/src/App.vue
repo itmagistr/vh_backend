@@ -9,6 +9,7 @@
       <div>
         <button v-on:click="daystatus">API daystatus</button> <button v-on:click="tslots">API timeslots</button>
         <button v-on:click="medproc">API medprocs</button> <button v-on:click="doctors">API doctors</button>
+        <br/><input v-model="mpcode" placeholder="код процедуры"><button v-on:click="mpfilter">API medprocs filter</button>
         <div>{{results}}</div>
       </div>
       <table class="table">
@@ -68,6 +69,23 @@ export default {
       fetch('http://localhost:8000/ru/vhapi/medproc/').then(stream => stream.json()).then(response => this.results = response.results).catch((error) => {
                     console.log(error);
                 });
+    },
+    mpfilter: function () {
+      fetch('http://localhost:8000/ru/vhapi/mpfiltered/', {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        
+        method: "POST",
+        body: JSON.stringify({mp_code: this.mpcode, mp_title: this.mpcode})
+        })
+      .then(function(res){ console.log(res) })
+      .catch(function(res){ console.log(res) });
+/*.then(stream => stream.json()).then(response => this.results = response.results)
+.catch((error) => {
+                    console.log(error);
+                });*/
     },
     doctors: function () {
       fetch('http://localhost:8000/ru/vhapi/doctor/').then(stream => stream.json()).then(response => this.results = response.results).catch((error) => {
