@@ -3,9 +3,9 @@
     <div id="icon-procedure"> </div>
     <div id="name-procedure">
       <div>Процедура</div>
-      <div>Очень длинное название процедуры, очень длинное</div>
+      <div>{{results[0].title}}</div>
     </div>
-    <div id="time-procedure">60 мин</div>
+    <div id="time-procedure">{{results[0].duration}} мин</div>
     <button class="btn" id="btn-procedure" @click="medproc"><i class="fas fa-caret-right"></i></button>
   </div>
 </template>

@@ -3,7 +3,7 @@
     <div id="icon-doctor"> </div>
     <div id="name-doctor">
       <div>{{ results[0].human.title }}</div>
-      <div>{{ results[0].human.firstName }} {{ results[0].human.lastName[0] }}.</div>
+      <div>{{ results[0].human.lastName }} {{ results[0].human.firstName }}</div>
     </div>
     <div id="star-doctor">
       <i class="fas fa-star star-full"></i>
