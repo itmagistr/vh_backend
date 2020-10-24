@@ -3,14 +3,14 @@ import VueRouter from 'vue-router'
 import test from "@/pages/test.vue";
 import MainPage from "@/pages/MainPage";
 import NotFoundPage from "@/pages/NotFoundPage";
-import Registration from "@/pages/Registration";
+import Booking from "@/pages/BookingPage";
 
 Vue.use(VueRouter);
 
 const routes = [
     {name: 'main', component: MainPage, path: '/'},
     // {name: 'test', component: test, path: '/test/:id'},
-    {name: 'registration', component: Registration, path: '/Registration'},
+    {name: 'booking', component: Booking, path: '/booking'},
     {name: 'test', component: test, path: '/test'},
     {name: 'notFound', component: NotFoundPage, path: '*'}
 ];

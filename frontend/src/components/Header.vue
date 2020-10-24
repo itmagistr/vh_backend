@@ -7,22 +7,22 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Услуги <span class="sr-only">(current)</span></a>
+              <router-link class="nav-link" to="#">Услуги <span class="sr-only">(current)</span></router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="#">Записаться</a>
+              <router-link class="nav-link active" :to="{name: 'booking'}">Записаться</router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Врачи</a>
+              <router-link class="nav-link" to="#">Врачи</router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Виртуальный тур</a>
+              <router-link class="nav-link" to="#">Виртуальный тур</router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Документация</a>
+              <router-link class="nav-link" to="#">Документация</router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Контакты</a>
+              <router-link class="nav-link" to="#">Контакты</router-link>
             </li>
           </ul>
           <ul class="logo navbar-nav mr-auto">TO HOLLYWOOD</ul>
@@ -37,20 +37,20 @@
               <a class="nav-link dropdown-toggle" href="#" id="nDML" role="button" data-toggle="dropdown"
                  aria-haspopup="true" aria-expanded="false"> Ru </a>
               <div class="dropdown-menu" aria-labelledby="nDML">
-                <a class="dropdown-item" href="#">Русский</a>
-                <a class="dropdown-item" href="#">English</a>
+                <router-link class="dropdown-item" to="#">Русский</router-link>
+                <router-link class="dropdown-item" to="#">English</router-link>
               </div>
             </li>
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="#">Профиль <i class="fas fa-user"></i></a>
+              <router-link class="nav-link" to="#">Профиль <i class="fas fa-user"></i></router-link>
             </li>
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link number" href="#">+7 900 881 88 88</a>
-              <a class="nav-link order-call" href="#" style="color: #00C0BB">Заказать звонок</a>
+              <router-link class="nav-link number" to="#">+7 900 881 88 88</router-link>
+              <router-link class="nav-link" id="order-call" to="#">Заказать звонок</router-link>
             </li>
           </ul>
         </div>
@@ -74,6 +74,10 @@ body
 header
   background: rgba(254, 253, 251, 0.64)
   backdrop-filter: blur(32px)
+
+#order-call
+  text-align: right
+  color: $active-text-link!important
 
 .active a
   color: $active-text-link
@@ -147,10 +151,6 @@ nav
   font-size: 21px!important
   line-height: 16px!important
   text-align: right
-
-.order-call
-  text-align: right
-  color: $active-text-link!important
 
 .right-side
   position: absolute

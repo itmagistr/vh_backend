@@ -39,12 +39,13 @@ export default {
 
 @font-face
   font-family: "FuturaBookC"
-  src: url("//db.onlinewebfonts.com/t/e05b78cd627ded97c38881306e3601fe.eot")
-  src: url("//db.onlinewebfonts.com/t/e05b78cd627ded97c38881306e3601fe.eot?#iefix") format("embedded-opentype"),
-  url("//db.onlinewebfonts.com/t/e05b78cd627ded97c38881306e3601fe.woff2") format("woff2"),
-  url("//db.onlinewebfonts.com/t/e05b78cd627ded97c38881306e3601fe.woff") format("woff"),
-  url("//db.onlinewebfonts.com/t/e05b78cd627ded97c38881306e3601fe.ttf") format("truetype"),
-  url("//db.onlinewebfonts.com/t/e05b78cd627ded97c38881306e3601fe.svg#FuturaBookC") format("svg")
+  src: local("FuturaBookC"),
+  url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601fe.eot")
+  src: url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601fe.eot?#iefix") format("embedded-opentype"),
+  url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601fe.woff2") format("woff2"),
+  url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601fe.woff") format("woff"),
+  url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601fe.ttf") format("truetype"),
+  url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601fe.svg") format("svg")
 
 .social-btn
   display: block
@@ -68,7 +69,7 @@ export default {
     position: relative
     text-align: center
 
-@media screen and (max-width: 1550px)
+@media screen and (max-width: 1400px)
   header
     display: none
 
