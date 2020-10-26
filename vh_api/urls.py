@@ -18,7 +18,8 @@ apipatterns = [
 	path('', include(router.urls)),
 	re_path('daystatus/(?P<dstart>\d\d\d\d-\d\d-\d\d)/(?P<dend>\d\d\d\d-\d\d-\d\d)/$', views.DayStatusView.as_view()),
 	re_path('timestatus/(?P<d>\d\d\d\d-\d\d-\d\d)/$', views.TimeStatusView.as_view()),
-]
+	re_path('mpfiltered/$', views.MedProcFilterView.as_view())
+	]
 urlpatterns = []
 urlpatterns += apipatterns
 

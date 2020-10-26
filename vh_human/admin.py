@@ -1,14 +1,9 @@
 from django.contrib import admin
-from .models import *
-from vh_doctor.models import *
+from .models import Human
+from modeltranslation.admin import TranslationAdmin
 
-# Register your models here.
-class DoctorInline(admin.TabularInline):
-	model = Doctor
-	extra = 0
 
-class HumanAdmin(admin.ModelAdmin):
+class HumanAdmin(TranslationAdmin):
 	model = Human
-	inlines = [DoctorInline,]
 
 admin.site.register(Human, HumanAdmin)
