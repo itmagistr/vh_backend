@@ -30,7 +30,7 @@ export default {
       }
   },
   async created() {
-      await fetch(`http://localhost:8000/ru/vhapi/timetatus/${new Date().toLocaleString('en-CA', { dateStyle: 'short' })}/`)
+      await fetch(`http://localhost:8000/ru/vhapi/timestatus/${new Date().toLocaleString('en-CA', { dateStyle: 'short' })}/`)
           .then(stream => stream.json())
           .then(response => {
             this.results = response.results;
@@ -45,7 +45,7 @@ export default {
     },
   methods: {
     daystatus: function (day) {
-        fetch(`http://localhost:8000/ru/vhapi/timetatus/${day}/`).
+        fetch(`http://localhost:8000/ru/vhapi/timestatus/${day}/`).
         then(stream => stream.json()).
         then(response => {
             this.results = response.results;

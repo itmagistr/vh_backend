@@ -3,7 +3,7 @@
     <div id="icon-doctor"> </div>
     <div id="name-doctor">
       <div>{{ title }}</div>
-      <div>{{ fName }} {{ lName }}.</div>
+      <div>{{ lName }} {{ fName }}</div>
     </div>
     <div id="star-doctor">
       <i class="fas fa-star star-full"></i>
@@ -45,7 +45,7 @@ export default {
       this.loading = false;
       this.title = this.results[0].human.title;
       this.fName = this.results[0].human.firstName;
-      this.lName = this.results[0].human.lastName[0];
+      this.lName = this.results[0].human.lastName;
     });
   },
   // определяйте методы в объекте `methods`

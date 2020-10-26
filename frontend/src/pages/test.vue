@@ -44,7 +44,7 @@ export default {
       };
   },
   async created() {
-    await fetch('http://localhost:8000/ru/vhapi/timetatus/2020-10-10/')
+    await fetch('http://localhost:8000/ru/vhapi/timestatus/2020-10-10/')
         .then(stream => stream.json())
         .then(response => {
           this.shedule = response.results;
@@ -66,7 +66,7 @@ export default {
                 });
     },
      tslots: function () {
-      fetch('http://localhost:8000/ru/vhapi/timetatus/2020-10-10/').
+      fetch('http://localhost:8000/ru/vhapi/timestatus/2020-10-10/').
       then(stream => stream.json()).
       then(response => this.results = response.results).
       catch((error) => {
