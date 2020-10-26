@@ -1,109 +1,88 @@
 <template>
-  <div id="app">
-    <section v-if="errored">
-      <p>We're sorry, we're not able to retrieve this information at the moment, please try back later</p>
-    </section>
-    <section v-else>
-      <div v-if="loading">Загрузка...</div>
-      <h2>Test requests</h2>
-      <div>
-        <button v-on:click="daystatus">API daystatus</button> <button v-on:click="tslots">API timeslots</button>
-        <button v-on:click="medproc">API medprocs</button> <button v-on:click="doctors">API doctors</button>
-        <br/><input v-model="mpcode" placeholder="код процедуры"><button v-on:click="mpfilter">API medprocs filter</button>
-        <div>{{results}}</div>
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+    </noscript>
+    <Header></Header>
+    <main class="container">
+      <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex flex-column">
+          <a href="https://www.instagram.com/inessa_braginskaia/" target="_blank"><button class="social-btn"><i class="fab fa-instagram"></i></button></a>
+          <a href="https://www.youtube.com/channel/UCQ5YCpgwVDsr1mTU0bsKNaQ" target="_blank"><button class="social-btn"><i class="fab fa-youtube"></i></button></a>
+          <a href="https://www.facebook.com/inessa.karahanyan/" target="_blank"><button class="social-btn"><i class="fab fa-facebook-f"></i></button></a>
+          <button class="social-btn"><i class="fab fa-vk"></i></button>
+        </div>
+        <router-view/>
+        <div class="d-flex flex-column">
+          <button class="social-btn"><i class="far fa-comment-alt"></i></button>
+          <button class="social-btn"><i class="fas fa-map-marker-alt"></i></button>
+          <button class="social-btn"><i class="fas fa-route"></i></button>
+          <button class="social-btn"><i class="fas fa-phone-alt"></i></button>
+          <button class="social-btn"><i class="fab fa-telegram-plane"></i></button>
+        </div>
       </div>
-      <table class="table">
-        <thead>
-          <th>Время</th>
-          <th>Статус</th>
-        </thead>
-        <tbody>
-          <tr v-for="(info, index) in shedule" :key="index">
-            <td>{{ info.t }}</td>
-            <td>{{ info.s }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <h1>Response "results"</h1>
-      <div>{{ shedule }}</div>
-    </section>
-  </div>
+    </main>
+  </body>
 </template>
 
 <script>
-export default {
-  name: 'App',
-  data() {
-      return {
-          shedule: null,
-          loading: true,
-          errored: false,
-          results: null
-      };
-  },
-  async created() {
-    await fetch('http://localhost:8000/ru/vhapi/timetatus/2020-10-10/')
-        .then(stream => stream.json())
-        .then(response => {
-          this.shedule = response.results;
-        })
-        .catch(error => {
-          console.error(error);
-          this.errored = true
-        })
-    .finally(() => (this.loading = false));
-  },
-  // определяйте методы в объекте `methods`
-  methods: {
-     daystatus: function () {
-      fetch('http://localhost:8000/ru/vhapi/daystatus/2020-10-10/2020-10-31/').then(stream => stream.json()).then(response => this.results = response.results).catch((error) => {
-                    console.log(error);
-                });
-    },
-     tslots: function () {
-      fetch('http://localhost:8000/ru/vhapi/timetatus/2020-10-10/').then(stream => stream.json()).then(response => this.results = response.results).catch((error) => {
-                    console.log(error);
-                });
-    },
-    medproc: function () {
-      fetch('http://localhost:8000/ru/vhapi/medproc/').then(stream => stream.json()).then(response => this.results = response.results).catch((error) => {
-                    console.log(error);
-                });
-    },
-    mpfilter: function () {
-      fetch('http://localhost:8000/ru/vhapi/mpfiltered/', {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        
-        method: "POST",
-        body: JSON.stringify({mp_code: this.mpcode, mp_title: this.mpcode})
-        })
-      .then(function(res){ console.log(res) })
-      .catch(function(res){ console.log(res) });
-/*.then(stream => stream.json()).then(response => this.results = response.results)
-.catch((error) => {
-                    console.log(error);
-                });*/
-    },
-    doctors: function () {
-      fetch('http://localhost:8000/ru/vhapi/doctor/').then(stream => stream.json()).then(response => this.results = response.results).catch((error) => {
-                    console.log(error);
-                });
-    }
+import Header from "@/components/Header.vue";
 
-  }
-}
+export default {
+  components: { Header },
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="sass">
+@import "@/styles/_variables.sass"
+
+@font-face
+  font-family: "FuturaBookC"
+  font-style: normal
+  src: local("FuturaBookC"),
+  url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601fe.eot")
+  src: url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601feiefix.eot") format("embedded-opentype"),
+  url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601fe.woff2") format("woff2"),
+  url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601fe.woff") format("woff"),
+  url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601fe.ttf") format("truetype"),
+  url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601fe.svg") format("svg")
+
+.social-btn
+  display: block
+  width: 64px
+  height: 64px
+  background: rgba(254, 253, 251, 0.64)!important
+  backdrop-filter: blur(24px)!important
+  border: none
+  border-radius: 4px
+  color: $header_text
+  font-size: 22px
+  margin: 12px 0px
+
+.logo
+    font-family: Josefin Sans
+    font-style: normal
+    font-weight: 300
+    font-size: 28.925px
+    line-height: 29px
+    color: #000
+    position: relative
+    text-align: center
+
+@media screen and (max-width: 1400px)
+  header
+    display: none
+
+@media screen and (max-width: 991px)
+  .registration
+    display: none
+
+@media screen and (min-width: 1200px)
+  .container
+    max-width: 1560px
+
+@media screen and (max-width: 1200px)
+  .container
+    max-width: none
 </style>
