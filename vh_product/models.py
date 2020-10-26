@@ -1,9 +1,10 @@
 from django.db import models
 import uuid
+from polymorphic.models import PolymorphicModel
 
-# Create your models here.
-class Product(models.Model):
+class Product(PolymorphicModel):
 	uid = models.UUIDField(default=uuid.uuid4, editable=False)
+	code = models.CharField(max_length=20, null=False, blank=False)
 	title = models.CharField(max_length=255, null=False, blank=False)
 	title_check = models.CharField(max_length=55, null=False, blank=False)
 	description = models.TextField(null=True, blank=True)
@@ -14,4 +15,8 @@ class Product(models.Model):
 		verbose_name = 'Товар'
 		verbose_name_plural = 'Товары'
 	def __str__(self):
-		return u"{}".format(self.title_check)
+		return u"{}.{}".format(self.code, self.title_check)
+
+	def _product_role( self ):
+		return self.__class__.__name__
+	product_role = property(_product_role)

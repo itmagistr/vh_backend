@@ -1,8 +1,9 @@
 from django.contrib import admin
 from .models import *
+from modeltranslation.admin import TranslationAdmin
 # Register your models here.
 
-class DoctorAdmin(admin.ModelAdmin):
-	pass
-#admin.site.register(Doctor, admin.ModelAdmin)
-admin.site.register(Special, admin.ModelAdmin)
+
+admin.site.register(Doctor, admin.ModelAdmin)
+admin.site.register(Special, TranslationAdmin)
+admin.site.register(Level, TranslationAdmin)

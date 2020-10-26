@@ -2,8 +2,15 @@ asgiref==3.2.10
 Django==3.1.2
 django-cors-headers==3.5.0
 django-modeltranslation==0.15.2
+django-polymorphic==3.0.0
 djangorestframework==3.12.1
+et-xmlfile==1.0.1
+jdcal==1.4.1
+lml==0.0.9
+openpyxl==3.0.5
 Pillow==7.2.0
+pyexcel-io==0.6.3
+pyexcel-xlsx==0.6.0
 pytz==2020.1
 PyYAML==5.3.1
 six==1.15.0
