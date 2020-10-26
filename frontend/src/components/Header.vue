@@ -25,7 +25,7 @@
               <router-link class="nav-link" to="#">Контакты</router-link>
             </li>
           </ul>
-          <ul class="navbar-nav mr-auto"><img class="logo" src="/img/logo-sm.svg"/></ul>
+          <ul class="navbar-nav mr-auto"><router-link class="nav-link active" :to="{name: 'main'}"><img class="logo" src="/img/logo-sm.svg"/></router-link></ul>
           <ul class="navbar-nav">
             <li class="nav-item">
               <div class="inner-addon right-addon">

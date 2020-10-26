@@ -8,9 +8,9 @@
     <main class="container">
       <div class="d-flex align-items-center justify-content-between">
         <div class="d-flex flex-column">
-          <button class="social-btn"><i class="fab fa-instagram"></i></button>
-          <button class="social-btn"><i class="fab fa-youtube"></i></button>
-          <button class="social-btn"><i class="fab fa-facebook-f"></i></button>
+          <a href="https://www.instagram.com/inessa_braginskaia/" target="_blank"><button class="social-btn"><i class="fab fa-instagram"></i></button></a>
+          <a href="https://www.youtube.com/channel/UCQ5YCpgwVDsr1mTU0bsKNaQ" target="_blank"><button class="social-btn"><i class="fab fa-youtube"></i></button></a>
+          <a href="https://www.facebook.com/inessa.karahanyan/" target="_blank"><button class="social-btn"><i class="fab fa-facebook-f"></i></button></a>
           <button class="social-btn"><i class="fab fa-vk"></i></button>
         </div>
         <router-view/>
