@@ -25,7 +25,7 @@
               <router-link class="nav-link" to="#">Контакты</router-link>
             </li>
           </ul>
-          <ul class="logo navbar-nav mr-auto">TO HOLLYWOOD</ul>
+          <ul class="navbar-nav mr-auto"><img class="logo" src="/img/logo-sm.svg"/></ul>
           <ul class="navbar-nav">
             <li class="nav-item">
               <div class="inner-addon right-addon">
@@ -74,6 +74,9 @@ body
 header
   background: rgba(254, 253, 251, 0.64)
   backdrop-filter: blur(32px)
+
+.logo
+  width: 250px
 
 #order-call
   text-align: right

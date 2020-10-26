@@ -2,12 +2,12 @@
     <div class="d-flex">
         <div class="registration">
             <div class="row">
-                <Procedure></Procedure>
-                <Doctor></Doctor>
+                <Procedure/>
+                <Doctor/>
             </div>
             <div class="row">
-                <Calendary></Calendary>
-                <Shedule></Shedule>
+                <Calendary/>
+                <Shedule/>
             </div>
         </div>
         <div class="col useful-tips"></div>
@@ -29,20 +29,19 @@ export default {
 <style lang="sass">
 @import "@/styles/_variables.sass"
 
-.registration
+.registration, .useful-tips
     background: rgba(254, 253, 251, 0.64)
     backdrop-filter: blur(16px)
     border-radius: 16px
-    width: 752px
     height: 586px
+
+.registration
+    width: 752px
     margin: 0px 4px 0px 0px
     padding: 32px
+
 .useful-tips
-    background: rgba(254, 253, 251, 0.64)
-    backdrop-filter: blur(16px)
-    border-radius: 16px
     width: 265px
-    height: 586px
     margin: 0px 0px 0px 4px
 
 .registration > .row > .col:first-child
@@ -76,14 +75,4 @@ export default {
     text-align: center
     vertical-align: middle
     display: inline-block
-
-//
-.profi
-  background-color: $profi-main
-
-.few-places
-  background-color: $few-places-main
-
-.no-places
-  background-color: $no-places-main
 </style>

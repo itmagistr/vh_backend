@@ -3,9 +3,9 @@
     <div id="icon-procedure"> </div>
     <div id="name-procedure">
       <div>Процедура</div>
-      <div>{{results[0].title}}</div>
+      <div>{{ title }}</div>
     </div>
-    <div id="time-procedure">{{results[0].duration}} мин</div>
+    <div id="time-procedure">{{ duration }} мин</div>
     <button class="btn" id="btn-procedure" @click="medproc"><i class="fas fa-caret-right"></i></button>
   </div>
 </template>
@@ -14,9 +14,12 @@
 export default {
   data() {
       return {
-          loading: true,
-          errored: false,
-          results: null
+        uuid: null,
+        title: null,
+        duration: null,
+        loading: true,
+        errored: false,
+        results: null
       };
   },
   async created() {
@@ -33,6 +36,8 @@ export default {
     })
     .finally(() => {
       this.loading = false;
+      this.duration = this.results[0].duration;
+      this.title = this.results[0].title;
     });
   },
   // определяйте методы в объекте `methods`

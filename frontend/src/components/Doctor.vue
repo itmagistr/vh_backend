@@ -2,8 +2,8 @@
   <div class="col doctor">
     <div id="icon-doctor"> </div>
     <div id="name-doctor">
-      <div>{{ results[0].human.title }}</div>
-      <div>{{ results[0].human.lastName }} {{ results[0].human.firstName }}</div>
+      <div>{{ title }}</div>
+      <div>{{ fName }} {{ lName }}.</div>
     </div>
     <div id="star-doctor">
       <i class="fas fa-star star-full"></i>
@@ -20,6 +20,10 @@
 export default {
   data() {
       return {
+          uuid: null,
+          title: null,
+          fName: null,
+          lName: null,
           loading: true,
           errored: false,
           results: null
@@ -39,6 +43,9 @@ export default {
     })
     .finally(() => {
       this.loading = false;
+      this.title = this.results[0].human.title;
+      this.fName = this.results[0].human.firstName;
+      this.lName = this.results[0].human.lastName[0];
     });
   },
   // определяйте методы в объекте `methods`

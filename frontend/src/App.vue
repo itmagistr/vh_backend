@@ -39,9 +39,10 @@ export default {
 
 @font-face
   font-family: "FuturaBookC"
+  font-style: normal
   src: local("FuturaBookC"),
   url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601fe.eot")
-  src: url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601fe.eot?#iefix") format("embedded-opentype"),
+  src: url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601feiefix.eot") format("embedded-opentype"),
   url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601fe.woff2") format("woff2"),
   url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601fe.woff") format("woff"),
   url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601fe.ttf") format("truetype"),
