@@ -8,6 +8,11 @@
               {{ count.t }}
             </div>
           </div>
+          <div class="row place">
+            <div class="col-auto"><i class="profi"></i> Выгодно</div>
+            <div class="col-auto"><i class="few-places"></i> Мало мест</div>
+            <div class="col-auto"><i class="no-places"></i> Нет мест</div>
+          </div>
         </div>
     </div>
 </template>

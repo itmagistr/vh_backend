@@ -8,7 +8,7 @@
                 </div>
                 <div class="cl-month">{{months[month]}}</div>
             </div>
-            <router-link tag="button" class="bton" :to="{name: 'booking'}">Выбрать дату посещения</router-link>
+            <router-link tag="button" class="btn" :to="{name: 'booking'}">Выбрать дату посещения</router-link>
         </div>
     </div>
 </template>
@@ -62,7 +62,10 @@ export default {
     font-size: 16px
     line-height: 21px
 
-.cl-full .bton
+.cl-full .btn
+    font-family: FuturaBookC
+    letter-spacing: 0.08em
+    text-transform: uppercase
     width: 289px
     height: 48px
     background: #42E1C5
@@ -72,4 +75,5 @@ export default {
     position: absolute
     top: 95%
     transform: translate(-50%, -50%)
+
 </style>
