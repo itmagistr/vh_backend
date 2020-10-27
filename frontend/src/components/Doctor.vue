@@ -43,9 +43,9 @@ export default {
     })
     .finally(() => {
       this.loading = false;
-      this.title = this.results[0].human.title;
-      this.fName = this.results[0].human.firstName;
-      this.lName = this.results[0].human.lastName;
+      this.title = this.results[0].special;
+      this.fName = this.results[0].firstName;
+      this.lName = this.results[0].lastName;
     });
   },
   // определяйте методы в объекте `methods`

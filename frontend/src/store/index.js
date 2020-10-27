@@ -11,6 +11,14 @@ export default new Vuex.Store({
             Date: '2020-10-10',
             Hour: '6:30'
         },
-        usefulTips: true,
+        usefulTips: true
+    },
+    mutations: {
+        updateBooking(state, payload){
+            state.Booking = payload;
+        },
+        updateUT(state, payload){
+            state.usefulTips = payload;
+        }
     }
 });

@@ -4,7 +4,7 @@
             <div class="calen">
                 <div class="cl-day" >
                     <img src="/img/calendary.svg"/>
-                    <i>{{day}}</i>
+                    <span>{{day}}</span>
                 </div>
                 <div class="cl-month">{{months[month]}}</div>
             </div>
@@ -46,14 +46,14 @@ export default {
     position: relative
     text-align: center
 
-.cl-day > i
+.cl-day > span
     font-size: 24px
     line-height: 26px
     font-weight: 300
     font-style: normal
     position: absolute
     top: 75%
-    left: 50%
+    left: 51%
     transform: translate(-50%, -50%)
 
 .cl-month
@@ -73,7 +73,7 @@ export default {
     border-radius: 8px
     color: $white
     position: absolute
-    top: 95%
+    bottom: -30%
     transform: translate(-50%, -50%)
 
 </style>

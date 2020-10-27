@@ -59,7 +59,8 @@ export default {
   color: $header_text
   font-size: 22px
   margin: 12px 0px
-
+.btn:hover
+  box-shadow: 0 0 0 0.2rem #b8882f40
 .logo
     font-family: Josefin Sans
     font-style: normal

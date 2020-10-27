@@ -9,7 +9,7 @@
             <li class="nav-item active">
               <router-link class="nav-link" to="#">Услуги <span class="sr-only">(current)</span></router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" :id="[$route.name === 'booking' ? 'active' : '']">
               <router-link class="nav-link active" :to="{name: 'booking'}">Записаться</router-link>
             </li>
             <li class="nav-item">
@@ -25,7 +25,7 @@
               <router-link class="nav-link" to="#">Контакты</router-link>
             </li>
           </ul>
-          <ul class="navbar-nav mr-auto"><router-link class="nav-link active" :to="{name: 'main'}"><img class="logo" src="/img/logo-sm.svg"/></router-link></ul>
+          <ul class="navbar-nav mr-auto"><router-link :to="{name: 'main'}"><img class="logo" src="/img/logo-sm.svg"/></router-link></ul>
           <ul class="navbar-nav">
             <li class="nav-item">
               <div class="inner-addon right-addon">
@@ -82,8 +82,8 @@ header
   text-align: right
   color: $active-text-link!important
 
-.active a
-  color: $active-text-link
+#active > a
+  color: $active-text-link!important
 
 .navbar-light a, .navbar-light
   font-family: FuturaBookC

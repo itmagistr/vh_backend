@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex">
-        <div class="registration">
+        <div v-if="phase === 2" class="registration">
             <div class="row">
                 <Procedure/>
                 <Doctor/>
@@ -11,11 +11,28 @@
             </div>
             <div style="text-align: center; margin-top: 16px;">
                 <span class="title-price">Стоимость: </span>
-                <span class="price">{{ 5000 | numberFormat}} ₽</span>
+                <span class="price">{{ 5000 | numberFormat("RUB")}}</span>
             </div>
-            <router-link tag="button" class="btn" :to="{name: 'booking'}">Записаться</router-link>
+            <button class="btn" :to="{name: 'booking'}" @click="phase++">Записаться</button>
         </div>
-        <div v-if="$store.state.usefulTips" class="col useful-tips"></div>
+        <div v-else-if="phase === 3" class="registration">
+            <button class="btn" :to="{name: 'booking'}" @click="phase++">Процедуры</button>
+        </div>
+        <div v-else-if="phase === 4" class="registration">
+            <button class="btn" :to="{name: 'booking'}" @click="phase=2">Доктора</button>
+        </div>
+        <transition name="fade" mode="in-out">
+            <div v-if="!utstate" class="shadow">
+                <button type="button" class="btn" @click="changeUT"><i class="fas fa-caret-right"/></button>
+            </div>
+        </transition>
+        <transition name="fade" mode="in-out">
+            <div v-if="utstate" class="col useful-tips" >
+                <button type="button" class="btn close" @click="changeUT">
+                  <span>&times;</span>
+                </button>
+            </div>
+        </transition>
     </div>
 </template>
 
@@ -27,17 +44,40 @@ import Shedule from "@/components/Shedule";
 import numberFormat from '@/helpers/numberFormat';
 
 export default {
+    data() {
+        return{
+            phase: 2,
+            utstate: true
+        }
+    },
     filters: {
         numberFormat,
     },
+    beforeMount() {
+        this.utstate = this.$store.state.usefulTips;
+    },
     components: {
         Doctor, Procedure, Calendary, Shedule
+    },
+    methods: {
+        changeUT: function(){
+            this.utstate = !this.utstate;
+            this.$store.commit("updateUT", this.utstate);
+        }
     }
 }
 </script>
 
 <style lang="sass">
 @import "@/styles/_variables.sass"
+
+.slide-fade-enter-active
+  transition: all .8s ease
+.slide-fade-leave-active
+  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0)
+.slide-fade-enter, .slide-fade-leave-to
+  transform: translateX(10px)
+  opacity: 0
 
 .registration, .useful-tips
     background: rgba(254, 253, 251, 0.64)
@@ -51,10 +91,31 @@ export default {
     margin: 0px 4px 0px 0px
     padding: 32px
     position: relative
+    z-index: 3
 
 .useful-tips
     width: 265px
     margin: 0px 0px 0px 4px
+
+.useful-tips > .close
+    width: 32px
+    height: 32px
+
+.shadow
+    position: relative
+.shadow > button
+    background: $none
+    color: $white
+    border-radius: 0px 8px 8px 0px
+    width: 10px
+    height: 72px
+    position: absolute
+    top: 11%
+    transform: translate(-50%, -50%)
+    z-index: 1
+.shadow > button:hover
+    color: $white
+    box-shadow: 0 0 0 0.2rem #b8882f40
 
 .registration > .row > .col:first-child
     margin-right: 8px
