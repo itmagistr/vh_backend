@@ -40,35 +40,35 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
 		return Group.objects.all()
 
 
-class MedProcViewSet(viewsets.ReadOnlyModelViewSet):
-	serializer_class = MedProcEnSerializer
-	http_method_names = ['get']
-	def get_serializer_class(self):
-		logger.info(translation.get_language())
+# class MedProcViewSet(viewsets.ReadOnlyModelViewSet):
+# 	serializer_class = MedProcEnSerializer
+# 	http_method_names = ['get']
+# 	def get_serializer_class(self):
+# 		logger.info(translation.get_language())
 
-		if 'ru' in translation.get_language():
-			# using 'in' because it can be set to something like 'es-ES; es'
-			return MedProcRuSerializer
-		return MedProcEnSerializer
+# 		if 'ru' in translation.get_language():
+# 			# using 'in' because it can be set to something like 'es-ES; es'
+# 			return MedProcRuSerializer
+# 		return MedProcEnSerializer
 		
-	def get_queryset(self):
-		return MedProc.objects.all()
+# 	def get_queryset(self):
+# 		return MedProc.objects.all()
 
 
-class DoctorViewSet(viewsets.ReadOnlyModelViewSet):
-	serializer_class = DoctorRuSerializer
-	http_method_names = ['get']
+# class DoctorViewSet(viewsets.ReadOnlyModelViewSet):
+# 	serializer_class = DoctorRuSerializer
+# 	http_method_names = ['get']
 	
-	def get_serializer_class(self):
-		logger.info(translation.get_language())
+# 	def get_serializer_class(self):
+# 		logger.info(translation.get_language())
 
-		if 'ru' in translation.get_language():
-			# using 'in' because it can be set to something like 'es-ES; es'
-			return DoctorRuSerializer
-		return DoctorEnSerializer
+# 		if 'ru' in translation.get_language():
+# 			# using 'in' because it can be set to something like 'es-ES; es'
+# 			return DoctorRuSerializer
+# 		return DoctorEnSerializer
 
-	def get_queryset(self):
-		return Doctor.objects.all()
+# 	def get_queryset(self):
+# 		return Doctor.objects.all()
 
 class DayStatusView(generics.ListAPIView):
 	serializer_class = DayStatusSerializer
@@ -111,24 +111,24 @@ class TimeStatusView(generics.ListAPIView):
 
 		return [{'t': tlst[el], 's': lst[el]} for el in range(nlen)]
 
-class MedProcFilterView(generics.ListAPIView):
-	serializer_class = MedProcEnSerializer
-	http_method_names = ['post']
-	def get_serializer_class(self):
-		logger.info(translation.get_language())
+# class MedProcFilterView(generics.ListAPIView):
+# 	serializer_class = MedProcEnSerializer
+# 	http_method_names = ['post']
+# 	def get_serializer_class(self):
+# 		logger.info(translation.get_language())
 
-		if 'ru' in translation.get_language():
-			# using 'in' because it can be set to something like 'es-ES; es'
-			return MedProcRuSerializer
-		return MedProcEnSerializer
+# 		if 'ru' in translation.get_language():
+# 			# using 'in' because it can be set to something like 'es-ES; es'
+# 			return MedProcRuSerializer
+# 		return MedProcEnSerializer
 
-	def post(self, request, *args, **kwargs):
-		serializer = MedProcFilterSerializer(data=request.data)
-		serializer.is_valid(raise_exception=True)
-		sclass = self.get_serializer_class()
-		if 'Ru' in str(sclass):
-			resSerializer = sclass(MedProc.objects.filter(Q(code__startswith=serializer.data['mp_code']) | Q(title_ru__icontains=serializer.data['mp_title']) ), many=True)
-		else:
-			resSerializer = sclass(MedProc.objects.filter(Q(code__startswith=serializer.data['mp_code']) | Q(title_en__icontains=serializer.data['mp_title']) ), many=True)
-		#headers = self.get_success_headers(resSerializer.data)
-		return Response(resSerializer.data, status=status.HTTP_200_OK) #, headers=resSerializer.headers
+# 	def post(self, request, *args, **kwargs):
+# 		serializer = MedProcFilterSerializer(data=request.data)
+# 		serializer.is_valid(raise_exception=True)
+# 		sclass = self.get_serializer_class()
+# 		if 'Ru' in str(sclass):
+# 			resSerializer = sclass(MedProc.objects.filter(Q(code__startswith=serializer.data['mp_code']) | Q(title_ru__icontains=serializer.data['mp_title']) ), many=True)
+# 		else:
+# 			resSerializer = sclass(MedProc.objects.filter(Q(code__startswith=serializer.data['mp_code']) | Q(title_en__icontains=serializer.data['mp_title']) ), many=True)
+# 		#headers = self.get_success_headers(resSerializer.data)
+# 		return Response(resSerializer.data, status=status.HTTP_200_OK) #, headers=resSerializer.headers
