@@ -1,7 +1,6 @@
 from .models import MedProc
 from rest_framework import serializers
 import uuid
-import datetime as dtime
 import collections
 #from vh_product.serializers import *
 
@@ -44,14 +43,6 @@ class MedProcFilterSerializer(serializers.Serializer):
 	dt = serializers.DateField(allow_null=True)
 	doctor_uid = serializers.CharField(max_length=36, allow_blank=True)
 	
-	def validate_doctor_uid(self, value):
-		if value is None:
-			try:
-				dtime.datetime.strptime(value, "%Y-%m-%d")
-			except:
-				raise serializers.ValidationError('This field must be uuid.')
-		return value
-
 	def validate_doctor_uid(self, value):
 		if value is not None:
 			try:

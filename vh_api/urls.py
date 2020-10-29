@@ -30,7 +30,9 @@ apipatterns = [
 	re_path('timestatus/(?P<d>\d\d\d\d-\d\d-\d\d)/$', views.TimeStatusView.as_view()),
 	path('', include('vh_doctor.urls')),
 	path('', include('vh_medproc.urls')),
-	
+	re_path('timeslot/day/$', views.TimeSlotDayView.as_view()),
+	re_path('timeslot/day/list$', views.TimeSlotDayListView.as_view()),
+	re_path('timeslot/list/$', views.TimeSlotListView.as_view()),
 	]
 urlpatterns = []
 urlpatterns += apipatterns

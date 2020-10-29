@@ -1,13 +1,10 @@
 #urls.py
-from django.urls import include, path
-from rest_framework import routers
+from django.urls import include, path, re_path
 from vh_doctor import views
 
-router = routers.DefaultRouter()
-router.register(r'doctor', views.DoctorViewSet, basename='doctor')
-
 urlpatterns = [
-    path('', include(router.urls)),
-    
-    
+	re_path('doctor/$', views.DoctorListView.as_view()),
+	re_path('doctor/(?P<uid>[0-9a-f-]+)/$', views.DoctorView.as_view()),
+	re_path('doctor/list/$', views.DoctorFilterView.as_view()),
+
 ]

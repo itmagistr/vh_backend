@@ -1,7 +1,8 @@
 from .models import Doctor, Special
 from rest_framework import serializers
 from vh_human.serializers import HumanSerializer
-
+import uuid
+import collections
 
 
 class SpecialRuSerializer(serializers.ModelSerializer):
@@ -31,3 +32,22 @@ class DoctorEnSerializer(serializers.ModelSerializer):#serializers.HyperlinkedMo
 		model = Doctor
 		fields = ['uid', 'lastName', 'firstName', 'special']
 
+class DoctorFilterSerializer(serializers.Serializer):
+	txt = serializers.CharField(max_length=50, allow_blank=True)
+	dt = serializers.DateField(allow_null=True)
+	medproc_uid = serializers.CharField(max_length=36, allow_blank=True)
+	
+	def validate_medproc_uid(self, value):
+		if value is not None:
+			try:
+				uuid.UUID(value)
+			except:
+				raise serializers.ValidationError('This field must be uuid.')
+		return value
+	
+	def get_fields(self):
+		new_fields = collections.OrderedDict()
+		for name, field in super().get_fields().items():
+			field.required = False
+			new_fields[name] = field
+		return new_fields
