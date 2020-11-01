@@ -11,28 +11,29 @@
             </div>
             <div style="text-align: center; margin-top: 16px;">
                 <span class="title-price">Стоимость: </span>
-                <span class="price">{{ 5000 | numberFormat("RUB")}}</span>
+                <span class="price">{{ 5000 | currencyFormat("RUB")}}</span>
             </div>
             <button class="btn" :to="{name: 'booking'}" @click="phase++">Записаться</button>
         </div>
         <div v-else-if="phase === 3" class="registration">
-            <button class="btn" :to="{name: 'booking'}" @click="phase++">Процедуры</button>
+            <ProcedureChoice/>
+            <button class="btn" :to="{name: 'booking'}" @click="phase++">Процедуры</button><!--Кнопка имеет смещение к окну в центре-->
         </div>
         <div v-else-if="phase === 4" class="registration">
             <button class="btn" :to="{name: 'booking'}" @click="phase=2">Доктора</button>
         </div>
-        <transition name="fade" mode="in-out">
+<!--        <transition name="fade" mode="in-out">-->
             <div v-if="!utstate" class="shadow">
                 <button type="button" class="btn" @click="changeUT"><i class="fas fa-caret-right"/></button>
             </div>
-        </transition>
-        <transition name="fade" mode="in-out">
+<!--        </transition>-->
+<!--        <transition name="fade" mode="in-out">-->
             <div v-if="utstate" class="col useful-tips" >
                 <button type="button" class="btn close" @click="changeUT">
-                  <span>&times;</span>
+                  <span class="fas fa-caret-left"></span>
                 </button>
             </div>
-        </transition>
+<!--        </transition>-->
     </div>
 </template>
 
@@ -41,7 +42,8 @@ import Doctor from "@/components/Doctor";
 import Procedure from "@/components/Procedure";
 import Calendary from "@/components/Calendary";
 import Shedule from "@/components/Shedule";
-import numberFormat from '@/helpers/numberFormat';
+import currencyFormat from '@/helpers/currencyFormat';
+import ProcedureChoice from "@/components/ProcedureChoice";
 
 export default {
     data() {
@@ -51,13 +53,13 @@ export default {
         }
     },
     filters: {
-        numberFormat,
+        currencyFormat,
     },
-    beforeMount() {
+    mounted() {
         this.utstate = this.$store.state.usefulTips;
     },
     components: {
-        Doctor, Procedure, Calendary, Shedule
+        Doctor, Procedure, Calendary, Shedule, ProcedureChoice
     },
     methods: {
         changeUT: function(){
@@ -83,13 +85,12 @@ export default {
     background: rgba(254, 253, 251, 0.64)
     backdrop-filter: blur(16px)
     border-radius: 16px
-    /*height: 586px*/
     height: 627px
 
 .registration
     width: 752px
     margin: 0px 4px 0px 0px
-    padding: 32px
+    padding: 32px 32px 56px
     position: relative
     z-index: 3
 
@@ -100,6 +101,7 @@ export default {
 .useful-tips > .close
     width: 32px
     height: 32px
+    box-shadow: none
 
 .shadow
     position: relative
@@ -115,11 +117,10 @@ export default {
     z-index: 1
 .shadow > button:hover
     color: $white
-    box-shadow: 0 0 0 0.2rem #b8882f40
 
-.registration > .row > .col:first-child
+.calendary, .procedure
     margin-right: 8px
-.registration > .row > .col:last-child
+.schedule, .doctor
     margin-left: 8px
 .col
     padding: 0px

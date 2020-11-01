@@ -106,6 +106,7 @@ export default {
   font-family: FuturaBookC
   line-height: 12px
   font-size: 14px
+
 #btn-procedure
   position: absolute
   right: 0px
