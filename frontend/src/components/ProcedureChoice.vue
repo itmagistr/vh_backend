@@ -1,7 +1,6 @@
 <template>
     <div class="row">
         <div class="col procedure-choice">
-
             <div class="table-wrapper-scroll-y my-custom-scrollbar">
                   <div class="menu">
                         <button class="btn" ><i class="fas fa-long-arrow-alt-left"/> Назад</button>
@@ -40,20 +39,24 @@ import timeFormat from "@/helpers/timeFormat";
 export default {
       data() {
             return {
-                  cat: [{img: '/img/Teeth/Orthodontics.svg', tittle: '01. Ортодонтия', results: [{date: '01.01', tittle: 'Установка брекетов', price: 150000, duration: 90},
-                  {date: '01.02', tittle: 'Замена брекет-системы', price: 3000, duration: 30},
-                  {date: '01.03', tittle: 'Очень длинное название процедуры, очень длинное', price: 10000, duration: 120},
-                  {date: '01.03.01', tittle: 'Очень длинное название процедуры, очень длинное врач Василенко Л.И.', price: 10000, duration: 90},
-                  {date: '01.03.02', tittle: 'Очень длинное название процедуры, очень длинное врач Василенко Л.И.', price: 15000, duration: 90},
-                  {date: '01.04', tittle: 'Изготовление Капп', price: 500, duration: 15},]
-                  },
-                  {img: '/img/Teeth/Implantation.svg', tittle: '02. Хирургия', results: [{date: '01.01', tittle: 'Установка брекетов', price: 150000, duration: 90},
-                  {date: '01.02', tittle: 'Замена брекет-системы', price: 3000, duration: 30},
-                  {date: '01.03', tittle: 'Очень длинное название процедуры, очень длинное', price: 10000, duration: 120},
-                  {date: '01.03.01', tittle: 'Очень длинное название процедуры, очень длинное врач Василенко Л.И.', price: 10000, duration: 90},
-                  {date: '01.03.02', tittle: 'Очень длинное название процедуры, очень длинное врач Василенко Л.И.', price: 15000, duration: 90},
-                  {date: '01.04', tittle: 'Изготовление Капп', price: 500, duration: 15},]
-                  },],
+                  cat: [
+                        {img: '/img/Teeth/Orthodontics.svg', tittle: '01. Ортодонтия', results: [
+                              {date: '01.01', tittle: 'Установка брекетов', price: 150000, duration: 90},
+                              {date: '01.02', tittle: 'Замена брекет-системы', price: 3000, duration: 30},
+                              {date: '01.03', tittle: 'Очень длинное название процедуры, очень длинное', price: 10000, duration: 120},
+                              {date: '01.03.01', tittle: 'Очень длинное название процедуры, очень длинное врач Василенко Л.И.', price: 10000, duration: 90},
+                              {date: '01.03.02', tittle: 'Очень длинное название процедуры, очень длинное врач Василенко Л.И.', price: 15000, duration: 90},
+                              {date: '01.04', tittle: 'Изготовление Капп', price: 500, duration: 15},]
+                        },
+                        {img: '/img/Teeth/Implantation.svg', tittle: '02. Хирургия', results: [
+                              {date: '01.01', tittle: 'Установка брекетов', price: 150000, duration: 90},
+                              {date: '01.02', tittle: 'Замена брекет-системы', price: 3000, duration: 30},
+                              {date: '01.03', tittle: 'Очень длинное название процедуры, очень длинное', price: 10000, duration: 120},
+                              {date: '01.03.01', tittle: 'Очень длинное название процедуры, очень длинное врач Василенко Л.И.', price: 10000, duration: 90},
+                              {date: '01.03.02', tittle: 'Очень длинное название процедуры, очень длинное врач Василенко Л.И.', price: 15000, duration: 90},
+                              {date: '01.04', tittle: 'Изготовление Капп', price: 500, duration: 15},]
+                        },
+                  ],
             }
       },
       filters: {

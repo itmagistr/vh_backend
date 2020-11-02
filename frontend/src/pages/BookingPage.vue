@@ -20,6 +20,7 @@
             <button class="btn" :to="{name: 'booking'}" @click="phase++">Процедуры</button><!--Кнопка имеет смещение к окну в центре-->
         </div>
         <div v-else-if="phase === 4" class="registration">
+            <DoctorChoice/>
             <button class="btn" :to="{name: 'booking'}" @click="phase=2">Доктора</button>
         </div>
 <!--        <transition name="fade" mode="in-out">-->
@@ -44,6 +45,7 @@ import Calendary from "@/components/Calendary";
 import Shedule from "@/components/Shedule";
 import currencyFormat from '@/helpers/currencyFormat';
 import ProcedureChoice from "@/components/ProcedureChoice";
+import DoctorChoice from "@/components/DoctorChoice";
 
 export default {
     data() {
@@ -59,7 +61,7 @@ export default {
         this.utstate = this.$store.state.usefulTips;
     },
     components: {
-        Doctor, Procedure, Calendary, Shedule, ProcedureChoice
+        Doctor, Procedure, Calendary, Shedule, ProcedureChoice, DoctorChoice
     },
     methods: {
         changeUT: function(){

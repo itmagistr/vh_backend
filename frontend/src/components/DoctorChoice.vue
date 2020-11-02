@@ -1,0 +1,209 @@
+<template>
+    <div class="row">
+        <div class="col doctor-choice">
+            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                  <div class="menu">
+                        <button class="btn" ><i class="fas fa-long-arrow-alt-left"/> Назад</button>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Найти процедуру..." aria-describedby="ba2">
+                            <div class="input-group-append">
+                                <button class="btn" type="button" id="ba2"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                  </div>
+                  <div class="doctor-clip" v-for="data in docs" :key="data.img">
+                        <div class="d-flex clip-header">
+                            <div class="d-flex">
+                                <div class="clip-photo"></div>
+                                <div class="clip-bk1">
+                                    <div class="clip-tittle">{{ data.tittle }}</div>
+                                    <div class="clip-name">{{ data.fName }} {{ data.lName }} <br> {{ data.tName }}</div>
+                                </div>
+                            </div>
+                            <div class="d-flex ml-auto flex-column clip-info">
+                                <div>{{ data.arg1 }}</div>
+                                <div>{{ data.arg2 }}</div>
+                                <div>{{ data.arg3 }}</div>
+                            </div>
+                        </div>
+                        <div class="clip-body">
+                            <div class="clip-accordion">Процедуры <i class="fas fa-caret-down"></i></div>
+                            <div class="clip-accordion">Фото работ <i class="fas fa-caret-down"></i></div>
+                            <div class="clip-accordion">Youtube <i class="fas fa-caret-down"></i></div>
+                            <div class="clip-accordion">Сертификаты <i class="fas fa-caret-down"></i></div>
+                            <div class="clip-accordion">Образование <i class="fas fa-caret-down"></i></div>
+                        </div>
+                        <div class="d-flex clip-footer">
+                            <div class="d-flex clip-rating">
+                                  <i class="fas fa-star star-full"></i>
+                                  <i class="fas fa-star star-full"></i>
+                                  <i class="fas fa-star star-full"></i>
+                                  <i class="fas fa-star star-half"></i>
+                                  <i class="fas fa-star star-none"></i>
+                            </div>
+                            <div class="d-flex clip-review">{{ data.countReview }} отзыва</div>
+                            <div class="d-flex ml-auto clip-icons">
+                                <i class="fas fa-phone" style="transform: scaleX(-1)"/>
+                                <i class="far fa-comment-alt"/>
+                                <i class="fas fa-heart"/>
+                            </div>
+                        </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import currencyFormat from '@/helpers/currencyFormat';
+import timeFormat from "@/helpers/timeFormat";
+
+export default {
+      data() {
+            return {
+                  docs: [ { img: '/img/Teeth/Orthodontics.svg', tittle: 'Стоматлог, Ортодонт', fName: 'Лариса',
+                            lName: 'Василенко', tName: 'Ивановна', arg1: 'Стаж 26 лет',
+                            arg2: 'Высшая категория', arg3: 'Кандидат медицинских наук', rating: 4, countReview: 24,
+                            phone: null, messanger: null,
+                            results: [ {
+                                procedure: [{tittle: null}, ],
+                                photo: [{img: null, tittle: null}, ],
+                                youtube: [{url: null}, ],
+                                certificates: [{tittle: null}, ],
+                                eduction: [{year: null, course: null, grade: null}, ]}, ],
+                        }, { img: '/img/Teeth/Orthodontics.svg', tittle: 'Стоматлог, Ортодонт', fName: 'Лариса',
+                            lName: 'Василенко', tName: 'Ивановна', arg1: 'Стаж 26 лет',
+                            arg2: 'Высшая категория', arg3: 'Кандидат медицинских наук', rating: null, countReview: 24,
+                            phone: null, messanger: null,
+                            results: [ {
+                                procedure: [{tittle: null}, ],
+                                photo: [{img: null, tittle: null}, ],
+                                youtube: [{url: null}, ],
+                                certificates: [{tittle: null}, ],
+                                eduction: [{year: null, course: null, grade: null}, ]}, ],
+                        }
+                  ],
+            }
+      },
+      filters: {
+            currencyFormat, timeFormat
+      },
+}
+</script>
+
+<style lang="sass">
+@import "@/styles/_variables.sass"
+
+.doctor-choice
+    background: linear-gradient(180deg, #FEFDFB 0%, #FEFDFB 78.65%, rgba(254, 253, 251, 0.16) 92.71%, rgba(254, 253, 251, 0.08) 100%)
+    border-radius: 8px
+    height: 536px
+
+.my-custom-scrollbar
+      position: relative
+      height: 100%
+      padding: 32px
+      overflow: auto
+
+::-webkit-scrollbar
+      width: 0px
+
+.menu
+    height: 64px
+.menu > .btn
+    display: inline-block
+    font-family: FuturaBookC
+    font-size: 16px
+    line-height: 21px
+    color: #071013
+    margin-right: 25px
+    padding: 6px 0px
+.menu .form-control::placeholder
+    color: rgba( 238,209,153,0.32)
+    font-family: FuturaBookC
+    font-size: 16px
+    line-height: 21px
+.menu .input-group
+    width: 533px
+    display: inline-flex
+.menu input
+    height: 48px
+    border-radius: 8px
+#ba2 .fas
+    transform: scaleX(-1)
+    color: #B8882F
+#ba2
+    background: white
+
+.clip-header
+    margin-bottom: 16px
+.clip-body
+    margin-bottom: 24px
+.clip-footer
+    vertical-align: middle
+.doctor-clip
+    border: 1px solid rgba(238, 209, 153, 0.32)
+    border-radius: 8px
+    width: 624px
+    min-height: 328px
+    margin-bottom: 16px
+    padding: 24px
+.clip-photo
+    width: 64px
+    height: 64px
+    background: $active-link-line
+    border-radius: 4px
+    margin-right: 12px
+
+.clip-bk1
+    vertical-align: top
+.clip-tittle
+    font-family: FuturaBookC
+    font-size: 14px
+    line-height: 16px
+    color: #B8882F
+    padding-top: 4px
+    padding-bottom: 4px
+.clip-name
+    font-family: Montserrat
+    font-size: 19px
+    line-height: 19px
+    color: #071013
+.clip-info
+    text-align: right
+    font-family: FuturaBookC
+    font-size: 16px
+    line-height: 21px
+    color: #071013
+
+
+.clip-accordion
+    font-family: FuturaBookC
+    font-size: 16px
+    line-height: 21px
+    letter-spacing: 0.08em
+    text-transform: uppercase
+    color: #071013
+    margin: 8px 0px
+.clip-accordion > i
+   margin-left: 8px
+   color: $blue_three
+
+.clip-rating
+    font-size: 22px
+    line-height: 22px
+    margin-right: 12px
+.clip-rating > i
+    margin-right: 4px
+.clip-review, .clip-icons
+    font-family: FuturaBookC
+    font-size: 16px
+    line-height: 21px
+    color: $blue_three
+.clip-icons
+    font-size: 22px
+    line-height: 22px
+    color: $blue_three
+.clip-icons > i
+    margin-left: 16px
+</style>

@@ -5,12 +5,13 @@
       <div>Процедура</div>
       <div>{{ title }}</div>
     </div>
-    <div id="time-procedure">{{ duration }} мин</div>
+    <div id="time-procedure">{{ duration | timeFormat("ru-RU")}}</div>
     <button class="btn" id="btn-procedure" @click="medproc"><i class="fas fa-caret-right"></i></button>
   </div>
 </template>
 
 <script>
+import timeFormat from "@/helpers/timeFormat";
 export default {
   data() {
       return {
@@ -21,6 +22,9 @@ export default {
         errored: false,
         results: null
       };
+  },
+  filters: {
+    timeFormat
   },
   async created() {
     await fetch('http://localhost:8000/ru/vhapi/medproc/')
