@@ -5,6 +5,7 @@ import MainPage from "@/pages/MainPage";
 import NotFoundPage from "@/pages/NotFoundPage";
 import Booking from "@/pages/BookingPage";
 import Service from "@/pages/ServicePage.vue"
+import Doctors from "@/pages/DoctorsPage.vue"
 
 Vue.use(VueRouter);
 
@@ -13,6 +14,7 @@ const routes = [
     {name: 'service', component: Service, path: '/service'},
     // {name: 'test', component: test, path: '/test/:id'},
     {name: 'booking', component: Booking, path: '/booking'},
+    {name: 'doctors', component: Doctors, path: '/doctors'},
     {name: 'test', component: test, path: '/test'},
     {name: 'notFound', component: NotFoundPage, path: '*'}
 ];

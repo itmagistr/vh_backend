@@ -12,8 +12,8 @@
             <li class="nav-item" :id="[$route.name === 'booking' ? 'active' : '']">
               <router-link class="nav-link active" :to="{name: 'booking'}">Записаться</router-link>
             </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="#">Врачи</router-link>
+            <li class="nav-item" :id="[$route.name === 'doctors' ? 'active' : '']">
+              <router-link class="nav-link" :to="{name: 'doctors'}">Врачи</router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link" to="#">Виртуальный тур</router-link>
