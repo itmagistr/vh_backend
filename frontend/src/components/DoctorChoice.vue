@@ -3,7 +3,7 @@
         <div class="col doctor-choice">
             <div class="table-wrapper-scroll-y my-custom-scrollbar">
                   <div class="menu">
-                        <button class="btn" ><i class="fas fa-long-arrow-alt-left"/> Назад</button>
+                        <button class="btn" @click="backToBooking()"><i class="fas fa-long-arrow-alt-left"/> Назад</button>
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Найти процедуру..." aria-describedby="ba2">
                             <div class="input-group-append">
@@ -11,7 +11,7 @@
                             </div>
                         </div>
                   </div>
-                  <div class="doctor-clip" v-for="data in docs" :key="data.img">
+                  <div class="doctor-clip" v-for="data in docs" :key="data.uuid" :class="[select === data.uuid ? 'active':'' ]"  @click="selected(data.uuid)">
                         <div class="d-flex clip-header">
                             <div class="d-flex">
                                 <div class="clip-photo"></div>
@@ -50,6 +50,7 @@
                         </div>
                   </div>
             </div>
+            <button class="btn" @click="send()">Выбрать врача</button>
         </div>
     </div>
 </template>
@@ -59,35 +60,52 @@ import currencyFormat from '@/helpers/currencyFormat';
 import timeFormat from "@/helpers/timeFormat";
 
 export default {
-      data() {
-            return {
-                  docs: [ { img: '/img/Teeth/Orthodontics.svg', tittle: 'Стоматлог, Ортодонт', fName: 'Лариса',
-                            lName: 'Василенко', tName: 'Ивановна', arg1: 'Стаж 26 лет',
-                            arg2: 'Высшая категория', arg3: 'Кандидат медицинских наук', rating: 4, countReview: 24,
-                            phone: null, messanger: null,
-                            results: [ {
-                                procedure: [{tittle: null}, ],
-                                photo: [{img: null, tittle: null}, ],
-                                youtube: [{url: null}, ],
-                                certificates: [{tittle: null}, ],
-                                eduction: [{year: null, course: null, grade: null}, ]}, ],
-                        }, { img: '/img/Teeth/Orthodontics.svg', tittle: 'Стоматлог, Ортодонт', fName: 'Лариса',
-                            lName: 'Василенко', tName: 'Ивановна', arg1: 'Стаж 26 лет',
-                            arg2: 'Высшая категория', arg3: 'Кандидат медицинских наук', rating: null, countReview: 24,
-                            phone: null, messanger: null,
-                            results: [ {
-                                procedure: [{tittle: null}, ],
-                                photo: [{img: null, tittle: null}, ],
-                                youtube: [{url: null}, ],
-                                certificates: [{tittle: null}, ],
-                                eduction: [{year: null, course: null, grade: null}, ]}, ],
-                        }
-                  ],
-            }
-      },
-      filters: {
-            currencyFormat, timeFormat
-      },
+    props: ['value'],
+    data() {
+        return {
+            select: this.$store.state.Booking.Doctor,
+            docs: [
+                { uuid: '70f55cc7-d824-43e1-9735-186ad0975216', img: '/img/Teeth/Orthodontics.svg', tittle: 'Стоматлог, Ортодонт', fName: 'Лариса',
+                    lName: 'Василенко', tName: 'Ивановна', arg1: 'Стаж 26 лет',
+                    arg2: 'Высшая категория', arg3: 'Кандидат медицинских наук', rating: 4, countReview: 24,
+                    phone: null, messenger: null,
+                    results: [ {
+                        procedure: [{tittle: null}, ],
+                        photo: [{img: null, tittle: null}, ],
+                        youtube: [{url: null}, ],
+                        certificates: [{tittle: null}, ],
+                        eduction: [{year: null, course: null, grade: null}, ]}, ],
+                },
+                { uuid: '4462d485-f273-47ce-9b2e-5235bd94c83f', img: '/img/Teeth/Orthodontics.svg', tittle: 'Стоматлог, Ортодонт', fName: 'Лариса',
+                    lName: 'Василенко', tName: 'Ивановна', arg1: 'Стаж 26 лет',
+                    arg2: 'Высшая категория', arg3: 'Кандидат медицинских наук', rating: null, countReview: 24,
+                    phone: null, messenger: null,
+                    results: [ {
+                        procedure: [{tittle: null}, ],
+                        photo: [{img: null, tittle: null}, ],
+                        youtube: [{url: null}, ],
+                        certificates: [{tittle: null}, ],
+                        eduction: [{year: null, course: null, grade: null}, ]}, ],
+                }
+            ],
+        }
+    },
+    filters: {
+        currencyFormat, timeFormat
+    },
+    methods: {
+        backToBooking(){
+            this.select = this.$store.state.Booking.Doctor;
+            this.$emit('pageDoctor', this.select, 2);
+        },
+        selected(val){
+            this.select = val;
+        },
+        send(){
+            this.$store.commit("updDoc", this.select);
+            this.$emit('pageDoctor', this.select, 2);
+        },
+    }
 }
 </script>
 
@@ -95,7 +113,8 @@ export default {
 @import "@/styles/_variables.sass"
 
 .doctor-choice
-    background: linear-gradient(180deg, #FEFDFB 0%, #FEFDFB 78.65%, rgba(254, 253, 251, 0.16) 92.71%, rgba(254, 253, 251, 0.08) 100%)
+    /*background: linear-gradient(180deg, #FEFDFB 0%, #FEFDFB 78.65%, rgba(254, 253, 251, 0.16) 92.71%, rgba(254, 253, 251, 0.08) 100%)*/
+    background: $white
     border-radius: 8px
     height: 536px
 
@@ -118,6 +137,7 @@ export default {
     color: #071013
     margin-right: 25px
     padding: 6px 0px
+    box-shadow: none
 .menu .form-control::placeholder
     color: rgba( 238,209,153,0.32)
     font-family: FuturaBookC
@@ -134,6 +154,9 @@ export default {
     color: #B8882F
 #ba2
     background: white
+
+.doctor-clip:hover, .doctor-clip.active
+   box-shadow: 0 0 0 0.2rem #b8882f40
 
 .clip-header
     margin-bottom: 16px
@@ -206,4 +229,19 @@ export default {
     color: $blue_three
 .clip-icons > i
     margin-left: 16px
+
+.doctor-choice > .btn
+    font-family: FuturaBookC
+    letter-spacing: 0.08em
+    text-transform: uppercase
+    width: 233px
+    height: 48px
+    background: $active-link-line
+    border: none
+    border-radius: 8px
+    color: $white
+    position: absolute
+    bottom: -9%
+    right: 15%
+    transform: translate(-50%, -50%)
 </style>

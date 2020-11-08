@@ -2,26 +2,24 @@
     <div class="d-flex">
         <div v-if="phase === 2" class="registration">
             <div class="row">
-                <Procedure/>
-                <Doctor/>
+                <Procedure v-model="phase"/>
+                <Doctor v-model="phase"/>
             </div>
             <div class="row">
                 <Calendary/>
-                <Shedule/>
+                <Shedule :hour="hour"/>
             </div>
             <div style="text-align: center; margin-top: 16px;">
                 <span class="title-price">Стоимость: </span>
                 <span class="price">{{ 5000 | currencyFormat("RUB")}}</span>
             </div>
-            <button class="btn" :to="{name: 'booking'}" @click="phase++">Записаться</button>
+            <button class="btn" @click="sub()">Записаться</button>
         </div>
         <div v-else-if="phase === 3" class="registration">
-            <ProcedureChoice/>
-            <button class="btn" :to="{name: 'booking'}" @click="phase++">Процедуры</button><!--Кнопка имеет смещение к окну в центре-->
+            <ProcedureChoice @pageProcedure="(arg1, arg2) => getParmProc(arg1, arg2)"/>
         </div>
         <div v-else-if="phase === 4" class="registration">
-            <DoctorChoice/>
-            <button class="btn" :to="{name: 'booking'}" @click="phase=2">Доктора</button>
+            <DoctorChoice @pageDoctor="(arg1, arg2) => getParmDoc(arg1, arg2)"/>
         </div>
 <!--        <transition name="fade" mode="in-out">-->
             <div v-if="!utstate" class="shadow">
@@ -50,15 +48,22 @@ import DoctorChoice from "@/components/DoctorChoice";
 export default {
     data() {
         return{
-            phase: 2,
-            utstate: true
+            date: this.$store.state.Booking.Date,
+            hour: this.$store.state.Booking.Hour,
+            doctor: this.$store.state.Booking.Doctor,
+            procedure: this.$store.state.Booking.Procedure,
+            phase: this.$store.state.phase,
+            utstate: this.$store.state.usefulTips
         }
     },
     filters: {
         currencyFormat,
     },
-    mounted() {
-        this.utstate = this.$store.state.usefulTips;
+    created() {
+        if (this.$store.state.Booking.Date === null){
+            this.date = new Date().toLocaleString('en-CA', { dateStyle: 'short' });
+            this.$store.commit("updDate", this.date);
+        }
     },
     components: {
         Doctor, Procedure, Calendary, Shedule, ProcedureChoice, DoctorChoice
@@ -67,6 +72,23 @@ export default {
         changeUT: function(){
             this.utstate = !this.utstate;
             this.$store.commit("updateUT", this.utstate);
+        },
+        getParmDoc(arg1, arg2){
+            this.doctor = arg1;
+            this.phase = arg2;
+            this.$store.commit("updPhase", 2);
+        },
+        getParmProc(arg1, arg2){
+            this.procedure = arg1;
+            this.phase = arg2;
+            this.$store.commit("updPhase", 2);
+        },
+        sub(){
+            let sen = 'Date: ' + this.$store.state.Booking.Date +
+                '\nHour: ' + this.$store.state.Booking.Hour +
+                '\nDoctor: ' + this.$store.state.Booking.Doctor+
+                '\nProcedure: ' + this.$store.state.Booking.Procedure;
+            alert(sen);
         }
     }
 }
@@ -160,7 +182,7 @@ export default {
     text-transform: uppercase
     width: 171px
     height: 48px
-    background: #42E1C5
+    background: $active-link-line
     border: none
     border-radius: 8px
     color: $white
@@ -181,5 +203,4 @@ export default {
     font-size: 27px
     line-height: 33px
     color: #E1BE7A
-
 </style>

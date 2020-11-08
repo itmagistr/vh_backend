@@ -6,8 +6,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <router-link class="nav-link" to="#">Услуги <span class="sr-only">(current)</span></router-link>
+            <li class="nav-item" :id="[$route.name === 'service' ? 'active' : '']">
+              <router-link class="nav-link" :to="{name: 'service'}">Услуги</router-link>
             </li>
             <li class="nav-item" :id="[$route.name === 'booking' ? 'active' : '']">
               <router-link class="nav-link active" :to="{name: 'booking'}">Записаться</router-link>

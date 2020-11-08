@@ -18,6 +18,11 @@
 
 <script>
 export default {
+  model: {
+    prop: 'phase',
+    event: 'goToDoctor'
+  },
+  props: ['phase'],
   data() {
       return {
           uuid: null,
@@ -50,17 +55,9 @@ export default {
   },
   // определяйте методы в объекте `methods`
   methods: {
-     doctors: function () {
-      fetch('http://localhost:8000/ru/vhapi/doctor/').
-      then(stream => stream.json()).
-      then(response => {
-        this.results = response.results;
-        console.log(response.results);
-      }).
-      catch((error) => { console.log(error); }).
-      finally(() => {
-        this.loading = false;
-      });
+     doctors() {
+        this.$store.commit("updPhase", 4);
+        this.$emit('goToDoctor', 4);
     }
   }
 }

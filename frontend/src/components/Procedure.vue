@@ -6,13 +6,18 @@
       <div>{{ title }}</div>
     </div>
     <div id="time-procedure">{{ duration | timeFormat("ru-RU")}}</div>
-    <button class="btn" id="btn-procedure" @click="medproc"><i class="fas fa-caret-right"></i></button>
+    <button class="btn" id="btn-procedure" @click="medproc()"><i class="fas fa-caret-right"></i></button>
   </div>
 </template>
 
 <script>
 import timeFormat from "@/helpers/timeFormat";
 export default {
+  model: {
+    prop: 'phase',
+    event: 'goToProcedure'
+  },
+  props: ['phase'],
   data() {
       return {
         uuid: null,
@@ -44,19 +49,10 @@ export default {
       this.title = this.results[0].title;
     });
   },
-  // определяйте методы в объекте `methods`
   methods: {
-     medproc: function () {
-      fetch('http://localhost:8000/ru/vhapi/medproc/').
-      then(stream => stream.json()).
-      then(response => {
-        this.results = response.results;
-        console.log(response.results);
-      }).
-      catch((error) => { console.log(error); }).
-      finally(() => {
-        this.loading = false;
-      });
+     medproc() {
+        this.$store.commit("updPhase", 3);
+        this.$emit('goToProcedure', 3);
     }
   }
 }

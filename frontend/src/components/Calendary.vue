@@ -6,15 +6,11 @@
           <div class="d-flex">{{months[month]}} {{year}}</div>
           <div class="d-flex"><button class="btn" @click="incr()"><i class="fas fa-caret-right"></i></button></div>
         </div>
-        <div class="weekday">
-          <div v-for="count in dates" :key="count">
-            {{ count }}
-          </div>
-        </div>
+        <div class="weekday"> <div v-for="count in dates" :key="count"> {{ count }} </div> </div>
         <div class="days">
-          <div v-for="count in num" :class="[count.status ===-1 ? 'days-none' : '',
-          count.status ===1 ? 'profi' : '', count.status ===2 ? 'few-places' : '',
-          count.status ===3 ? 'no-places' : '', count.key === hoy ? 'hoy' : '']" :key="count.key">
+          <div v-for="count in days" :class="{ 'days-none': count.status === -1, 'profi' : count.status === 1,
+          'few-places': count.status === 2, 'no-places': count.status === 3,
+          'hoy': count.key === select }" :key="count.key" @click="selected(count.key, count.status !== -1)">
             {{ count.day }}
           </div>
         </div>
@@ -30,26 +26,30 @@
 <script>
 export default {
     data() {
-      return {
+        return {
             hoy: new Date().toLocaleString('en-CA', { dateStyle: 'short' }),
+            select: this.$store.state.Booking.Date,
             month: new Date().getMonth(),
             year: new Date().getFullYear(),
             dates: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
             months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-            num: null,
+            days: null,
             loading: true,
             errored: false,
             results: null
         }
     },
     async created() {
-      await this.daystatus(this.hoy, `${this.dat(this.year, this.month + 1, new Date(this.year, this.month + 1, 0).getDate())}`);
+        await this.daystatus(this.hoy, `${this.dat(this.year, this.month + 1, new Date(this.year, this.month + 1, 0).getDate())}`);
+    },
+    beforeUpdate() {
+        this.daysInMonth();
     },
     methods: {
-        dat: function (year, month, day){
+        dat(year, month, day){
             return new Date(year, month, day).toLocaleString('en-CA', { dateStyle: 'short' });
         },
-        daystatus: function (start, finish) {
+        daystatus(start, finish) {
             fetch(`http://localhost:8000/ru/vhapi/daystatus/${start}/${finish}/`).
             then(stream => stream.json()).
             then(response => {
@@ -62,7 +62,7 @@ export default {
               this.loading = false;
             });
         },
-        incr: function () {
+        incr() {
             this.month++;
             if (this.month > 11) {
                 this.month = 0
@@ -74,7 +74,7 @@ export default {
             }
             this.daystatus(start, `${this.dat(this.year, this.month+1, 0)}`);
         },
-        decr: function () {
+        decr() {
           this.month--;
           if (this.month < 0) {
             this.month = 11;
@@ -86,7 +86,7 @@ export default {
           }
           this.daystatus(start, `${this.dat(this.year, this.month+1, 0)}`);
         },
-        daysInMonth: function () {
+        daysInMonth() {
             let i;
             let opt = {
                 pM: new Date(this.year, this.month, 1).getDay(),
@@ -95,29 +95,35 @@ export default {
             };
             opt.pM = opt.pM = (opt.pM === 0) ? 6 : opt.pM - 1;
             const buf = new Date(this.year, this.month, 0).getDate() + 1;
-            this.num = [];
+            this.days = [];
 
             for(i = buf - opt.pM; i < buf; i++)
-                this.num.push({'key': `${this.dat(this.year, this.month-1, i)}`, 'day': i, 'status': -1}); // Дни предыдущего месяца
+                this.days.push({'key': `${this.dat(this.year, this.month-1, i)}`, 'day': i, 'status': -1}); // Дни предыдущего месяца
 
             let n = 0;
             for (i = 1; i < opt.tM + 1; i++) { // Этот месяц
               const key = `${this.dat(this.year, this.month, i)}`;
               if (this.results !== null && this.hoy < this.dat(this.year, this.month, opt.tM)) { // Есть ответ с сервера и месяц и год не предыдущие
                 if (key === this.results[n].d) {
-                  this.num.push({'key': key, 'day': i, 'status': this.results[n].s});
+                  this.days.push({'key': key, 'day': i, 'status': this.results[n].s});
                   n += (n + 1 !== this.results.length) ? 1 : 0;
                 } else
-                this.num.push({'key': key, 'day': i, 'status': 0});
+                this.days.push({'key': key, 'day': i, 'status': 0});
               } else
-                this.num.push({'key': key, 'day': i, 'status': 0});
+                this.days.push({'key': key, 'day': i, 'status': 0});
             }
-            if (this.num.length < 35) {
+            if (this.days.length < 35) {
                 opt.nM += 7;
             }
             for(i = 1; i < opt.nM + 1; i++)
-              this.num.push({'key': `${this.dat(this.year, this.month+1, i)}`, 'day': i, 'status': -1}); // Дни следующего месяйа
+              this.days.push({'key': `${this.dat(this.year, this.month+1, i)}`, 'day': i, 'status': -1}); // Дни следующего месяйа
         },
+        selected(val, bol){
+            if (val >= this.hoy && bol){
+                this.select = val;
+                this.$store.commit("updDate", this.select);
+            }
+        }
     }
 }
 </script>

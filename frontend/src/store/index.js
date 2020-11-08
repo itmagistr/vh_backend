@@ -6,16 +6,29 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         Booking: {
-            Procedure: '48j0',
-            Doctor: '1h34',
-            Date: '2020-10-10',
-            Hour: '6:30'
+            Procedure: null,
+            Doctor: null,
+            Date: null,
+            Hour: null,
         },
-        usefulTips: true
+        usefulTips: true,
+        phase: 2,
     },
     mutations: {
-        updateBooking(state, payload){
-            state.Booking = payload;
+        updDoc(state, Doctor){
+            state.Booking.Doctor = Doctor;
+        },
+        updProc(state, Procedure){
+            state.Booking.Procedure = Procedure;
+        },
+        updDate(state, Date){
+            state.Booking.Date = Date;
+        },
+        updHour(state, Hour){
+            state.Booking.Hour = Hour;
+        },
+        updPhase(state, Phase){
+            state.phase = Phase;
         },
         updateUT(state, payload){
             state.usefulTips = payload;
