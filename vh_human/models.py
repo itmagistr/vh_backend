@@ -36,3 +36,8 @@ class Human(PolymorphicModel):
 	def _human_role( self ):
 		return self.__class__.__name__
 	human_role = property(_human_role)
+
+
+	def _human_fio( self ):
+		return "{} {} {}".format(self.lastName, self.firstName, self.midName if self.midName else '') 
+	human_fio = property(_human_fio)

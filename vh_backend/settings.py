@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 	'vh_employee',
 	'vh_client',
 	'vh_doctor',
+	'vh_booking',
 	'vh_backend'
 ]
 

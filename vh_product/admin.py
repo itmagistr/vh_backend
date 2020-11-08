@@ -11,6 +11,7 @@ from modeltranslation.admin import TranslationAdmin
 class ProductAdmin(admin.ModelAdmin):
 	model = Product
 	# inlines = [MedProcInline,]
+	readonly_fields = ['uid']
 
 admin.site.register(Product, TranslationAdmin)
 #from modeltranslation.admin import TranslationAdmin

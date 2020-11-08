@@ -1,0 +1,2 @@
+{'dt': '2020-11-03', 'medproc_uid': 'b8681370-4ee4-477e-8410-2ab9fcaa199f', 'client_uid': '283bf485-22ea-436f-ad83-77a94fc33614', 'comment': 'my comment'}
+b=Booking.create_from_json(json.dumps(j)) 

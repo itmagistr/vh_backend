@@ -7,6 +7,7 @@ class SpecialTranslationOptions(TranslationOptions):
 class LevelTranslationOptions(TranslationOptions):
      fields = ('title', 'description')
 
+
 translator.register(Special, SpecialTranslationOptions)
 translator.register(Level, LevelTranslationOptions)
 translator.register(Doctor, TranslationOptions)
