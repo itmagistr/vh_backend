@@ -42,9 +42,6 @@ export default {
     async created() {
         await this.daystatus(this.hoy, `${this.dat(this.year, this.month + 1, new Date(this.year, this.month + 1, 0).getDate())}`);
     },
-    beforeUpdate() {
-        this.daysInMonth();
-    },
     methods: {
         dat(year, month, day){
             return new Date(year, month, day).toLocaleString('en-CA', { dateStyle: 'short' });
@@ -122,6 +119,7 @@ export default {
             if (val >= this.hoy && bol){
                 this.select = val;
                 this.$store.commit("updDate", this.select);
+                this.$root.$emit("Probe", this.select);
             }
         }
     }
@@ -186,10 +184,13 @@ export default {
 .no-places
   background-color: $no-places-main
 
-.hoy
+.days > .hoy
   border: 2px solid #1DE0BE
   border-radius: 4px
   padding: 5px!important
+
+.days > .profi.hoy
+    border: 2px solid #138e78
 
 .free
   width: 8px

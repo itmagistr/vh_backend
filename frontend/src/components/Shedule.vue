@@ -3,8 +3,8 @@
         <div class="schedule">
           <div class="month">{{day}} {{months[month]}} {{year}}</div>
           <div id="shedule-time">
-              <div v-for="count in results" :class="{ 'two': count.s === 2, 'three':  count.s === 3 }"
-                 :key="count.t" @click="selected(count.t)"> {{ count.t }} </div>
+              <div v-for="count in results" :class="{ 'two': count.s === 2, 'three':  count.s === 3, 'hoy': count.t === select }"
+                 :key="date + count.t" @click="selected(count.t)"> {{ count.t }} </div>
           </div>
           <div class="row place">
             <div class="col-auto"><i class="profi"></i> Выгодно</div>
@@ -29,10 +29,10 @@ export default {
         }
     },
     async created() {
-        this.day = new Date(this.date).getDate();
-        this.month = new Date(this.date).getMonth();
-        this.year = new Date(this.date).getFullYear();
-        await this.daystatus(this.date);
+        await this.updDay(this.date);
+    },
+    mounted() {
+        this.$root.$on("Probe", (val) => this.updDay(val));
     },
     methods: {
         daystatus(day) {
@@ -40,6 +40,7 @@ export default {
             then(stream => stream.json()).
             then(response => {
                 this.results = response.results;
+                 console.log(this.results);
             }).
             catch((error) => {
                 console.log(error);
@@ -49,6 +50,13 @@ export default {
             .finally(() => {
                 this.loading = false;
             });
+        },
+        updDay(val){
+            this.date = val;
+            this.day = new Date(this.date).getDate();
+            this.month = new Date(this.date).getMonth();
+            this.year = new Date(this.date).getFullYear();
+            this.daystatus(this.date);
         },
         selected(val){
             this.select = val;
@@ -79,5 +87,11 @@ export default {
     border: 1px solid $ocupado-sec
     color: $ocupado-text
 
+#shedule-time > .hoy
+    border: 2px solid #1DE0BE
+    border-radius: 4px
+    padding: 1px!important
 
+#shedule-time > .two.hoy
+    border: 2px solid #138e78
 </style>
