@@ -1,0 +1,23 @@
+<!-- https://developer.rbk.money/docs/payments/checkout/ -->
+<form accept-charset="utf-8" name="PaymentForm" action="afterpaypage.html" method="get">
+			
+			  	<script src="https://checkout.rbk.money/checkout.js" class="rbkmoney-checkout"
+            		data-invoice-id="{{invoice_id}}"
+		            data-invoice-access-token="{{invoice_token}}"
+		            data-payment-flow-hold="true"
+		            data-hold-expiration="capture"
+		            data-obscure-card-cvv="true"            
+		            data-name="{{invoice_title}}"
+		            data-email='{{invoice_email}}'
+		            data-label="Оплатить"
+		            data-description="{{invoice_desc}}"
+		            data-bank-card="true"
+		            data-wallets="false"
+		            data-terminals="false"
+		            data-apple-pay="false"
+		            data-google-pay="false"
+		            data-samsung-pay="false"
+		            >
+    			</script>
+    		
+</form>

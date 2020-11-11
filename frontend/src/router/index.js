@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import test from "@/pages/test.vue";
+import testPayment from "@/pages/testPayment.vue";
 import MainPage from "@/pages/MainPage";
 import NotFoundPage from "@/pages/NotFoundPage";
 import Booking from "@/pages/BookingPage";
@@ -16,6 +17,7 @@ const routes = [
     {name: 'booking', component: Booking, path: '/booking'},
     {name: 'doctors', component: Doctors, path: '/doctors'},
     {name: 'test', component: test, path: '/test'},
+    {name: 'testPayment', component: testPayment, path: '/testPayment'},
     {name: 'notFound', component: NotFoundPage, path: '*'}
 ];
 

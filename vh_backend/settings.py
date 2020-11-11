@@ -51,6 +51,8 @@ INSTALLED_APPS = [
 	'vh_client',
 	'vh_doctor',
 	'vh_booking',
+	'rbkpay',
+	'vh_payment',
 	'vh_backend'
 ]
 
@@ -153,6 +155,9 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = [
 	"http://localhost:3000",
 	"http://localhost:8080",
+	"http://localhost:8000",
+	"http://127.0.0.1:8000",
+	"http://127.0.0.1:8080",
 	"http://127.0.0.1:9000"
 ]
 
@@ -170,6 +175,6 @@ LOGGING = {
 	},
 	'root': {
 		'handlers': ['console'],
-		'level': 'INFO',
+		'level': 'DEBUG',
 	},
 }
