@@ -6,14 +6,14 @@ import collections
 
 
 
-class BookingSerializer(serializers.ModelSerializer):
+class BookingReadSerializer(serializers.ModelSerializer):
 	#medproc = serializers.SlugRelatedField(read_only=True, slug_field='title')
 	medproc = MedProcRuSerializer(read_only=True)
 	client = serializers.SlugRelatedField(read_only=True, slug_field='human_fio')
 	doctor = serializers.SlugRelatedField(read_only=True, slug_field='human_fio')
 	class Meta:
 		model = Booking
-		fields = ['uid', 'dt_start', 'medproc', 'client', 'doctor', 'comment', 'dt_create', 'dt_update', 'status']
+		fields = ['uid', 'dt_start', 'dt_expire', 'status', 'medproc', 'doctor', 'client',]
 
 
 
@@ -55,3 +55,11 @@ class BookingFilterSerializer(serializers.Serializer):
 			field.required = False
 			new_fields[name] = field
 		return new_fields
+
+
+class BookingCreateSerializer(serializers.Serializer):
+	dt_start = serializers.DateTimeField(allow_null=False)
+	medproc_uid = serializers.CharField(max_length=36, allow_blank=False)
+	doctor_uid = serializers.CharField(max_length=36, allow_blank=True)
+	client_uid = serializers.CharField(max_length=36, allow_blank=True)
+	comment = serializers.CharField(max_length=50, allow_blank=True)

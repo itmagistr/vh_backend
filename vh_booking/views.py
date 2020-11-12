@@ -16,7 +16,7 @@ class BookingView(generics.RetrieveAPIView):
 	'''
 	Просмотреть существующее бронирование времени приема по uid.
 	'''
-	serializer_class = BookingSerializer
+	serializer_class = BookingReadSerializer
 	lookup_field = 'uid'
 	# def get_serializer_class(self):
 	# 	logger.info(translation.get_language())
@@ -34,7 +34,7 @@ class BookingFilterView(generics.ListAPIView):
 	'''
 	Поиск существующих бронирований времени приема по времени начала или части названия процедуры
 	'''
-	serializer_class = BookingSerializer
+	serializer_class = BookingReadSerializer
 	http_method_names = ['post']
 	# def get_serializer_class(self):
 	# 	logger.info(translation.get_language())
@@ -44,13 +44,33 @@ class BookingFilterView(generics.ListAPIView):
 	# 		return MedProcRuSerializer
 	# 	return MedProcEnSerializer
 	
-	@swagger_auto_schema(request_body=BookingFilterSerializer, responses={200: BookingSerializer,})
+	@swagger_auto_schema(request_body=BookingFilterSerializer, responses={200: BookingReadSerializer,})
 	def post(self, request, *args, **kwargs):
 		serializer = BookingFilterSerializer(data=request.data)
 		serializer.is_valid(raise_exception=True)
-		sclass = self.get_serializer_class()
-		logging.info('request user is {}'.format(request.user))
+		sclass = self.serializer_class
+		#logging.info('request user is {}'.format(request.user))
 		#resSerializer = sclass(Booking.objects.filter(Q(client__uid=serializer.data['client_uid']), Q(dt_start=serializer.data['dt_start']) | Q(medproc__title__icontains=serializer.data['txt']) | Q(medproc__uid=serializer.data['medproc_uid']) | Q(doctor__uid=serializer.data['doctor_uid']) ), many=True)
 		resSerializer = sclass(Booking.objects.filter(Q(dt_start=serializer.data['dt_start']) | Q(medproc__title__icontains=serializer.data['txt'])  ), many=True)
 		#headers = self.get_success_headers(resSerializer.data)
 		return Response(resSerializer.data, status=status.HTTP_200_OK) #, headers=resSerializer.headers
+
+
+class BookingCreateView(generics.CreateAPIView):
+	'''
+	Создание бронирования
+	'''
+	serializer_class = BookingReadSerializer
+	#http_method_names = ['post']
+
+	
+	@swagger_auto_schema(request_body=BookingCreateSerializer, responses={200: BookingReadSerializer,})
+	def post(self, request, *args, **kwargs):
+		serializer = BookingCreateSerializer(data=request.data)
+		serializer.is_valid(raise_exception=True)
+		sclass = self.serializer_class
+		#logging.info('request user is {}'.format(request.user))
+		bk = Booking.create(serializer.data)
+		resSerializer = sclass(bk)
+
+		return Response(resSerializer.data, status=status.HTTP_201_CREATED) #, headers=resSerializer.headers
