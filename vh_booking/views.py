@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 class BookingView(generics.RetrieveAPIView):
 	'''
-	Получить процедуру по uid.
+	Просмотреть существующее бронирование времени приема по uid.
 	'''
 	serializer_class = BookingSerializer
 	lookup_field = 'uid'
@@ -32,7 +32,7 @@ class BookingView(generics.RetrieveAPIView):
 
 class BookingFilterView(generics.ListAPIView):
 	'''
-	Поиск процедур по части наименования или коду процедуры
+	Поиск существующих бронирований времени приема по времени начала или части названия процедуры
 	'''
 	serializer_class = BookingSerializer
 	http_method_names = ['post']
