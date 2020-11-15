@@ -65,7 +65,7 @@ export default {
         return {
             select: this.$store.state.Booking.Doctor,
             docs: [
-                { uuid: '70f55cc7-d824-43e1-9735-186ad0975216', img: '/img/Teeth/Orthodontics.svg', tittle: 'Стоматлог, Ортодонт', fName: 'Лариса',
+                { uuid: 'bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82', img: '/img/Teeth/Orthodontics.svg', tittle: 'Стоматлог, Ортодонт', fName: 'Лариса',
                     lName: 'Василенко', tName: 'Ивановна', arg1: 'Стаж 26 лет',
                     arg2: 'Высшая категория', arg3: 'Кандидат медицинских наук', rating: 4, countReview: 24,
                     phone: null, messenger: null,

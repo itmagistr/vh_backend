@@ -30,7 +30,7 @@ export default new Vuex.Store({
         updPhase(state, Phase){
             state.phase = Phase;
         },
-        updateUT(state, payload){
+        updUT (state, payload){
             state.usefulTips = payload;
         }
     }

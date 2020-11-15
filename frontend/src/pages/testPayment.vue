@@ -52,7 +52,7 @@ export default {
           results: null,
           payform: false,
           invoice: null,
-          mp_uid: '41b6e7a0-e395-45d3-bccb-ad097c427643',
+          mp_uid: this.$store.state.Booking.Procedure,
           
       };
   },

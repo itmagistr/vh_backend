@@ -71,7 +71,7 @@ export default {
     methods: {
         changeUT: function(){
             this.utstate = !this.utstate;
-            this.$store.commit("updateUT", this.utstate);
+            this.$store.commit("updUT", this.utstate);
         },
         getParmDoc(arg1, arg2){
             this.doctor = arg1;

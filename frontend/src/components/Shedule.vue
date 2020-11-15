@@ -32,7 +32,7 @@ export default {
         await this.updDay(this.date);
     },
     mounted() {
-        this.$root.$on("Probe", (val) => this.updDay(val));
+        this.$root.$on("Probe", () => this.updDay());
     },
     methods: {
         daystatus(day) {
@@ -40,7 +40,6 @@ export default {
             then(stream => stream.json()).
             then(response => {
                 this.results = response.results;
-                 console.log(this.results);
             }).
             catch((error) => {
                 console.log(error);
@@ -51,8 +50,8 @@ export default {
                 this.loading = false;
             });
         },
-        updDay(val){
-            this.date = val;
+        updDay(){
+            this.date = this.$store.state.Booking.Date;
             this.day = new Date(this.date).getDate();
             this.month = new Date(this.date).getMonth();
             this.year = new Date(this.date).getFullYear();
