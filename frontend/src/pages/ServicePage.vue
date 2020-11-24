@@ -4,6 +4,7 @@
             <div></div>
             <div></div>
         </div>
+        <div class="tittle-of-service">Услуги</div>
         <div class="service">
             <div class="card-tooth active"><img src="/img/teeth/Orthodontics.svg"/><div>Ортодонтия</div></div>
             <div class="card-tooth"><img src="/img/teeth/Surgery.svg"/><div>Хирургия</div></div>
@@ -34,9 +35,9 @@
                 <div>Цены на услуги</div>
                 <table class="table table-borderless">
                     <tbody>
-                        <tr v-for="c in cat" class="product" :class="[{spec: c.code.length > 5}, { active: c.uuid === select}]" :key="c.uuid" @click="selected(c.uuid)">
+                        <tr v-for="c in results" class="product" :class="[{spec: c.code.length > 5}, { active: c.uuid === select}]" :key="c.uuid" @click="selected(c.uuid)">
                             <td class="pr-code">{{ c.code }}</td>
-                            <td class="pr-tittle">{{ c.tittle }}</td>
+                            <td class="pr-tittle">{{ c.title }}</td>
                             <td class="pr-price">{{ c.price | currencyFormat("RUB")}}</td>
                             <td class="pr-duration">{{ c.duration | timeFormat("ru-RU")}}</td>
                         </tr>
@@ -111,7 +112,32 @@ export default {
                 {uuid: '2eef030f-0e18-424b-a506-dd814e0884e5', code: '01.04.02', tittle: 'Очень длинное название процедуры, очень длинное врач Василенко Л.И.', price: 13000, duration: 90},
                 {uuid: 'e8ea70b7-6f8e-4815-bfb9-95abc4db836e', code: '01.08', tittle: 'Изготовление Капп', price: 500, duration: 15},
             ],
+            loading: true,
+            errored: false,
+            results: null
         }
+    },
+    async created() {
+        await this.getMedProc("Орто", "2020-11-24", "bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82");
+    },
+    methods: {
+        getMedProc(cat, date, docUID) {
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({"txt": cat, "dt": date, "doctor_uid": docUID})
+            };
+            fetch(`http://localhost:8000/ru/vhapi/medproc/list/`, options).
+            then(response => response.json()).
+            then(data => {
+            this.results = data;
+            console.log(data);
+            }).
+            catch((error) => { console.log(error); this.results = null;}).
+            finally(() => {
+              this.loading = false;
+            });
+        },
     },
     filters: {
         currencyFormat, timeFormat
@@ -119,7 +145,7 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 @import "@/styles/_variables.sass"
 
 .bgz
@@ -137,16 +163,25 @@ export default {
         z-index: -1
         background: #F6F3ED
         width: 100%!important
-        height: 170%
+        height: 182%
         left: 0px
         top: 378px
 
-.mar > div
-    margin-right: auto
-    margin-left: auto
-    width: 1362px
-    text-align: center
-    display: flex
+.mar
+    > div
+        margin-right: auto
+        margin-left: auto
+        width: 1362px
+        text-align: center
+        display: flex
+    .tittle-of-service
+        display: block!important
+        font-family: FuturaBookC
+        font-size: 64px
+        line-height: 61px
+        color: $button-color
+        margin-bottom: 56px
+        margin-top: -100px
 
 .card-tooth
     &:first-child
@@ -238,7 +273,7 @@ export default {
             line-height: 24px
             color: #071013
         &.spec > .pr-code
-            width: 64px
+            width: 120px
             font-size: 16px
             line-height: 21px
         .pr-tittle
@@ -248,7 +283,7 @@ export default {
             margin-right: 32px
             color: #071013
         &.spec > .pr-tittle
-            width: 360px
+            width: 300px
         .pr-price
             width: 72px
             font-family: FuturaBookC
@@ -357,6 +392,7 @@ export default {
             width: 621px
             background:  #F1EEE6
             border-radius: 4px
+            overflow: hidden
             > div
                 display: inline-block
                 width: 589px

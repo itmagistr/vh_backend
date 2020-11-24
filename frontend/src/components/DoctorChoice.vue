@@ -11,7 +11,8 @@
                             </div>
                         </div>
                   </div>
-                  <div class="doctor-clip" v-for="data in docs" :key="data.uuid" :class="[select === data.uuid ? 'active':'' ]"  @click="selected(data.uuid)">
+                  <div v-if="loading">Загрузка...</div>
+                  <div class="doctor-clip" v-for="data in docs" :key="data.uid" :class="[select === data.uid ? 'active':'' ]"  @click="selected(data.uid)">
                         <div class="d-flex clip-header">
                             <div class="d-flex">
                                 <div class="clip-photo"></div>
@@ -64,20 +65,42 @@ export default {
     data() {
         return {
             select: this.$store.state.Booking.Doctor,
-            docs: [
-                { uuid: 'bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82', img: '/img/Teeth/Orthodontics.svg', tittle: 'Стоматлог, Ортодонт', fName: 'Лариса',
-                    lName: 'Василенко', tName: 'Ивановна', arg1: 'Стаж 26 лет',
-                    arg2: 'Высшая категория', arg3: 'Кандидат медицинских наук', rating: 4, countReview: 24,
-                    phone: null, messenger: null,
-                    results: [ {
-                        procedure: [{tittle: null}, ],
-                        photo: [{img: null, tittle: null}, ],
-                        youtube: [{url: null}, ],
-                        certificates: [{tittle: null}, ],
-                        eduction: [{year: null, course: null, grade: null}, ]}, ],
-                },
-                { uuid: '4462d485-f273-47ce-9b2e-5235bd94c83f', img: '/img/Teeth/Orthodontics.svg', tittle: 'Стоматлог, Ортодонт', fName: 'Лариса',
-                    lName: 'Василенко', tName: 'Ивановна', arg1: 'Стаж 26 лет',
+            docs: [],
+            loading: true,
+            errored: false,
+            results: null
+        }
+    },
+    async created() {
+        await this.docList('', this.$store.state.Booking.Date, 'bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82');
+    },
+    filters: {
+        currencyFormat, timeFormat
+    },
+    methods: {
+        docList(cat, date, docUID) {
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({"txt": cat, "dt": date, "doctor_uid": docUID})
+            };
+            fetch(`http://localhost:8000/ru/vhapi/doctor/list/`, options).
+            then(response => response.json()).
+            then(data => {
+            this.results = data;
+            console.log(data);
+            }).
+            catch((error) => { console.log(error); this.results = null;}).
+            finally(() => {
+              this.loading = false;
+              this.docs = this.temp(this.results);
+            });
+        },
+        temp(array) {
+            const buf = this.docs;
+            for(let i = 0; i < array.length; i++) {
+                buf.push({ uid: array[i].uid, img: '/img/Teeth/Orthodontics.svg', tittle: array[i].special,
+                    fName: array[i].firstName, lName: array[i].lastName, tName: 'Ивановна', arg1: 'Стаж 26 лет',
                     arg2: 'Высшая категория', arg3: 'Кандидат медицинских наук', rating: null, countReview: 24,
                     phone: null, messenger: null,
                     results: [ {
@@ -86,14 +109,11 @@ export default {
                         youtube: [{url: null}, ],
                         certificates: [{tittle: null}, ],
                         eduction: [{year: null, course: null, grade: null}, ]}, ],
-                }
-            ],
-        }
-    },
-    filters: {
-        currencyFormat, timeFormat
-    },
-    methods: {
+                });//TODO доавить в ответ бека данные строки (img, отчество, стаж, категорию, степень, рейтинг, кол-во отзывов, телефон, чат, и results(временно пустой)).
+            }
+            console.log(buf);
+            return buf;
+        },
         backToBooking(){
             this.select = this.$store.state.Booking.Doctor;
             this.$emit('pageDoctor', this.select, 2);
@@ -180,18 +200,18 @@ export default {
 
 .clip-bk1
     vertical-align: top
-.clip-tittle
-    font-family: FuturaBookC
-    font-size: 14px
-    line-height: 16px
-    color: #B8882F
-    padding-top: 4px
-    padding-bottom: 4px
-.clip-name
-    font-family: Montserrat
-    font-size: 19px
-    line-height: 19px
-    color: #071013
+    .clip-tittle
+        font-family: FuturaBookC
+        font-size: 14px
+        line-height: 16px
+        color: #B8882F
+        padding-top: 4px
+        padding-bottom: 4px
+    .clip-name
+        font-family: Montserrat
+        font-size: 19px
+        line-height: 19px
+        color: #071013
 .clip-info
     text-align: right
     font-family: FuturaBookC

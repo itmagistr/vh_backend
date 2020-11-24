@@ -11,15 +11,16 @@
                             </div>
                         </div>
                   </div>
+                  <div v-if="loading">Загрузка...</div>
                   <table class="table table-borderless">
-                        <tbody v-for="n in cat" :key="n.tittle">
+                        <tbody v-for="n in cat" :key="n.uid">
                               <tr class="category">
                                     <td><div class="icon-teeth"><img :src="n.img" alt=""/></div></td>
-                                    <td class="cat-name" colspan="4">{{n.tittle}}</td>
+                                    <td class="cat-name" colspan="4">{{n.title}}</td>
                               </tr>
-                              <tr v-for="c in n.results" class="product" :class="[{spec: c.code.length > 5}, { active: c.uuid === select}]" :key="c.uuid" @click="selected(c.uuid)">
+                              <tr v-for="c in n.results" class="product" :class="[{spec: c.code.length > 5}, { active: c.uid === select}]" :key="c.uid" @click="selected(c.uid)">
                                     <td class="pr-code">{{ c.code }}</td>
-                                    <td class="pr-tittle">{{ c.tittle }}</td>
+                                    <td class="pr-tittle">{{ c.title }}</td>
                                     <td class="pr-info"><i class="fas fa-info-circle"></i></td>
                                     <td class="pr-price">{{ c.price | currencyFormat("RUB")}}</td>
                                     <td class="pr-duration">{{ c.duration | timeFormat("ru-RU")}}</td>
@@ -43,29 +44,40 @@ export default {
         return {
             select: this.$store.state.Booking.Procedure,
             cat: [
-                {uuid: '18abdf34-516f-4e95-9b61-2d2052d4f60d', img: '/img/Teeth/Orthodontics.svg', tittle: '01. Ортодонтия', results: [
-                    {uuid: '41b6e7a0-e395-45d3-bccb-ad097c427643', code: '01.01', tittle: 'Установка брекетов', price: 150000, duration: 90},
-                    {uuid: '951a9eb9-e0a4-444c-a060-a1d6a1e65181', code: '01.02', tittle: 'Замена брекет-системы', price: 3000, duration: 30},
-                    {uuid: '86862dce-dcee-4fed-9f84-5568cd2ce088', code: '01.03', tittle: 'Очень длинное название процедуры, очень длинное', price: 10000, duration: 120},
-                    {uuid: '222acbed-7f8b-45c4-b113-2b0df57f2b74', code: '01.03.01', tittle: 'Очень длинное название процедуры, очень длинное врач Василенко Л.И.', price: 10000, duration: 90},
-                    {uuid: '9e165e33-0205-4f10-b57a-94cc7009037a', code: '01.03.02', tittle: 'Очень длинное название процедуры, очень длинное врач Василенко Л.И.', price: 15000, duration: 90},
-                    {uuid: '181c9634-de66-44fa-a4fe-d7a59f8842ce', code: '01.04', tittle: 'Изготовление Капп', price: 500, duration: 15},]
-                },
-                {uuid: '72c10fc6-350a-42ef-888a-4835f88de9ca', img: '/img/Teeth/Implantation.svg', tittle: '02. Хирургия', results: [
-                    {uuid: 'c210c3c5-f406-43ea-ae0a-85c99fc8b30e', code: '01.01', tittle: 'Установка брекетов', price: 150000, duration: 90},
-                    {uuid: '3a7e973e-1df8-4ec3-8954-2df798f6bac6', code: '01.02', tittle: 'Замена брекет-системы', price: 3000, duration: 30},
-                    {uuid: '341c9610-addd-45f2-8bc1-f4529956cc7a', code: '01.03', tittle: 'Очень длинное название процедуры, очень длинное', price: 10000, duration: 120},
-                    {uuid: '697940ed-05d2-4f77-b5b1-d50b0c8dcc4c', code: '01.03.01', tittle: 'Очень длинное название процедуры, очень длинное врач Василенко Л.И.', price: 10000, duration: 90},
-                    {uuid: '7e182f76-b16e-4885-b913-6bcd07ba3c68', code: '01.03.02', tittle: 'Очень длинное название процедуры, очень длинное врач Василенко Л.И.', price: 15000, duration: 90},
-                    {uuid: 'd8853c50-282f-4a14-9866-c72cc2b32dd7', code: '01.04', tittle: 'Изготовление Капп', price: 500, duration: 15},]
-                },
+                { uid: '18abdf34-516f-4e95-9b61-2d2052d4f60d', img: '/img/Teeth/Orthodontics.svg', title: '01. Ортодонтия', results: [] },
+                { uid: '72c10fc6-350a-42ef-888a-4835f88de9ca', img: '/img/Teeth/Implantation.svg', title: '02. Хирургия', results: [] },
             ],
+            loading: true,
+            errored: false,
+            results: null,
         }
+    },
+    async mounted() {
+        await this.medProcList('Орт', this.$store.state.Booking.Date, 'bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82', 0);
+        await this.medProcList('Прот', this.$store.state.Booking.Date, 'bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82', 1);
     },
     filters: {
         currencyFormat, timeFormat
     },
     methods: {
+        medProcList(cat, date, docUID, section) {
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({"txt": cat, "dt": date, "doctor_uid": docUID})
+            };
+            fetch(`http://localhost:8000/ru/vhapi/medproc/list/`, options).
+            then(response => response.json()).
+            then(data => {
+            this.results = data;
+            console.log(data);
+            }).
+            catch((error) => { console.log(error); this.results = null;}).
+            finally(() => {
+              this.loading = false;
+              this.cat[section].results = this.results;
+            });
+        },
         backToBooking(){
             this.select = this.$store.state.Booking.Procedure;
             this.$emit('pageProcedure', this.select, 2);
@@ -142,11 +154,6 @@ export default {
 #ba2
     background: white
 
-.procedure-choice hr
-    margin-top: .5em
-    width: 632px
-    border: 1px solid #F3E9D4
-
 .category > td
     margin-bottom: 16px
 .category > td:first-child
@@ -171,76 +178,79 @@ export default {
     line-height: 26px
     color: #071013
 
-.product > td
-    display: inline-table
-    margin: 0px 8px
-.product > td:first-child
-      margin: 0px 0px 8px
-.product > td:last-child
-    margin-right: 0px
-.product > td
-    margin-bottom: 8px
-.product.active, .product:hover
-    background: rgba(238, 209, 153, 0.16)
-.product.active > .pr-info > i, .product:hover > .pr-info > i
-    display: inline-table
-.product.active > .pr-price, .product:hover > .pr-price
-    color: #B8882F
-.product.active > .pr-duration, .product:hover > .pr-duration
-    color: #071013
+.product
+    > td
+        display: inline-table
+        margin: 0px 8px
+    > td:first-child
+        margin: 0px 0px 8px
+    > td:last-child
+        margin-right: 0px
+    > td
+        margin-bottom: 8px
+    &.active, &:hover
+        background: rgba(238, 209, 153, 0.16)
+    &.active > .pr-info > i, &:hover > .pr-info > i
+        display: inline-table
+    &.active > .pr-price, &:hover > .pr-price
+        color: #B8882F
+    &.active > .pr-duration, &:hover > .pr-duration
+        color: #071013
 
-.pr-code
-    width: 48px
-    font-family: Montserrat
-    font-size: 19px
-    line-height: 24px
-    color: #071013
-.product.spec > .pr-code
-    width: 64px
-    font-size: 16px
-    line-height: 21px
+    .pr-code
+        width: 48px
+        font-family: Montserrat
+        font-size: 19px
+        line-height: 24px
+        color: #071013
+    .pr-tittle
+        width: 376px
+        font-family: FuturaBookC
+        line-height: 16px
+        color: #071013
+    .pr-info
+        width: 16px
+    .pr-info > i
+        display: none
+        font-size: 16px
+        color: #42E1C5
+    .pr-price
+        width: 72px
+        font-family: FuturaBookC
+        line-height: 21px
+        text-align: right
+        color: #DFB971
+    .pr-duration
+        width: 56px
+        font-family: FuturaBookC
+        line-height: 21px
+        text-align: right
+        color: #9CC6BE
+    &.spec
+        > .pr-code
+            width: 120px
+            font-size: 16px
+            line-height: 21px
+        > .pr-tittle
+            width: 300px
 
-.pr-tittle
-    width: 376px
-    font-family: FuturaBookC
-    line-height: 16px
-    color: #071013
-.product.spec > .pr-tittle
-    width: 360px
-
-.pr-info
-    width: 16px
-.pr-info > i
-    display: none
-    font-size: 16px
-    color: #42E1C5
-
-.pr-price
-    width: 72px
-    font-family: FuturaBookC
-    line-height: 21px
-    text-align: right
-    color: #DFB971
-
-.pr-duration
-    width: 56px
-    font-family: FuturaBookC
-    line-height: 21px
-    text-align: right
-    color: #9CC6BE
-
-.procedure-choice > .btn
-    font-family: FuturaBookC
-    letter-spacing: 0.08em
-    text-transform: uppercase
-    width: 233px
-    height: 48px
-    background: $active-link-line
-    border: none
-    border-radius: 8px
-    color: $white
-    position: absolute
-    bottom: -9%
-    right: 15%
-    transform: translate(-50%, -50%)
+.procedure-choice
+    > .btn
+        font-family: FuturaBookC
+        letter-spacing: 0.08em
+        text-transform: uppercase
+        width: 233px
+        height: 48px
+        background: $active-link-line
+        border: none
+        border-radius: 8px
+        color: $white
+        position: absolute
+        bottom: -9%
+        right: 15%
+        transform: translate(-50%, -50%)
+    hr
+        margin-top: .5em
+        width: 632px
+        border: 1px solid #F3E9D4
 </style>
