@@ -1,5 +1,6 @@
 from django.shortcuts import render
 #from rest_framework import viewsets
+from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from django.db.models import Q
 from rest_framework.response import Response
@@ -32,12 +33,12 @@ logger = logging.getLogger(__name__)
 # 		return MedProc.objects.all()
 
 
-class MedProcListView(generics.ListAPIView):
+class MedProcListView(generics.RetrieveAPIView):
 	'''
 	Получить процедуру по умолчанию.
 	'''
 	serializer_class = MedProcEnSerializer
-	lookup_field = 'uid'
+	#lookup_field = 'uid'
 	def get_serializer_class(self):
 		logger.info(translation.get_language())
 
@@ -48,6 +49,9 @@ class MedProcListView(generics.ListAPIView):
 		
 	def get_queryset(self):
 		return MedProc.objects.filter(code='B01.063.001')
+	def get_object(self):
+		obj = get_object_or_404(self.get_queryset())
+		return obj
 
 
 class MedProcView(generics.RetrieveAPIView):
@@ -125,4 +129,9 @@ class MedProcFilterView(generics.ListAPIView):
 		else:
 			resSerializer = sclass(MedProc.objects.filter(Q(code__startswith=serializer.data['txt']) | Q(title_en__icontains=serializer.data['txt']) ), many=True)
 		#headers = self.get_success_headers(resSerializer.data)
+		try:
+			logger.info(request.data)
+		except:
+			pass
+
 		return Response(resSerializer.data, status=status.HTTP_200_OK) #, headers=resSerializer.headers

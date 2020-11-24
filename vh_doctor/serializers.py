@@ -16,11 +16,16 @@ class DoctorRuSerializer(serializers.ModelSerializer):#serializers.HyperlinkedMo
 	lastName = serializers.CharField(source='lastName_ru')
 	firstName = serializers.CharField(source='firstName_ru')
 	special = serializers.CharField(source='special.title_ru')
-
-	#special = SpecialRuSerializer()
+	midName = serializers.CharField(source='midName_ru')
+	img = serializers.URLField(default='media/doctors/doc1.png')
+	experience = serializers.CharField(default='...')
+	degree = serializers.CharField(default='...')
+	level = serializers.CharField(source='level.title')
+	rating = serializers.DecimalField(max_digits=5, decimal_places=1)
+	reviewCount = serializers.IntegerField(default=0)
 	class Meta:
 		model = Doctor
-		fields = ['uid', 'lastName', 'firstName', 'special']
+		fields = ['uid', 'lastName', 'firstName', 'special', 'midName', 'img', 'experience', 'degree', 'level', 'rating', 'reviewCount']
 
 class DoctorEnSerializer(serializers.ModelSerializer):#serializers.HyperlinkedModelSerializer):
 	lastName = serializers.CharField(source='lastName_en')

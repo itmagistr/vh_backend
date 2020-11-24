@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from rest_framework.response import Response
 from rest_framework import generics
@@ -11,7 +12,7 @@ import logging
 logger = logging.getLogger(__name__)
 # Create your views here.
 
-class DoctorListView(generics.ListAPIView):
+class DoctorListView(generics.RetrieveAPIView):
 	'''
 	Получить дежурного врача
 	'''
@@ -27,7 +28,9 @@ class DoctorListView(generics.ListAPIView):
 		
 	def get_queryset(self):
 		return Doctor.objects.filter(id=1)
-
+	def get_object(self):
+		obj = get_object_or_404(self.get_queryset())
+		return obj
 
 class DoctorView(generics.RetrieveAPIView):
 	'''
