@@ -25,7 +25,7 @@ export default {
   props: ['phase'],
   data() {
       return {
-          uuid: null,
+          uid: null,
           title: null,
           fName: null,
           lName: null,
@@ -38,7 +38,7 @@ export default {
     if (this.$store.state.Booking.Doctor !== null)
       await this.docUID(this.$store.state.Booking.Doctor);
     else
-      await this.docDef();
+      await this.docUID('');
   },
   // определяйте методы в объекте `methods`
   methods: {
@@ -59,25 +59,6 @@ export default {
         this.title = this.results.special;
         this.fName = this.results.firstName;
         this.lName = this.results.lastName;
-      });
-    },//TODO желательно возврат в массиве results, для уменьшения строк кода
-    docDef(){
-      fetch('http://localhost:8000/ru/vhapi/doctor/')
-      .then(stream => stream.json())
-      .then(response => {
-        this.results = response.results;
-        console.log(response.results);
-      })
-      .catch(error => {
-        console.error(error);
-        this.errored = true;
-        this.results = null;
-      })
-      .finally(() => {
-        this.loading = false;
-        this.title = this.results[0].special;
-        this.fName = this.results[0].firstName;
-        this.lName = this.results[0].lastName;
       });
     },
      doctors() {

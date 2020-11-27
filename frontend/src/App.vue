@@ -6,6 +6,9 @@
     </noscript>
     <Header></Header>
     <main class="container">
+      <modalContact/>
+      <modalLeaveRequest/>
+      <modalCallBack/>
       <div class="d-flex align-items-center justify-content-between">
         <div class="d-flex flex-column">
           <a href="https://www.instagram.com/inessa_braginskaia/" target="_blank"><button class="social-btn"><i class="fab fa-instagram"></i></button></a>
@@ -15,10 +18,10 @@
         </div>
         <router-view/>
         <div class="d-flex flex-column">
-          <button class="social-btn"><i class="far fa-comment-alt"></i></button>
+          <button class="social-btn" data-toggle="modal" data-target="#mdl-leave-request"><i class="far fa-comment-alt"></i></button>
           <button class="social-btn"><i class="fas fa-map-marker-alt"></i></button>
           <button class="social-btn"><i class="fas fa-route"></i></button>
-          <button class="social-btn"><i class="fas fa-phone-alt"></i></button>
+          <button class="social-btn" data-toggle="modal" data-target="#mdl-call-back"><i class="fas fa-phone-alt"></i></button>
           <button class="social-btn"><i class="fab fa-telegram-plane"></i></button>
         </div>
       </div>
@@ -28,9 +31,12 @@
 
 <script>
 import Header from "@/components/Header.vue";
+import modalContact from "@/components/ModalContact.vue";
+import modalCallBack from "@/components/ModalCallBack.vue";
+import modalLeaveRequest from "@/components/ModalLeaveRequest.vue";
 
 export default {
-  components: { Header },
+  components: { Header, modalContact, modalLeaveRequest, modalCallBack },
 };
 </script>
 

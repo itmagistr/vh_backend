@@ -22,7 +22,7 @@
               <router-link class="nav-link" to="#">Документация</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="#">Контакты</router-link>
+              <a class="nav-link" data-toggle="modal" data-target="#mdl-contacts">Контакты</a>
             </li>
           </ul>
           <ul class="navbar-nav mr-auto"><router-link :to="{name: 'main'}"><img class="logo" src="/img/logo-sm.svg"/></router-link></ul>

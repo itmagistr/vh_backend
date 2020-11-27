@@ -12,19 +12,19 @@
                         </div>
                   </div>
                   <div v-if="loading">Загрузка...</div>
-                  <div class="doctor-clip" v-for="data in docs" :key="data.uid" :class="[select === data.uid ? 'active':'' ]"  @click="selected(data.uid)">
+                  <div class="doctor-clip" v-for="data in results" :key="data.uid" :class="[select === data.uid ? 'active':'' ]"  @click="selected(data.uid)">
                         <div class="d-flex clip-header">
                             <div class="d-flex">
                                 <div class="clip-photo"></div>
                                 <div class="clip-bk1">
-                                    <div class="clip-tittle">{{ data.tittle }}</div>
-                                    <div class="clip-name">{{ data.fName }} {{ data.lName }} <br> {{ data.tName }}</div>
+                                    <div class="clip-tittle">{{ data.special }}</div>
+                                    <div class="clip-name">{{ data.firstName }} {{ data.lastName }} <br> {{ data.midName }}</div>
                                 </div>
                             </div>
                             <div class="d-flex ml-auto flex-column clip-info">
-                                <div>{{ data.arg1 }}</div>
-                                <div>{{ data.arg2 }}</div>
-                                <div>{{ data.arg3 }}</div>
+                                <div>{{ data.experience }}</div>
+                                <div>{{ data.level }}</div>
+                                <div>{{ data.degree }}</div>
                             </div>
                         </div>
                         <div class="clip-body">
@@ -42,7 +42,7 @@
                                   <i class="fas fa-star star-half"></i>
                                   <i class="fas fa-star star-none"></i>
                             </div>
-                            <div class="d-flex clip-review">{{ data.countReview }} отзыва</div>
+                            <div class="d-flex clip-review">{{ data.reviewCount }} отзыва</div>
                             <div class="d-flex ml-auto clip-icons">
                                 <i class="fas fa-phone" style="transform: scaleX(-1)"/>
                                 <i class="far fa-comment-alt"/>
@@ -65,7 +65,6 @@ export default {
     data() {
         return {
             select: this.$store.state.Booking.Doctor,
-            docs: [],
             loading: true,
             errored: false,
             results: null
@@ -93,27 +92,27 @@ export default {
             catch((error) => { console.log(error); this.results = null;}).
             finally(() => {
               this.loading = false;
-              this.docs = this.temp(this.results);
             });
         },
-        temp(array) {
+        /*temp(array) {
             const buf = this.docs;
             for(let i = 0; i < array.length; i++) {
-                buf.push({ uid: array[i].uid, img: '/img/Teeth/Orthodontics.svg', tittle: array[i].special,
-                    fName: array[i].firstName, lName: array[i].lastName, tName: 'Ивановна', arg1: 'Стаж 26 лет',
-                    arg2: 'Высшая категория', arg3: 'Кандидат медицинских наук', rating: null, countReview: 24,
+                buf.push({ uid: array[i].uid, img: array[i].img, tittle: array[i].special,
+                    fName: array[i].firstName, lName: array[i].lastName, tName: array[i].midName, arg1: array[i].experience,
+                    arg2: array[i].level, arg3: array[i].degree, rating: array[i].rating, reviewCount: array[i].reviewCount,
                     phone: null, messenger: null,
                     results: [ {
                         procedure: [{tittle: null}, ],
                         photo: [{img: null, tittle: null}, ],
                         youtube: [{url: null}, ],
                         certificates: [{tittle: null}, ],
-                        eduction: [{year: null, course: null, grade: null}, ]}, ],
-                });//TODO доавить в ответ бека данные строки (img, отчество, стаж, категорию, степень, рейтинг, кол-во отзывов, телефон, чат, и results(временно пустой)).
+                        eduction: [{year: null, course: null, grade: null}, ]},
+                    ],
+                });
             }
             console.log(buf);
             return buf;
-        },
+        },*/
         backToBooking(){
             this.select = this.$store.state.Booking.Doctor;
             this.$emit('pageDoctor', this.select, 2);

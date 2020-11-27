@@ -20,7 +20,7 @@ export default {
   props: ['phase'],
   data() {
       return {
-        uuid: null,
+        uid: null,
         title: null,
         duration: null,
         loading: true,
@@ -35,29 +35,11 @@ export default {
     if (this.$store.state.Booking.Procedure !== null)
       await this.medProcUID(this.$store.state.Booking.Procedure);
     else
-      await this.medProcDef();
+      await this.medProcUID('');
   },
   methods: {
-    medProcDef(){
+    medProcUID(){
       fetch(`http://localhost:8000/ru/vhapi/medproc/`)
-      .then(stream => stream.json())
-      .then(response => {
-        this.results = response.results;
-        console.log(response.results);
-      })
-      .catch(error => {
-        console.error(error);
-        this.errored = true;
-        this.results = null;
-      })
-      .finally(() => {
-        this.loading = false;
-        this.duration = this.results[0].duration;
-        this.title = this.results[0].title;
-      });
-    },
-    medProcUID(uid){
-      fetch(`http://localhost:8000/ru/vhapi/medproc/${uid}`)
       .then(stream => stream.json())
       .then(response => {
         this.results = response;
@@ -73,7 +55,7 @@ export default {
         this.duration = this.results.duration;
         this.title = this.results.title;
       });
-    },//TODO желательно возврат в массиве results, для уменьшения строк кода
+    },
      medproc() {
         this.$store.commit("updPhase", 3);
         this.$emit('goToProcedure', 3);
