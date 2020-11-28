@@ -52,7 +52,11 @@
 
 <script>
 export default {
-
+    data(){
+        return {
+            results: null
+        }
+    }
 }
 </script>
 
@@ -79,6 +83,8 @@ export default {
       right: 16px
       top: 16px
       color: #DFB971
+      &:hover
+        color: #9CC6BE
   .modal-body
     margin: 0.5rem 0px
     padding: 0.5rem

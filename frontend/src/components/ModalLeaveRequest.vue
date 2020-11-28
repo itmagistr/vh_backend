@@ -12,16 +12,16 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="" method="post">
-          <input type="text" class="form-control form-ctm" placeholder="Ваше имя">
-          <input type="text" class="form-control form-ctm" placeholder="Номер телефона">
-          <input type="text" class="form-control form-ctm mail" placeholder="Myname@yandex.ru">
-          <textarea class="form-control form-ctm area" placeholder="Ваше сообщение"></textarea>
-        </form>
+        <div class="form">
+          <input type="text" class="form-control form-ctm" v-model="name" placeholder="Ваше имя">
+          <input type="text" class="form-control form-ctm" v-model="phone" placeholder="Номер телефона">
+          <input type="text" class="form-control form-ctm mail" v-model="mail" placeholder="Myname@yandex.ru">
+          <textarea class="form-control form-ctm area" v-model="msg" placeholder="Ваше сообщение"></textarea>
+        </div>
       </div>
       <div class="modal-footer">
          <div>Нажимая кнопку, вы соглашаетесь с условиями Политики конфиденциальности</div>
-        <button type="button" class="btn btn-ok">Отправить</button>
+        <button type="button" class="btn btn-ok" @click="send()">Отправить</button>
       </div>
     </div>
   </div>
@@ -29,9 +29,23 @@
 </template>
 
 <script>
-    export default{
-
-    }
+export default{
+    data(){
+        return {
+            name: null,
+            phone: null,
+            mail: null,
+            msg: null,
+            results: null,
+        }
+    },
+    methods: {
+        send(){
+            alert(`POST: /request/${JSON.stringify({"name": this.name, "phone": this.phone, "mail": this.mail, "message": this.msg})}`);
+            this.results = 200;
+        },
+    },
+}
 </script>
 
 <style lang="sass">
@@ -65,11 +79,13 @@
       right: 1rem
       top: 1rem
       color: #DFB971
+      &:hover
+        color: #9CC6BE
 
   .modal-body
     margin: 0px
     padding: 0.5rem 2rem
-    form
+    div.form
       input, textarea
         font-family: FuturaBookC
         font-size: 1rem

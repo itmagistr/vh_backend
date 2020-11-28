@@ -12,35 +12,66 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="" method="post">
-          <input type="text" class="form-control form-ctm" placeholder="Ваше имя">
-          <input type="text" class="form-control form-ctm" placeholder="Номер телефона">
+        <div class="form">
+          <input type="text" class="form-control form-ctm" v-model="name" placeholder="Ваше имя">
+          <input type="text" class="form-control form-ctm" v-model="phone" placeholder="Номер телефона">
           <h6>Удобное время для звонка</h6>
           <div class="sel-schedule">
             <div class="btn-chg-group">
-              <button class="btn">
+              <button class="btn" @click="hrMinFun('hrIncr')">
               <i class="fas fa-caret-up"></i>
               </button>
-            <button class="btn">
+            <button class="btn" @click="hrMinFun('hrDecr')">
               <i class="fas fa-caret-down"></i>
               </button>
             </div>
-            <input type="text" class="form-vertical" value="11">
-            <input type="text" class="form-vertical" value="35">
+            <select class="form-vertical" v-model="hr">
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+            </select>
+            <select class="form-vertical" v-model="min">
+              <option value="0">0</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>
+              <option value="25">25</option>
+              <option value="30">30</option>
+              <option value="35">35</option>
+              <option value="40">40</option>
+              <option value="45">45</option>
+              <option value="50">50</option>
+              <option value="55">55</option>
+            </select>
             <div class="btn-chg-group">
-              <button class="btn">
+              <button class="btn" @click="hrMinFun('minIncr')">
                 <i class="fas fa-caret-up"></i>
                 </button>
-              <button class="btn">
+              <button class="btn" @click="hrMinFun('minDecr')">
                 <i class="fas fa-caret-down"></i>
               </button>
             </div>
           </div>
-        </form>
+        </div>
       </div>
       <div class="modal-footer">
          <div>Нажимая кнопку, вы соглашаетесь с условиями Политики конфиденциальности</div>
-        <button type="button" class="btn btn-ok">Отправить</button>
+        <button type="button" class="btn btn-ok" @click="send()">Отправить</button>
       </div>
     </div>
   </div>
@@ -48,9 +79,36 @@
 </template>
 
 <script>
-    export default{
-
-    }
+export default{
+    data(){
+        return {
+            name: null,
+            phone: null,
+            hr: null,
+            min: null,
+            results: null
+        }
+    },
+    created() {
+      this.hr = new Date().getHours();
+      this.min = new Date().getMinutes() - new Date().getMinutes() % 5;
+    },
+    methods: {
+        send(){
+            alert(`POST: /callback/${JSON.stringify({"name": this.name, "phone": this.phone, "hr": this.hr, "min": this.min})}`);
+            this.results = 200;
+        },
+        hrMinFun(str){
+            switch(str){
+                case 'hrIncr': this.hr = (this.hr + 1 <= 22) ? this.hr + 1 : this.hr; break;
+                case 'hrDecr': this.hr = (this.hr - 1 >= 6) ? this.hr - 1 : this.hr; break;
+                case 'minIncr': this.min = (this.min + 5 <= 55) ? this.min + 5 : this.min; break;
+                case 'minDecr': this.min = (this.min - 5 >= 0) ? this.min - 5 : this.min; break;
+                default: break;
+            }
+        },
+    },
+}
 </script>
 
 <style lang="sass">
@@ -85,12 +143,14 @@
       right: 1rem
       top: 1rem
       color: #DFB971
+      &:hover
+        color: #9CC6BE
 
   .modal-body
     margin: 0.5rem 0px
     padding: 0.5rem 2rem
-    form
-      input
+    div.form
+      input, select
         font-family: FuturaBookC
         font-size: 1rem
         line-height: 1.25rem
@@ -101,8 +161,6 @@
         border: none
         box-shadow: 0px 4px 12px 0px rgba(218,172,84,0.08)
         &.form-ctm
-          &:last-child
-            margin-bottom: 24px
           &:first-child
             margin-bottom: 8px
         &::placeholder
@@ -128,15 +186,19 @@
           color: #DFB971
       .sel-schedule
         > .form-vertical
-            width: 40px
-            height: 64px
-            border-radius: .5rem
-            margin: 0px 4px
-            font-family: FuturaBookC
-            font-size: 16px
-            line-height: 21px
-            color: #071013
-            text-align: center
+          vertical-align: middle
+          width: 40px
+          height: 64px
+          border-radius: .5rem
+          margin: 0px 4px
+          padding: 11px
+          font-family: FuturaBookC
+          font-size: 16px
+          line-height: 21px
+          color: #071013
+          text-align: center
+          appearance: none
+
 
   .modal-footer
     padding: 0.5rem
