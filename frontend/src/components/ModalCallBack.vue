@@ -95,8 +95,24 @@ export default{
     },
     methods: {
         send(){
-            alert(`POST: /callback/${JSON.stringify({"name": this.name, "phone": this.phone, "hr": this.hr, "min": this.min})}`);
-            this.results = 200;
+            /*alert(`POST: /feedback/call/${JSON.stringify({"name": this.name, "phone": this.phone, "hr": this.hr, "min": this.min})}`);*/
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({"name": this.name, "phone": this.phone, "hr": this.hr, "min": this.min})
+            };
+            fetch(`http://localhost:8000/ru/vhapi/feedback/call/`, options).
+            then(response => response.json()).
+            then(data => {
+            this.results = data;
+            console.log(data);
+            }).
+            catch((error) => { console.log(error); this.results = null;}).
+            finally(() => {
+              this.loading = false;
+              this.results = 200;
+            });
+            
         },
         hrMinFun(str){
             switch(str){

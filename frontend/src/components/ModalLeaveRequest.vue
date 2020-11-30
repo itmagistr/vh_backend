@@ -41,8 +41,23 @@ export default{
     },
     methods: {
         send(){
-            alert(`POST: /request/${JSON.stringify({"name": this.name, "phone": this.phone, "mail": this.mail, "message": this.msg})}`);
-            this.results = 200;
+            /*alert(`POST: /feedback/message/${JSON.stringify({"name": this.name, "phone": this.phone, "mail": this.mail, "message": this.msg})}`);*/
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({"name": this.name, "phone": this.phone, "email": this.mail, "message": this.msg})
+            };
+            fetch(`http://localhost:8000/ru/vhapi/feedback/msg/`, options).
+            then(response => response.json()).
+            then(data => {
+            this.results = data;
+            console.log(data);
+            }).
+            catch((error) => { console.log(error); this.results = null;}).
+            finally(() => {
+              this.loading = false;
+              this.results = 200;
+            });
         },
     },
 }

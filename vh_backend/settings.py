@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 	'corsheaders',
 	'vh_api',
 	'vh_rating',
+	'vh_category',
 	'vh_product',
 	'vh_medproc',
 	'vh_human',
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
 	'vh_client',
 	'vh_doctor',
 	'vh_booking',
+	'vh_feedback',
 	'rbkpay',
 	'vh_payment',
 	'vh_backend'

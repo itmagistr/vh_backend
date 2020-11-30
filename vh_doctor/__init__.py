@@ -1,0 +1,1 @@
+default_app_config = "vh_doctor.apps.VhDoctorConfig"

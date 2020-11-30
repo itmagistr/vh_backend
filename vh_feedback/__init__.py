@@ -1,0 +1,1 @@
+default_app_config = "vh_feedback.apps.VhFeedbackConfig"

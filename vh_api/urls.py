@@ -32,6 +32,7 @@ apipatterns = [
 	path('', include('vh_medproc.urls')),
 	path('', include('vh_booking.urls')),
 	path('', include('vh_payment.urls')),
+	path('', include('vh_feedback.urls')),
 	re_path('timeslot/day/$', views.TimeSlotDayView.as_view()),
 	re_path('timeslot/day/list$', views.TimeSlotDayListView.as_view()),
 	re_path('timeslot/list/$', views.TimeSlotListView.as_view()),
