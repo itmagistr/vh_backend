@@ -18,10 +18,10 @@ class DoctorRuSerializer(serializers.ModelSerializer):#serializers.HyperlinkedMo
 	special = serializers.CharField(source='special.title_ru')
 	midName = serializers.CharField(source='midName_ru')
 	img = serializers.URLField(default='media/doctors/doc1.png')
-	experience = serializers.CharField(default='...')
-	degree = serializers.CharField(default='...')
-	level = serializers.CharField(source='level.title')
-	rating = serializers.DecimalField(max_digits=5, decimal_places=1)
+	experience = serializers.IntegerField()
+	degree = serializers.CharField(default='...', source='degree.title')
+	level = serializers.CharField(default='...', source='level.title')
+	rating = serializers.DecimalField(max_digits=5, decimal_places=1, source='rating.rate')
 	reviewCount = serializers.IntegerField(default=0)
 	class Meta:
 		model = Doctor

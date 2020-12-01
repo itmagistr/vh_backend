@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from vh_human.settings import UPLOAD_TO
 import uuid
+import os
+from django.utils.text import slugify
 
 from polymorphic.models import PolymorphicModel
 from vh_rating.models import Rating
