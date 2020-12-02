@@ -69,8 +69,11 @@ class DoctorFilterView(generics.ListAPIView):
 		serializer.is_valid(raise_exception=True)
 		sclass = self.get_serializer_class()
 		if 'Ru' in str(sclass):
-			resSerializer = sclass(Doctor.objects.filter(Q(lastName_ru__icontains=serializer.data['txt']) | Q(firstName_ru__icontains=serializer.data['txt']) ), many=True)
+			resQSet = Doctor.objects.filter(Q(lastName_ru__icontains=serializer.data['txt']) | Q(firstName_ru__icontains=serializer.data['txt']) )
 		else:
-			resSerializer = sclass(Doctor.objects.filter(Q(lastName_en__icontains=serializer.data['txt']) | Q(firstName_en__icontains=serializer.data['txt']) ), many=True)
+			resQSet = Doctor.objects.filter(Q(lastName_en__icontains=serializer.data['txt']) | Q(firstName_en__icontains=serializer.data['txt']) )
+		if len(resQSet)==0:
+			resQSet = Doctor.objects.filter(id=1)
+		resSerializer = sclass(resQSet, many=True)
 		#headers = self.get_success_headers(resSerializer.data)
 		return Response(resSerializer.data, status=status.HTTP_200_OK) #, headers=resSerializer.headers
