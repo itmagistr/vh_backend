@@ -71,17 +71,17 @@ export default {
         }
     },
     async created() {
-        await this.docList('', this.$store.state.Booking.Date, 'bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82');
+        await this.docList('', this.$store.state.Booking.Date, 'cc3c3aa6-590a-49c2-b9d1-faf4cf3505a0');
     },
     filters: {
         currencyFormat, timeFormat
     },
     methods: {
-        docList(cat, date, docUID) {
+        docList(cat, date, medProcUID) {
             const options = {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({"txt": cat, "dt": date, "doctor_uid": docUID})
+                body: JSON.stringify({"txt": cat, "dt": date, "medproc_uid": medProcUID})
             };
             fetch(`http://localhost:8000/ru/vhapi/doctor/list/`, options).
             then(response => response.json()).
@@ -94,25 +94,6 @@ export default {
               this.loading = false;
             });
         },
-        /*temp(array) {
-            const buf = this.docs;
-            for(let i = 0; i < array.length; i++) {
-                buf.push({ uid: array[i].uid, img: array[i].img, tittle: array[i].special,
-                    fName: array[i].firstName, lName: array[i].lastName, tName: array[i].midName, arg1: array[i].experience,
-                    arg2: array[i].level, arg3: array[i].degree, rating: array[i].rating, reviewCount: array[i].reviewCount,
-                    phone: null, messenger: null,
-                    results: [ {
-                        procedure: [{tittle: null}, ],
-                        photo: [{img: null, tittle: null}, ],
-                        youtube: [{url: null}, ],
-                        certificates: [{tittle: null}, ],
-                        eduction: [{year: null, course: null, grade: null}, ]},
-                    ],
-                });
-            }
-            console.log(buf);
-            return buf;
-        },*/
         backToBooking(){
             this.select = this.$store.state.Booking.Doctor;
             this.$emit('pageDoctor', this.select, 2);
