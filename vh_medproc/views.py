@@ -9,7 +9,7 @@ from django.utils import translation
 from .serializers import *
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
-
+from vh_product.models import ProductCategory
 import logging
 logger = logging.getLogger(__name__)
 
@@ -48,7 +48,7 @@ class MedProcListView(generics.RetrieveAPIView):
 		return MedProcEnSerializer
 		
 	def get_queryset(self):
-		return MedProc.objects.filter(code='B01.063.001')
+		return MedProc.objects.filter(code='CLV01')
 	def get_object(self):
 		obj = get_object_or_404(self.get_queryset())
 		return obj
@@ -124,12 +124,20 @@ class MedProcFilterView(generics.ListAPIView):
 		serializer = MedProcFilterSerializer(data=request.data)
 		serializer.is_valid(raise_exception=True)
 		sclass = self.get_serializer_class()
-		if 'Ru' in str(sclass):
-			resSerializer = sclass(MedProc.objects.filter(Q(code__startswith=serializer.data['txt']) | Q(title_ru__icontains=serializer.data['txt']) ), many=True)
+		if len(serializer.data['txt']) ==0:
+			#resQ = MedProc.objects.filter(code__startswith='CLV')
+			resQ = [el.product for el in ProductCategory.objects.filter(category__code='PRE_BOOKING').order_by('pos')]
 		else:
-			resSerializer = sclass(MedProc.objects.filter(Q(code__startswith=serializer.data['txt']) | Q(title_en__icontains=serializer.data['txt']) ), many=True)
+
+			if 'Ru' in str(sclass):
+				resQ = MedProc.objects.filter(Q(code__startswith=serializer.data['txt']) | Q(title_ru__icontains=serializer.data['txt']) )
+			else:
+				resQ = MedProc.objects.filter(Q(code__startswith=serializer.data['txt']) | Q(title_en__icontains=serializer.data['txt']) )
 		#headers = self.get_success_headers(resSerializer.data)
+		if len(resQ)==0:
+			resQ = edProc.objects.filter(code__startswith='CLV')
 		try:
+			resSerializer = sclass(resQ[:20], many=True)
 			logger.info(request.data)
 		except:
 			pass

@@ -38,8 +38,8 @@ export default {
       await this.medProcUID('');
   },
   methods: {
-    medProcUID(){
-      fetch(`http://localhost:8000/ru/vhapi/medproc/`)
+    medProcUID(uid){
+      fetch(`http://localhost:8000/ru/vhapi/medproc/`+uid)
       .then(stream => stream.json())
       .then(response => {
         this.results = response;

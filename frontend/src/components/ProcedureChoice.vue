@@ -14,10 +14,10 @@
                   <div v-if="loading">Загрузка...</div>
                   <table class="table table-borderless">
                         <tbody v-for="n in cat" :key="n.uid">
-                              <tr class="category">
+                              <!--<tr class="category">
                                     <td><div class="icon-teeth"><img :src="n.img" alt=""/></div></td>
                                     <td class="cat-name" colspan="4">{{n.title}}</td>
-                              </tr>
+                              </tr>-->
                               <tr v-for="c in n.results" class="product" :class="[{spec: c.code.length > 5}, { active: c.uid === select}]" :key="c.uid" @click="selected(c.uid)">
                                     <td class="pr-code">{{ c.code }}</td>
                                     <td class="pr-tittle">{{ c.title }}</td>
@@ -53,8 +53,8 @@ export default {
         }
     },
     async mounted() {
-        await this.medProcList('Орт', this.$store.state.Booking.Date, 'bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82', 0);
-        await this.medProcList('Прот', this.$store.state.Booking.Date, 'bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82', 1);
+        await this.medProcList('', this.$store.state.Booking.Date, 'bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82', 0);
+        /*await this.medProcList('Прот', this.$store.state.Booking.Date, 'bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82', 1);*/
     },
     filters: {
         currencyFormat, timeFormat

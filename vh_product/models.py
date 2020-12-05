@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 from polymorphic.models import PolymorphicModel
+from vh_category.models import Category
 
 class Product(PolymorphicModel):
 	uid = models.UUIDField(default=uuid.uuid4, editable=False)
@@ -10,7 +11,6 @@ class Product(PolymorphicModel):
 	description = models.TextField(null=True, blank=True)
 	price = models.DecimalField(max_digits=10, default=1000, decimal_places=2)
 	price_old = models.DecimalField(max_digits=10, default=1000, decimal_places=2)
-	
 	class Meta:
 		verbose_name = 'Товар'
 		verbose_name_plural = 'Товары'
@@ -20,3 +20,13 @@ class Product(PolymorphicModel):
 	def _product_role( self ):
 		return self.__class__.__name__
 	product_role = property(_product_role)
+
+class ProductCategory(models.Model):
+	product = models.ForeignKey(Product, null=True, blank=True, on_delete=models.CASCADE, verbose_name='Продукт', help_text='Укажите продукт из каталога')
+	category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE, verbose_name='Категория продукта', help_text='Укажите категорию из разделов каталога')
+	pos = models.PositiveIntegerField(default=0, verbose_name='Номер по порядку', help_text='Укажите позицию связи для сортировки')
+	class Meta:
+		verbose_name = 'Связь продукта с категорией'
+		verbose_name_plural = 'Категории продукта'
+	def __str__(self):
+		return u"{}.{}".format(self.category, self.product)
