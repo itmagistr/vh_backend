@@ -158,4 +158,6 @@ export default {
 .modal-backdrop
   background: #cef2e9
   backdrop-filter: blur(16px)
+
+
 </style>

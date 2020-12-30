@@ -117,53 +117,43 @@ export default {
     background: $white
     border-radius: 8px
     height: 536px
-
-.my-custom-scrollbar
-      position: relative
-      height: 100%
-      padding: 32px
-      overflow: auto
-
+    .my-custom-scrollbar
+          position: relative
+          height: 100%
+          padding: 32px
+          overflow: auto
 ::-webkit-scrollbar
       width: 0px
 
 .menu
     height: 64px
-.menu > .btn
-    display: inline-block
-    font-family: FuturaBookC
-    font-size: 16px
-    line-height: 21px
-    color: #071013
-    margin-right: 25px
-    padding: 6px 0px
-    box-shadow: none
-.menu .form-control::placeholder
-    color: rgba( 238,209,153,0.32)
-    font-family: FuturaBookC
-    font-size: 16px
-    line-height: 21px
-.menu .input-group
-    width: 533px
-    display: inline-flex
-.menu input
-    height: 48px
-    border-radius: 8px
-#ba2 .fas
-    transform: scaleX(-1)
-    color: #B8882F
-#ba2
-    background: white
+    > .btn
+        display: inline-block
+        font-family: FuturaBookC
+        font-size: 16px
+        line-height: 21px
+        color: #071013
+        margin-right: 25px
+        padding: 6px 0px
+        box-shadow: none
+    .form-control
+        &::placeholder
+            color: rgba( 238,209,153,0.32)
+            font-family: FuturaBookC
+            font-size: 16px
+            line-height: 21px
+    .input-group
+        width: calc(100% - 87px)
+        display: inline-flex
+    input
+        height: 48px
+        border-radius: 8px
+    #ba2 .fas
+        transform: scaleX(-1)
+        color: #B8882F
+    #ba2
+        background: white
 
-.doctor-clip:hover, .doctor-clip.active
-   box-shadow: 0 0 0 0.2rem #b8882f40
-
-.clip-header
-    margin-bottom: 16px
-.clip-body
-    margin-bottom: 24px
-.clip-footer
-    vertical-align: middle
 .doctor-clip
     border: 1px solid rgba(238, 209, 153, 0.32)
     border-radius: 8px
@@ -171,77 +161,89 @@ export default {
     min-height: 328px
     margin-bottom: 16px
     padding: 24px
-.clip-photo
-    width: 64px
-    height: 64px
-    background: $active-link-line
-    border-radius: 4px
-    margin-right: 12px
+    &:hover, &.active
+        border: 2px solid #42E1C5
+    > .clip-header
+        margin-bottom: 16px
+        .clip-photo
+            width: 64px
+            height: 64px
+            background: $active-link-line
+            border-radius: 4px
+            margin-right: 12px
+        .clip-bk1
+            vertical-align: top
+            .clip-tittle
+                font-family: FuturaBookC
+                font-size: 14px
+                line-height: 16px
+                color: #B8882F
+                padding-top: 4px
+                padding-bottom: 4px
+            .clip-name
+                font-family: Montserrat
+                font-size: 19px
+                line-height: 19px
+                color: #071013
+        .clip-info
+            text-align: right
+            font-family: FuturaBookC
+            font-size: 16px
+            line-height: 21px
+            color: #071013
+    > .clip-body
+        margin-bottom: 24px
+        .clip-accordion
+            font-family: FuturaBookC
+            font-size: 16px
+            line-height: 21px
+            letter-spacing: 0.08em
+            text-transform: uppercase
+            color: #071013
+            margin: 8px 0px
+            > i
+               margin-left: 8px
+               color: $blue_three
+    > .clip-footer
+        vertical-align: middle
+        .clip-rating
+            font-size: 22px
+            line-height: 22px
+            margin-right: 12px
+            > i
+                margin-right: 4px
+        .clip-review, .clip-icons
+            font-family: FuturaBookC
+            font-size: 16px
+            line-height: 21px
+            color: $blue_three
+        .clip-icons
+            font-size: 22px
+            line-height: 22px
+            color: $blue_three
+            > i
+                margin-left: 16px
 
-.clip-bk1
-    vertical-align: top
-    .clip-tittle
+.doctor-choice
+    > .btn
         font-family: FuturaBookC
-        font-size: 14px
-        line-height: 16px
-        color: #B8882F
-        padding-top: 4px
-        padding-bottom: 4px
-    .clip-name
-        font-family: Montserrat
-        font-size: 19px
-        line-height: 19px
-        color: #071013
-.clip-info
-    text-align: right
-    font-family: FuturaBookC
-    font-size: 16px
-    line-height: 21px
-    color: #071013
+        letter-spacing: 0.08em
+        text-transform: uppercase
+        width: 233px
+        height: 48px
+        background: $active-link-line
+        border: none
+        border-radius: 8px
+        color: $white
+        position: relative
+        left: 50%
+        transform: translate(-50%, -50%)
 
-
-.clip-accordion
-    font-family: FuturaBookC
-    font-size: 16px
-    line-height: 21px
-    letter-spacing: 0.08em
-    text-transform: uppercase
-    color: #071013
-    margin: 8px 0px
-.clip-accordion > i
-   margin-left: 8px
-   color: $blue_three
-
-.clip-rating
-    font-size: 22px
-    line-height: 22px
-    margin-right: 12px
-.clip-rating > i
-    margin-right: 4px
-.clip-review, .clip-icons
-    font-family: FuturaBookC
-    font-size: 16px
-    line-height: 21px
-    color: $blue_three
-.clip-icons
-    font-size: 22px
-    line-height: 22px
-    color: $blue_three
-.clip-icons > i
-    margin-left: 16px
-
-.doctor-choice > .btn
-    font-family: FuturaBookC
-    letter-spacing: 0.08em
-    text-transform: uppercase
-    width: 233px
-    height: 48px
-    background: $active-link-line
-    border: none
-    border-radius: 8px
-    color: $white
-    position: absolute
-    bottom: -9%
-    right: 15%
-    transform: translate(-50%, -50%)
+@media (max-width: 1399px)
+    .doctor-clip
+        width: 100%
+    .col.doctor-choice
+        height: 100%
+        .btn
+            bottom: 15%
 </style>

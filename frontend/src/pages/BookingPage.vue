@@ -1,6 +1,10 @@
 <template>
     <div class="d-flex">
         <div v-if="phase === 2" class="registration">
+            <div class="tittle-pnp">
+                <h5>Записаться на прием</h5>
+                <router-link tag="button" aria-label="Close" class="close" :to="{name: 'main'}"><span aria-hidden="true">×</span></router-link>
+            </div>
             <div class="row">
                 <Procedure v-model="phase"/>
                 <Doctor v-model="phase"/>
@@ -112,15 +116,37 @@ export default {
     height: 627px
 
 .registration
+    .tittle-pnp
+        h5
+            font-family: Montserrat
+            font-style: normal
+            font-weight: normal
+            font-size: 19px
+            line-height: 24px
+            margin: 32px 32px 20px
+
+        .close
+            position: absolute
+            right: 2rem
+            top: 1.5rem
+            font-size: 2rem
+            color: #DFB971
+            &:hover
+                color: #9CC6BE
+        border-bottom: 1px solid #DFB971
+        width: 100%
+        /*height: 32px*/
+        margin-bottom: 32px
+        display: none
     width: 752px
-    margin: 0px 4px 0px 0px
+    margin: 0px
     padding: 32px 32px 56px
     position: relative
     z-index: 3
 
 .useful-tips
     width: 265px
-    margin: 0px 0px 0px 4px
+    margin: 0px 0px 0px 8px
 
 .useful-tips > .close
     width: 32px
@@ -129,18 +155,19 @@ export default {
 
 .shadow
     position: relative
-.shadow > button
-    background: $none
-    color: $white
-    border-radius: 0px 8px 8px 0px
-    width: 10px
-    height: 72px
-    position: absolute
-    top: 11%
-    transform: translate(-50%, -50%)
-    z-index: 1
-.shadow > button:hover
-    color: $white
+    > button
+        background: $none
+        color: $white
+        border-radius: 0px 8px 8px 0px
+        width: 10px
+        height: 72px
+        position: absolute
+        top: 11%
+        left: 8px
+        transform: translate(-50%, -50%)
+        z-index: 1
+        &:hover
+            color: $white
 
 .calendary, .procedure
     margin-right: 8px
@@ -148,48 +175,48 @@ export default {
     margin-left: 8px
 .col
     padding: 0px
-.registration > .row > .col
-    width: 336px
-.registration > .row
-    margin: 0px
-.registration > .row:first-child
-    margin-bottom: 24px
 
 .calendary, .schedule, .doctor, .procedure
-  background: white
-  border-radius: 8px
+    width: 336px
+    background: white
+    border-radius: 8px
 
 .calendary
-  padding: 32px
-  height: 413px
+    padding: 32px
+    height: 413px
 
 .schedule
-  padding: 24px
-  height: 413px
+    padding: 24px
+    height: 413px
 
-.weekday, .days, #shedule-time >
-  div
-    font-family: FuturaBookC
-    font-size: 16px
-    line-height: 21px
-    text-align: center
-    vertical-align: middle
-    display: inline-block
+.weekday, .days, #shedule-time
+    > div
+        font-family: FuturaBookC
+        font-size: 16px
+        line-height: 21px
+        text-align: center
+        vertical-align: middle
+        display: inline-block
 
-.registration > .btn
-    font-family: FuturaBookC
-    letter-spacing: 0.08em
-    text-transform: uppercase
-    width: 171px
-    height: 48px
-    background: $active-link-line
-    border: none
-    border-radius: 8px
-    color: $white
-    position: absolute
-    bottom: -9%
-    right: 27%
-    transform: translate(-50%, -50%)
+.registration
+    > .row
+        margin: 0px
+        &:nth-child(2)
+            margin-bottom: 24px
+    > .btn
+        font-family: FuturaBookC
+        letter-spacing: 0.08em
+        text-transform: uppercase
+        width: 171px
+        height: 48px
+        background: $active-link-line
+        border: none
+        border-radius: 8px
+        color: $white
+        position: relative
+        bottom: -13%
+        left: 50%
+        transform: translate(-50%, -50%)
 
 .title-price
     font-family: FuturaBookC;
@@ -203,4 +230,21 @@ export default {
     font-size: 27px
     line-height: 33px
     color: #E1BE7A
+
+@media (max-width: 1399px)
+    .registration
+        padding: 0px
+        position: absolute
+        top: 0px
+        right: 0px
+        height: 100%
+        width: 100%
+        .calendary, .schedule, .doctor, .procedure
+            margin: auto
+        > .btn
+            bottom: -5%
+    .shadow, .useful-tips
+        display: none
+    .tittle-pnp
+        display: block!important
 </style>

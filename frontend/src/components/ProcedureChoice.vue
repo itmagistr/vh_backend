@@ -14,10 +14,10 @@
                   <div v-if="loading">Загрузка...</div>
                   <table class="table table-borderless">
                         <tbody v-for="n in cat" :key="n.uid">
-                              <!--<tr class="category">
+                              <tr class="category">
                                     <td><div class="icon-teeth"><img :src="n.img" alt=""/></div></td>
                                     <td class="cat-name" colspan="4">{{n.title}}</td>
-                              </tr>-->
+                              </tr>
                               <tr v-for="c in n.results" class="product" :class="[{spec: c.code.length > 5}, { active: c.uid === select}]" :key="c.uid" @click="selected(c.uid)">
                                     <td class="pr-code">{{ c.code }}</td>
                                     <td class="pr-tittle">{{ c.title }}</td>
@@ -102,17 +102,16 @@ export default {
     border-radius: 8px
     height: 536px
 
-.my-custom-scrollbar
-      position: relative
-      height: 100%
-      padding: 32px
-      overflow: auto
+    .my-custom-scrollbar
+          position: relative
+          height: 100%
+          padding: 32px
+          overflow: auto
+::-webkit-scrollbar
+      width: 0px
 
 //.table-wrapper-scroll-y
 //      box-shadow: inset 0 -200px 200px -200px white
-
-::-webkit-scrollbar
-      width: 0px
 /*::-webkit-scrollbar-track
       background: #F1EEE6*/
 /*::-webkit-scrollbar-thumb
@@ -128,55 +127,56 @@ export default {
 
 .menu
     height: 64px
-.menu > .btn
-    display: inline-block
-    font-family: FuturaBookC
-    font-size: 16px
-    line-height: 21px
-    color: #071013
-    margin-right: 25px
-    padding: 6px 0px
-    box-shadow: none
-.menu .form-control::placeholder
-    color: rgba( 238,209,153,0.32)
-    font-family: FuturaBookC
-    font-size: 16px
-    line-height: 21px
-.menu .input-group
-    width: 533px
-    display: inline-flex
-.menu input
-    height: 48px
-    border-radius: 8px
-#ba2 .fas
-    transform: scaleX(-1)
-    color: #B8882F
-#ba2
-    background: white
+    > .btn
+        display: inline-block
+        font-family: FuturaBookC
+        font-size: 16px
+        line-height: 21px
+        color: #071013
+        margin-right: 25px
+        padding: 6px 0px
+        box-shadow: none
+    .form-control
+        &::placeholder
+            color: rgba( 238,209,153,0.32)
+            font-family: FuturaBookC
+            font-size: 16px
+            line-height: 21px
+    .input-group
+        width: calc(100% - 87px)
+        display: inline-flex
+    input
+        height: 48px
+        border-radius: 8px
+    #ba2 .fas
+        transform: scaleX(-1)
+        color: #B8882F
+    #ba2
+        background: white
 
-.category > td
-    margin-bottom: 16px
-.category > td:first-child
-    margin-right: 16px
-
-.icon-teeth
-    display: table-cell
-    vertical-align: middle
-    text-align: center
-    width: 56px
-    height: 56px
-    background: $active-link-line
-    border-radius: 4px
-.icon-teeth > img
-    width: 32px
-    height: 32px
-.cat-name
-    font-family: Montserrat
-    font-style: normal
-    font-weight: 500
-    font-size: 21px
-    line-height: 26px
-    color: #071013
+.category
+    > td
+        margin-bottom: 16px
+        &:first-child
+            margin-right: 16px
+        > .icon-teeth
+            display: table-cell
+            vertical-align: middle
+            text-align: center
+            width: 56px
+            height: 56px
+            background: $active-link-line
+            border-radius: 4px
+            > img
+                width: 32px
+                height: 32px
+        > .cat-name
+            font-family: Montserrat
+            font-style: normal
+            font-weight: 500
+            font-size: 21px
+            line-height: 26px
+            color: #071013
 
 .product
     > td
@@ -209,18 +209,24 @@ export default {
         line-height: 16px
         color: #071013
     .pr-info
+        position: absolute
+        right: 178px
         width: 16px
     .pr-info > i
         display: none
         font-size: 16px
         color: #42E1C5
     .pr-price
+        position: absolute
+        right: 96px
         width: 72px
         font-family: FuturaBookC
         line-height: 21px
         text-align: right
         color: #DFB971
     .pr-duration
+        position: absolute
+        right: 32px
         width: 56px
         font-family: FuturaBookC
         line-height: 21px
@@ -245,12 +251,17 @@ export default {
         border: none
         border-radius: 8px
         color: $white
-        position: absolute
-        bottom: -9%
-        right: 15%
+        position: relative
+        left: 50%
         transform: translate(-50%, -50%)
     hr
         margin-top: .5em
-        width: 632px
+        width: 100%
         border: 1px solid #F3E9D4
+
+@media (max-width: 1399px)
+    .col.procedure-choice
+        height: 100%
+        .btn
+            bottom: 15%
 </style>

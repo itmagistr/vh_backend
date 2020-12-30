@@ -76,4 +76,7 @@ export default {
     bottom: -30%
     transform: translate(-50%, -50%)
 
+@media (max-width: 1399px)
+    .cl-full
+        margin-top: 50%
 </style>

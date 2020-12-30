@@ -78,8 +78,15 @@ export default {
     text-align: center
 
 @media screen and (max-width: 1400px)
-  header
-    display: none
+  /*header
+    display: none*/
+  #mdl-contacts
+    > .modal-ctm
+      max-width: 100%
+      min-height: 100%
+      margin: 0px
+      > .modal-content
+        border-radius: 0px
 
 @media screen and (max-width: 991px)
   .registration

@@ -1,18 +1,20 @@
 <template>
-  <div class="col doctor">
-    <div id="icon-doctor"> </div>
-    <div id="name-doctor">
-      <div>{{ title }}</div>
-      <div>{{ lName }} {{ fName }}</div>
+  <div class="col">
+    <div class="doctor">
+      <div id="icon-doctor"> </div>
+      <div id="name-doctor">
+        <div>{{ title }}</div>
+        <div>{{ lName }} {{ fName }}</div>
+      </div>
+      <div id="star-doctor">
+        <i class="fas fa-star star-full"></i>
+        <i class="fas fa-star star-full"></i>
+        <i class="fas fa-star star-full"></i>
+        <i class="fas fa-star star-half"></i>
+        <i class="fas fa-star star-none"></i>
+      </div>
+      <button class="btn" id="btn-doctor" @click="doctors"><i class="fas fa-caret-right"></i></button>
     </div>
-    <div id="star-doctor">
-      <i class="fas fa-star star-full"></i>
-      <i class="fas fa-star star-full"></i>
-      <i class="fas fa-star star-full"></i>
-      <i class="fas fa-star star-half"></i>
-      <i class="fas fa-star star-none"></i>
-    </div>
-    <button class="btn" id="btn-doctor" @click="doctors"><i class="fas fa-caret-right"></i></button>
   </div>
 </template>
 
@@ -74,6 +76,7 @@ export default {
 
 .doctor
   height: 72px
+  position: relative
 
 .doctor > div, .doctor > button
   display: inline-block

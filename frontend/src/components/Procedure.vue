@@ -1,12 +1,14 @@
 <template>
-  <div class="col procedure">
-    <div id="icon-procedure"> </div>
-    <div id="name-procedure">
-      <div>Процедура</div>
-      <div>{{ title }}</div>
+  <div class="col">
+    <div class="procedure">
+      <div id="icon-procedure"> </div>
+      <div id="name-procedure">
+        <div>Процедура</div>
+        <div>{{ title }}</div>
+      </div>
+      <div id="time-procedure">{{ duration | timeFormat("ru-RU")}}</div>
+      <button class="btn" id="btn-procedure" @click="medproc()"><i class="fas fa-caret-right"></i></button>
     </div>
-    <div id="time-procedure">{{ duration | timeFormat("ru-RU")}}</div>
-    <button class="btn" id="btn-procedure" @click="medproc()"><i class="fas fa-caret-right"></i></button>
   </div>
 </template>
 
@@ -69,6 +71,7 @@ export default {
 
 .procedure
   height: 72px
+  position: relative
 
 .procedure > div, .procedure > button
   display: inline-block
@@ -115,7 +118,7 @@ export default {
 
 #btn-procedure
   position: absolute
-  right: 0px
+  left: 310px
   width: 26px
   height: 72px
   border: none

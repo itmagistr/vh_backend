@@ -1,6 +1,6 @@
 <template>
     <header>
-      <nav class="navbar navbar-expand navbar-light">
+      <nav class="navbar navbar-expand-xl navbar-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -94,6 +94,7 @@ header
   letter-spacing: 0.05em
   color: $header_text!important
 
+
 .mr-auto a
   text-transform: uppercase
 
@@ -160,5 +161,25 @@ nav
   right: 7.3%
   top: 304px
 
+@media (max-width: 1399px)
+  .navbar-light
+      color: $white
+  nav
+    > button
+      margin-right: 100%
+    font-family: FuturaBookC
+    font-size: 27px
+    line-height: 33px
+    text-align: center
+    height: 64px
 
+    #navbarNav
+      max-width: 481px
+      background: #42E1C5
+      > ul
+        > li
+          height: 56px
+          padding: 11.5px
+          &#active
+            background: #EED199
 </style>
