@@ -1,9 +1,6 @@
 <template>
     <header>
-      <nav class="navbar navbar-expand-xl navbar-light">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+      <nav v-if="mobile === false" class="navbar navbar-expand-xl navbar-light">
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item" :id="[$route.name === 'service' ? 'active' : '']">
@@ -55,17 +52,64 @@
           </ul>
         </div>
       </nav>
+        <nav v-if="mobile === true" class="navbar navbar-light">
+          <button class="navbar-toggler" type="button" data-toggle="modal" data-target="#mdlm-menu">
+            <i class="fas fa-bars"></i>
+          </button>
+          <ul class="navbar-nav"><router-link :to="{name: 'main'}"><img class="logo" src="/img/logo-sm.svg"/></router-link></ul>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+                <i class="fas fa-search"></i>
+            </li>
+          </ul>
+        </nav>
     </header>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      mobile: null,
+    }
+  },
+  mounted(){
 
+  },
+  methods: {
+    onResize() {
+      this.mobile = document.documentElement.clientWidth > 1399 ? false : true;
+    },
+  },
+  created() {
+    window.addEventListener('resize', this.onResize);
+    this.onResize();
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.onResize);
+  },
 }
 </script>
 
 <style lang="sass">
 @import "@/styles/_variables.sass"
+
+
+.dropdown-submenu
+  position: relative
+  a::after
+    transform: rotate(-90deg)
+    position: absolute
+    right: 6px
+    top: .8em
+  .dropdown-menu
+    top: 0
+    left: 100%
+    margin-left: .1rem
+    margin-right: .1rem
+
+
+
 
 body
   background: url('/img/img1.png') no-repeat center center fixed
@@ -85,7 +129,7 @@ header
 #active > a
   color: $active-text-link!important
 
-.navbar-light a, .navbar-light
+.navbar-light a, .navbar-light, .bg-light, .bg-light a
   font-family: FuturaBookC
   font-style: normal
   font-weight: normal
@@ -102,7 +146,9 @@ nav
   max-width: 1560px
   margin: auto
   height: 136px
-
+  .toggler
+    display: none
+    width: 100%
 .btn-outline
   color: $header_text
   background: #FFF
@@ -165,21 +211,9 @@ nav
   .navbar-light
       color: $white
   nav
-    > button
-      margin-right: 100%
     font-family: FuturaBookC
     font-size: 27px
     line-height: 33px
     text-align: center
     height: 64px
-
-    #navbarNav
-      max-width: 481px
-      background: #42E1C5
-      > ul
-        > li
-          height: 56px
-          padding: 11.5px
-          &#active
-            background: #EED199
 </style>

@@ -145,12 +145,12 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 @import "@/styles/_variables.sass"
 
 .bgz
     div:first-child
-        position: absolute
+        position: fixed
         z-index: -1
         background: rgba(254, 253, 251, 0.64)
         backdrop-filter: blur(16px)
@@ -168,10 +168,10 @@ export default {
         top: 378px
 
 .mar
-    > div
-        margin-right: auto
-        margin-left: auto
-        width: 1362px
+    width: 100%
+    > div.service
+        overflow: auto
+        width: 100%
         text-align: center
         display: flex
     .tittle-of-service
@@ -241,6 +241,7 @@ export default {
     border-radius: 16px 0px 0px 16px
     background: $white
     padding: 32px
+    position: relative
     text-align: left
     > div:first-child
         font-family: Montserrat
@@ -404,4 +405,29 @@ export default {
                 border-radius: 4px
                 border: none
                 color: $white
+
+@media (max-width: 1399px)
+    .container
+        >.d-flex
+            >.d-flex
+                &:first-child, &:last-child
+                    display: none!important
+    .bgz
+        > div:first-child
+            position: fixed
+            height: 100%
+            left: 0px
+            top: 0px
+    .mar
+        .tittle-of-service
+            text-align: center
+    .block-3
+        margin: 64px -16px 48px
+        display: inline-grid!important
+        .block-left
+            width: 100%
+            border-radius: 16px
+        .block-right
+            width: 100%
+            border-radius: 0px
 </style>

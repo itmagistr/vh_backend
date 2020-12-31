@@ -9,6 +9,7 @@
       <modalContact/>
       <modalLeaveRequest/>
       <modalCallBack/>
+      <modalMobileMenu v-if="mobile === true"/>
       <div class="d-flex align-items-center justify-content-between">
         <div class="d-flex flex-column">
           <a href="https://www.instagram.com/inessa_braginskaia/" target="_blank"><button class="social-btn"><i class="fab fa-instagram"></i></button></a>
@@ -34,9 +35,27 @@ import Header from "@/components/Header.vue";
 import modalContact from "@/components/ModalContact.vue";
 import modalCallBack from "@/components/ModalCallBack.vue";
 import modalLeaveRequest from "@/components/ModalLeaveRequest.vue";
+import modalMobileMenu from "@/components/ModalMobileMenu.vue"
 
 export default {
-  components: { Header, modalContact, modalLeaveRequest, modalCallBack },
+  data() {
+    return {
+      mobile: null,
+    }
+  },
+  methods: {
+    onResize() {
+      this.mobile = document.documentElement.clientWidth > 1399 ? false : true;
+    },
+  },
+  created() {
+    window.addEventListener('resize', this.onResize);
+    this.onResize();
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.onResize);
+  },
+  components: { Header, modalContact, modalLeaveRequest, modalCallBack, modalMobileMenu },
 };
 </script>
 
