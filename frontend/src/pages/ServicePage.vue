@@ -35,12 +35,58 @@
                 <div>Цены на услуги</div>
                 <table class="table table-borderless">
                     <tbody>
-                        <tr v-for="c in results" class="product" :class="[{spec: c.code.length > 5}, { active: c.uuid === select}]" :key="c.uuid" @click="selected(c.uuid)">
-                            <td class="pr-code">{{ c.code }}</td>
-                            <td class="pr-tittle">{{ c.title }}</td>
-                            <td class="pr-price">{{ c.price | currencyFormat("RUB")}}</td>
-                            <td class="pr-duration">{{ c.duration | timeFormat("ru-RU")}}</td>
-                        </tr>
+                        <template v-for="c in results">
+                            <tr class="product" :class="[{spec: c.code.length > 5}, { active: c.uid === prselect}]" :key="c.uid" @click="selected(c.uid)">
+                                <td class="pr-code">{{ c.code }}</td>
+                                <td class="pr-tittle">{{ c.title }}</td>
+                                <td class="pr-price">{{ c.price | currencyFormat("RUB")}}</td>
+                                <td class="pr-duration">{{ c.duration | timeFormat("ru-RU")}}</td>
+                            </tr>
+                            <tr v-if="prselect === c.uid" :key="'block-'+c.uid">
+                                <div class="hm-block">
+                                    <div class="doctor-card">
+                                        <div class="d-tittle">Очень длинное название процедуры, очень длинное врач Василенко Л.И.</div>
+                                        <div class="d-card">
+                                            <div id="icd"> </div>
+                                            <div id="nmd">
+                                              <div>Врач</div>
+                                              <div>Василенко Л.И.</div>
+                                            </div>
+                                            <button class="btn" id="btn-d"><i class="fas fa-caret-right"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="description">
+                                        <div>Описание процедуры</div>
+                                        <div>
+                                            Идейные соображения высшего порядка, а также начало повседневной работы по формированию позиции
+                                            обеспечивает широкому кругу (специалистов) участие в формировании модели развития. С другой
+                                            стороны начало повседневной работы по формированию позиции влечет за собой процесс внедрения.
+                                        </div>
+                                    </div>
+                                    <div class="recomende">
+                                        <div>Рекомендации перед процедурой</div>
+                                        <div><i class="profi"></i> Не кушать и не пить за 2 часа до процедуры</div>
+                                        <div><i class="profi"></i> Принять антигистаминный препарат</div>
+                                        <div><i class="profi"></i> Ограничить физическую активность за день до процедуры</div>
+                                        <div><i class="profi"></i> Хорошо очистить полость рта</div>
+                                    </div>
+                                    <div class="recomende">
+                                        <div>Рекомендации после процедуры</div>
+                                        <div><i class="profi"></i> Не кушать и не пить 3 часа после процедуры</div>
+                                        <div><i class="profi"></i> Очистка полости рта ирригатором</div>
+                                        <div><i class="profi"></i> Ограничить физическую активность на 3 дня после процедуры</div>
+                                    </div>
+                                    <div class="photo">
+                                        <div>Фото</div>
+                                        <div class="accordion">
+                                            <button class="btn btn-accord"><i class="fas fa-caret-left"></i></button>
+                                            <div></div>
+                                            <button class="btn btn-accord"><i class="fas fa-caret-right"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tr>
+                        </template>
                     </tbody>
                 </table>
             </div>
@@ -98,6 +144,7 @@ export default {
     data() {
         return {
             select: this.$store.state.Booking.Procedure,
+            prselect: null,
             cat: [
                 {uuid: '41b6e7a0-e395-45d3-bccb-ad097c427643', code: '01.01', tittle: 'Установка брекетов', price: 150000, duration: 90},
                 {uuid: '951a9eb9-e0a4-444c-a060-a1d6a1e65181', code: '01.02', tittle: 'Замена брекет-системы', price: 3000, duration: 30},
@@ -137,6 +184,9 @@ export default {
             finally(() => {
               this.loading = false;
             });
+        },
+        selected(sel){
+            this.prselect = sel;
         },
     },
     filters: {
@@ -222,15 +272,14 @@ export default {
         margin-top: 38px
         margin-left: auto
         margin-right: auto
-        width: 1084px
+        width: calc(100% - 64px);
         height: 236px
         background: #00C0BB55
         border-radius: 16px
 
 
 .block-3
-    margin-top: 64px
-    margin-bottom: 128px
+    margin: 64px auto 128px
     display: flex
     .btn
         padding: 0px
@@ -297,10 +346,15 @@ export default {
             line-height: 21px
             text-align: right
             color: #9CC6BE
-
+.hm-block
+    width: 100%
+    border-radius: 0px
+    margin-bottom: 24px
+    background: #F3E9D4
 .block-right
     border-radius: 0px 16px 16px 0px
     background: #F3E9D4
+.block-right, .hm-block
     padding: 32px
     text-align: left
     .doctor-card
@@ -425,9 +479,18 @@ export default {
         margin: 64px -16px 48px
         display: inline-grid!important
         .block-left
+            padding: 32px 0px
             width: 100%
+            height: 100%
             border-radius: 16px
+            > div
+                padding-left: 32px
+            td.pr-code
+                margin-left: 32px
         .block-right
+            display: none
             width: 100%
+            height: 100%
             border-radius: 0px
+
 </style>
