@@ -66,6 +66,7 @@ export default {
     max-width: 688px
     > .modal-content
       background: #FEFDFB
+      border: none
       border-radius: 0.5rem
   .modal-header, .modal-footer
     border: none
@@ -159,5 +160,6 @@ export default {
   background: #cef2e9
   backdrop-filter: blur(16px)
 
-
+@media (max-width: 1399px)
+  /**/
 </style>

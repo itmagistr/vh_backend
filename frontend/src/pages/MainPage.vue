@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex ">
+    <div class="d-flex ctm-main">
         <div class="cl-full">
             <div class="calen">
                 <div class="cl-day" >
@@ -28,10 +28,6 @@ export default {
 <style lang="sass">
 @import "@/styles/_variables.sass"
 
-.cl-full
-    position: relative
-    text-align: center
-
 .calen
     width: 120px
     height: 148px
@@ -45,16 +41,15 @@ export default {
     padding-top: 28px
     position: relative
     text-align: center
-
-.cl-day > span
-    font-size: 24px
-    line-height: 26px
-    font-weight: 300
-    font-style: normal
-    position: absolute
-    top: 75%
-    left: 51%
-    transform: translate(-50%, -50%)
+    > span
+      font-size: 24px
+      line-height: 26px
+      font-weight: 300
+      font-style: normal
+      position: absolute
+      top: 75%
+      left: 51%
+      transform: translate(-50%, -50%)
 
 .cl-month
     margin-top: 4px
@@ -62,21 +57,26 @@ export default {
     font-size: 16px
     line-height: 21px
 
-.cl-full .btn
-    font-family: FuturaBookC
-    letter-spacing: 0.08em
-    text-transform: uppercase
-    width: 289px
-    height: 48px
-    background: #42E1C5
-    border: none
-    border-radius: 8px
-    color: $white
-    position: absolute
-    bottom: -30%
-    transform: translate(-50%, -50%)
+.cl-full
+    position: relative
+    text-align: center
+    .btn
+        font-family: FuturaBookC
+        letter-spacing: 0.08em
+        text-transform: uppercase
+        width: 289px
+        height: 48px
+        background: #42E1C5
+        border: none
+        border-radius: 8px
+        color: $white
+        position: absolute
+        bottom: -30%
+        transform: translate(-50%, -50%)
 
 @media (max-width: 1399px)
-    .cl-full
-        margin-top: 50%
+    .ctm-main
+      margin-top: 50%
+      margin: auto
+
 </style>

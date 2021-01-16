@@ -23,27 +23,27 @@
           <div class="modal-body">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item" :id="[$route.name === 'service' ? 'active' : '']">
-                <router-link class="nav-link" :to="{name: 'service'}">Услуги</router-link>
+                <router-link class="nav-link" data-dismiss="modal" :to="{name: 'service'}">Услуги</router-link>
               </li>
               <li class="nav-item" :id="[$route.name === 'booking' ? 'active' : '']">
-                <router-link class="nav-link active" :to="{name: 'booking'}">Записаться</router-link>
+                <router-link class="nav-link active" data-dismiss="modal" :to="{name: 'booking'}">Записаться</router-link>
               </li>
               <li class="nav-item" :id="[$route.name === 'doctors' ? 'active' : '']">
-                <router-link class="nav-link" :to="{name: 'doctors'}">Врачи</router-link>
+                <router-link class="nav-link" data-dismiss="modal" :to="{name: 'doctors'}">Врачи</router-link>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link" to="#">Виртуальный тур</router-link>
+                <router-link class="nav-link" data-dismiss="modal" to="#">Виртуальный тур</router-link>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link" to="#">Документация</router-link>
+                <router-link class="nav-link" data-dismiss="modal" to="#">Документация</router-link>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" data-target="#mdl-contacts">Контакты</a>
+                <a class="nav-link" data-toggle="modal" data-dismiss="modal" data-target="#mdl-contacts">Контакты</a>
               </li>
             </ul>
           </div>
           <div class="modal-footer">
-            <router-link :to="{name: 'main'}"><img class="logo" src="/img/logo-sm.svg"/></router-link>
+            <router-link :to="{name: 'main'}"><img class="logo" data-dismiss="modal" src="/img/logo-sm.svg"/></router-link>
           </div>
         </div>
       </div>
@@ -68,25 +68,29 @@
     .modal-ctm
       margin: 0px
       display: block
-      width: 481px
+      max-width: 481px
       border-radius: 0px 0px 8px 0px
       .navbar-toggler
         color: $white
       > div
+        border: none
         .modal-header, .modal-footer
           border: none
         .modal-body, .modal-footer
           text-align: center
           display: block
           padding: 0px
+        .modal-footer
+          border-radius: 0px 0px 8px 0px
         .modal-header
-          padding: 1rem 1.25rem
-          height: 86px
+          height: 66px
           > ul
             display: inline-flex
             list-style: none
             > li
               padding: .5rem .5rem
+              > a
+                color: #FEFDFB!important
         > div
           background: #42E1C5
           &.modal-body > ul
@@ -96,7 +100,24 @@
               margin: 9px 0px
               > a
                 padding: 0px
+                color: #FEFDFB!important
               &#active, &:hover
                 background: #EED199
-                color: #FEFDFB!important
+@media (max-width: 450px)
+  .mobile.logo
+    width: 145px
+  #mdlm-menu
+    .modal-ctm
+      margin: 0px
+      display: block
+      max-width: 481px
+      border-radius: 0px!important
+      .navbar-toggler
+        color: $white
+      .modal-footer
+          border-radius: 0px!important
+      > div > div.modal-body > ul > li
+              height: 45px
+              padding: 10px
+              margin: 6px 0px
 </style>

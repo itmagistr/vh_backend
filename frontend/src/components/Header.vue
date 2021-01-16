@@ -56,7 +56,7 @@
           <button class="navbar-toggler" type="button" data-toggle="modal" data-target="#mdlm-menu">
             <i class="fas fa-bars"></i>
           </button>
-          <ul class="navbar-nav"><router-link :to="{name: 'main'}"><img class="logo" src="/img/logo-sm.svg"/></router-link></ul>
+          <ul class="navbar-nav"><router-link :to="{name: 'main'}"><img class="mobile logo" src="/img/logo-sm.svg"/></router-link></ul>
           <ul class="navbar-nav">
             <li class="nav-item">
                 <i class="fas fa-search"></i>
@@ -163,8 +163,6 @@ nav
 .form-control
   border: none
   color: $header_text
-
-.form-control
   &::placeholder
     color: $header_text
 

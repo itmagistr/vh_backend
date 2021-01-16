@@ -97,16 +97,15 @@ export default {
 @import "@/styles/_variables.sass"
 
 .procedure-choice
-    /*background: linear-gradient(180deg, #FEFDFB 0%, #FEFDFB 78.65%, rgba(254, 253, 251, 0.16) 92.71%, rgba(254, 253, 251, 0.08) 100%)*/
-    background: $white
-    border-radius: 8px
-    height: 536px
-
-    .my-custom-scrollbar
-          position: relative
-          height: 100%
-          padding: 32px
-          overflow: auto
+  /*background: linear-gradient(180deg, #FEFDFB 0%, #FEFDFB 78.65%, rgba(254, 253, 251, 0.16) 92.71%, rgba(254, 253, 251, 0.08) 100%)*/
+  background: $white
+  border-radius: 8px
+  height: 536px
+  .my-custom-scrollbar
+    position: relative
+    height: 100%
+    padding: 32px
+    overflow: auto
 ::-webkit-scrollbar
       width: 0px
 

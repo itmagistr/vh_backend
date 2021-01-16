@@ -11,14 +11,14 @@
       <modalCallBack/>
       <modalMobileMenu v-if="mobile === true"/>
       <div class="d-flex align-items-center justify-content-between">
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column ctm-col-rt">
           <a href="https://www.instagram.com/inessa_braginskaia/" target="_blank"><button class="social-btn"><i class="fab fa-instagram"></i></button></a>
           <a href="https://www.youtube.com/channel/UCQ5YCpgwVDsr1mTU0bsKNaQ" target="_blank"><button class="social-btn"><i class="fab fa-youtube"></i></button></a>
           <a href="https://www.facebook.com/inessa.karahanyan/" target="_blank"><button class="social-btn"><i class="fab fa-facebook-f"></i></button></a>
           <button class="social-btn"><i class="fab fa-vk"></i></button>
         </div>
         <router-view/>
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column ctm-col-lt">
           <button class="social-btn" data-toggle="modal" data-target="#mdl-leave-request"><i class="far fa-comment-alt"></i></button>
           <button class="social-btn"><i class="fas fa-map-marker-alt"></i></button>
           <button class="social-btn"><i class="fas fa-route"></i></button>
@@ -106,10 +106,6 @@ export default {
       margin: 0px
       > .modal-content
         border-radius: 0px
-
-@media screen and (max-width: 991px)
-  .registration
-    display: none
 
 @media screen and (min-width: 1200px)
   .container
