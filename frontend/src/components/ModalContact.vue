@@ -24,10 +24,12 @@
               </div>
             </div>
             <div class="social-directions">
-              <div class="icon"><i class="fab fa-instagram"></i></div>
-              <div class="icon"><i class="fab fa-youtube"></i></div>
-              <div class="icon"><i class="fab fa-facebook-f"></i></div>
-              <div class="icon"><i class="fab fa-vk"></i></div>
+              <div class="icons">
+                <div class="icon"><i class="fab fa-instagram"></i></div>
+                <div class="icon"><i class="fab fa-youtube"></i></div>
+                <div class="icon"><i class="fab fa-facebook-f"></i></div>
+                <div class="icon"><i class="fab fa-vk"></i></div>
+              </div>
               <div class="input-group">
                 <input type="text" class="form-control form-control-lg" placeholder="Показать проезд от адреса" aria-describedby="button-addon4">
                 <div class="input-group-append" id="button-addon4">
@@ -108,17 +110,19 @@ export default {
       > div
         vertical-align: middle
         text-align: center
-      > .icon
-        display: inline-block
-        padding: 18px
-        width: 64px
-        height: 64px
-        color: #DFB971
-        > i
-          font-size: 24px
+      > div.icons
+        display: inline-flex
+        > .icon
+          display: inline-block
+          padding: 18px
+          width: 64px
+          height: 64px
+          color: #DFB971
+          > i
+            font-size: 24px
       > .input-group
         display: inline-flex
-        width: 59%
+        width: calc(100% - 256px)
         box-shadow: 0px 4px 12px 0px rgba(218,172,84,0.08)
         > .form-control-lg
           background: #FEFDFB
@@ -133,14 +137,13 @@ export default {
           background: #FEFDFB
           border: none
           color: #DFB971
-
   .modal-footer
-    padding: 0.5rem
+    padding: 0px
     > iframe
       width: 100%
       height: 271px
       border-radius: 8px
-      margin-right: 0px
+      margin: 8px
     > .btn-ok
       position: absolute
       bottom: -25px
@@ -161,5 +164,45 @@ export default {
   backdrop-filter: blur(16px)
 
 @media (max-width: 1399px)
-  /**/
+  #mdl-contacts
+    > .modal-ctm
+      > .modal-content
+        height: 100vh
+        > .modal-header
+          height: 64px
+          border-bottom: 1px solid #DFB971
+          padding: 20px 16px
+          > .modal-title
+            margin: 0px
+          > .close
+            position: relative
+            padding: 0px
+            top: 20px
+            line-height: 1rem
+        > .modal-body
+          > .social-directions
+            > div.icons
+              display: block
+            > .input-group
+              width: 100%
+        > .modal-footer
+          height: 100%
+          > iframe
+            height: calc(100% - 130px)
+            margin: 0px
+          > .btn
+            position: relative
+            margin: 32px auto 50px
+            left: auto
+            bottom: auto
+@media (max-width: 450px)
+  #mdl-contacts
+    > .modal-ctm
+      > .modal-content
+        > .modal-body
+          > .gp-mc-contact
+            margin-top: 16px
+            display: block
+            > .mc-contact
+              margin: 0 0 8px
 </style>

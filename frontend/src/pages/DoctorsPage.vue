@@ -2,7 +2,7 @@
     <div class="d-flex flex-column doc">
         <div class="tittle-of-doctor">Врачи</div>
         <div class="filter">
-            <span :class="{active: c.st}" v-for="c in category" :key="c.uid">
+            <span :class="{active: c.st}" v-for="c in category" :key="c.uid" @click="updCat(c.uid)">
                 <img :src="c.img"/>{{ c.tittle }}
             </span>
         </div>
@@ -95,6 +95,14 @@ export default {
         this.loading = false;
       });
     },
+    updCat(el){
+      for(let i = 0; i<this.category.length; i++){
+        if (this.category[i].uid === el){
+          this.category[i].st = !this.category[i].st;
+          break;
+        }
+      }
+    },
   },
   mounted() {
     const slider = document.getElementById("slider");
@@ -140,15 +148,19 @@ export default {
       > img
         height: 18px
         margin-right: 8px
-    > span.active
-      background: $active-link-line
-      color: $white
+      &.active
+        background: $active-link-line
+        color: $white
+      &:hover
+        background: #A5E8DC
+        color: $white
+    &::-webkit-scrollbar
+      display: none
   > .algo
     overflow: auto
-    width: 100%
-    text-align: center
+    width: calc(100% - 32px)
     display: flex
-    margin-top: 40px
+    margin: 40px auto auto
     height: 486px
     &::-webkit-scrollbar
       display: none

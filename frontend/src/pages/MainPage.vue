@@ -29,54 +29,54 @@ export default {
 @import "@/styles/_variables.sass"
 
 .calen
-    width: 120px
-    height: 148px
-    background: rgba(254, 253, 251, 0.64)
-    backdrop-filter: blur(24px)
-    border-radius: 8px
-    text-align: center
-    color: $button-color
+  width: 120px
+  height: 148px
+  background: rgba(254, 253, 251, 0.64)
+  backdrop-filter: blur(24px)
+  border-radius: 8px
+  text-align: center
+  color: $button-color
 
 .cl-day
-    padding-top: 28px
-    position: relative
-    text-align: center
-    > span
-      font-size: 24px
-      line-height: 26px
-      font-weight: 300
-      font-style: normal
-      position: absolute
-      top: 75%
-      left: 51%
-      transform: translate(-50%, -50%)
+  padding-top: 28px
+  position: relative
+  text-align: center
+  > span
+    font-size: 24px
+    line-height: 26px
+    font-weight: 300
+    font-style: normal
+    position: absolute
+    top: 75%
+    left: 51%
+    transform: translate(-50%, -50%)
 
 .cl-month
-    margin-top: 4px
-    font-family: FuturaBookC
-    font-size: 16px
-    line-height: 21px
+  margin-top: 4px
+  font-family: FuturaBookC
+  font-size: 16px
+  line-height: 21px
 
 .cl-full
-    position: relative
-    text-align: center
-    .btn
-        font-family: FuturaBookC
-        letter-spacing: 0.08em
-        text-transform: uppercase
-        width: 289px
-        height: 48px
-        background: #42E1C5
-        border: none
-        border-radius: 8px
-        color: $white
-        position: absolute
-        bottom: -30%
-        transform: translate(-50%, -50%)
+  position: relative
+  text-align: center
+  .btn
+    font-family: FuturaBookC
+    letter-spacing: 0.08em
+    text-transform: uppercase
+    width: 289px
+    height: 48px
+    background: #42E1C5
+    border: none
+    border-radius: 8px
+    color: $white
+    position: absolute
+    bottom: -30%
+    transform: translate(-50%, -50%)
 
 @media (max-width: 1399px)
-    .ctm-main
-      margin-top: 50%
-      margin: auto
+  .ctm-main
+    margin-top: 50%
+    margin: auto
 
 </style>
