@@ -33,12 +33,8 @@
               <div class="input-group">
                 <input type="text" class="form-control form-control-lg" placeholder="Показать проезд от адреса" aria-describedby="button-addon4">
                 <div class="input-group-append" id="button-addon4">
-                  <button class="btn" type="button"><span class="material-icons">
-    directions_bus
-    </span></button>
-                  <button class="btn" type="button"><span class="material-icons">
-    directions_car
-    </span></button>
+                  <button class="btn" type="button"><img src="/img/bus.svg"/></button>
+                  <button class="btn" type="button"><img src="/img/car.svg"/></button>
                 </div>
               </div>
             </div>
@@ -166,8 +162,10 @@ export default {
 @media (max-width: 1399px)
   #mdl-contacts
     > .modal-ctm
+      display: block
+      height: 100%
       > .modal-content
-        height: 100vh
+        height: 100%
         > .modal-header
           height: 64px
           border-bottom: 1px solid #DFB971
@@ -191,7 +189,7 @@ export default {
             height: calc(100% - 130px)
             margin: 0px
           > .btn
-            position: relative
+            position: static
             margin: 32px auto 50px
             left: auto
             bottom: auto
@@ -205,4 +203,14 @@ export default {
             display: block
             > .mc-contact
               margin: 0 0 8px
+        > .modal-footer
+          > iframe
+            height: calc(100% - 76px)
+            margin-bottom: 76px
+          > .btn
+            margin: 0px
+            position: absolute
+            left: 50%
+            bottom: 30px
+            transform: translate(-50%, -50%)
 </style>

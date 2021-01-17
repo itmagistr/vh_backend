@@ -43,7 +43,7 @@
             </ul>
           </div>
           <div class="modal-footer">
-            <router-link :to="{name: 'main'}"><img class="logo" data-dismiss="modal" src="/img/logo-sm.svg"/></router-link>
+            <router-link :to="{name: 'main'}"><img class="logo" data-dismiss="modal" src="/img/logo_light.svg"/></router-link>
           </div>
         </div>
       </div>
@@ -59,65 +59,75 @@
 <style lang="sass">
 @import "@/styles/_variables.sass"
 
+.navbar-light
+  > .navbar-toggler
+    color: #EED199
+    border: none
+    padding: .5rem .75rem
+
+#mdlm-menu
+  .modal-ctm
+    margin: 0px
+    display: block
+    max-width: 481px
+    border-radius: 0px 0px 8px 0px
+    > .modal-content
+      > .modal-header
+        > .navbar-toggler
+          color: $white
+    > div
+      border: none
+      .modal-header, .modal-footer
+        border: none
+      .modal-body, .modal-footer
+        text-align: center
+        display: block
+        padding: 0px
+      .modal-footer
+        border-radius: 0px 0px 8px 0
+        .logo
+          width: 240px
+      .modal-header
+        height: 66px
+        > ul
+          display: inline-flex
+          list-style: none
+          > li
+            padding: .5rem .5rem
+            > a
+              color: #FEFDFB!important
+      > div
+        background: #42E1C5
+        &.modal-body > ul
+          > li
+            height: 56px
+            padding: 16px
+            margin: 9px 0px
+            > a
+              padding: 0px
+              color: #FEFDFB!important
+            &#active, &:hover
+              background: #EED199
 @media (max-width: 1399px)
   .modal-backdrop
     background: rgba(254, 253, 251, 0.64)
-  .navbar-toggler
-    padding: .5rem .75rem
-  #mdlm-menu
-    .modal-ctm
-      margin: 0px
-      display: block
-      max-width: 481px
-      border-radius: 0px 0px 8px 0px
-      .navbar-toggler
-        color: $white
-      > div
-        border: none
-        .modal-header, .modal-footer
-          border: none
-        .modal-body, .modal-footer
-          text-align: center
-          display: block
-          padding: 0px
-        .modal-footer
-          border-radius: 0px 0px 8px 0px
-        .modal-header
-          height: 66px
-          > ul
-            display: inline-flex
-            list-style: none
-            > li
-              padding: .5rem .5rem
-              > a
-                color: #FEFDFB!important
-        > div
-          background: #42E1C5
-          &.modal-body > ul
-            > li
-              height: 56px
-              padding: 16px
-              margin: 9px 0px
-              > a
-                padding: 0px
-                color: #FEFDFB!important
-              &#active, &:hover
-                background: #EED199
+
 @media (max-width: 450px)
   .mobile.logo
     width: 145px
   #mdlm-menu
-    .modal-ctm
-      margin: 0px
-      display: block
-      max-width: 481px
-      border-radius: 0px!important
-      .navbar-toggler
-        color: $white
-      .modal-footer
+    > .modal-ctm
+      height: 100%
+      border-radius: 0px
+      > .modal-content
+        height: 100%
+        > .modal-header
+          > .navbar-toggler
+            color: $white
+        > .modal-footer
           border-radius: 0px!important
       > div > div.modal-body > ul > li
-              height: 45px
-              padding: 10px
-              margin: 6px 0px
+        height: 45px
+        padding: 10px
+        margin: 6px 0px
 </style>

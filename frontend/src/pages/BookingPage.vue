@@ -212,10 +212,11 @@ export default {
     border: none
     border-radius: 8px
     color: $white
-    position: relative
-    bottom: -13%
-    left: 50%
-    transform: translate(-50%, -50%)
+    @media (min-width: 1399px)
+      position: relative
+      bottom: -7%
+      left: 50%
+      transform: translate(-50%, -50%)
 
 .title-price
   font-family: FuturaBookC
@@ -242,14 +243,17 @@ export default {
     .calendary, .schedule, .doctor, .procedure
       margin: auto
     > .btn
-      bottom: -5%
+      margin: 16px auto 48px
+      display: block
   .shadow, .useful-tips
     display: none
   .tittle-pnp
     display: block!important
 
+
 @media (max-width: 450px)
   .registration
+    height: auto
     > .tittle-pnp
       > h5
         margin: 20px 16px 20px
@@ -260,6 +264,4 @@ export default {
         line-height: 22px
     .calendary, .procedure
       margin-bottom: 16px
-    > .btn
-      margin-bottom: 48px
 </style>

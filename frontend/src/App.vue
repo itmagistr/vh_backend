@@ -73,6 +73,9 @@ export default {
   url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601fe.ttf") format("truetype"),
   url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601fe.svg") format("svg")
 
+::-webkit-scrollbar
+  display: none
+
 .social-btn
   display: block
   width: 64px
