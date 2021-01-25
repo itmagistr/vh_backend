@@ -45,7 +45,7 @@
                             <div class="d-flex clip-review">{{ data.reviewCount }} отзыва</div>
                             <div class="d-flex ml-auto clip-icons">
                                 <i class="fas fa-phone" style="transform: scaleX(-1)"/>
-                                <i class="far fa-comment-alt"/>
+                                <img src="/img/chat.svg"/>
                                 <i class="fas fa-heart"/>
                             </div>
                         </div>
@@ -222,7 +222,7 @@ export default {
       font-size: 22px
       line-height: 22px
       color: $blue_three
-      > i
+      > i, img
         margin-left: 16px
 
 .doctor-choice
