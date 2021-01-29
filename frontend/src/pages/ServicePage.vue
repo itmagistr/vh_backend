@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex flex-column mar">
-        <div class="bgz"></div>
+        <div class="bgz-main"></div>
         <div class="tittle-of-service">Услуги</div>
         <div class="service">
             <div class="card-tooth active"><img src="/img/teeth/Orthodontics.svg"/><div>Ортодонтия</div></div>
@@ -181,20 +181,23 @@ export default {
 <style lang="sass">
 @import "@/styles/_variables.sass"
 body.chg-proc
+  backdrop-filter: blur(16px)
   > main
     background-color: rgba(254, 253, 251, 0.64)
-    backdrop-filter: blur(16px)
+    > div
+      > .modal
+        height: 100vh
   > header
-    backdrop-filter: blur(16px)
+    backdrop-filter: none
 
-.bgz
-    position: absolute
-    z-index: -1
-    background: #F6F3ED
-    width: 100%
-    height: calc(100% - 378px)
-    left: 0px
-    top: 378px
+.bgz-main
+  background: #F6F3ED
+  position: absolute
+  z-index: -1
+  width: 100%
+  height: calc(100% - 378px)
+  left: 0px
+  top: 378px
 
 .mar
     width: 100%
