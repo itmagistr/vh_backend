@@ -205,7 +205,7 @@ body.chg-proc
         overflow: auto
         width: 100%
         text-align: center
-        display: flex
+        display: -webkit-box
     .tittle-of-service
         display: block!important
         font-family: FuturaBookC

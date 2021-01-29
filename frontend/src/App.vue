@@ -77,7 +77,7 @@ export default {
 
 body
   font-family: FuturaBookC, serif
-  background-image: url('/img/img1.png')
+  background: url('/img/img1.png') no-repeat center center fixed
   background-size: cover
 ::-webkit-scrollbar
   display: none

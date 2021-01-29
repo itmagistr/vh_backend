@@ -2,9 +2,9 @@
     <div class="d-flex flex-column doc">
         <div class="tittle-of-doctor">Врачи</div>
         <div class="filter">
-            <span :class="{active: c.st}" v-for="c in category" :key="c.uid" @click="updCat(c.uid)">
+            <div :class="{active: c.st}" v-for="c in category" :key="c.uid" @click="updCat(c.uid)">
                 <img :src="c.img"/>{{ c.tittle }}
-            </span>
+            </div>
         </div>
         <div class="algo">
             <div class="card-doc" v-for="c in doc" :key="c.uid">
@@ -122,6 +122,7 @@ export default {
 
 <style lang="sass">
 @import "@/styles/_variables.sass"
+$minW: 769px
 body.chg-doc
   background: #F6F3ED
   > header
@@ -140,13 +141,14 @@ body.chg-doc
   > .filter
     overflow: auto
     width: 100%
-    display: flex
-    > span
+    @media (min-width: $minW)
+      display: flex
+    > div
       height: 32px
-      margin: 0px 4px
+      margin: 8px
       padding: 6px 16px
       line-height: 1rem
-      display: flex
+      display: inline-block
       background: #F3E9D4
       border-radius: 27px
       color: $none
@@ -162,11 +164,12 @@ body.chg-doc
     &::-webkit-scrollbar
       display: none
   > .algo
-    overflow: auto
-    width: calc(100% - 32px)
-    display: flex
     margin: 40px auto auto
-    height: 486px
+    @media (min-width: $minW)
+      overflow: auto
+      width: calc(100% - 32px)
+      display: flex
+      height: 486px
     &::-webkit-scrollbar
       display: none
     > .card-doc
@@ -178,10 +181,11 @@ body.chg-doc
       border-radius: 8px
       border: none
       margin: 0px 16px
-      &:first-child
-          margin-left: 0px
-      &:last-child
-          margin-right: 0px
+      @media (min-width: $minW)
+        &:first-child
+            margin-left: 0px
+        &:last-child
+            margin-right: 0px
       > .info
         padding: 16px 24px
         > .top
@@ -259,4 +263,19 @@ body.chg-doc
       height: 25px
       background: #42E1C5
       cursor: pointer
+
+@media (max-width: 768px)
+  .doc
+    > .algo
+      max-width: 696px
+      margin: 32px auto auto
+      > .card-doc
+        margin: 26px 16px 26px
+@media (max-width: 727px)
+  .doc
+    > .algo
+      margin: 32px auto auto
+      > .card-doc
+        display: block
+        margin: auto auto 52px
 </style>
