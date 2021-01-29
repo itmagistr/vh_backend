@@ -108,13 +108,6 @@ export default {
     margin-left: .1rem
     margin-right: .1rem
 
-
-
-
-body
-  background: url('/img/img1.png') no-repeat center center fixed
-  background-size: cover
-
 header
   background: rgba(254, 253, 251, 0.64)
   backdrop-filter: blur(32px)
@@ -176,9 +169,6 @@ nav
     outline: 0
     box-shadow: 0 0 0 0.2rem rgba(184,136,47,.25)
     color: $header_text
-
-.container
-  margin-top: 127px
 
 .inner-addon
   position: relative

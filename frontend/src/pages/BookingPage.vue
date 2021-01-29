@@ -6,7 +6,7 @@
                 <router-link tag="button" aria-label="Close" class="close" :to="{name: 'main'}"><span aria-hidden="true">×</span></router-link>
             </div>
             <div class="row">
-                <Procedure v-model="phase"/>
+                <Procedure v-model="phase" @modProc="getModProc"/>
                 <Doctor v-model="phase"/>
             </div>
             <div class="row">
@@ -15,7 +15,7 @@
             </div>
             <div style="text-align: center; margin-top: 16px;">
                 <span class="title-price">Стоимость: </span>
-                <span class="price">{{ 5000 | currencyFormat("RUB")}}</span>
+                <span class="price">{{ price | currencyFormat("RUB")}}</span>
             </div>
             <button class="btn" @click="sub()">Записаться</button>
         </div>
@@ -56,6 +56,7 @@ export default {
             hour: this.$store.state.Booking.Hour,
             doctor: this.$store.state.Booking.Doctor,
             procedure: this.$store.state.Booking.Procedure,
+            price: this.$store.state.Price,
             phase: this.$store.state.phase,
             utstate: this.$store.state.usefulTips
         }
@@ -76,6 +77,9 @@ export default {
         changeUT: function(){
             this.utstate = !this.utstate;
             this.$store.commit("updUT", this.utstate);
+        },
+        getModProc(arg){
+            this.price = arg;
         },
         getParmDoc(arg1, arg2){
             this.doctor = arg1;

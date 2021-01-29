@@ -10,8 +10,9 @@ export default new Vuex.Store({
             Doctor: null,
             Date: null,
             Hour: null,
+            Price: null,
         },
-        usefulTips: true,
+        usefulTips: false,
         phase: 2,
     },
     mutations: {
@@ -20,6 +21,9 @@ export default new Vuex.Store({
         },
         updProc(state, Procedure){
             state.Booking.Procedure = Procedure;
+        },
+        updPrice(state, Price){
+            state.Booking.Price = Price;
         },
         updDate(state, Date){
             state.Booking.Date = Date;

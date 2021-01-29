@@ -18,7 +18,7 @@
                                     <td><div class="icon-teeth"><img :src="n.img" alt=""/></div></td>
                                     <td class="cat-name" colspan="4">{{n.title}}</td>
                               </tr>
-                              <tr v-for="c in n.results" class="product" :class="[{spec: c.code.length > 5}, { active: c.uid === select}]" :key="c.uid" @click="selected(c.uid)">
+                              <tr v-for="c in n.results" class="product" :class="[{spec: c.code.length > 5}, { active: c.uid === select}]" :key="c.uid" @click="selected(c.uid, c.price)">
                                     <td class="pr-code">{{ c.code }}</td>
                                     <td class="pr-tittle">{{ c.title }}</td>
                                     <td class="pr-info"><i class="fas fa-info-circle"></i></td>
@@ -43,6 +43,7 @@ export default {
     data() {
         return {
             select: this.$store.state.Booking.Procedure,
+            price: this.$store.state.Booking.Price,
             cat: [
                 { uid: '18abdf34-516f-4e95-9b61-2d2052d4f60d', img: '/img/Teeth/Orthodontics.svg', title: '01. Ортодонтия', results: [] },
                 { uid: '72c10fc6-350a-42ef-888a-4835f88de9ca', img: '/img/Teeth/Implantation.svg', title: '02. Хирургия', results: [] },
@@ -82,11 +83,13 @@ export default {
             this.select = this.$store.state.Booking.Procedure;
             this.$emit('pageProcedure', this.select, 2);
         },
-        selected(val) {
+        selected(val, price) {
             this.select = val;
+            this.price = price;
         },
         send() {
             this.$store.commit("updProc", this.select);
+            this.$store.commit("updPrice", this.price);
             this.$emit('pageProcedure', this.select, 2);
         }
     }
@@ -170,13 +173,13 @@ export default {
       > img
         width: 32px
         height: 32px
-    > .cat-name
-      font-family: Montserrat
-      font-style: normal
-      font-weight: 500
-      font-size: 21px
-      line-height: 26px
-      color: #071013
+  > .cat-name
+    font-family: Montserrat
+    font-style: normal
+    font-weight: 500
+    font-size: 21px
+    line-height: 26px
+    color: #071013
 
 .product
   > td

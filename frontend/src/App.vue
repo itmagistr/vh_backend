@@ -1,29 +1,31 @@
 <template>
-  <body>
+  <body :class="[$route.name === 'doctors' ? 'chg-doc' : '', $route.name === 'service' ? 'chg-proc' : '']">
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
         Please enable it to continue.</strong>
     </noscript>
     <Header></Header>
-    <main class="container">
-      <modalContact/>
-      <modalLeaveRequest/>
-      <modalCallBack/>
-      <modalMobileMenu v-if="mobile === true"/>
-      <div class="d-flex align-items-center justify-content-between">
-        <div class="d-flex flex-column ctm-col-rt">
-          <a href="https://www.instagram.com/inessa_braginskaia/" target="_blank"><button class="social-btn"><i class="fab fa-instagram"></i></button></a>
-          <a href="https://www.youtube.com/channel/UCQ5YCpgwVDsr1mTU0bsKNaQ" target="_blank"><button class="social-btn"><i class="fab fa-youtube"></i></button></a>
-          <a href="https://www.facebook.com/inessa.karahanyan/" target="_blank"><button class="social-btn"><i class="fab fa-facebook-f"></i></button></a>
-          <button class="social-btn"><i class="fab fa-vk"></i></button>
-        </div>
-        <router-view/>
-        <div class="d-flex flex-column ctm-col-lt">
-          <button class="social-btn" data-toggle="modal" data-target="#mdl-leave-request"><i class="far fa-comment-alt"></i></button>
-          <button class="social-btn"><i class="fas fa-map-marker-alt"></i></button>
-          <button class="social-btn"><i class="fas fa-route"></i></button>
-          <button class="social-btn" data-toggle="modal" data-target="#mdl-call-back"><i class="fas fa-phone-alt"></i></button>
-          <button class="social-btn"><i class="fab fa-telegram-plane"></i></button>
+    <main>
+      <div class="container">
+        <modalContact/>
+        <modalLeaveRequest/>
+        <modalCallBack/>
+        <modalMobileMenu v-if="mobile === true"/>
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="d-flex flex-column ctm-col-rt">
+            <a href="https://www.instagram.com/inessa_braginskaia/" target="_blank"><button class="social-btn"><i class="fab fa-instagram"></i></button></a>
+            <a href="https://www.youtube.com/channel/UCQ5YCpgwVDsr1mTU0bsKNaQ" target="_blank"><button class="social-btn"><i class="fab fa-youtube"></i></button></a>
+            <a href="https://www.facebook.com/inessa.karahanyan/" target="_blank"><button class="social-btn"><i class="fab fa-facebook-f"></i></button></a>
+            <button class="social-btn"><i class="fab fa-vk"></i></button>
+          </div>
+          <router-view/>
+          <div class="d-flex flex-column ctm-col-lt">
+            <button class="social-btn" data-toggle="modal" data-target="#mdl-leave-request"><i class="far fa-comment-alt"></i></button>
+            <button class="social-btn"><i class="fas fa-map-marker-alt"></i></button>
+            <button class="social-btn"><i class="fas fa-route"></i></button>
+            <button class="social-btn" data-toggle="modal" data-target="#mdl-call-back"><i class="fas fa-phone-alt"></i></button>
+            <button class="social-btn"><i class="fab fa-telegram-plane"></i></button>
+          </div>
         </div>
       </div>
     </main>
@@ -73,8 +75,15 @@ export default {
   url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601fe.ttf") format("truetype"),
   url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601fe.svg") format("svg")
 
+body
+  font-family: FuturaBookC, serif
+  background-image: url('/img/img1.png')
+  background-size: cover
 ::-webkit-scrollbar
   display: none
+
+.container
+  padding-top: 127px
 
 .social-btn
   display: block

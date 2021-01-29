@@ -25,6 +25,7 @@ export default {
         uid: null,
         title: null,
         duration: null,
+        price: null,
         loading: true,
         errored: false,
         results: null
@@ -55,7 +56,10 @@ export default {
       .finally(() => {
         this.loading = false;
         this.duration = this.results.duration;
-        this.title = this.results.title;
+        this.title = this.results.title_check;
+        this.price = this.results.price;
+        this.$store.commit("updPrice", this.price);
+        this.$emit('modProc', this.price);
       });
     },
      medproc() {

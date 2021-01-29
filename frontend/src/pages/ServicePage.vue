@@ -1,9 +1,6 @@
 <template>
     <div class="d-flex flex-column mar">
-        <div class="bgz">
-            <div></div>
-            <div></div>
-        </div>
+        <div class="bgz"></div>
         <div class="tittle-of-service">Услуги</div>
         <div class="service">
             <div class="card-tooth active"><img src="/img/teeth/Orthodontics.svg"/><div>Ортодонтия</div></div>
@@ -183,25 +180,21 @@ export default {
 
 <style lang="sass">
 @import "@/styles/_variables.sass"
+body.chg-proc
+  > main
+    background-color: rgba(254, 253, 251, 0.64)
+    backdrop-filter: blur(16px)
+  > header
+    backdrop-filter: blur(16px)
 
 .bgz
-    div:first-child
-        position: fixed
-        z-index: -1
-        background: rgba(254, 253, 251, 0.64)
-        backdrop-filter: blur(16px)
-        width: 100%!important
-        height: 242px
-        left: 0px
-        top: 136px
-    div:last-child
-        position: absolute
-        z-index: -1
-        background: #F6F3ED
-        width: 100%!important
-        height: 182%
-        left: 0px
-        top: 378px
+    position: absolute
+    z-index: -1
+    background: #F6F3ED
+    width: 100%
+    height: calc(100% - 378px)
+    left: 0px
+    top: 378px
 
 .mar
     width: 100%
@@ -223,7 +216,7 @@ export default {
   vertical-align: middle
   width: 200px
   height: 200px
-  padding: 40px
+  padding: 40px 0
   background: #F3E9D4
   border-radius: 8px
   margin: 0px 16px
@@ -238,6 +231,14 @@ export default {
   > img
     margin-bottom: 36px
   > div
+    font-family: FuturaBookC
+    font-style: normal
+    font-weight: normal
+    font-size: 16px
+    line-height: 21px
+    text-align: center
+    letter-spacing: 0.08em
+    text-transform: uppercase
     color: $button-color
 
 .block-2

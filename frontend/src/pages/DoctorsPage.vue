@@ -66,6 +66,7 @@ export default {
           arg2: 'высшая кат.', arg3: 'КМН', rating: 4, countReview: 24,
         },
       ],
+      fieldSize: null,
       loading: true,
       errored: false,
       results: null
@@ -73,6 +74,7 @@ export default {
   },
   async created() {
     await this.docList('Орт', this.$store.state.Booking.Date, '');
+    this.fieldSize = document.getElementsByClassName("algo")[0].clientWidth;
   },
   filters: {
     currencyFormat, timeFormat
@@ -108,7 +110,7 @@ export default {
     const slider = document.getElementById("slider");
     const acco = document.getElementsByClassName("algo")[0];
     acco.addEventListener('scroll', function(){
-      console.log(acco.scrollLeft);
+      console.log(acco.scrollLeft + " " + acco.offsetWidth);
       slider.value = acco.scrollLeft;
     });
     slider.oninput = function() {
@@ -120,7 +122,10 @@ export default {
 
 <style lang="sass">
 @import "@/styles/_variables.sass"
-
+body.chg-doc
+  background: #F6F3ED
+  > header
+    background: #F6F3ED
 .tittle-of-doctor
   text-align: center
   font-family: FuturaBookC
