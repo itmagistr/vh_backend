@@ -184,6 +184,8 @@ body.chg-proc
   backdrop-filter: blur(16px)
   > main
     background-color: rgba(254, 253, 251, 0.64)
+    > .container
+      padding-top: 27px
     > div
       > .modal
         height: 100vh
@@ -207,13 +209,12 @@ body.chg-proc
         text-align: center
         display: -webkit-box
     .tittle-of-service
-        display: block!important
+        text-align: center
         font-family: FuturaBookC
         font-size: 64px
         line-height: 61px
         color: $button-color
         margin-bottom: 56px
-        margin-top: -100px
 
 .card-tooth
   vertical-align: middle
