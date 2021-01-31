@@ -82,6 +82,8 @@ export default {
       right: 16px
       top: 16px
       color: #DFB971
+      > span
+        font-size: 2rem
       &:hover
         color: #9CC6BE
   .modal-body

@@ -21,7 +21,7 @@
                         <div class="name">{{ c.fName }} {{ c.lName }} {{ c.tName }}</div>
                     </div>
                 </div>
-                <button class="btn">Подробнее</button>
+                <button class="btn" data-toggle="modal" data-target="#mdl-doc-card" @click="updCardModal(c.uid)">Подробнее</button>
             </div>
         </div>
        <input type="range" min="1" :max="(doc.length - 1) * 348" value="1" id="slider">
@@ -80,6 +80,9 @@ export default {
     currencyFormat, timeFormat
   },
   methods: {
+    updCardModal(uid){
+      console.log(uid);
+    },
     docList(cat, date, docUID) {
       const options = {
         method: "POST",
@@ -139,10 +142,6 @@ body.chg-doc
 .doc
   width: 100%
   > .filter
-    overflow: auto
-    width: 100%
-    @media (min-width: $minW)
-      display: flex
     > div
       height: 32px
       margin: 8px

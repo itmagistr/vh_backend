@@ -11,6 +11,7 @@
         <modalLeaveRequest/>
         <modalCallBack/>
         <modalMobileMenu v-if="mobile === true"/>
+        <ModalDocCard v-if="$route.name === 'doctors'"/>
         <div class="d-flex align-items-center justify-content-between">
           <div class="d-flex flex-column ctm-col-rt">
             <a href="https://www.instagram.com/inessa_braginskaia/" target="_blank"><button class="social-btn"><i class="fab fa-instagram"></i></button></a>
@@ -38,6 +39,7 @@ import modalContact from "@/components/ModalContact.vue";
 import modalCallBack from "@/components/ModalCallBack.vue";
 import modalLeaveRequest from "@/components/ModalLeaveRequest.vue";
 import modalMobileMenu from "@/components/ModalMobileMenu.vue"
+import ModalDocCard from "@/components/ModalDocCard.vue";
 
 export default {
   data() {
@@ -57,7 +59,7 @@ export default {
   beforeDestroy() {
     window.removeEventListener('resize', this.onResize);
   },
-  components: { Header, modalContact, modalLeaveRequest, modalCallBack, modalMobileMenu },
+  components: { Header, modalContact, modalLeaveRequest, modalCallBack, modalMobileMenu, ModalDocCard },
 };
 </script>
 

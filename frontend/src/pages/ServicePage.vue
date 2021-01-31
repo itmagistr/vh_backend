@@ -458,12 +458,9 @@ body.chg-proc
       >.d-flex
         &:first-child, &:last-child
           display: none!important
-  .bgz
-    > div:first-child
-      position: fixed
-      height: 100%
-      left: 0px
-      top: 0px
+  .bgz-main
+    height: calc(100% - 308px)
+    top: 308px
   .mar
     .tittle-of-service
       text-align: center
