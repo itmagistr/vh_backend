@@ -12,7 +12,7 @@
             <div class="gp-mc-contact">
               <div class="mc-contact">
                 <div>Адрес</div>
-                <div>г. Москва, ул. Улица, д. 145</div>
+                <div>г. Москва, пл. Новая, д. 8с2</div>
               </div>
               <div class="mc-contact">
                 <div>Телефон</div>
@@ -40,7 +40,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <iframe src="https://api-maps.yandex.ru/frame/v1/-/CVh7YBYg?lang=en_RU" frameborder="0"></iframe>
+            <!--<iframe src="https://api-maps.yandex.ru/frame/v1/-/CVh7YBYg?lang=en_RU" frameborder="0"></iframe>-->
+            <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A7a99b0b6bc976ab39bf895d707cb8aa60139b2c512dab621df6fbfb62d999caf&amp;source=constructor" frameborder="0"></iframe>
             <button type="button" class="btn btn-ok">Обратная связь</button>
           </div>
         </div>
