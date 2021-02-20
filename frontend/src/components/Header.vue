@@ -19,7 +19,7 @@
               <router-link class="nav-link" to="#">Документация</router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="modal" data-target="#mdl-contacts">Контакты</a>
+              <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-contacts">Контакты</a>
             </li>
           </ul>
           <ul class="navbar-nav mr-auto"><router-link :to="{name: 'main'}"><img class="logo" src="/img/logo-sm.svg"/></router-link></ul>
@@ -46,8 +46,8 @@
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item">
-              <router-link class="nav-link number" to="#">+7 900 881 88 88</router-link>
-              <router-link class="nav-link" id="order-call" to="#">Заказать звонок</router-link>
+              <a class="nav-link number" href="https://api.whatsapp.com/send?phone=79684208413" target="_blank">+7 900 881 88 88</a>
+              <a class="nav-link" href="#" id="order-call" data-toggle="modal" data-target="#mdl-call-back">Заказать звонок</a>
             </li>
           </ul>
         </div>

@@ -20,15 +20,15 @@
               </div>
               <div class="mc-contact">
                 <div>E-mail</div>
-                <div>Tohollywood@gmail.com</div>
+                <div>tohlwdmsk@gmail.com</div>
               </div>
             </div>
             <div class="social-directions">
               <div class="icons">
-                <div class="icon"><i class="fab fa-instagram"></i></div>
-                <div class="icon"><i class="fab fa-youtube"></i></div>
-                <div class="icon"><i class="fab fa-facebook-f"></i></div>
-                <div class="icon"><i class="fab fa-vk"></i></div>
+                <a class="icon" href="https://www.instagram.com/tohwddent" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a class="icon" href="https://www.youtube.com/channel/UCeyxKBqdLFA79kCTH29RDsQ" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a class="icon" href="https://www.facebook.com/ToHwdDent" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a class="icon" href="https://vk.com/tohwddent" target="_blank"><i class="fab fa-vk"></i></a>
               </div>
               <div class="input-group">
                 <input type="text" class="form-control form-control-lg" placeholder="Показать проезд от адреса" aria-describedby="button-addon4">
@@ -40,9 +40,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <!--<iframe src="https://api-maps.yandex.ru/frame/v1/-/CVh7YBYg?lang=en_RU" frameborder="0"></iframe>-->
             <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A7a99b0b6bc976ab39bf895d707cb8aa60139b2c512dab621df6fbfb62d999caf&amp;source=constructor" frameborder="0"></iframe>
-            <button type="button" class="btn btn-ok">Обратная связь</button>
+            <button type="button" class="btn btn-ok" data-toggle="modal" data-target="#mdl-leave-request">Обратная связь</button>
           </div>
         </div>
       </div>

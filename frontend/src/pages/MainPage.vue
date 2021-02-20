@@ -8,7 +8,7 @@
                 </div>
                 <div class="cl-month">{{months[month]}}</div>
             </div>
-            <router-link tag="button" class="btn" :to="{name: 'booking'}">Выбрать дату посещения</router-link>
+            <!--<router-link tag="button" class="btn" :to="{name: 'booking'}">Выбрать дату посещения</router-link>-->
         </div>
     </div>
 </template>
