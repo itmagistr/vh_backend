@@ -14,18 +14,18 @@
         <ModalDocCard v-if="$route.name === 'doctors'"/>
         <div class="d-flex align-items-center justify-content-between">
           <div class="d-flex flex-column ctm-col-rt">
-            <a href="https://www.instagram.com/inessa_braginskaia/" target="_blank"><button class="social-btn"><i class="fab fa-instagram"></i></button></a>
-            <a href="https://www.youtube.com/channel/UCQ5YCpgwVDsr1mTU0bsKNaQ" target="_blank"><button class="social-btn"><i class="fab fa-youtube"></i></button></a>
-            <a href="https://www.facebook.com/inessa.karahanyan/" target="_blank"><button class="social-btn"><i class="fab fa-facebook-f"></i></button></a>
-            <button class="social-btn"><i class="fab fa-vk"></i></button>
+            <a href="https://www.instagram.com/tohwddent" target="_blank"><button class="social-btn"><i class="fab fa-instagram"></i></button></a>
+            <a href="https://www.youtube.com/channel/UCeyxKBqdLFA79kCTH29RDsQ" target="_blank"><button class="social-btn"><i class="fab fa-youtube"></i></button></a>
+            <a href="https://www.facebook.com/ToHwdDent" target="_blank"><button class="social-btn"><i class="fab fa-facebook-f"></i></button></a>
+            <a href="https://vk.com/tohwddent" target="_blank"><button class="social-btn"><i class="fab fa-vk"></i></button></a>
           </div>
           <router-view/>
           <div class="d-flex flex-column ctm-col-lt">
             <button class="social-btn" data-toggle="modal" data-target="#mdl-leave-request"><i class="far fa-comment-alt"></i></button>
             <button class="social-btn"><i class="fas fa-map-marker-alt"></i></button>
-            <button class="social-btn"><i class="fas fa-route"></i></button>
+            <!--<button class="social-btn"><i class="fas fa-route"></i></button>-->
             <button class="social-btn" data-toggle="modal" data-target="#mdl-call-back"><i class="fas fa-phone-alt"></i></button>
-            <button class="social-btn"><i class="fab fa-telegram-plane"></i></button>
+            <button class="social-btn"><i class="fab fa-whatsapp"></i></button>
           </div>
         </div>
       </div>
@@ -65,6 +65,7 @@ export default {
 
 <style lang="sass">
 @import "@/styles/_variables.sass"
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap')
 
 @font-face
   font-family: "FuturaBookC"
@@ -76,6 +77,18 @@ export default {
   url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601fe.woff") format("woff"),
   url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601fe.ttf") format("truetype"),
   url("./fonts/FuturaBookC/e05b78cd627ded97c38881306e3601fe.svg") format("svg")
+
+@font-face 
+  font-family: 'Montserrat'
+  font-style: normal
+  font-weight: 400
+  src: local("Montserrat"),
+  url('./fonts/Montserrat/montserrat-v15-latin_cyrillic-regular.eot')
+  src: url('./fonts/Montserrat/montserrat-v15-latin_cyrillic-regular.eot?#iefix'), format('embedded-opentype'), 
+  url('./fonts/Montserrat/montserrat-v15-latin_cyrillic-regular.woff2') format('woff2'), 
+  url('./fonts/Montserrat/montserrat-v15-latin_cyrillic-regular.woff') format('woff'), 
+  url('./fonts/Montserrat/montserrat-v15-latin_cyrillic-regular.ttf') format('truetype'), 
+  url('./fonts/Montserrat/montserrat-v15-latin_cyrillic-regular.svg#Montserrat') format('svg')
 
 body
   font-family: FuturaBookC, serif
