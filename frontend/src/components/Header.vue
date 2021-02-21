@@ -13,10 +13,10 @@
               <router-link class="nav-link" :to="{name: 'doctors'}">Врачи</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="#">Виртуальный тур</router-link>
+              <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-future-ok" data-name="тур">Виртуальный тур</a>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="#">Документация</router-link>
+              <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-future-ok" data-name="докум">Документация</a>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-contacts">Контакты</a>

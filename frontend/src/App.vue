@@ -9,6 +9,7 @@
       <div class="container">
         <modalContact/>
         <modalLeaveRequest/>
+        <modalFutureOk/>
         <modalCallBack/>
         <modalMobileMenu v-if="mobile === true"/>
         <ModalDocCard v-if="$route.name === 'doctors'"/>
@@ -38,6 +39,7 @@ import Header from "@/components/Header.vue";
 import modalContact from "@/components/ModalContact.vue";
 import modalCallBack from "@/components/ModalCallBack.vue";
 import modalLeaveRequest from "@/components/ModalLeaveRequest.vue";
+import modalFutureOk from "@/components/ModalFutureOk.vue";
 import modalMobileMenu from "@/components/ModalMobileMenu.vue"
 import ModalDocCard from "@/components/ModalDocCard.vue";
 
@@ -59,7 +61,7 @@ export default {
   beforeDestroy() {
     window.removeEventListener('resize', this.onResize);
   },
-  components: { Header, modalContact, modalLeaveRequest, modalCallBack, modalMobileMenu, ModalDocCard },
+  components: { Header, modalContact, modalLeaveRequest, modalFutureOk, modalCallBack, modalMobileMenu, ModalDocCard },
 };
 </script>
 
