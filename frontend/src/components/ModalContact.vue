@@ -41,7 +41,7 @@
           </div>
           <div class="modal-footer">
             <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A7a99b0b6bc976ab39bf895d707cb8aa60139b2c512dab621df6fbfb62d999caf&amp;source=constructor" frameborder="0"></iframe>
-            <button type="button" class="btn btn-ok" data-toggle="modal" data-target="#mdl-leave-request">Обратная связь</button>
+            <button type="button" class="btn btn-ok" data-dismiss="modal" data-toggle="modal" data-target="#mdl-leave-request">Обратная связь</button>
           </div>
         </div>
       </div>
