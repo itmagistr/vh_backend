@@ -55,6 +55,7 @@ INSTALLED_APPS = [
 	'vh_feedback',
 	'rbkpay',
 	'vh_payment',
+	'vh_dict',
 	'vh_backend'
 ]
 
