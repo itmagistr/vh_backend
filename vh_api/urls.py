@@ -5,6 +5,7 @@ from django.views.generic import TemplateView
 from drf_yasg.views import get_schema_view
 from drf_yasg.generators import OpenAPISchemaGenerator
 from drf_yasg import openapi
+from django.utils import translation
 from . import views
 import os
 
@@ -19,10 +20,13 @@ import os
 # Additionally, we include login URLs for the browsable API.
 
 class SchemaGenerator(OpenAPISchemaGenerator):
-  def get_schema(self, request=None, public=False):
-    schema = super(SchemaGenerator, self).get_schema(request, public)
-    schema.basePath = os.path.join(schema.basePath, 'ru/vhapi/')
-    return schema
+	def get_schema(self, request=None, public=False):
+		schema = super(SchemaGenerator, self).get_schema(request, public)
+		if 'ru' in translation.get_language():
+			schema.basePath = os.path.join(schema.basePath, 'ru/vhapi/')
+		else:
+			schema.basePath = os.path.join(schema.basePath, 'en/vhapi/')
+		return schema
 
 apipatterns = [
 	#path('', include(router.urls)),
