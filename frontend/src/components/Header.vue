@@ -4,19 +4,19 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item" :id="[$route.name === 'service' ? 'active' : '']">
-              <router-link class="nav-link" :to="{name: 'service'}">{{ langList[2].title }}</router-link>
+              <router-link class="nav-link" :to="{name: 'service'}">{{ langList.MENU_SERVICES.title }}</router-link>
             </li>
             <li class="nav-item" :id="[$route.name === 'booking' ? 'active' : '']">
               <router-link class="nav-link active" :to="{name: 'booking'}">Записаться</router-link>
             </li>
             <li class="nav-item" :id="[$route.name === 'doctors' ? 'active' : '']">
-              <router-link class="nav-link" :to="{name: 'doctors'}">{{ langList[3].title }}</router-link>
+              <router-link class="nav-link" :to="{name: 'doctors'}">{{ langList.MENU_DOCTORS.title }}</router-link>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-future-ok" data-name="тур">Виртуальный тур</a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-future-ok" data-name="докум">{{langList[4].title}}</a>
+              <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-future-ok" data-name="докум">{{ langList.MENU_DOCS.title }}</a>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-contacts">Контакты</a>
@@ -27,12 +27,12 @@
             <li class="nav-item">
               <div class="inner-addon right-addon">
                 <i class="fas fa-search"></i>
-                <input class="form-control" type="search" :placeholder="langList[0].title" aria-label="Search"/>
+                <input class="form-control" type="search" :placeholder="langList.SEARCH_PH.title" aria-label="Search"/>
               </div>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="nDML" role="button" data-toggle="dropdown"
-                 aria-haspopup="true" aria-expanded="false"> {{ lang }} </a>
+                 aria-haspopup="true" aria-expanded="false"> {{ lang | capitalize}} </a>
               <div class="dropdown-menu" aria-labelledby="nDML">
                 <a class="dropdown-item" @click="chLang('ru')">Русский</a>
                 <a class="dropdown-item" @click="chLang('en')">English</a>
@@ -47,7 +47,7 @@
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link number" href="https://api.whatsapp.com/send?phone=79684208413" target="_blank">+7 900 881 88 88</a>
-              <a class="nav-link" href="#" id="order-call" data-toggle="modal" data-target="#mdl-call-back">{{ langList[1].title }}</a>
+              <a class="nav-link" href="#" id="order-call" data-toggle="modal" data-target="#mdl-call-back">{{ langList.CALLBAK_LNK.title }}</a>
             </li>
           </ul>
         </div>
@@ -78,6 +78,13 @@ export default {
   mounted(){
 
   },
+  filters: {
+    capitalize: function (value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.charAt(0).toUpperCase() + value.slice(1)
+    }
+  },
   methods: {
     onResize() {
       this.mobile = document.documentElement.clientWidth > 1399 ? false : true;
@@ -87,21 +94,21 @@ export default {
       this.langMenu();
     },
     langMenu() {
-        const options = {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({code: 'HEADER_MENU'})
-        };
-        fetch(`http://localhost:8000/${this.lang}/vhapi/dictstr/list/`, options).
-        then(response => response.json()).
-        then(data => {
-        this.results = data;
-        }).
-        catch((error) => { console.log(error); this.results = null;}).
-        finally(() => {
-          this.loading = false;
-          this.langList = this.results;
-        });
+      const options = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({code: 'HEADER_MENU'})
+      };
+      fetch(`http://localhost:8000/${this.lang}/vhapi/dictstr/list/`, options).
+      then(response => response.json()).
+      then(data => {
+      this.results = data;
+      }).
+      catch((error) => { console.log(error); this.results = null;}).
+      finally(() => {
+        this.loading = false;
+        this.langList = this.results;
+      });
     },
   },
   created() {

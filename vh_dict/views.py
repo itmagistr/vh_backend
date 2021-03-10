@@ -55,7 +55,7 @@ class DictStrFilterView(generics.ListAPIView):
 		serializer = DictStrFilterSerializer(data=request.data)
 		serializer.is_valid(raise_exception=True)
 		sclass = self.get_serializer_class()
-		resSerializer = sclass(DictString.objects.filter(code=serializer.data['code'])[0].descendants() , many=True)
+		resSerializer = sclass(DictString.objects.filter(code=serializer.data['code'])[0].descendants(), many=True)
 		#logger.info(resSerializer.data)
 		#logger.info(dict(resSerializer.data))
 		try:
