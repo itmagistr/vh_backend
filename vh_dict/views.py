@@ -56,9 +56,11 @@ class DictStrFilterView(generics.ListAPIView):
 		serializer.is_valid(raise_exception=True)
 		sclass = self.get_serializer_class()
 		resSerializer = sclass(DictString.objects.filter(code=serializer.data['code'])[0].descendants() , many=True)
+		#logger.info(resSerializer.data)
+		#logger.info(dict(resSerializer.data))
 		try:
 			logger.info(request.data)
 		except:
 			pass
 
-		return Response(resSerializer.data, status=status.HTTP_200_OK) #, headers=resSerializer.headers
+		return Response({vv['code']:vv for vv in resSerializer.data}, status=status.HTTP_200_OK) #, headers=resSerializer.headers
