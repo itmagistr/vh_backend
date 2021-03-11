@@ -7,19 +7,19 @@
               <router-link class="nav-link" :to="{name: 'service'}">{{ langList.MENU_SERVICES.title }}</router-link>
             </li>
             <li class="nav-item" :id="[$route.name === 'booking' ? 'active' : '']">
-              <router-link class="nav-link active" :to="{name: 'booking'}">Записаться</router-link>
+              <router-link class="nav-link active" :to="{name: 'booking'}">{{ langList.MENU_BOOKING.title }}</router-link>
             </li>
             <li class="nav-item" :id="[$route.name === 'doctors' ? 'active' : '']">
               <router-link class="nav-link" :to="{name: 'doctors'}">{{ langList.MENU_DOCTORS.title }}</router-link>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-future-ok" data-name="тур">Виртуальный тур</a>
+              <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-future-ok" data-name="тур">{{ langList.MENU_TOUR.title }}</a>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-future-ok" data-name="докум">{{ langList.MENU_DOCS.title }}</a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-contacts">Контакты</a>
+              <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-contacts">{{ langList.MENU_CONTACTS.title }}</a>
             </li>
           </ul>
           <ul class="navbar-nav mr-auto"><router-link :to="{name: 'main'}"><img class="logo" src="/img/logo-sm.svg"/></router-link></ul>
