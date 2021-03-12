@@ -58,7 +58,8 @@ export default {
             procedure: this.$store.state.Booking.Procedure,
             price: this.$store.state.Price,
             phase: this.$store.state.phase,
-            utstate: this.$store.state.usefulTips
+            utstate: this.$store.state.usefulTips,
+            langList: null,
         }
     },
     filters: {
@@ -69,11 +70,28 @@ export default {
             this.date = new Date().toLocaleString('en-CA', { dateStyle: 'short' });
             this.$store.commit("updDate", this.date);
         }
+        this.langBooking();
     },
     components: {
         Doctor, Procedure, Calendary, Shedule, ProcedureChoice, DoctorChoice
     },
     methods: {
+        langBooking() {
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({code: 'HEADER_MENU'})
+            };
+            fetch(`http://localhost:8000/${this.$store.state.lang}/vhapi/dictstr/list/`, options).
+            then(response => response.json()).
+            then(data => {
+              this.results = data;
+            }).
+            catch((error) => { console.log(error); this.results = null;}).
+            finally(() => {
+              this.langList = this.results;
+            });
+        },
         changeUT: function(){
             this.utstate = !this.utstate;
             this.$store.commit("updUT", this.utstate);

@@ -70,7 +70,7 @@
 export default {
   data() {
     return {
-      lang: navigator.language || navigator.userLanguage,
+      lang: this.$store.state.lang,
       langList: null,
       mobile: null,
     }
@@ -90,6 +90,7 @@ export default {
       this.mobile = document.documentElement.clientWidth > 1399 ? false : true;
     },
     chLang(lang){
+      this.$store.commit("updLang", lang);
       this.lang = lang;
       this.langMenu();
     },
@@ -102,11 +103,10 @@ export default {
       fetch(`http://localhost:8000/${this.lang}/vhapi/dictstr/list/`, options).
       then(response => response.json()).
       then(data => {
-      this.results = data;
+        this.results = data;
       }).
       catch((error) => { console.log(error); this.results = null;}).
       finally(() => {
-        this.loading = false;
         this.langList = this.results;
       });
     },
