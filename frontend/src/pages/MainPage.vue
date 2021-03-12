@@ -7,11 +7,20 @@
                     <span>{{day}}</span>
                 </div>
                 <div class="cl-month">{{months[month]}}</div>
+                <div>{{$t('hello1')}}</div>
             </div>
             <!--<router-link tag="button" class="btn" :to="{name: 'booking'}">Выбрать дату посещения</router-link>-->
         </div>
     </div>
 </template>
+
+<i18n>
+  {
+    ru: {
+      'hello1': 'привет1 строка'
+      }
+  }
+</i18n>
 
 <script>
 export default {
