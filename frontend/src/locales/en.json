@@ -1,0 +1,6 @@
+{
+  "hello": "Hello i18n in SFC!",
+  "no-button": "No!",
+  "welcome": "Welcome!",
+  "yes-button": "Yes"
+}

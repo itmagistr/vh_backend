@@ -7,7 +7,7 @@
                     <span>{{day}}</span>
                 </div>
                 <div class="cl-month">{{months[month]}}</div>
-                <div>{{$t('hello1')}}</div>
+                <div>{{ $t('hello') }}</div>
             </div>
             <!--<router-link tag="button" class="btn" :to="{name: 'booking'}">Выбрать дату посещения</router-link>-->
         </div>
@@ -15,11 +15,20 @@
 </template>
 
 <i18n>
-  {
-    ru: {
-      'hello1': 'привет1 строка'
-      }
+{
+  "en": {
+    "hello": "Hello i18n in SFC!",
+    "welcome": "Welcome!",
+    "yes-button": "Yes",
+    "no-button": "No!"
+  },
+  "ru": {
+    "hello": "Hallo i18n in SFC!",
+    "welcome": "Willkommen!",
+    "yes-button": "Ja",
+    "no-button": "Nein!"
   }
+}
 </i18n>
 
 <script>
