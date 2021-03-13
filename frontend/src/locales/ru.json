@@ -1,3 +1,13 @@
 {
-  "message": "hello i18n !!"
+  "menu": {
+    "services": "Услуги",
+    "booking": "Запись",
+    "doctors": "Врачи",
+    "virtual_tour": "Виртуальный тур",
+    "documentation": "Документация",
+    "contacts": "Контакты",
+    "search_ph": "Найти",
+    "profile": "Профиль",
+    "callback_lnk": "Заказать звонок"
+  }
 }

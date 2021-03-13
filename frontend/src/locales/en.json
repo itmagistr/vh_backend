@@ -1,6 +1,13 @@
 {
-  "hello": "Hello i18n in SFC!",
-  "no-button": "No!",
-  "welcome": "Welcome!",
-  "yes-button": "Yes"
+  "menu": {
+    "services": "Services",
+    "booking": "Booking",
+    "doctors": "Doctors",
+    "virtual_tour": "Virtual tour",
+    "documentation": "Documentation",
+    "contacts": "Contacts",
+    "search_ph": "Search",
+    "profile": "Profile",
+    "callback_lnk": "Callback"
+  }
 }

@@ -4,22 +4,22 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item" :id="[$route.name === 'service' ? 'active' : '']">
-              <router-link class="nav-link" :to="{name: 'service'}">{{ $t('message.menu_services') }}</router-link>
+              <router-link class="nav-link" :to="{name: 'service'}">{{ $t('menu.services') }}</router-link>
             </li>
             <li class="nav-item" :id="[$route.name === 'booking' ? 'active' : '']">
-              <router-link class="nav-link active" :to="{name: 'booking'}">{{ $t('message.menu_booking') }}</router-link>
+              <router-link class="nav-link active" :to="{name: 'booking'}">{{ $t('menu.booking') }}</router-link>
             </li>
             <li class="nav-item" :id="[$route.name === 'doctors' ? 'active' : '']">
-              <router-link class="nav-link" :to="{name: 'doctors'}">{{ $t('message.menu_doctors') }}</router-link>
+              <router-link class="nav-link" :to="{name: 'doctors'}">{{ $t('menu.doctors') }}</router-link>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-future-ok" data-name="тур">{{ langList.MENU_TOUR.title }}</a>
+              <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-future-ok" data-name="тур">{{ $t('menu.virtual_tour') }}</a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-future-ok" data-name="докум">{{ langList.MENU_DOCS.title }}</a>
+              <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-future-ok" data-name="докум">{{ $t('menu.documentation') }}</a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-contacts">{{ $t('message.menu_contacts') }}</a>
+              <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-contacts">{{ $t('menu.contacts') }}</a>
             </li>
           </ul>
           <ul class="navbar-nav mr-auto"><router-link :to="{name: 'main'}"><img class="logo" src="/img/logo-sm.svg"/></router-link></ul>
@@ -27,12 +27,12 @@
             <li class="nav-item">
               <div class="inner-addon right-addon">
                 <i class="fas fa-search"></i>
-                <input class="form-control" type="search" :placeholder="$t('message.search_ph')" aria-label="Search"/>
+                <input class="form-control" type="search" :placeholder="$t('menu.search_ph')" aria-label="Search"/>
               </div>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="nDML" role="button" data-toggle="dropdown"
-                 aria-haspopup="true" aria-expanded="false"> {{ lang | capitalize}} </a>
+                 aria-haspopup="true" aria-expanded="false"> {{ locale | capitalize}} </a>
               <div class="dropdown-menu" aria-labelledby="nDML">
                 <a class="dropdown-item" @click="chLang('ru')">Русский</a>
                 <a class="dropdown-item" @click="chLang('en')">English</a>
@@ -41,13 +41,13 @@
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item">
-              <router-link class="nav-link" to="#">Профиль <i class="fas fa-user"></i></router-link>
+              <router-link class="nav-link" to="#">{{ $t('menu.profile')}} <i class="fas fa-user"></i></router-link>
             </li>
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link number" href="https://api.whatsapp.com/send?phone=79684208413" target="_blank">+7 900 881 88 88</a>
-              <a class="nav-link" href="#" id="order-call" data-toggle="modal" data-target="#mdl-call-back">{{ $t('message.callback_lnk')}}</a>
+              <a class="nav-link" href="#" id="order-call" data-toggle="modal" data-target="#mdl-call-back">{{ $t('menu.callback_lnk')}}</a>
             </li>
           </ul>
         </div>
@@ -69,12 +69,9 @@
 <script>
 export default {
   data() {
-    this.$i18n.locale = 'ru';
     return {
-      lang: this.$store.state.lang,
-      langList: null,
+      locale: this.$i18n.locale,
       mobile: null,
-      locale: 'ru'
     }
   },
   mounted(){
@@ -91,32 +88,13 @@ export default {
     onResize() {
       this.mobile = document.documentElement.clientWidth > 1399 ? false : true;
     },
-    chLang(lang){
-      this.$store.commit("updLang", lang);
-      this.lang = lang;
-      this.$i18n.locale = lang
-      //this.langMenu();
-    },
-    langMenu() {
-      const options = {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({code: 'HEADER_MENU'})
-      };
-      fetch(`http://localhost:8000/${this.lang}/vhapi/dictstr/list/`, options).
-      then(response => response.json()).
-      then(data => {
-        this.results = data;
-      }).
-      catch((error) => { console.log(error); this.results = null;}).
-      finally(() => {
-        this.langList = this.results;
-      });
+    chLang(locale){
+      this.locale = locale;
+      this.$i18n.locale = locale
     },
   },
   created() {
     window.addEventListener('resize', this.onResize);
-    this.langMenu();
     this.onResize();
   },
   beforeDestroy() {
