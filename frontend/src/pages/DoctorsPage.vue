@@ -21,7 +21,7 @@
                         <div class="name">{{ c.fName }} {{ c.lName }} {{ c.tName }}</div>
                     </div>
                 </div>
-                <button class="btn" data-toggle="modal" data-target="#mdl-doc-card" @click="updCardModal(c.uid)">Подробнее</button>
+                <button class="btn" data-toggle="modal" data-target="#mdl-doc-card" @click="updCardModal(c.uid)">{{$t('doctorpage.details')}}</button>
             </div>
         </div>
        <input type="range" min="1" :max="(doc.length - 1) * 348" value="1" id="slider">

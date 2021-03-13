@@ -9,5 +9,10 @@
     "search_ph": "Search",
     "profile": "Profile",
     "callback_lnk": "Callback"
+  },
+  "doctorpage": {
+    "details": "Details",
+    "titledoccard": "En_Карточка врача"
+    
   }
 }

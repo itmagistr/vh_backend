@@ -9,5 +9,9 @@
     "search_ph": "Найти",
     "profile": "Профиль",
     "callback_lnk": "Заказать звонок"
+  },
+  "doctorpage": {
+    "details": "Подробнее",
+    "titledoccard": "Карточка врача"
   }
 }
