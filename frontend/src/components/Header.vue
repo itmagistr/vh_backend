@@ -4,13 +4,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item" :id="[$route.name === 'service' ? 'active' : '']">
-              <router-link class="nav-link" :to="{name: 'service'}">{{ langList.MENU_SERVICES.title }}</router-link>
+              <router-link class="nav-link" :to="{name: 'service'}">{{ $t('message.menu_services') }}</router-link>
             </li>
             <li class="nav-item" :id="[$route.name === 'booking' ? 'active' : '']">
-              <router-link class="nav-link active" :to="{name: 'booking'}">{{ langList.MENU_BOOKING.title }}</router-link>
+              <router-link class="nav-link active" :to="{name: 'booking'}">{{ $t('message.menu_booking') }}</router-link>
             </li>
             <li class="nav-item" :id="[$route.name === 'doctors' ? 'active' : '']">
-              <router-link class="nav-link" :to="{name: 'doctors'}">{{ langList.MENU_DOCTORS.title }}</router-link>
+              <router-link class="nav-link" :to="{name: 'doctors'}">{{ $t('message.menu_doctors') }}</router-link>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-future-ok" data-name="тур">{{ langList.MENU_TOUR.title }}</a>
@@ -19,7 +19,7 @@
               <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-future-ok" data-name="докум">{{ langList.MENU_DOCS.title }}</a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-contacts">{{ langList.MENU_CONTACTS.title }}</a>
+              <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-contacts">{{ $t('message.menu_contacts') }}</a>
             </li>
           </ul>
           <ul class="navbar-nav mr-auto"><router-link :to="{name: 'main'}"><img class="logo" src="/img/logo-sm.svg"/></router-link></ul>
@@ -27,7 +27,7 @@
             <li class="nav-item">
               <div class="inner-addon right-addon">
                 <i class="fas fa-search"></i>
-                <input class="form-control" type="search" :placeholder="langList.SEARCH_PH.title" aria-label="Search"/>
+                <input class="form-control" type="search" :placeholder="$t('message.search_ph')" aria-label="Search"/>
               </div>
             </li>
             <li class="nav-item dropdown">
@@ -47,7 +47,7 @@
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link number" href="https://api.whatsapp.com/send?phone=79684208413" target="_blank">+7 900 881 88 88</a>
-              <a class="nav-link" href="#" id="order-call" data-toggle="modal" data-target="#mdl-call-back">{{ langList.CALLBAK_LNK.title }}</a>
+              <a class="nav-link" href="#" id="order-call" data-toggle="modal" data-target="#mdl-call-back">{{ $t('message.callback_lnk')}}</a>
             </li>
           </ul>
         </div>
@@ -69,10 +69,12 @@
 <script>
 export default {
   data() {
+    this.$i18n.locale = 'ru';
     return {
       lang: this.$store.state.lang,
       langList: null,
       mobile: null,
+      locale: 'ru'
     }
   },
   mounted(){
@@ -92,7 +94,8 @@ export default {
     chLang(lang){
       this.$store.commit("updLang", lang);
       this.lang = lang;
-      this.langMenu();
+      this.$i18n.locale = lang
+      //this.langMenu();
     },
     langMenu() {
       const options = {
