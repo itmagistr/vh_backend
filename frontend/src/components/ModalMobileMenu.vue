@@ -23,22 +23,22 @@
           <div class="modal-body">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item" :id="[$route.name === 'service' ? 'active' : '']">
-                <router-link class="nav-link" data-dismiss="modal" :to="{name: 'service'}">Услуги</router-link>
+                <router-link class="nav-link" data-dismiss="modal" :to="{name: 'service'}">{{ $t('menu.services') }}</router-link>
               </li>
               <li class="nav-item" :id="[$route.name === 'booking' ? 'active' : '']">
-                <router-link class="nav-link active" data-dismiss="modal" :to="{name: 'booking'}">Записаться</router-link>
+                <router-link class="nav-link active" data-dismiss="modal" :to="{name: 'booking'}">{{ $t('menu.booking') }}</router-link>
               </li>
               <li class="nav-item" :id="[$route.name === 'doctors' ? 'active' : '']">
-                <router-link class="nav-link" data-dismiss="modal" :to="{name: 'doctors'}">Врачи</router-link>
+                <router-link class="nav-link" data-dismiss="modal" :to="{name: 'doctors'}">{{ $t('menu.doctors') }}</router-link>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link" data-dismiss="modal" to="#">Виртуальный тур</router-link>
+                <router-link class="nav-link" data-dismiss="modal" to="#">{{ $t('menu.virtual_tour') }}</router-link>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link" data-dismiss="modal" to="#">Документация</router-link>
+                <router-link class="nav-link" data-dismiss="modal" to="#">{{ $t('menu.documentation') }}</router-link>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" data-dismiss="modal" data-target="#mdl-contacts">Контакты</a>
+                <a class="nav-link" data-toggle="modal" data-dismiss="modal" data-target="#mdl-contacts">{{ $t('menu.contacts') }}</a>
               </li>
             </ul>
           </div>
