@@ -11,8 +11,15 @@
     "callback_lnk": "Callback"
   },
   "doctorpage": {
+	"doc_header": "Doctors",
     "details": "Details",
     "titledoccard": "En_Карточка врача"
-    
+  },
+  "modaldoccard": {
+    "procedure": "Procedures",
+    "photo": "Photos",
+	"certificate": "Certificates",
+    "education": "Education",
+	"signup": "En_Записаться к врачу"
   }
 }

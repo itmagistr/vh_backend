@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex flex-column doc">
-        <div class="tittle-of-doctor">Врачи</div>
+        <div class="tittle-of-doctor">{{ $t('doctorpage.doc_header') }}</div>
         <div class="filter">
             <div :class="{active: c.st}" v-for="c in category" :key="c.uid" @click="updCat(c.uid)">
                 <img :src="c.img"/>{{ c.tittle }}

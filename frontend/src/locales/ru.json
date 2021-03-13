@@ -11,7 +11,15 @@
     "callback_lnk": "Заказать звонок"
   },
   "doctorpage": {
+	"doc_header": "Врачи",
     "details": "Подробнее",
     "titledoccard": "Карточка врача"
-  }
+  },
+  "modaldoccard": {
+    "procedure": "Процедуры",
+    "photo": "Фото работ",
+	"certificate": "Сертификаты",
+    "education": "Образование",
+	"signup": "Записаться к врачу"
+  }  
 }

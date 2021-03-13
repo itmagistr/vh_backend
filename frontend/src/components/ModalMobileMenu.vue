@@ -16,7 +16,7 @@
                 </div>
               </li>
               <li>
-                <router-link to="#">Личный кабинет <i class="fas fa-user"></i></router-link>
+                <router-link to="#">{{ $t('menu.profile')}} <i class="fas fa-user"></i></router-link>
               </li>
             </ul>
           </div>

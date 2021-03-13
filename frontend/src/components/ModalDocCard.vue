@@ -43,14 +43,14 @@
             </div>
           </div>
           <div class="modal-body">
-            <div class="clip-accordion">Процедуры <i class="fas fa-caret-down"></i></div>
-            <div class="clip-accordion">Фото работ <i class="fas fa-caret-down"></i></div>
+            <div class="clip-accordion">{{ $t('modaldoccard.procedure') }} <i class="fas fa-caret-down"></i></div>
+            <div class="clip-accordion">{{ $t('modaldoccard.photo') }} <i class="fas fa-caret-down"></i></div>
             <div class="clip-accordion">Youtube <i class="fas fa-caret-down"></i></div>
-            <div class="clip-accordion">Сертификаты <i class="fas fa-caret-down"></i></div>
-            <div class="clip-accordion">Образование <i class="fas fa-caret-down"></i></div>
+            <div class="clip-accordion">{{ $t('modaldoccard.certificate') }} <i class="fas fa-caret-down"></i></div>
+            <div class="clip-accordion">{{ $t('modaldoccard.education') }} <i class="fas fa-caret-down"></i></div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-ok">Записаться к врачу</button>
+            <button type="button" class="btn btn-ok">{{ $t('modaldoccard.signup') }}</button>
           </div>
         </div>
       </div>
