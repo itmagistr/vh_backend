@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <div>
-          <h5 class="modal-title">Информация</h5>
+          <h5 class="modal-title">{{ $t('modalfuture.info') }}</h5>
           <h6 class="sec-title">{{name}}</h6>
         </div>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -13,11 +13,11 @@
       </div>
       <div class="modal-body">
         <div>
-          Скоро будет
+          {{ $t('modalfuture.soon') }}
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-ok" data-dismiss="modal">Ок</button>
+        <button type="button" class="btn btn-ok" data-dismiss="modal">Ok</button>
       </div>
     </div>
   </div>

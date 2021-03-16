@@ -4,8 +4,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <div>
-          <h5 class="modal-title">Обратный звонок</h5>
-          <h6 class="sec-title">Оставьте заявку и мы перезвоним в удобное для вас время</h6>
+          <h5 class="modal-title">{{ $t('callback.call') }}</h5>
+          <h6 class="sec-title">{{ $t('callback.text') }}</h6>
         </div>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -21,7 +21,7 @@
         <div class="form">
           <input type="text" class="form-control form-ctm" v-model="name" placeholder="Ваше имя">
           <input type="text" class="form-control form-ctm" v-model="phone" placeholder="Номер телефона">
-          <h6>Удобное время для звонка</h6>
+          <h6>{{ $t('callback.time') }}</h6>
           <div class="sel-schedule">
             <select class="form-vertical" v-model="hr">
               <option value="6">6</option>
@@ -77,8 +77,8 @@
         </div>
       </div>
       <div class="modal-footer">
-         <div>Нажимая кнопку, вы соглашаетесь с условиями Политики конфиденциальности</div>
-        <button type="button" class="btn btn-ok" @click="send()">Отправить</button>
+         <div>{{ $t('callback.confident') }}</div>
+        <button type="button" class="btn btn-ok" @click="send()">{{ $t('callback.send-btn') }}</button>
       </div>
     </div>
   </div>

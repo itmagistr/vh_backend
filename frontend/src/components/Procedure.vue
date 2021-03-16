@@ -3,7 +3,7 @@
     <div class="procedure">
       <div id="icon-procedure"> </div>
       <div id="name-procedure">
-        <div>Процедура</div>
+        <div>{{ $t('procedure.head') }}</div>
         <div>{{ title }}</div>
       </div>
       <div id="time-procedure">{{ duration | timeFormat("ru-RU")}}</div>

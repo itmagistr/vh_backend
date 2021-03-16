@@ -3,7 +3,7 @@
         <div class="col procedure-choice">
             <div class="table-wrapper-scroll-y ctm-scroll">
                   <div class="menu">
-                        <button class="btn" @click="backToBooking()"><i class="fas fa-long-arrow-alt-left"/> Назад</button>
+                        <button class="btn" @click="backToBooking()"><i class="fas fa-long-arrow-alt-left"/> {{ $t('proсchoice.back') }}</button>
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Найти процедуру..." aria-describedby="ba2">
                             <div class="input-group-append">
@@ -11,7 +11,7 @@
                             </div>
                         </div>
                   </div>
-                  <div v-if="loading">Загрузка...</div>
+                  <div v-if="loading">{{ $t('proсchoice.load') }}</div>
                   <table class="table table-borderless">
                         <tbody v-for="n in cat" :key="n.uid">
                               <tr class="category">
@@ -29,7 +29,7 @@
                         </tbody>
                   </table>
             </div>
-            <button class="btn" @click="send()">Выбрать процедуру</button>
+            <button class="btn" @click="send()">{{ $t('proсchoice.select') }}</button>
         </div>
     </div>
 </template>

@@ -2,7 +2,7 @@
     <div class="d-flex">
         <div v-if="phase === 2" class="registration">
             <div class="tittle-pnp">
-                <h5>Записаться на прием</h5>
+                <h5>{{ $t('bookingpage.booking') }}</h5>
                 <router-link tag="button" aria-label="Close" class="close" :to="{name: 'main'}"><span aria-hidden="true">×</span></router-link>
             </div>
             <div class="row">
@@ -14,10 +14,10 @@
                 <Shedule :hour="hour"/>
             </div>
             <div style="text-align: center; margin-top: 16px;">
-                <span class="title-price">Стоимость: </span>
+                <span class="title-price">{{ $t('bookingpage.price') }} </span>
                 <span class="price">{{ price | currencyFormat("RUB")}}</span>
             </div>
-            <button class="btn" @click="sub()">Записаться</button>
+            <button class="btn" @click="sub()">{{ $t('bookingpage.btn') }}</button>
         </div>
         <div v-else-if="phase === 3" class="registration">
             <ProcedureChoice @pageProcedure="(arg1, arg2) => getParmProc(arg1, arg2)"/>

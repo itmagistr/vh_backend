@@ -12,6 +12,7 @@
   },
   "doctorpage": {
 	"doc_header": "Doctors",
+	"review": "review",
     "details": "Details",
     "titledoccard": "En_Карточка врача"
   },
@@ -33,5 +34,65 @@
     "title": "Orthodontics",
 	"text": "En_Значимость этих проблем настолько очевидна, что реализация намеченных плановых заданий обеспечивает широкому кругу (специалистов) участие в формировании систем массового участия. Повседневная практика показывает, что сложившаяся структура организации позволяет выполнять важные задания по разработке форм развития. Разнообразный и богатый опыт сложившаяся структура организации в значительной степени обуславливает создание направлений прогрессивного развития.",
 	"price": "Service prices"
+  },
+  "bookingpage": {
+	"booking": "En_Записаться на приём",
+	"price": "Service cost:",
+	"btn": "Sign up"
+  },
+  "notfoundpage": {
+	"header": "Page not found"
+  },
+  "calendary": {
+	"option1": "Profitable",
+	"option2": "Few places",
+	"option3": "No places"
+  },
+  "doctorchoice": {
+	"back": "Back",
+	"dwnld": "Loading...",
+	"procedure": "Procedures",
+	"photo": "Photos",
+	"certificate": "Certificates",
+    "education": "Education",
+	"review": "review",
+	"choose": "Choose a doctor"
+  },
+  "callback": {
+	"call": "Back call",
+	"text": "Leave a request and we will call you back at a convenient time",
+	"time": "Convenient time to call",
+    "confident": "By clicking the button, you agree to the terms of the Privacy Policy",
+	"send-btn": "Send"
+  },
+  "modalcontact": {
+	"contact": "Contacts",
+	"adress": "Address",
+	"place": "Moscow, Novaya Square, 8s2",
+    "phone": "Telephone",
+	"feed": "Feedback"
+  },
+  "modalfuture": {
+	"info": "Information",
+	"soon": "Coming soon"
+  },
+  "leaverequest": {
+	"app": "Leave a request",
+	"text": "Ask a question and we will answer you within 24 hours.",
+    "confident": "By clicking the button, you agree to the terms of the Privacy Policy",
+	"send-btn": "Send"
+  },
+  "procedure": {
+	"head": "Procedure"
+  },
+  "proсchoice": {
+	"back": "Back",
+	"load": "Loading...",
+	"select": "Select procedure"
+  },
+  "schedule": {
+	"option1": "Profitable",
+	"option2": "Few places",
+	"option3": "No places"
   }
 }

@@ -26,7 +26,7 @@
                     <i class="fas fa-star star-half"></i>
                     <i class="fas fa-star star-none"></i>
                   </div>
-                  <div class="card_review">{{ countReview }} отзыва</div>
+                  <div class="card_review">{{ countReview }} {{$t('doctorpage.review')}}</div>
                   <div class="d-flex">
                       <div class="d-flex card_social">
                         <i class="fab fa-instagram" aria-hidden="true"></i>
@@ -64,7 +64,7 @@ export default {
       uid: 'fa85a9ec-c7e8-466e-b3af-d852777db5f1',
       img: null,
       imgCat: '/img/Teeth/Orthodontics.svg',
-      tittle: 'Стоматлог, Ортодонт',
+      tittle: 'Стоматолог, Ортодонт',
       fName: 'Иванова',
       lName: 'Людмила',
       tName: 'Ивановна',

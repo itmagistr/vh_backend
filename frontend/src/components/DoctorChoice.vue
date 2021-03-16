@@ -3,7 +3,7 @@
         <div class="col doctor-choice">
             <div class="table-wrapper-scroll-y ctm-scroll">
                   <div class="menu">
-                        <button class="btn" @click="backToBooking()"><i class="fas fa-long-arrow-alt-left"/> Назад</button>
+                        <button class="btn" @click="backToBooking()"><i class="fas fa-long-arrow-alt-left"/> {{ $t('doctorchoice.back') }}</button>
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Найти процедуру..." aria-describedby="ba2">
                             <div class="input-group-append">
@@ -11,7 +11,7 @@
                             </div>
                         </div>
                   </div>
-                  <div v-if="loading">Загрузка...</div>
+                  <div v-if="loading">{{ $t('doctorchoice.dwnld') }}</div>
                   <div class="doctor-clip" v-for="data in results" :key="data.uid" :class="[select === data.uid ? 'active':'' ]"  @click="selected(data.uid)">
                         <div class="d-flex clip-header">
                             <div class="d-flex">
@@ -28,11 +28,11 @@
                             </div>
                         </div>
                         <div class="clip-body">
-                            <div class="clip-accordion">Процедуры <i class="fas fa-caret-down"></i></div>
-                            <div class="clip-accordion">Фото работ <i class="fas fa-caret-down"></i></div>
+                            <div class="clip-accordion">{{ $t('doctorchoice.procedure') }} <i class="fas fa-caret-down"></i></div>
+                            <div class="clip-accordion">{{ $t('doctorchoice.photo') }} <i class="fas fa-caret-down"></i></div>
                             <div class="clip-accordion">Youtube <i class="fas fa-caret-down"></i></div>
-                            <div class="clip-accordion">Сертификаты <i class="fas fa-caret-down"></i></div>
-                            <div class="clip-accordion">Образование <i class="fas fa-caret-down"></i></div>
+                            <div class="clip-accordion">{{ $t('doctorchoice.certificate') }} <i class="fas fa-caret-down"></i></div>
+                            <div class="clip-accordion">{{ $t('doctorchoice.education') }} <i class="fas fa-caret-down"></i></div>
                         </div>
                         <div class="d-flex clip-footer">
                             <div class="d-flex clip-rating">
@@ -42,7 +42,7 @@
                                   <i class="fas fa-star star-half"></i>
                                   <i class="fas fa-star star-none"></i>
                             </div>
-                            <div class="d-flex clip-review">{{ data.reviewCount }} отзыва</div>
+                            <div class="d-flex clip-review">{{ data.reviewCount }} {{ $t('doctorchoice.review') }}</div>
                             <div class="d-flex ml-auto clip-icons">
                                 <i class="fas fa-phone" style="transform: scaleX(-1)"/>
                                 <img src="/img/chat.svg"/>
@@ -51,7 +51,7 @@
                         </div>
                   </div>
             </div>
-            <button class="btn" @click="send()">Выбрать врача</button>
+            <button class="btn" @click="send()">{{ $t('doctorchoice.choose') }}</button>
         </div>
     </div>
 </template>
