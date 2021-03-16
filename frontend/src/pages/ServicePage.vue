@@ -1,26 +1,22 @@
 <template>
     <div class="d-flex flex-column mar">
         <div class="bgz-main"></div>
-        <div class="tittle-of-service">Услуги</div>
+        <div class="tittle-of-service">{{ $t('servicepage.service') }}</div>
         <div class="service">
-            <div class="card-tooth active"><img src="/img/teeth/Orthodontics.svg"/><div>Ортодонтия</div></div>
-            <div class="card-tooth"><img src="/img/teeth/Surgery.svg"/><div>Хирургия</div></div>
-            <div class="card-tooth"><img src="/img/teeth/Treatment.svg"/><div>Лечение</div></div>
-            <div class="card-tooth"><img src="/img/teeth/Whitening.svg"/><div>Отбеливание</div></div>
-            <div class="card-tooth"><img src="/img/teeth/Prosthetics.svg"/><div>Протезирование</div></div>
-            <div class="card-tooth"><img src="/img/teeth/Implantation.svg"/><div>Имплантация</div></div>
+            <div class="card-tooth active"><img src="/img/teeth/Orthodontics.svg"/><div>{{ $t('servicepage.card1') }}</div></div>
+            <div class="card-tooth"><img src="/img/teeth/Surgery.svg"/><div>{{ $t('servicepage.card2') }}</div></div>
+            <div class="card-tooth"><img src="/img/teeth/Treatment.svg"/><div>{{ $t('servicepage.card3') }}</div></div>
+            <div class="card-tooth"><img src="/img/teeth/Whitening.svg"/><div>{{ $t('servicepage.card4') }}</div></div>
+            <div class="card-tooth"><img src="/img/teeth/Prosthetics.svg"/><div>{{ $t('servicepage.card5') }}</div></div>
+            <div class="card-tooth"><img src="/img/teeth/Implantation.svg"/><div>{{ $t('servicepage.card6') }}</div></div>
         </div>
         <div class="block-2">
             <div class="block-top">
                 <div class="tittle">
-                    Ортодонтия
+                    {{ $t('servicepage.title') }}
                 </div>
                 <div class="text">
-                    Значимость этих проблем настолько очевидна, что реализация намеченных плановых заданий обеспечивает
-                    широкому кругу (специалистов) участие в формировании систем массового участия. Повседневная практика
-                    показывает, что сложившаяся структура организации позволяет выполнять важные задания по разработке
-                    форм развития. Разнообразный и богатый опыт сложившаяся структура организации в значительной степени
-                    обуславливает создание направлений прогрессивного развития.
+                    {{ $t('servicepage.text') }}
                 </div>
             </div>
             <div class="accordion">
@@ -29,7 +25,7 @@
         </div>
         <div class="block-3">
             <div class="block-left">
-                <div>Цены на услуги</div>
+                <div>{{ $t('servicepage.price') }}</div>
                 <table class="table table-borderless">
                     <tbody>
                         <template v-for="c in results">
