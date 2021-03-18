@@ -140,20 +140,29 @@ export default {
             prselect: null,
             loading: true,
             errored: false,
-            results: null
+            results: null,
+            lng: this.$i18n.locale
         }
     },
     async created() {
-        await this.getMedProc("Орто", "2021-01-15", "bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82");
+        //await this.getMedProc("Орто", "2021-01-15", "bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82");
+        await this.getMedProc('', "2021-01-15", null);
     },
     methods: {
         getMedProc(cat, date, docUID) {
+            var docdict = {}
+            if (docUID) {
+              docdict = {"txt": cat, "dt": date, "doctor_uid": docUID};
+            } else
+            {
+              docdict = {"txt": cat, "dt": date};
+            }
             const options = {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({"txt": cat, "dt": date, "doctor_uid": docUID})
+                body: JSON.stringify(docdict)
             };
-            fetch(`http://localhost:8000/ru/vhapi/medproc/list/`, options).
+            fetch(`http://localhost:8000/${this.lng}/vhapi/medproc/list/`, options).
             then(response => response.json()).
             then(data => {
             this.results = data;
