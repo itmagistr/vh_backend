@@ -90,7 +90,9 @@ export default {
     },
     chLang(locale){
       this.locale = locale;
-      this.$i18n.locale = locale
+      this.$i18n.locale = locale;
+      //console.log('Header fire lang-update:', locale);
+      this.$emit('lang-update', locale);
     },
   },
   created() {

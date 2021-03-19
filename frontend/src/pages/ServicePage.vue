@@ -148,6 +148,14 @@ export default {
         //await this.getMedProc("Орто", "2021-01-15", "bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82");
         await this.getMedProc('', "2021-01-15", null);
     },
+    props: ['langprop'],
+    watch: {
+        langprop (newValue) {
+          //console.log('service page gets langprop', newValue, '<>', oldValue)
+          this.lng = newValue;
+          this.getMedProc('', "2021-01-15", null);
+      }
+    },
     methods: {
         getMedProc(cat, date, docUID) {
             var docdict = {}
