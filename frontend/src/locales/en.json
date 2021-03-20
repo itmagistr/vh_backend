@@ -62,8 +62,10 @@
 	"call": "Back call",
 	"text": "Leave a request and we will call you back at a convenient time",
 	"time": "Convenient time to call",
-    "confident": "By clicking the button, you agree to the terms of the Privacy Policy",
-	"send-btn": "Send"
+  "confident": "By clicking the button, you agree to the terms of the Privacy Policy",
+	"send-btn": "Send",
+  "yourname": "Your name",
+  "phonenumber": "Phone number"
   },
   "modalcontact": {
 	"contact": "Contacts",
@@ -80,7 +82,9 @@
 	"app": "Leave a request",
 	"text": "Ask a question and we will answer you within 24 hours.",
     "confident": "By clicking the button, you agree to the terms of the Privacy Policy",
-	"send-btn": "Send"
+	"send-btn": "Send",
+  "yourname": "Your name",
+  "phonenumber": "Phone number"
   },
   "procedure": {
 	"head": "Procedure"
@@ -94,5 +98,16 @@
 	"option1": "Profitable",
 	"option2": "Few places",
 	"option3": "No places"
+  },
+  "meta": {
+	"title": "Dentistry &laquo;vHollyWood&raquo;",
+	"description": "The main page of dentistry &laquo;To Hollywood with a Smile&raquo;",
+	"keywords": "website of dentistry To Hollywood with a Smile Holywood"
+  },
+  "og": {
+	"title": "Dentistry &laquo;vHollyWood&raquo;",
+	"sitename": "Dentistry &laquo;vHollyWood&raquo;",
+  "description": "We are making smiles",
+  "locale": "en_EN"
   }
 }

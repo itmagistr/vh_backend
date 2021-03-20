@@ -69,7 +69,8 @@ export default {
       fieldSize: null,
       loading: true,
       errored: false,
-      results: null
+      results: null,
+      locale: this.$i18n.locale
     }
   },
   async created() {
@@ -89,7 +90,7 @@ export default {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({"txt": cat, "dt": date, "doctor_uid": docUID})
       };
-      fetch(`http://localhost:8000/ru/vhapi/doctor/list/`, options).
+      fetch(`http://localhost:8000/${this.locale}/vhapi/doctor/list/`, options).
       then(response => response.json()).
       then(data => {
         this.results = data;

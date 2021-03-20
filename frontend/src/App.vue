@@ -47,14 +47,15 @@ export default {
   name: 'App',
     metaInfo() {
       return {
-        title: "Стоматологический салон &laquo;вГолливуд сУлыбкой&raquo;",
+        title: this.$t('meta.title'),
         meta: [
-          { name: 'description', content:  'Основная страница стоматологического салона &laquo;вГолливуд сУлыбкой&raquo;'},
-          { name: 'keywords', content: 'вГолливуд сУлыбкой сайт стоматологического салона стоматологический салон здесь будет сайт в Голливуд с Улыбкой'},
-          { property: 'og:title', content: "Стоматологический салон &laquo;вГолливуд сУлыбкой&raquo;"},
-          { property: 'og:site_name', content: 'Стоматологический салон &laquo;вГолливуд сУлыбкой&raquo;'},
+          { name: 'description', content:  this.$t('meta.description')},
+          { name: 'keywords', content: this.$t('meta.keywords')},
+          { property: 'og:title', content: this.$t('og.title')},
+          { property: 'og:site_name', content: this.$t('og.sitename')},
+          { property: 'og:description', content: this.$t('og.description')},
           { property: 'og:type', content: 'website'},
-          { property: 'og:locale', content: 'ru_RU'},
+          { property: 'og:locale', content: this.$t('og.locale')},
           { name: 'robots', content: 'index,follow'}
         ]
       }

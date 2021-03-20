@@ -60,6 +60,7 @@ export default {
             phase: this.$store.state.phase,
             utstate: this.$store.state.usefulTips,
             langList: null,
+            locale: this.$i18n.locale
         }
     },
     filters: {
@@ -70,7 +71,7 @@ export default {
             this.date = new Date().toLocaleString('en-CA', { dateStyle: 'short' });
             this.$store.commit("updDate", this.date);
         }
-        this.langBooking();
+        //this.langBooking();
     },
     components: {
         Doctor, Procedure, Calendary, Shedule, ProcedureChoice, DoctorChoice
@@ -82,7 +83,7 @@ export default {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({code: 'HEADER_MENU'})
             };
-            fetch(`http://localhost:8000/${this.$store.state.lang}/vhapi/dictstr/list/`, options).
+            fetch(`http://localhost:8000/${this.locale}/vhapi/dictstr/list/`, options).
             then(response => response.json()).
             then(data => {
               this.results = data;

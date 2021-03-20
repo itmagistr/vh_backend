@@ -13,8 +13,8 @@
       </div>
       <div class="modal-body">
         <div class="form">
-          <input type="text" class="form-control form-ctm" v-model="name" placeholder="Ваше имя">
-          <input type="text" class="form-control form-ctm" v-model="phone" placeholder="Номер телефона">
+          <input type="text" class="form-control form-ctm" v-model="name" :placeholder="$t('leaverequest.yourname')">
+          <input type="text" class="form-control form-ctm" v-model="phone" :placeholder="$t('leaverequest.phonenumber')">
           <input type="text" class="form-control form-ctm mail" v-model="mail" placeholder="Myname@yandex.ru">
           <textarea class="form-control form-ctm area" v-model="msg" placeholder="Ваше сообщение"></textarea>
         </div>

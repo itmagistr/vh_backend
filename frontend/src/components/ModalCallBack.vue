@@ -19,8 +19,8 @@
           <div class="checkmark draw"></div>
         </div>
         <div class="form">
-          <input type="text" class="form-control form-ctm" v-model="name" placeholder="Ваше имя">
-          <input type="text" class="form-control form-ctm" v-model="phone" placeholder="Номер телефона">
+          <input type="text" class="form-control form-ctm" v-model="name" :placeholder="$t('callback.yourname')">
+          <input type="text" class="form-control form-ctm" v-model="phone" :placeholder="$t('callback.phonenumber')">
           <h6>{{ $t('callback.time') }}</h6>
           <div class="sel-schedule">
             <select class="form-vertical" v-model="hr">
