@@ -4,7 +4,7 @@
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
         Please enable it to continue.</strong>
     </noscript>
-    <Header @lang-update='onLangUpdate'></Header>
+    <Header :resize="mobile"/>
     <main>
       <div class="container">
         <modalContact/>
@@ -20,7 +20,7 @@
             <a href="https://www.facebook.com/ToHwdDent" target="_blank"><button class="social-btn"><i class="fab fa-facebook-f"></i></button></a>
             <a href="https://vk.com/tohwddent" target="_blank"><button class="social-btn"><i class="fab fa-vk"></i></button></a>
           </div>
-          <router-view :langprop='langatr'/>
+          <router-view :resize="mobile"/>
           <div class="d-flex flex-column ctm-col-lt">
             <button class="social-btn" data-toggle="modal" data-target="#mdl-leave-request"><i class="far fa-comment-alt"></i></button>
             <button class="social-btn" data-toggle="modal" data-target="#mdl-contacts"><i class="fas fa-map-marker-alt"></i></button>
@@ -44,9 +44,9 @@ import modalMobileMenu from "@/components/ModalMobileMenu.vue"
 import ModalDocCard from "@/components/ModalDocCard.vue";
 
 export default {
-  name: 'App',    
+  name: 'App',
     metaInfo() {
-        return { 
+        return {
             title: "Стоматологический салон &laquo;вГолливуд сУлыбкой&raquo;",
             meta: [
                 { name: 'description', content:  'Основная страница стоматологического салона &laquo;вГолливуд сУлыбкой&raquo;'},
@@ -55,30 +55,23 @@ export default {
                 { property: 'og:site_name', content: 'Стоматологический салон &laquo;вГолливуд сУлыбкой&raquo;'},
                 { property: 'og:type', content: 'website'},
                 { property: 'og:locale', content: 'ru_RU'},
-                { name: 'robots', content: 'index,follow'} 
+                { name: 'robots', content: 'index,follow'}
             ]
         }
     },
   data() {
     return {
       mobile: null,
-      langatr: 'ru',
     }
   },
   methods: {
     onResize() {
-      this.mobile = document.documentElement.clientWidth > 1399 ? false : true;
-    },
-    onLangUpdate(lang) {
-      //console.log('app onLangUpdate:', lang);
-      this.langatr = lang;
+      this.mobile = document.documentElement.clientWidth <= 1399;
     },
   },
   created() {
     window.addEventListener('resize', this.onResize);
     this.onResize();
-    //console.log('store-lang:', this.$store.state.lang);
-    this.langatr = this.$store.state.lang.slice(0,2);
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.onResize);

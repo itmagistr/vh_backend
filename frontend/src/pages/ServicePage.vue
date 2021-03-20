@@ -134,6 +134,7 @@ import currencyFormat from '@/helpers/currencyFormat';
 import timeFormat from "@/helpers/timeFormat";
 
 export default {
+    props: ['resize'],
     data() {
         return {
             select: this.$store.state.Booking.Procedure,
@@ -141,36 +142,39 @@ export default {
             loading: true,
             errored: false,
             results: null,
-            lng: this.$i18n.locale
+            locale: this.$i18n.locale
         }
     },
     async created() {
-        //await this.getMedProc("Орто", "2021-01-15", "bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82");
-        await this.getMedProc('', "2021-01-15", null);
+        //await this.getMedProc("Орто", "2021-03-21", "bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82");
+        await this.getMedProc('', "2021-03-21", null);
     },
-    props: ['langprop'],
-    watch: {
-        langprop (newValue) {
-          //console.log('service page gets langprop', newValue, '<>', oldValue)
-          this.lng = newValue;
-          this.getMedProc('', "2021-01-15", null);
-      }
+    mounted() {
+      this.$watch( "$i18n.locale",
+        (newLocale, oldLocale) => {
+          if (newLocale === oldLocale) {
+            return
+          }
+          this.locale = newLocale;
+          this.getMedProc('', "2021-03-21", null);
+        },
+        { immediate: true }
+      )
     },
     methods: {
         getMedProc(cat, date, docUID) {
             var docdict = {}
-            if (docUID) {
-              docdict = {"txt": cat, "dt": date, "doctor_uid": docUID};
-            } else
-            {
-              docdict = {"txt": cat, "dt": date};
-            }
+            if (docUID)
+              docdict = { "txt": cat, "dt": date, "doctor_uid": docUID };
+            else
+              docdict = { "txt": cat, "dt": date };
+
             const options = {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(docdict)
             };
-            fetch(`http://localhost:8000/${this.lng}/vhapi/medproc/list/`, options).
+            fetch(`http://localhost:8000/${this.locale}/vhapi/medproc/list/`, options).
             then(response => response.json()).
             then(data => {
             this.results = data;
@@ -182,7 +186,11 @@ export default {
             });
         },
         selected(sel){
-            this.prselect = sel;
+          if(this.resize)
+            if(this.prselect === sel)
+              this.prselect = null;
+            else
+              this.prselect = sel;
         },
     },
     filters: {

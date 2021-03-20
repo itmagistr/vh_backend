@@ -1,6 +1,6 @@
 <template>
     <header>
-      <nav v-if="mobile === false" class="navbar navbar-expand-xl navbar-light">
+      <nav v-if="resize === false" class="navbar navbar-expand-xl navbar-light">
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item" :id="[$route.name === 'service' ? 'active' : '']">
@@ -52,7 +52,7 @@
           </ul>
         </div>
       </nav>
-        <nav v-if="mobile === true" class="navbar navbar-light">
+        <nav v-if="resize === true" class="navbar navbar-light">
           <button class="navbar-toggler" type="button" data-toggle="modal" data-target="#mdlm-menu">
             <i class="fas fa-bars"></i>
           </button>
@@ -68,10 +68,10 @@
 
 <script>
 export default {
+  props: ['resize'],
   data() {
     return {
       locale: this.$i18n.locale,
-      mobile: null,
     }
   },
   mounted(){
@@ -85,14 +85,9 @@ export default {
     }
   },
   methods: {
-    onResize() {
-      this.mobile = document.documentElement.clientWidth > 1399 ? false : true;
-    },
     chLang(locale){
       this.locale = locale;
       this.$i18n.locale = locale;
-      //console.log('Header fire lang-update:', locale);
-      this.$emit('lang-update', locale);
     },
   },
   created() {

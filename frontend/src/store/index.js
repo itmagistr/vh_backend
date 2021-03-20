@@ -12,14 +12,10 @@ export default new Vuex.Store({
             Hour: null,
             Price: null,
         },
-        lang: navigator.language || navigator.userLanguage,
         usefulTips: false,
         phase: 2,
     },
     mutations: {
-        updLang(state, Lang){
-            state.lang = Lang;
-        },
         updDoc(state, Doctor){
             state.Booking.Doctor = Doctor;
         },
