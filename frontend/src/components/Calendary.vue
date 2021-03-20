@@ -160,20 +160,21 @@ export default {
   color: $no-places-sec
 
 .place
-    margin: 0px
-    margin-top: 12px
+  margin: 0px
+  margin-top: 12px
 
 .place i
-    display: inline-block
-    width: 8px
-    height: 8px
-    border-radius: 2px
+  display: inline-block
+  width: 8px
+  height: 8px
+  border-radius: 2px
 
 .place > div
-    font-family: FuturaBookC
-    font-size: 16px
-    line-height: 21px
-    padding: 0px 8px 0px 8px
+  font-family: FuturaBookC
+  font-size: 16px
+  line-height: 21px
+  margin: auto
+  padding: 0px 7px 0px 7px
 
 .profi
     background-color: $profi-main

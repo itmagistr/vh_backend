@@ -107,7 +107,7 @@ export default {
   .ctm-scroll
     position: relative
     height: 100%
-    padding: 32px
+    padding: 0px
     overflow: auto
   &::-webkit-scrollbar
         display: none
@@ -127,122 +127,115 @@ export default {
     padding: 0px
     vertical-align: middle
 
-.menu
-  height: 48px
-  margin-bottom: 24px
-  > .btn
-    display: inline-block
-    font-family: FuturaBookC
-    font-size: 16px
-    line-height: 21px
-    color: #071013
-    margin-right: 25px
-    padding: 6px 0px
-    box-shadow: none
-  .form-control
-    &::placeholder
-      color: rgba( 238,209,153,0.32)
+.procedure-choice
+  .menu
+    height: 48px
+    margin: 32px 32px
+    > .btn
+      display: inline-block
       font-family: FuturaBookC
       font-size: 16px
       line-height: 21px
-  .input-group
-    width: calc(100% - 87px)
-    display: inline-flex
-  input
-    height: 48px
-    border-radius: 8px
-  #ba2 .fas
-    transform: scaleX(-1)
-    color: #B8882F
-  #ba2
-    background: white
-
-.category
-  > td
-    margin-bottom: 16px
-    &:first-child
-      margin-right: 16px
-    > .icon-teeth
-      display: table-cell
-      vertical-align: middle
-      text-align: center
-      width: 56px
-      height: 56px
-      background: $active-link-line
-      border-radius: 4px
-      > img
-        width: 32px
-        height: 32px
-  > .cat-name
-    font-family: Montserrat
-    font-style: normal
-    font-weight: 500
-    font-size: 21px
-    line-height: 26px
-    color: #071013
-
-.product
-  > td
-    display: inline-table
-    margin: 0px 8px
-  > td:first-child
-    margin: 0px 0px 8px
-  > td:last-child
-    margin-right: 0px
-  > td
-    margin-bottom: 8px
-  &.active, &:hover
-    background: rgba(238, 209, 153, 0.16)
-  &.active > .pr-info > i, &:hover > .pr-info > i
-    display: inline-table
-  &.active > .pr-price, &:hover > .pr-price
-    color: #B8882F
-  &.active > .pr-duration, &:hover > .pr-duration
-    color: #071013
-  .pr-code
-    width: 48px
-    font-family: Montserrat
-    font-size: 19px
-    line-height: 24px
-    color: #071013
-  .pr-tittle
-    width: 376px
-    font-family: FuturaBookC
-    line-height: 16px
-    color: #071013
-  .pr-info
-    position: absolute
-    right: 178px
-    width: 16px
-  .pr-info > i
-    display: none
-    font-size: 16px
-    color: #42E1C5
-  .pr-price
-    position: absolute
-    right: 96px
-    width: 72px
-    font-family: FuturaBookC
-    line-height: 21px
-    text-align: right
-    color: #DFB971
-  .pr-duration
-    position: absolute
-    right: 32px
-    width: 56px
-    font-family: FuturaBookC
-    line-height: 21px
-    text-align: right
-    color: #9CC6BE
-  &.spec
-    > .pr-code
-      width: 120px
-      font-size: 16px
-      line-height: 21px
-    > .pr-tittle
-      width: 300px
-
-.procedure-choice
+      color: #071013
+      margin-right: 25px
+      padding: 6px 0px
+      box-shadow: none
+    .form-control
+      &::placeholder
+        color: rgba( 238,209,153,0.32)
+        font-family: FuturaBookC
+        font-size: 16px
+        line-height: 21px
+    .input-group
+      width: calc(100% - 87px)
+      display: inline-flex
+    input
+      height: 48px
+      border-radius: 8px
+    #ba2 .fas
+      transform: scaleX(-1)
+      color: #B8882F
+    #ba2
+      background: white
+  table
+    .category
+      > td
+        margin-bottom: 16px
+        &:first-child
+          margin-left: 32px
+          margin-right: 16px
+        > .icon-teeth
+          display: table-cell
+          vertical-align: middle
+          text-align: center
+          width: 56px
+          height: 56px
+          background: $active-link-line
+          border-radius: 4px
+          > img
+            width: 32px
+            height: 32px
+      > .cat-name
+        font-family: Montserrat
+        font-style: normal
+        font-weight: 500
+        font-size: 21px
+        line-height: 26px
+        color: #071013
+    .product
+      > td
+        display: inline-table
+        margin: 0px 8px
+        &:first-child
+          margin-left: 32px
+        &:last-child
+          margin-right: 32px
+      > td
+        margin-bottom: 8px
+      &.active, &:hover
+        background: rgba(238, 209, 153, 0.16)
+      &.active > .pr-info > i, &:hover > .pr-info > i
+        display: inline-table
+      &.active > .pr-price, &:hover > .pr-price
+        color: #B8882F
+      &.active > .pr-duration, &:hover > .pr-duration
+        color: #071013
+      .pr-code
+        width: 62px
+        font-family: Montserrat
+        font-size: 19px
+        line-height: 24px
+        color: #071013
+      .pr-tittle
+        width: calc(100% - 334px)
+        font-family: FuturaBookC
+        line-height: 16px
+        color: #071013
+      .pr-info
+        width: 16px
+      .pr-info > i
+        display: none
+        font-size: 16px
+        color: #42E1C5
+      .pr-price
+        width: 72px
+        font-family: FuturaBookC
+        line-height: 21px
+        text-align: right
+        color: #DFB971
+      .pr-duration
+        width: 56px
+        font-family: FuturaBookC
+        line-height: 21px
+        text-align: right
+        color: #9CC6BE
+      &.spec
+        > .pr-code
+          width: 120px
+          font-size: 16px
+          line-height: 21px
+        > .pr-tittle
+          width: 300px
   > .btn
     font-family: FuturaBookC
     letter-spacing: 0.08em
@@ -266,12 +259,20 @@ export default {
   .procedure-choice
     @media (min-width: 451px)
       .menu
-        margin-bottom: 32px
+        margin: 8px 16px 32px
     height: 100%
-    > .ctm-scroll
-      padding: 8px 16px
+    table
+      .category
+        > td:first-child
+          margin-left: 16px
+      .product
+        > td:first-child
+          margin-left: 16px
+        > td:last-child
+          margin-right: 16px
     > .btn
-      > .btn
+      position: sticky
+      bottom: 42px
+      left: calc(50% - 233px / 2)
       display: block
-      margin: 42px auto 64px
 </style>

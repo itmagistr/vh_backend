@@ -46,18 +46,18 @@ import ModalDocCard from "@/components/ModalDocCard.vue";
 export default {
   name: 'App',
     metaInfo() {
-        return {
-            title: "Стоматологический салон &laquo;вГолливуд сУлыбкой&raquo;",
-            meta: [
-                { name: 'description', content:  'Основная страница стоматологического салона &laquo;вГолливуд сУлыбкой&raquo;'},
-                { name: 'keywords', content: 'вГолливуд сУлыбкой сайт стоматологического салона стоматологический салон здесь будет сайт в Голливуд с Улыбкой'},
-                { property: 'og:title', content: "Стоматологический салон &laquo;вГолливуд сУлыбкой&raquo;"},
-                { property: 'og:site_name', content: 'Стоматологический салон &laquo;вГолливуд сУлыбкой&raquo;'},
-                { property: 'og:type', content: 'website'},
-                { property: 'og:locale', content: 'ru_RU'},
-                { name: 'robots', content: 'index,follow'}
-            ]
-        }
+      return {
+        title: "Стоматологический салон &laquo;вГолливуд сУлыбкой&raquo;",
+        meta: [
+          { name: 'description', content:  'Основная страница стоматологического салона &laquo;вГолливуд сУлыбкой&raquo;'},
+          { name: 'keywords', content: 'вГолливуд сУлыбкой сайт стоматологического салона стоматологический салон здесь будет сайт в Голливуд с Улыбкой'},
+          { property: 'og:title', content: "Стоматологический салон &laquo;вГолливуд сУлыбкой&raquo;"},
+          { property: 'og:site_name', content: 'Стоматологический салон &laquo;вГолливуд сУлыбкой&raquo;'},
+          { property: 'og:type', content: 'website'},
+          { property: 'og:locale', content: 'ru_RU'},
+          { name: 'robots', content: 'index,follow'}
+        ]
+      }
     },
   data() {
     return {
@@ -70,6 +70,7 @@ export default {
     },
   },
   created() {
+    this.$i18n.locale = navigator.language.slice(0,2) || navigator.userLanguage.slice(0,2);
     window.addEventListener('resize', this.onResize);
     this.onResize();
   },

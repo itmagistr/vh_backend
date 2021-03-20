@@ -313,10 +313,6 @@ body.chg-proc
     > td
       display: inline-table
       margin: 0px 8px
-    > td:first-child
-      margin: 0px 0px 8px
-    > td:last-child
-      margin-right: 0px
     > td
       margin-bottom: 8px
     &.active, &:hover
@@ -328,7 +324,8 @@ body.chg-proc
     &.active > .pr-duration, &:hover > .pr-duration
       color: #071013
     .pr-code
-      width: 48px
+      margin-right: 8px
+      width: 62px
       font-family: Montserrat
       font-size: 19px
       line-height: 24px
@@ -338,7 +335,7 @@ body.chg-proc
       font-size: 16px
       line-height: 21px
     .pr-tittle
-      width: 376px
+      width: calc(100% - 302px)
       font-family: FuturaBookC
       line-height: 16px
       color: #071013
@@ -351,6 +348,7 @@ body.chg-proc
       text-align: right
       color: #DFB971
     .pr-duration
+      margin-right: 32px
       width: 56px
       font-family: FuturaBookC
       line-height: 21px
@@ -502,5 +500,13 @@ body.chg-proc
       width: 100%
       height: 100%
       border-radius: 0px
-
+@media (max-width: 450px)
+  .block-left
+    .product
+      > td.pr-code
+        margin-left: 16px
+      > td.pr-tittle
+        width: calc(100% - 270px)
+      > td.pr-duration
+        margin-right: 16px
 </style>

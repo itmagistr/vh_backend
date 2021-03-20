@@ -264,6 +264,10 @@ export default {
     border-radius: 0px
     .calendary, .schedule, .doctor, .procedure
       margin: auto
+    > .row
+      > .col:first-child
+        padding: 0px 16px
+        margin-bottom: 16px
     > .btn
       margin: 16px auto 48px
       display: block
@@ -284,6 +288,4 @@ export default {
         top: 20px
         font-size: 2rem
         line-height: 22px
-    .calendary, .procedure
-      margin-bottom: 16px
 </style>

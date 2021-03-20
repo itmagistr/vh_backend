@@ -9,10 +9,10 @@
             <ul>
               <li class="dropdown">
                 <a class="dropdown-toggle" href="#" id="nDML" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false"> Ru </a>
+                   aria-haspopup="true" aria-expanded="false"> {{ locale | capitalize }} </a>
                 <div class="dropdown-menu" aria-labelledby="nDML">
-                  <router-link class="dropdown-item" to="#">Русский</router-link>
-                  <router-link class="dropdown-item" to="#">English</router-link>
+                  <a class="dropdown-item" @click="chLang('ru')">Русский</a>
+                  <a class="dropdown-item" @click="chLang('en')">English</a>
                 </div>
               </li>
               <li>
@@ -32,10 +32,10 @@
                 <router-link class="nav-link" data-dismiss="modal" :to="{name: 'doctors'}">{{ $t('menu.doctors') }}</router-link>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link" data-dismiss="modal" to="#">{{ $t('menu.virtual_tour') }}</router-link>
+                <router-link class="nav-link" data-toggle="modal" data-dismiss="modal" data-target="#mdl-future-ok" to="#">{{ $t('menu.virtual_tour') }}</router-link>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link" data-dismiss="modal" to="#">{{ $t('menu.documentation') }}</router-link>
+                <router-link class="nav-link" data-toggle="modal" data-dismiss="modal" data-target="#mdl-future-ok" to="#">{{ $t('menu.documentation') }}</router-link>
               </li>
               <li class="nav-item">
                 <a class="nav-link" data-toggle="modal" data-dismiss="modal" data-target="#mdl-contacts">{{ $t('menu.contacts') }}</a>
@@ -51,9 +51,24 @@
 </template>
 
 <script>
-    export default{
+import capitalize from '@/helpers/capitalizeFormat';
 
-    }
+  export default{
+    data() {
+      return {
+        locale: this.$i18n.locale,
+      }
+    },
+    filters: {
+      capitalize,
+    },
+    methods: {
+      chLang(locale){
+        this.locale = locale;
+        this.$i18n.locale = locale;
+      },
+    },
+  }
 </script>
 
 <style lang="sass">

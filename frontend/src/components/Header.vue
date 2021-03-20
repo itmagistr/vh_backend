@@ -32,7 +32,7 @@
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="nDML" role="button" data-toggle="dropdown"
-                 aria-haspopup="true" aria-expanded="false"> {{ locale | capitalize}} </a>
+                 aria-haspopup="true" aria-expanded="false"> {{ locale | capitalize }} </a>
               <div class="dropdown-menu" aria-labelledby="nDML">
                 <a class="dropdown-item" @click="chLang('ru')">Русский</a>
                 <a class="dropdown-item" @click="chLang('en')">English</a>
@@ -67,6 +67,8 @@
 </template>
 
 <script>
+import capitalize from "@/helpers/capitalizeFormat";
+
 export default {
   props: ['resize'],
   data() {
@@ -74,29 +76,15 @@ export default {
       locale: this.$i18n.locale,
     }
   },
-  mounted(){
-
-  },
   filters: {
-    capitalize: function (value) {
-      if (!value) return ''
-      value = value.toString()
-      return value.charAt(0).toUpperCase() + value.slice(1)
-    }
+    capitalize,
   },
   methods: {
     chLang(locale){
       this.locale = locale;
       this.$i18n.locale = locale;
     },
-  },
-  created() {
-    window.addEventListener('resize', this.onResize);
-    this.onResize();
-  },
-  beforeDestroy() {
-    window.removeEventListener('resize', this.onResize);
-  },
+  }
 }
 </script>
 
