@@ -271,8 +271,6 @@ export default {
         > td:last-child
           margin-right: 16px
     > .btn
-      position: sticky
-      bottom: 42px
-      left: calc(50% - 233px / 2)
       display: block
+      margin: 42px auto 64px
 </style>

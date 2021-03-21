@@ -243,10 +243,11 @@ export default {
 
 @media (max-width: 1399px)
   .doctor-choice
+    margin-bottom: 0px!important
+    height: 100%
     @media (min-width: 451px)
       .menu
         margin-bottom: 32px
-    height: 100%
     > .ctm-scroll
       padding: 8px 16px
     > .btn
@@ -258,4 +259,6 @@ export default {
   .doctor-choice
     > .btn
       margin: 40px auto 78px
+    > .ctm-scroll
+      padding: 8px 0px
 </style>

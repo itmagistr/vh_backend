@@ -1,69 +1,69 @@
 <template>
-    <header>
-      <nav v-if="resize === false" class="navbar navbar-expand-xl navbar-light">
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item" :id="[$route.name === 'service' ? 'active' : '']">
-              <router-link class="nav-link" :to="{name: 'service'}">{{ $t('menu.services') }}</router-link>
-            </li>
-            <li class="nav-item" :id="[$route.name === 'booking' ? 'active' : '']">
-              <router-link class="nav-link active" :to="{name: 'booking'}">{{ $t('menu.booking') }}</router-link>
-            </li>
-            <li class="nav-item" :id="[$route.name === 'doctors' ? 'active' : '']">
-              <router-link class="nav-link" :to="{name: 'doctors'}">{{ $t('menu.doctors') }}</router-link>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-future-ok" data-name="тур">{{ $t('menu.virtual_tour') }}</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-future-ok" data-name="докум">{{ $t('menu.documentation') }}</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-contacts">{{ $t('menu.contacts') }}</a>
-            </li>
-          </ul>
-          <ul class="navbar-nav mr-auto"><router-link :to="{name: 'main'}"><img class="logo" src="/img/logo-sm.svg"/></router-link></ul>
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <div class="inner-addon right-addon">
-                <i class="fas fa-search"></i>
-                <input class="form-control" type="search" :placeholder="$t('menu.search_ph')" aria-label="Search"/>
-              </div>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="nDML" role="button" data-toggle="dropdown"
-                 aria-haspopup="true" aria-expanded="false"> {{ locale | capitalize }} </a>
-              <div class="dropdown-menu" aria-labelledby="nDML">
-                <a class="dropdown-item" @click="chLang('ru')">Русский</a>
-                <a class="dropdown-item" @click="chLang('en')">English</a>
-              </div>
-            </li>
-          </ul>
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <router-link class="nav-link" to="#">{{ $t('menu.profile')}} <i class="fas fa-user"></i></router-link>
-            </li>
-          </ul>
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link number" href="https://api.whatsapp.com/send?phone=79684208413" target="_blank">+7 900 881 88 88</a>
-              <a class="nav-link" href="#" id="order-call" data-toggle="modal" data-target="#mdl-call-back">{{ $t('menu.callback_lnk')}}</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-        <nav v-if="resize === true" class="navbar navbar-light">
-          <button class="navbar-toggler" type="button" data-toggle="modal" data-target="#mdlm-menu">
-            <i class="fas fa-bars"></i>
-          </button>
-          <ul class="navbar-nav"><router-link :to="{name: 'main'}"><img class="mobile logo" src="/img/logo-sm.svg"/></router-link></ul>
-          <ul class="navbar-nav">
-            <li class="nav-item">
-                <i class="fas fa-search"></i>
-            </li>
-          </ul>
-        </nav>
-    </header>
+  <header>
+    <nav v-if="resize === false" class="navbar navbar-expand-xl navbar-light">
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item" :id="[$route.name === 'service' ? 'active' : '']">
+            <router-link class="nav-link" :to="{name: 'service'}">{{ $t('menu.services') }}</router-link>
+          </li>
+          <li class="nav-item" :id="[$route.name === 'booking' ? 'active' : '']">
+            <router-link class="nav-link active" :to="{name: 'booking'}">{{ $t('menu.booking') }}</router-link>
+          </li>
+          <li class="nav-item" :id="[$route.name === 'doctors' ? 'active' : '']">
+            <router-link class="nav-link" :to="{name: 'doctors'}">{{ $t('menu.doctors') }}</router-link>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-future-ok" data-name="тур">{{ $t('menu.virtual_tour') }}</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-future-ok" data-name="докум">{{ $t('menu.documentation') }}</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-contacts">{{ $t('menu.contacts') }}</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav mr-auto"><router-link :to="{name: 'main'}"><img class="logo" src="/img/logo-sm.svg"/></router-link></ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <div class="inner-addon right-addon">
+              <i class="fas fa-search"></i>
+              <input class="form-control" type="search" :placeholder="$t('menu.search_ph')" aria-label="Search"/>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="nDML" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false"> {{ locale | capitalize }} </a>
+            <div class="dropdown-menu" aria-labelledby="nDML">
+              <a class="dropdown-item" @click="chLang('ru')">Русский</a>
+              <a class="dropdown-item" @click="chLang('en')">English</a>
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <router-link class="nav-link" to="#">{{ $t('menu.profile')}} <i class="fas fa-user"></i></router-link>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link number" href="https://api.whatsapp.com/send?phone=79684208413" target="_blank">+7 900 881 88 88</a>
+            <a class="nav-link" href="#" id="order-call" data-toggle="modal" data-target="#mdl-call-back">{{ $t('menu.callback_lnk')}}</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <nav v-if="resize === true" class="navbar navbar-light">
+      <button class="navbar-toggler" type="button" data-toggle="modal" data-target="#mdlm-menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="navbar-nav"><router-link :to="{name: 'main'}"><img class="mobile logo" src="/img/logo-sm.svg"/></router-link></ul>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+            <i class="fas fa-search"></i>
+        </li>
+      </ul>
+    </nav>
+  </header>
 </template>
 
 <script>

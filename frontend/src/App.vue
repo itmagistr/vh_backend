@@ -4,8 +4,8 @@
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
         Please enable it to continue.</strong>
     </noscript>
-    <Header :resize="mobile"/>
-    <main>
+    <Header :resize="mobile" v-if="$route.name !== 'ComingSoon'"/>
+    <main v-if="$route.name !== 'ComingSoon'">
       <div class="container">
         <modalContact/>
         <modalLeaveRequest/>
@@ -31,6 +31,7 @@
         </div>
       </div>
     </main>
+    <router-view v-if="$route.name === 'ComingSoon'"/>
   </body>
 </template>
 
@@ -109,6 +110,10 @@ export default {
 //  url('./fonts/Montserrat/montserrat-v15-latin_cyrillic-regular.woff') format('woff'),
 //  url('./fonts/Montserrat/montserrat-v15-latin_cyrillic-regular.ttf') format('truetype'),
 //  url('./fonts/Montserrat/montserrat-v15-latin_cyrillic-regular.svg#Montserrat') format('svg')
+
+html, body
+  height: 100%
+  width: 100%
 
 body
   font-family: FuturaBookC, serif

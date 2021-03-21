@@ -1,17 +1,18 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import test from "@/pages/test.vue";
-import testPayment from "@/pages/testPayment.vue";
+import test from "@/pages/test";
+import testPayment from "@/pages/testPayment";
 import MainPage from "@/pages/MainPage";
 import NotFoundPage from "@/pages/NotFoundPage";
 import Booking from "@/pages/BookingPage";
-import Service from "@/pages/ServicePage.vue"
-import Doctors from "@/pages/DoctorsPage.vue"
+import Service from "@/pages/ServicePage";
+import Doctors from "@/pages/DoctorsPage";
+import ComingSoon from "@/pages/ComingSoonPage"
 
 Vue.use(VueRouter);
 
 const routes = [
-    // {name: 'openSoon', component: OpenSoon, path: '/'},
+    {name: 'ComingSoon', component: ComingSoon, path: '/'},
     {name: 'main', component: MainPage, path: '/secret_place/'},
     {name: 'service', component: Service, path: '/secret_place/service'},
     // {name: 'test', component: test, path: '/test/:id'},
