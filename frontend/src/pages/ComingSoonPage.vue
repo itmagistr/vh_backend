@@ -2,12 +2,12 @@
   <main>
     <div class="wrapper">
       <div>
-        <img  class="img-responsive" src="@/assets/LogoBG.png"  alt="вГолливуд сУлыбкой"/>
-        <h1 class="h2 my-5">Здесь будет сайт<br/>Стоматологического салона<br/>
-          &ldquo;<span class="mgold">вГолливуд сУлыбкой</span>&rdquo;</h1>
-        <h2 class="h3 my-5">Открытие <br/> 23 марта 2021 года</h2>
+        <img  class="img-responsive" src="@/assets/LogoBG.png"  :alt="$t('comingsoon.dentistry')"/>
+        <h1 class="h2 my-5">{{ $t('comingsoon.wwwhere') }}<br/>{{ $t('comingsoon.salon') }}<br/>
+          &ldquo;<span class="mgold">{{ $t('comingsoon.dentistry') }}</span>&rdquo;</h1>
+        <h2 class="h3 my-5">{{ $t('comingsoon.opens') }} <br/> {{ $t('comingsoon.dateopen') }}</h2>
       </div>
-      <a href="https://www.facebook.com/inessa.karahanyan" class="share fa fa-facebook facebook"
+      <a href="https://www.facebook.com/ToHwdDent" class="share fa fa-facebook facebook"
          target="_blank" rel="noreferrer"></a>
       <a href="https://www.instagram.com/inessa_braginskaia/" class="share fa fa-instagram instagram"
          target="_blank" rel="noreferrer"></a>

@@ -100,14 +100,21 @@
 	"option3": "No places"
   },
   "meta": {
-	"title": "Dentistry &laquo;vHollyWood&raquo;",
-	"description": "The main page of dentistry &laquo;To Hollywood with a Smile&raquo;",
+	"title": "Dentistry \"vHollyWood\"",
+	"description": "The main page of dentistry To Hollywood with a Smile",
 	"keywords": "website of dentistry To Hollywood with a Smile Holywood"
   },
   "og": {
-	"title": "Dentistry &laquo;vHollyWood&raquo;",
-	"sitename": "Dentistry &laquo;vHollyWood&raquo;",
+	"title": "Dentistry \"vHollyWood\"",
+	"sitename": "Dentistry \"vHollyWood\"",
   "description": "We are making smiles",
   "locale": "en_EN"
+  },
+  "comingsoon": {
+	"dentistry": "To Hollywood with a Smile",
+	"wwwhere": "The website of the Dentistry",
+	"salon": " ",
+  "opens": "Grand opening",
+  "dateopen": "at April 05 2021"
   }
 }
