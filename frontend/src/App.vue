@@ -7,12 +7,13 @@
     <Header :resize="mobile" v-if="$route.name !== 'ComingSoon'"/>
     <main v-if="$route.name !== 'ComingSoon'">
       <div class="container">
+        <modalMessenger/>
         <modalContact/>
         <modalLeaveRequest/>
         <modalFutureOk/>
         <modalCallBack/>
         <modalMobileMenu v-if="mobile === true"/>
-        <ModalDocCard v-if="$route.name === 'doctors'"/>
+        <modalDocCard v-if="$route.name === 'doctors'"/>
         <div class="d-flex align-items-center justify-content-between">
           <div class="d-flex flex-column ctm-col-rt">
             <a href="https://www.instagram.com/tohwddent" target="_blank"><button class="social-btn"><i class="fab fa-instagram"></i></button></a>
@@ -42,7 +43,8 @@ import modalCallBack from "@/components/ModalCallBack.vue";
 import modalLeaveRequest from "@/components/ModalLeaveRequest.vue";
 import modalFutureOk from "@/components/ModalFutureOk.vue";
 import modalMobileMenu from "@/components/ModalMobileMenu.vue"
-import ModalDocCard from "@/components/ModalDocCard.vue";
+import modalDocCard from "@/components/ModalDocCard.vue";
+import modalMessenger from "@/components/ModalMessenger.vue"
 
 export default {
   name: 'App',
@@ -79,7 +81,7 @@ export default {
   beforeDestroy() {
     window.removeEventListener('resize', this.onResize);
   },
-  components: { Header, modalContact, modalLeaveRequest, modalFutureOk, modalCallBack, modalMobileMenu, ModalDocCard },
+  components: { Header, modalContact, modalLeaveRequest, modalFutureOk, modalCallBack, modalMobileMenu, modalDocCard, modalMessenger },
 };
 
 </script>
