@@ -26,68 +26,66 @@
         <div class="block-3">
             <div class="block-left">
                 <div>{{ $t('servicepage.price') }}</div>
-                <table class="table table-borderless">
-                    <tbody>
-                        <template v-for="c in results">
-                            <tr class="product" :class="[{spec: c.code.length > 5}, { active: c.uid === prselect}]" :key="c.uid" @click="selected(c.uid)">
-                                <td class="pr-code">{{ c.code }}</td>
-                                <td class="pr-tittle">{{ c.title }}</td>
-                                <td class="pr-price">{{ c.price | currencyFormat("RUB")}}</td>
-                                <td class="pr-duration">{{ c.duration | timeFormat("ru-RU")}}</td>
-                            </tr>
-                            <tr v-if="prselect === c.uid" :key="'block-'+c.uid">
-                                <div class="hm-block">
-                                    <div class="doctor-card">
-                                        <div class="d-tittle">Очень длинное название процедуры, очень длинное врач Василенко Л.И.</div>
-                                        <div class="d-card">
-                                            <div id="icd"> </div>
-                                            <div id="nmd">
-                                              <div>Врач</div>
-                                              <div>Василенко Л.И.</div>
-                                            </div>
-                                            <button class="btn" id="btn-d"><i class="fas fa-caret-right"></i></button>
-                                        </div>
-                                    </div>
-                                    <div class="description">
-                                        <div>Описание процедуры</div>
-                                        <div>
-                                            Идейные соображения высшего порядка, а также начало повседневной работы по формированию позиции
-                                            обеспечивает широкому кругу (специалистов) участие в формировании модели развития. С другой
-                                            стороны начало повседневной работы по формированию позиции влечет за собой процесс внедрения.
-                                        </div>
-                                    </div>
-                                    <div class="recomende">
-                                        <div>Рекомендации перед процедурой</div>
-                                        <div><i class="profi"></i> Не кушать и не пить за 2 часа до процедуры</div>
-                                        <div><i class="profi"></i> Принять антигистаминный препарат</div>
-                                        <div><i class="profi"></i> Ограничить физическую активность за день до процедуры</div>
-                                        <div><i class="profi"></i> Хорошо очистить полость рта</div>
-                                    </div>
-                                    <div class="recomende">
-                                        <div>Рекомендации после процедуры</div>
-                                        <div><i class="profi"></i> Не кушать и не пить 3 часа после процедуры</div>
-                                        <div><i class="profi"></i> Очистка полости рта ирригатором</div>
-                                        <div><i class="profi"></i> Ограничить физическую активность на 3 дня после процедуры</div>
-                                    </div>
-                                    <div class="photo">
-                                        <div>Фото</div>
-                                        <div class="accordion">
-                                            <button class="btn btn-accord"><i class="fas fa-caret-left"></i></button>
-                                            <div></div>
-                                            <button class="btn btn-accord"><i class="fas fa-caret-right"></i></button>
-                                        </div>
-                                    </div>
+                <template v-for="c in results">
+                    <div class="product" :class="[{spec: c.code.length > 5}, { active: c.uid === prselect}]" :key="c.uid" @click="selected(c.uid)">
+                        <div class="sr-start">
+                          <div class="pr-code">{{ c.code }}</div>
+                          <div class="pr-tittle">{{ c.title }}</div>
+                        </div>
+                        <div class="sr-end">
+                          <div class="pr-price">{{ c.price | currencyFormat("RUB")}}</div>
+                          <div class="pr-duration">{{ c.duration | timeFormat("ru-RU")}}</div>
+                        </div>
+                    </div>
+                    <div v-if="prselect === c.uid" :key="'block-'+c.uid" class="hm-block">
+                        <div class="doctor-card">
+                            <div class="d-tittle">Очень длинное название процедуры, очень длинное врач Василенко Л.И.</div>
+                            <div class="d-card">
+                                <img id="icd" src="@/assets/defaultAvatar.png">
+                                <div id="nmd">
+                                  <div>Врач</div>
+                                  <div>Василенко Л.И.</div>
                                 </div>
-                            </tr>
-                        </template>
-                    </tbody>
-                </table>
+                                <button class="btn" id="btn-d"><i class="fas fa-caret-right"></i></button>
+                            </div>
+                        </div>
+                        <div class="description">
+                            <div>Описание процедуры</div>
+                            <div>
+                                Идейные соображения высшего порядка, а также начало повседневной работы по формированию позиции
+                                обеспечивает широкому кругу (специалистов) участие в формировании модели развития. С другой
+                                стороны начало повседневной работы по формированию позиции влечет за собой процесс внедрения.
+                            </div>
+                        </div>
+                        <div class="recomende">
+                            <div>Рекомендации перед процедурой</div>
+                            <div><i class="profi"></i> Не кушать и не пить за 2 часа до процедуры</div>
+                            <div><i class="profi"></i> Принять антигистаминный препарат</div>
+                            <div><i class="profi"></i> Ограничить физическую активность за день до процедуры</div>
+                            <div><i class="profi"></i> Хорошо очистить полость рта</div>
+                        </div>
+                        <div class="recomende">
+                            <div>Рекомендации после процедуры</div>
+                            <div><i class="profi"></i> Не кушать и не пить 3 часа после процедуры</div>
+                            <div><i class="profi"></i> Очистка полости рта ирригатором</div>
+                            <div><i class="profi"></i> Ограничить физическую активность на 3 дня после процедуры</div>
+                        </div>
+                        <div class="photo">
+                            <div>Фото</div>
+                            <div class="accordion">
+                                <button class="btn btn-accord"><i class="fas fa-caret-left"></i></button>
+                                <div></div>
+                                <button class="btn btn-accord"><i class="fas fa-caret-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
             </div>
             <div class="block-right">
                 <div class="doctor-card">
                     <div class="d-tittle">Очень длинное название процедуры, очень длинное врач Василенко Л.И.</div>
                     <div class="d-card">
-                        <div id="icd"> </div>
+                        <img id="icd" src="@/assets/defaultAvatar.png">
                         <div id="nmd">
                           <div>Врач</div>
                           <div>Василенко Л.И.</div>
@@ -218,8 +216,8 @@ body.chg-proc
   position: absolute
   z-index: -1
   width: 100%
-  height: calc(100% - 378px)
-  left: 0px
+  height: 100%
+  left: 0
   top: 378px
 
 .mar
@@ -300,60 +298,58 @@ body.chg-proc
 .block-left
   border-radius: 16px 0px 0px 16px
   background: $white
-  padding: 32px
+  padding: 32px 0px
   position: relative
   text-align: left
   > div:first-child
+    margin-left: 32px
     font-family: Montserrat
     font-weight: 500
     font-size: 21px
     line-height: 26px
     margin-bottom: 32px
   .product
-    > td
-      display: inline-table
-      margin: 0px 8px
-    > td
-      margin-bottom: 8px
+    padding: .25rem 2rem
+    display: flex
+    justify-content: space-between
+    > div
+      display: flex
+      > div
+        margin: auto
     &.active, &:hover
       background: rgba(238, 209, 153, 0.16)
-    &.active > .pr-info > i, &:hover > .pr-info > i
-      display: inline-table
     &.active > .pr-price, &:hover > .pr-price
       color: #B8882F
     &.active > .pr-duration, &:hover > .pr-duration
       color: #071013
-    .pr-code
-      margin-right: 8px
-      width: 62px
-      font-family: Montserrat
-      font-size: 19px
-      line-height: 24px
-      color: #071013
-    &.spec > .pr-code
-      width: 120px
-      font-size: 16px
-      line-height: 21px
-    .pr-tittle
-      width: calc(100% - 302px)
-      font-family: FuturaBookC
-      line-height: 16px
-      color: #071013
-    &.spec > .pr-tittle
-      width: 300px
-    .pr-price
-      width: 72px
-      font-family: FuturaBookC
-      line-height: 21px
-      text-align: right
-      color: #DFB971
-    .pr-duration
-      margin-right: 32px
-      width: 56px
-      font-family: FuturaBookC
-      line-height: 21px
-      text-align: right
-      color: #9CC6BE
+    > .sr-start
+      display: flex
+      justify-content: flex-start
+      > .pr-code
+        width: 62px
+        margin-right: 8px
+        font-family: Montserrat
+        font-size: 19px
+        line-height: 24px
+        color: #071013
+      > .pr-tittle
+        font-family: FuturaBookC
+        color: #071013
+    > .sr-end
+      display: flex
+      justify-content: flex-end
+      > .pr-price
+        font-family: FuturaBookC
+        line-height: 21px
+        text-align: right
+        color: #DFB971
+        margin-right: 1rem
+      > .pr-duration
+        width: 56px
+        font-family: FuturaBookC
+        line-height: 21px
+        text-align: right
+        color: #9CC6BE
 
 .hm-block
   width: 100%
@@ -382,14 +378,15 @@ body.chg-proc
       border-radius: 8px
       > div, > button
         display: inline-block
-      #icd
+      img#icd
         position: relative
         top: 8px
         left: 8px
         width: 56px
         height: 56px
         background: $active-link-line
-        border-radius: 4px
+        border-radius: .25rem
+        vertical-align: initial
       #nmd
         font-family: FuturaBookC
         position: relative
@@ -477,36 +474,32 @@ body.chg-proc
       >.d-flex
         &:first-child, &:last-child
           display: none!important
-  .bgz-main
-    height: calc(100% - 308px)
-    top: 308px
   .mar
-    .tittle-of-service
+    > .bgz-main
+      top: 308px
+    > .tittle-of-service
       text-align: center
-  .block-3
-    margin: 64px -16px 48px
-    display: inline-grid!important
-    .block-left
-      padding: 32px 0px
-      width: 100%
-      height: 100%
-      border-radius: 16px
-      > div
-        padding-left: 32px
-      td.pr-code
-        margin-left: 32px
-    .block-right
-      display: none
-      width: 100%
-      height: 100%
-      border-radius: 0px
+    > .block-3
+      margin: 64px -16px 0
+      .block-left
+        padding: 32px 0px
+        width: 100%
+        height: 100%
+        border-radius: 16px
+      .block-right
+        display: none
+        width: 100%
+        height: 100%
+        border-radius: 0px
 @media (max-width: 450px)
   .block-left
-    .product
-      > td.pr-code
-        margin-left: 16px
-      > td.pr-tittle
-        width: calc(100% - 270px)
-      > td.pr-duration
-        margin-right: 16px
+    > div:first-child
+      margin-left: 16px
+    > .product
+      padding: .25rem 1rem
+      > .sr-end
+        margin-left: .5rem
+        flex-direction: column
+        > .pr-price
+          margin-right: 0
 </style>
