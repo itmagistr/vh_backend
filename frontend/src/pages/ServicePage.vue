@@ -313,14 +313,13 @@ body.chg-proc
     display: flex
     justify-content: space-between
     > div
-      display: flex
       > div
         margin: auto
     &.active, &:hover
       background: rgba(238, 209, 153, 0.16)
-    &.active > .pr-price, &:hover > .pr-price
+    &.active > .sr-end > .pr-price, &:hover > .sr-end > .pr-price
       color: #B8882F
-    &.active > .pr-duration, &:hover > .pr-duration
+    &.active > .sr-end > .pr-duration, &:hover > .sr-end > .pr-duration
       color: #071013
     > .sr-start
       display: flex
@@ -384,7 +383,6 @@ body.chg-proc
         left: 8px
         width: 56px
         height: 56px
-        background: $active-link-line
         border-radius: .25rem
         vertical-align: initial
       #nmd

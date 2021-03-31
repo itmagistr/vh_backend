@@ -256,27 +256,26 @@ export default {
 
 @media (max-width: 1399px)
   .registration
-    padding: 0px
+    padding: 0
     position: absolute
-    top: 0px
-    right: 0px
+    top: 0
+    right: 0
     height: 100%
     width: 100%
-    border-radius: 0px
+    border-radius: 0
     .calendary, .schedule, .doctor, .procedure
       margin: auto
-    > .row
-      > .col:first-child
-        padding: 0px 16px
-        margin-bottom: 16px
     > .btn
       margin: 16px auto 48px
       display: block
+    > .row
+      > .col:first-child:not(.procedure-choice)
+        padding: 0px 16px
+        margin-bottom: 16px
   .shadow, .useful-tips
     display: none
   .tittle-pnp
     display: block!important
-
 
 @media (max-width: 450px)
   .registration

@@ -1,37 +1,39 @@
 <template>
-    <div class="row">
-        <div class="col procedure-choice">
-            <div class="table-wrapper-scroll-y ctm-scroll">
-                  <div class="menu">
-                        <button class="btn" @click="backToBooking()"><i class="fas fa-long-arrow-alt-left"/> {{ $t('proсchoice.back') }}</button>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Найти процедуру..." aria-describedby="ba2">
-                            <div class="input-group-append">
-                                <button class="btn" type="button" id="ba2"><i class="fas fa-search"></i></button>
-                            </div>
-                        </div>
-                  </div>
-                  <div v-if="loading">{{ $t('proсchoice.load') }}</div>
-                  <table class="table table-borderless">
-                        <tbody v-for="n in cat" :key="n.uid">
-                              <tr class="category">
-                                    <td><div class="icon-teeth"><img :src="n.img" alt=""/></div></td>
-                                    <td class="cat-name" colspan="4">{{n.title}}</td>
-                              </tr>
-                              <tr v-for="c in n.results" class="product" :class="[{spec: c.code.length > 5}, { active: c.uid === select}]" :key="c.uid" @click="selected(c.uid, c.price)">
-                                    <td class="pr-code">{{ c.code }}</td>
-                                    <td class="pr-tittle">{{ c.title }}</td>
-                                    <td class="pr-info"><i class="fas fa-info-circle"></i></td>
-                                    <td class="pr-price">{{ c.price | currencyFormat("RUB")}}</td>
-                                    <td class="pr-duration">{{ c.duration | timeFormat("ru-RU")}}</td>
-                              </tr>
-                              <hr>
-                        </tbody>
-                  </table>
+  <div class="row">
+    <div class="col procedure-choice">
+      <div class="table-wrapper-scroll-y ctm-scroll">
+        <div class="menu">
+          <button class="btn" @click="backToBooking()"><i class="fas fa-long-arrow-alt-left"/> {{ $t('proсchoice.back') }}</button>
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Найти процедуру..." aria-describedby="ba2">
+            <div class="input-group-append">
+              <button class="btn" type="button" id="ba2"><i class="fas fa-search"></i></button>
             </div>
-            <button class="btn" @click="send()">{{ $t('proсchoice.select') }}</button>
+          </div>
         </div>
+        <div v-if="loading">{{ $t('proсchoice.load') }}</div>
+          <div v-for="n in cat" :key="n.uid">
+            <div class="category">
+              <div><div class="icon-teeth"><img :src="n.img" alt=""/></div></div>
+              <div class="cat-name" colspan="4">{{n.title}}</div>
+            </div>
+            <div v-for="c in n.results" class="product" :class="[{spec: c.code.length > 5}, { active: c.uid === select}]" :key="c.uid" @click="selected(c.uid, c.price)">
+              <div class="sr-start">
+                <div class="pr-code">{{ c.code }}</div>
+                <div class="pr-tittle">{{ c.title }}</div>
+              </div>
+              <div class="sr-end">
+                <div class="pr-info"><i class="fas fa-info-circle"></i></div>
+                <div class="pr-price">{{ c.price | currencyFormat("RUB")}}</div>
+                <div class="pr-duration">{{ c.duration | timeFormat("ru-RU")}}</div>
+              </div>
+            </div>
+            <hr>
+          </div>
+      </div>
+      <button class="btn" @click="send()">{{ $t('proсchoice.select') }}</button>
     </div>
+  </div>
 </template>
 
 <script>
@@ -107,7 +109,7 @@ export default {
   .ctm-scroll
     position: relative
     height: 100%
-    padding: 0px
+    padding: 0
     overflow: auto
   &::-webkit-scrollbar
         display: none
@@ -157,85 +159,82 @@ export default {
       color: #B8882F
     #ba2
       background: white
-  table
-    .category
-      > td
-        margin-bottom: 16px
-        &:first-child
-          margin-left: 32px
-          margin-right: 16px
-        > .icon-teeth
-          display: table-cell
-          vertical-align: middle
-          text-align: center
-          width: 56px
-          height: 56px
-          background: $active-link-line
-          border-radius: 4px
-          > img
-            width: 32px
-            height: 32px
-      > .cat-name
-        font-family: Montserrat
-        font-style: normal
-        font-weight: 500
-        font-size: 21px
-        line-height: 26px
-        color: #071013
-    .product
-      > td
-        display: inline-table
-        margin: 0px 8px
-        &:first-child
-          margin-left: 32px
-        &:last-child
-          margin-right: 32px
-      > td
-        margin-bottom: 8px
-      &.active, &:hover
-        background: rgba(238, 209, 153, 0.16)
-      &.active > .pr-info > i, &:hover > .pr-info > i
-        display: inline-table
-      &.active > .pr-price, &:hover > .pr-price
-        color: #B8882F
-      &.active > .pr-duration, &:hover > .pr-duration
-        color: #071013
-      .pr-code
+  .category
+    padding: 0 2rem 1rem
+    display: flex
+    justify-content: flex-start
+    > div
+      margin: auto 0
+      &:first-child
+        margin-right: 16px
+      > .icon-teeth
+        display: table-cell
+        vertical-align: middle
+        text-align: center
+        width: 56px
+        height: 56px
+        background: $active-link-line
+        border-radius: 4px
+        > img
+          width: 32px
+          height: 32px
+    > .cat-name
+      font-family: Montserrat
+      font-style: normal
+      font-weight: 500
+      font-size: 21px
+      line-height: 26px
+      color: #071013
+  .product
+    padding: .25rem 2rem
+    display: flex
+    justify-content: space-between
+    > div
+      > div
+        margin: auto
+    &.active, &:hover
+      background: rgba(238, 209, 153, 0.16)
+    &.active > .sr-end > .pr-info > i, &:hover > .sr-end > .pr-info > i
+      display: flex
+    &.active > .sr-end > .pr-price, &:hover > .sr-end > .pr-price
+      color: #B8882F
+    &.active > .sr-end > .pr-duration, &:hover > .sr-end > .pr-duration
+      color: #071013
+    > .sr-start
+      display: flex
+      justify-content: flex-start
+      > .pr-code
         width: 62px
+        margin-right: 8px
         font-family: Montserrat
         font-size: 19px
         line-height: 24px
         color: #071013
-      .pr-tittle
-        width: calc(100% - 334px)
+      > .pr-tittle
         font-family: FuturaBookC
-        line-height: 16px
         color: #071013
-      .pr-info
+    > .sr-end
+      display: flex
+      justify-content: flex-end
+      > .pr-info
         width: 16px
-      .pr-info > i
-        display: none
-        font-size: 16px
-        color: #42E1C5
-      .pr-price
+        > i
+          display: none
+          font-size: 16px
+          color: #42E1C5
+      > .pr-price
         width: 72px
         font-family: FuturaBookC
         line-height: 21px
         text-align: right
         color: #DFB971
-      .pr-duration
+        margin-right: 1rem
+      > .pr-duration
         width: 56px
         font-family: FuturaBookC
         line-height: 21px
         text-align: right
         color: #9CC6BE
-      &.spec
-        > .pr-code
-          width: 120px
-          font-size: 16px
-          line-height: 21px
-        > .pr-tittle
-          width: 300px
   > .btn
     font-family: FuturaBookC
     letter-spacing: 0.08em
@@ -261,16 +260,21 @@ export default {
       .menu
         margin: 8px 16px 32px
     height: 100%
-    table
-      .category
-        > td:first-child
-          margin-left: 16px
-      .product
-        > td:first-child
-          margin-left: 16px
-        > td:last-child
-          margin-right: 16px
+    .category
+      padding: 0 1rem .5rem
+    .product
+      padding: .25rem 1rem
     > .btn
       display: block
       margin: 42px auto 64px
+@media (max-width: 450px)
+  .procedure-choice
+    .product
+      > .sr-end
+        margin-left: .5rem
+        flex-direction: column
+        > .pr-info
+          display: none
+        > .pr-price
+          margin-right: 0
 </style>
