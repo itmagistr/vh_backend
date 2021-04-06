@@ -11,6 +11,22 @@ class SpecialRuSerializer(serializers.ModelSerializer):
 		model = Special
 		fields = [ 'title']
 
+class SpecialCodeEnSerializer(serializers.ModelSerializer):
+	title = serializers.CharField(source='title_en')
+	class Meta:
+		model = Special
+		fields = [ 'code', 'title']
+
+class SpecialCodeRuSerializer(serializers.ModelSerializer):
+	title = serializers.CharField(source='title_ru')
+	class Meta:
+		model = Special
+		fields = [ 'code', 'title']
+
+class SpecialCodeSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Special
+		fields = ['code', 'title']
 
 class DoctorRuSerializer(serializers.ModelSerializer):#serializers.HyperlinkedModelSerializer):
 	lastName = serializers.CharField(source='lastName_ru')
@@ -41,6 +57,7 @@ class DoctorFilterSerializer(serializers.Serializer):
 	txt = serializers.CharField(max_length=50, allow_blank=True)
 	dt = serializers.DateField(allow_null=True)
 	medproc_uid = serializers.CharField(max_length=36, allow_blank=True)
+	spec = SpecialCodeSerializer(many=True)
 	
 	def validate_medproc_uid(self, value):
 		if value is not None:

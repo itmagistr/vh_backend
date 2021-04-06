@@ -34,7 +34,7 @@ class DoctorListView(generics.RetrieveAPIView):
 
 class DoctorView(generics.RetrieveAPIView):
 	'''
-	Получить процедуру по uid.
+	Получить доктора по uid.
 	'''
 	serializer_class = DoctorEnSerializer
 	lookup_field = 'uid'
@@ -51,7 +51,7 @@ class DoctorView(generics.RetrieveAPIView):
 
 class DoctorFilterView(generics.ListAPIView):
 	'''
-	Поиск процедур по части наименования или коду процедуры
+	Поиск врачей по части наименования или кодам специализации
 	'''
 	serializer_class = DoctorEnSerializer
 	http_method_names = ['post']
@@ -68,12 +68,41 @@ class DoctorFilterView(generics.ListAPIView):
 		serializer = DoctorFilterSerializer(data=request.data)
 		serializer.is_valid(raise_exception=True)
 		sclass = self.get_serializer_class()
+		speclist = []
+		if len(serializer.data['spec']) > 0:
+			speclist = [s["code"] for s in serializer.data['spec']]
+
+
 		if 'Ru' in str(sclass):
-			resQSet = Doctor.objects.filter(Q(lastName_ru__icontains=serializer.data['txt']) | Q(firstName_ru__icontains=serializer.data['txt']) )
+			if len(speclist) > 0:
+				resQSet = Doctor.objects.filter(Q(special__code__in=speclist), Q(lastName_ru__icontains=serializer.data['txt']) | Q(firstName_ru__icontains=serializer.data['txt']) )
+			else:
+				resQSet = Doctor.objects.filter(Q(lastName_ru__icontains=serializer.data['txt']) | Q(firstName_ru__icontains=serializer.data['txt']) )
 		else:
-			resQSet = Doctor.objects.filter(Q(lastName_en__icontains=serializer.data['txt']) | Q(firstName_en__icontains=serializer.data['txt']) )
+			if len(speclist) > 0:
+				resQSet = Doctor.objects.filter(Q(special__code__in=speclist), Q(lastName_en__icontains=serializer.data['txt']) | Q(firstName_en__icontains=serializer.data['txt']) )
+			else:
+				resQSet = Doctor.objects.filter(Q(lastName_en__icontains=serializer.data['txt']) | Q(firstName_en__icontains=serializer.data['txt']) )
 		if len(resQSet)==0:
 			resQSet = Doctor.objects.filter(id=1)
 		resSerializer = sclass(resQSet, many=True)
 		#headers = self.get_success_headers(resSerializer.data)
 		return Response(resSerializer.data, status=status.HTTP_200_OK) #, headers=resSerializer.headers
+
+
+class SpecListView(generics.ListAPIView):
+	'''
+	Получить список специализаций врачей
+	'''
+	serializer_class = SpecialCodeEnSerializer
+	def get_serializer_class(self):
+		#logger.info(translation.get_language())
+
+		if 'ru' in translation.get_language():
+			# using 'in' because it can be set to something like 'es-ES; es'
+			return SpecialCodeRuSerializer
+		return SpecialCodeEnSerializer
+		
+	def get_queryset(self):
+		return Special.objects.all()
+	
