@@ -2,23 +2,23 @@
     <div class="d-flex flex-column doc">
         <div class="tittle-of-doctor">{{ $t('doctorpage.doc_header') }}</div>
         <div class="filter">
-            <div :class="{active: c.st}" v-for="c in category" :key="c.uid" @click="updCat(c.uid)">
-                <img :src="c.img"/>{{ c.tittle }}
+            <div :class="{active: c.st}" v-for="(c, index) in category" :key="index" @click="updCat(index)">
+                <img :src="c.img"/>{{ c.title }}
             </div>
         </div>
         <div class="algo">
             <div class="card-doc" v-for="c in doc" :key="c.uid">
-                <img/>
+                <img :src="c.img"/>
                 <div class="info">
                     <div class="top">
                         <div class="icon"><img :src="c.imgCat"></div>
                         <div class="bk1">
-                            <div class="tittle">{{ c.tittle }}</div>
-                            <div class="education">{{ c.arg1 }} {{ c.arg3 }} {{ c.arg2 }}</div>
+                            <div class="tittle">{{ c.special }}</div>
+                            <div class="education">{{ c.degree }}</div>
                         </div>
                     </div>
                     <div class="bottom">
-                        <div class="name">{{ c.fName }} {{ c.lName }} {{ c.tName }}</div>
+                        <div class="name">{{ c.firstName }} {{ c.lastName }}</div>
                     </div>
                 </div>
                 <button class="btn" data-toggle="modal" data-target="#mdl-doc-card" @click="updCardModal(c.uid)">{{$t('doctorpage.details')}}</button>
@@ -36,14 +36,7 @@ export default {
   data() {
     return {
       select: this.$store.state.Booking.Procedure,
-      category: [
-        { uid: 1, img: '/img/teeth/Orthodontics.svg', tittle: 'Все', st: false},
-        { uid: 2, img: '/img/teeth/Orthodontics.svg', tittle: 'Ортодонты', st: true},
-        { uid: 3, img: '/img/teeth/Treatment.svg', tittle: 'Терапевты', st: true},
-        { uid: 4, img: '/img/teeth/Surgery.svg', tittle: 'Хирурги', st: true},
-        { uid: 5, img: '/img/teeth/Prosthetics.svg', tittle: 'Ортопеды', st: false},
-        { uid: 6, img: '/img/teeth/Whitening.svg', tittle: 'Пародонтологи', st: false},
-        ],
+      category: [],
       doc: [
         { uid: 'fa85a9ec-c7e8-466e-b3af-d852777db5f1', img: '/img/Teeth/Orthodontics.svg',
           imgCat: '/img/Teeth/Orthodontics.svg', tittle: 'Стоматлог, Ортодонт', fName: 'Лариса',
@@ -74,27 +67,51 @@ export default {
     }
   },
   async created() {
-    await this.docList('Орт', this.$store.state.Booking.Date, '');
+    await this.docList("", this.$store.state.Booking.Date, this.vuel);
+    this.specList();
     this.fieldSize = document.getElementsByClassName("algo")[0].clientWidth;
   },
   filters: {
     currencyFormat, timeFormat
   },
+  computed: {
+    vuel(){
+      let tmp = [];
+      for(let i = 0; i < this.category.length; i++)
+        if(this.category[i].st)
+          tmp.push({ code: this.category[i].code, title: this.category[i].title })
+      return tmp;
+    }
+  },
   methods: {
     updCardModal(uid){
       console.log(uid);
     },
-    docList(cat, date, docUID) {
+    docList(cat, date, specs) {
       const options = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({"txt": cat, "dt": date, "doctor_uid": docUID})
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({"txt": cat, "dt": date, "spec": specs})
       };
-      fetch(`http://localhost:8000/${this.locale}/vhapi/doctor/list/`, options).
+      fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/doctor/list/`, options).
       then(response => response.json()).
       then(data => {
-        this.results = data;
-        console.log(data);
+      this.doc = data;
+      console.log(data);
+      }).
+      catch((error) => { console.log(error); this.results = null;}).
+      finally(() => {
+        this.loading = false;
+      });
+    },
+    specList() {
+      fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/doctor/spec/list/`).
+      then(response => response.json()).
+      then(data => {
+        for (let i = 0; i < data.count; i++){
+          const buf = data.results[i];
+          this.category.push({ code: buf.code, title: buf.title, st: false });
+        }
       }).
       catch((error) => { console.log(error); this.results = null;}).
       finally(() => {
@@ -102,9 +119,10 @@ export default {
       });
     },
     updCat(el){
-      for(let i = 0; i<this.category.length; i++){
-        if (this.category[i].uid === el){
+      for(let i = 0; i < this.category.length; i++){
+        if (i === el){
           this.category[i].st = !this.category[i].st;
+          this.docList("", this.$store.state.Booking.Date, this.vuel);
           break;
         }
       }

@@ -8,7 +8,7 @@ export default new Vuex.Store({
         Booking: {
             Procedure: null,
             Doctor: null,
-            Date: null,
+            Date: new Date().toLocaleString('en-CA', { dateStyle: 'short' }),
             Hour: null,
             Price: null,
         },
