@@ -1,13 +1,13 @@
 {
   "menu": {
     "services": "Услуги",
-    "booking": "Запись",
+    "booking": "Записаться",
     "doctors": "Врачи",
     "virtual_tour": "Виртуальный тур",
     "documentation": "Документация",
     "contacts": "Контакты",
     "search_ph": "Найти",
-    "profile": "Профиль",
+    "profile": "Личный кабинет",
     "callback_lnk": "Заказать звонок"
   },
   "doctorpage": {

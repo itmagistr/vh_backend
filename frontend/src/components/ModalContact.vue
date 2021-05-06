@@ -30,11 +30,12 @@
                 <a class="icon" href="https://www.facebook.com/ToHwdDent" target="_blank"><i class="fab fa-facebook-f"></i></a>
                 <a class="icon" href="https://vk.com/tohwddent" target="_blank"><i class="fab fa-vk"></i></a>
               </div>
-              <div class="input-group">
-                <input type="text" class="form-control form-control-lg" placeholder="Показать проезд от адреса" aria-describedby="button-addon4">
+              <div class="input-group" :class="[address !== '' ? 'active' : '']">
+                <input type="text" class="form-control form-control-lg" placeholder="Показать проезд от адреса"
+                       v-model="address" aria-describedby="button-addon4">
                 <div class="input-group-append" id="button-addon4">
-                  <button class="btn" type="button"><img src="/img/bus.svg"/></button>
-                  <button class="btn" type="button"><img src="/img/car.svg"/></button>
+                  <button class="btn" type="button" @click="type=0" :class="[type === 0 ? 'active' : '']"><img src="/img/car.svg"/></button>
+                  <button class="btn" type="button" @click="type=1" :class="[type === 1 ? 'active' : '']"><img src="/img/bus.svg"/></button>
                 </div>
               </div>
             </div>
@@ -50,11 +51,13 @@
 
 <script>
 export default {
-    data(){
-        return {
-            results: null
-        }
+  data(){
+    return {
+      results: null,
+      address: '',
+      type: null,
     }
+  }
 }
 </script>
 
@@ -122,8 +125,13 @@ export default {
         display: inline-flex
         width: calc(100% - 256px)
         box-shadow: 0px 4px 12px 0px rgba(218,172,84,0.08)
+        &.active, &:focus
+          box-shadow: 0px 4px 12px 0px rgba(25,149,128,0.08)
+        > .form-control:hover, .form-control:focus, .btn:hover, .btn:focus
+          box-shadow: none
         > .form-control-lg
           background: #FEFDFB
+          color: #42E1C5
           border: none
           padding: 1.5rem 1rem
           &::placeholder
@@ -131,10 +139,12 @@ export default {
             font-size: 1rem
             line-height: 21px
             color: #EED199
-        .btn
+        > .btn
           background: #FEFDFB
           border: none
           color: #DFB971
+          &.active, &:focus
+              background: #42E1C5
   .modal-footer
     padding: 0px
     > iframe

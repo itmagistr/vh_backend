@@ -19,12 +19,20 @@
                     </div>
                     <div class="bottom">
                         <div class="name">{{ c.firstName }} {{ c.lastName }}</div>
+                        <div class="d-flex clip-rating">
+                            <i class="fas fa-star star-full"></i>
+                            <i class="fas fa-star star-full"></i>
+                            <i class="fas fa-star star-full"></i>
+                            <i class="fas fa-star star-half"></i>
+                            <i class="fas fa-star star-none"></i>
+                        </div>
+                        <div class="d-flex clip-review">{{ c.reviewCount }} {{ $t('doctorchoice.review') }}</div>
                     </div>
                 </div>
                 <button class="btn" data-toggle="modal" data-target="#mdl-doc-card" @click="updCardModal(c.uid)">{{$t('doctorpage.details')}}</button>
             </div>
         </div>
-       <input type="range" min="1" :max="(doc.length - 1) * 348" value="1" id="slider">
+       <input type="range" min="1" :max="(doc.length - 1) * 348 - 32" value="1" id="slider">
     </div>
 </template>
 
@@ -59,7 +67,6 @@ export default {
           arg2: 'высшая кат.', arg3: 'КМН', rating: 4, countReview: 24,
         },
       ],
-      fieldSize: null,
       loading: true,
       errored: false,
       results: null,
@@ -69,18 +76,23 @@ export default {
   async created() {
     await this.docList("", this.$store.state.Booking.Date, this.vuel);
     this.specList();
-    this.fieldSize = document.getElementsByClassName("algo")[0].clientWidth;
   },
   filters: {
     currencyFormat, timeFormat
   },
   computed: {
-    vuel(){
+    vuel() {
       let tmp = [];
       for(let i = 0; i < this.category.length; i++)
         if(this.category[i].st)
           tmp.push({ code: this.category[i].code, title: this.category[i].title })
       return tmp;
+    },
+    otro() {
+      if(document.getElementsByClassName("algo")[0].offsetWidth <= this.doc.length * 348 - 32)
+        return 0;
+      else
+        return 1;
     }
   },
   methods: {
@@ -149,6 +161,8 @@ body.chg-doc
   background: #F6F3ED
   > header
     background: #F6F3ED
+  .container
+    padding: initial
 .tittle-of-doctor
   text-align: center
   font-family: FuturaBookC
@@ -240,6 +254,19 @@ body.chg-doc
             font-weight: 500
             font-size: 21px
             line-height: 26px
+          > .clip-rating
+            font-size: 22px
+            line-height: 22px
+            margin: 1rem .75rem auto auto
+            display: inline-flex!important
+            > i
+              margin-right: 4px
+          > .clip-review, .clip-icons
+            font-family: FuturaBookC
+            font-size: 16px
+            line-height: 21px
+            color: $blue_three
+            display: inline-flex!important
       > img
         background: $active-link-line
         width: 316px
@@ -264,7 +291,7 @@ body.chg-doc
     -webkit-appearance: none
     width: 320px
     height: 8px
-    margin: 56px auto 132px
+    margin: 56px auto 0
     border-radius: 8px
     background: #D2E9E5
     outline: none
@@ -289,6 +316,8 @@ body.chg-doc
       margin: 32px auto auto
       > .card-doc
         margin: 26px 16px 26px
+    > #slider
+      display: none
 @media (max-width: 727px)
   .doc
     > .algo

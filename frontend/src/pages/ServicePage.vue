@@ -80,6 +80,7 @@
                         </div>
                     </div>
                 </template>
+                <button class="btn" @click="send()">{{ $t('proсchoice.select') }}</button>
             </div>
             <div class="block-right">
                 <div class="doctor-card">
@@ -308,7 +309,7 @@ body.chg-proc
     font-size: 21px
     line-height: 26px
     margin-bottom: 32px
-  .product
+  > .product
     padding: .25rem 2rem
     display: flex
     justify-content: space-between
@@ -349,6 +350,18 @@ body.chg-proc
         line-height: 21px
         text-align: right
         color: #9CC6BE
+  > .btn
+    display: block
+    margin: 40px auto 64px
+    font-family: FuturaBookC
+    letter-spacing: 0.08em
+    text-transform: uppercase
+    width: 300px
+    height: 48px
+    background: $active-link-line
+    border: none
+    border-radius: 8px
+    color: $white
 
 .hm-block
   width: 100%

@@ -270,7 +270,6 @@ export default {
       display: block
     > .row
       > .col:first-child:not(.procedure-choice)
-        padding: 0px 16px
         margin-bottom: 16px
   .shadow, .useful-tips
     display: none

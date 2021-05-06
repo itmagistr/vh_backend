@@ -9,7 +9,7 @@
             <ul>
               <li class="dropdown">
                 <a class="dropdown-toggle" href="#" id="nDML" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false"> {{ locale | capitalize }} </a>
+                   aria-haspopup="true" aria-expanded="false"> {{ locale }} </a>
                 <div class="dropdown-menu" aria-labelledby="nDML">
                   <a class="dropdown-item" @click="chLang('ru')">Русский</a>
                   <a class="dropdown-item" @click="chLang('en')">English</a>
@@ -46,6 +46,10 @@
             </ul>
           </div>
           <div class="modal-footer">
+            <div class="number">
+              <a class="nav-link" href="https://api.whatsapp.com/send?phone=79684208413" target="_blank">+7 900 881 88 88</a>
+              <a class="nav-link" href="#" data-toggle="modal" data-target="#mdl-call-back">{{ $t('menu.callback_lnk')}}</a>
+            </div>
             <router-link :to="{name: 'main'}"><img class="logo" data-dismiss="modal" src="/img/logo_light.svg"/></router-link>
           </div>
         </div>
@@ -100,11 +104,26 @@ import capitalize from '@/helpers/capitalizeFormat';
       .modal-body, .modal-footer
         text-align: center
         display: block
-        padding: 0px
+        padding: 0
+        line-height: 33px
+        letter-spacing: 0.05em
+        font-size: 27px
       .modal-footer
-        border-radius: 0px 0px 8px 0
+        border-radius: 0 0 8px 0
+        .number
+          margin-top: 48px
+          margin-bottom: 52px
+          text-align: center
+          > a
+            color: #FEFDFB!important
+            &:first-child
+              font-size: 2rem
+            &:last-child
+              font-size: 1rem
+              line-height: 21px
         .logo
-          width: 240px
+          width: auto
+          margin-bottom: 82px
       .modal-header
         height: 66px
         > ul
@@ -114,18 +133,22 @@ import capitalize from '@/helpers/capitalizeFormat';
             padding: .5rem .5rem
             > a
               color: #FEFDFB!important
+            > #nDML
+              font-size: 1rem
+              text-transform: uppercase
       > div
         background: #42E1C5
-        &.modal-body > ul
-          > li
-            height: 56px
-            padding: 16px
-            margin: 9px 0px
-            > a
-              padding: 0px
-              color: #FEFDFB!important
-            &#active, &:hover
-              background: #EED199
+        &.modal-body
+          > ul
+            > li
+              height: 56px
+              padding: 16px
+              margin: 9px 0px
+              > a
+                padding: 0px
+                color: #FEFDFB!important
+              &#active, &:hover
+                background: #EED199
 @media (max-width: 1399px)
   .modal-backdrop
     background: rgba(254, 253, 251, 0.64)

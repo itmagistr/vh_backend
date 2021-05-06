@@ -23,6 +23,14 @@
           <input type="text" class="form-control form-ctm" v-model="phone" :placeholder="$t('callback.phonenumber')">
           <h6>{{ $t('callback.time') }}</h6>
           <div class="sel-schedule">
+            <div class="btn-chg-group">
+              <button class="btn" @click="hrMinFun('hrIncr')">
+              <i class="fas fa-caret-up"></i>
+              </button>
+            <button class="btn" @click="hrMinFun('hrDecr')">
+              <i class="fas fa-caret-down"></i>
+              </button>
+            </div>
             <select class="form-vertical" v-model="hr">
               <option value="6">6</option>
               <option value="7">7</option>
@@ -42,14 +50,6 @@
               <option value="21">21</option>
               <option value="22">22</option>
             </select>
-            <div class="btn-chg-group">
-              <button class="btn" @click="hrMinFun('hrIncr')">
-              <i class="fas fa-caret-up"></i>
-              </button>
-            <button class="btn" @click="hrMinFun('hrDecr')">
-              <i class="fas fa-caret-down"></i>
-              </button>
-            </div>
             
             <select class="form-vertical" v-model="min">
               <option value="0">0</option>

@@ -32,7 +32,7 @@
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="nDML" role="button" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false"> {{ locale | capitalize }} </a>
+               aria-haspopup="true" aria-expanded="false"> {{ locale }} </a>
             <div class="dropdown-menu" aria-labelledby="nDML">
               <a class="dropdown-item" @click="chLang('ru')">Русский</a>
               <a class="dropdown-item" @click="chLang('en')">English</a>
@@ -41,7 +41,7 @@
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item">
-            <router-link class="nav-link" to="#">{{ $t('menu.profile')}} <i class="fas fa-user"></i></router-link>
+            <router-link class="nav-link" to="#"><h6 id="profile_field">{{ $t('menu.profile')}} </h6> <i class="fas fa-user"></i></router-link>
           </li>
         </ul>
         <ul class="navbar-nav">
@@ -67,7 +67,6 @@
 </template>
 
 <script>
-import capitalize from "@/helpers/capitalizeFormat";
 
 export default {
   props: ['resize'],
@@ -75,9 +74,6 @@ export default {
     return {
       locale: this.$i18n.locale,
     }
-  },
-  filters: {
-    capitalize,
   },
   methods: {
     chLang(locale){
@@ -108,7 +104,14 @@ export default {
 header
   background: rgba(254, 253, 251, 0.64)
   backdrop-filter: blur(32px)
-
+  #nDML
+    font-size: 1rem
+    text-transform: uppercase
+    color: $button-color!important
+  h6#profile_field
+    line-height: 21px
+    margin-right: 8px
+    display: inline
 .logo
   width: 250px
 
