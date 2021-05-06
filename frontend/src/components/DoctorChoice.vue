@@ -7,7 +7,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Найти процедуру..." aria-describedby="ba2">
                             <div class="input-group-append">
-                                <button class="btn" type="button" id="ba2"><i class="fas fa-search"></i></button>
+                                <button class="btn" type="button" id="ba2" data-toggle="modal" data-target="#mdl-future-ok"><i class="fas fa-search"></i></button>
                             </div>
                         </div>
                   </div>
@@ -35,7 +35,7 @@
                             <div class="clip-accordion">{{ $t('doctorchoice.education') }} <i class="fas fa-caret-down"></i></div>
                         </div>
                         <div class="d-flex clip-footer">
-                            <StarRating class="clip-rating" :rating="c.rating" :read-only="true" :increment="0.1"
+                            <StarRating class="clip-rating" :rating="parseFloat(data.rating)" :read-only="true" :increment="0.1"
                                     active-color="#DFB971" inactive-color="#F1EEE6"
                                     :show-rating="false" :star-size="22"/>
                             <div class="d-flex clip-review">{{ data.reviewCount }} {{ $t('doctorchoice.review') }}</div>
@@ -61,14 +61,14 @@ export default {
     props: ['value'],
     data() {
         return {
-            select: this.$store.state.Booking.Doctor,
+            select: this.$store.state.Booking.Doctor || 'cc3c3aa6-590a-49c2-b9d1-faf4cf3505a0',
             loading: true,
             errored: false,
             results: null
         }
     },
     async created() {
-        await this.docList('', this.$store.state.Booking.Date, 'cc3c3aa6-590a-49c2-b9d1-faf4cf3505a0');
+        await this.docList('', this.$store.state.Booking.Date, []);
     },
     components: {
       StarRating,
@@ -81,7 +81,7 @@ export default {
             const options = {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({"txt": cat, "dt": date, "medproc_uid": medProcUID})
+                body: JSON.stringify({"txt": cat, "dt": date, "spec": medProcUID})
             };
             fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/doctor/list/`, options).
             then(response => response.json()).

@@ -7,7 +7,7 @@
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Найти процедуру..." aria-describedby="ba2">
             <div class="input-group-append">
-              <button class="btn" type="button" id="ba2"><i class="fas fa-search"></i></button>
+              <button class="btn" type="button" id="ba2" data-toggle="modal" data-target="#mdl-future-ok"><i class="fas fa-search"></i></button>
             </div>
           </div>
         </div>

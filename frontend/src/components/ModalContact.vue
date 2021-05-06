@@ -34,8 +34,8 @@
                 <input type="text" class="form-control form-control-lg" placeholder="Показать проезд от адреса"
                        v-model="address" aria-describedby="button-addon4">
                 <div class="input-group-append" id="button-addon4">
-                  <button class="btn" type="button" @click="type=0" :class="[type === 0 ? 'active' : '']"><img src="/img/car.svg"/></button>
-                  <button class="btn" type="button" @click="type=1" :class="[type === 1 ? 'active' : '']"><img src="/img/bus.svg"/></button>
+                  <button class="btn" type="button" @click="type=0" :class="[type === 0 ? 'active' : '']"><img class="svgIcons" src="/img/car.svg"/></button>
+                  <button class="btn" type="button" @click="type=1" :class="[type === 1 ? 'active' : '']"><img class="svgIcons" src="/img/bus.svg"/></button>
                 </div>
               </div>
             </div>
@@ -139,12 +139,13 @@ export default {
             font-size: 1rem
             line-height: 21px
             color: #EED199
-        > .btn
-          background: #FEFDFB
-          border: none
-          color: #DFB971
-          &.active, &:focus
-              background: #42E1C5
+        > div
+          > .btn
+            background: #FEFDFB
+            border: none
+            color: #DFB971
+            &.active, &:focus
+                //background: #42E1C5
   .modal-footer
     padding: 0px
     > iframe

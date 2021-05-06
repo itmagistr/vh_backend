@@ -6,7 +6,7 @@
         <div>{{ results.special }}</div>
         <div>{{ results.lastName }} {{ results.firstName }}</div>
       </div>
-      <StarRating class="star-doctor" :rating="results.rating" :read-only="true" :increment="0.1"
+      <StarRating class="star-doctor" :rating="parseFloat(results.rating)" :read-only="true" :increment="0.1"
                                     active-color="#DFB971" inactive-color="#F1EEE6"
                                     :show-rating="false" :star-size="16"/>
       <button class="btn" id="btn-doctor" @click="doctors"><i class="fas fa-caret-right"></i></button>

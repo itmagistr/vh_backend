@@ -19,7 +19,7 @@
                     </div>
                     <div class="bottom">
                         <div class="name">{{ c.firstName }} {{ c.lastName }}</div>
-                        <StarRating class="clip-rating" :rating="c.rating" :read-only="true" :increment="0.1"
+                        <StarRating class="clip-rating" :rating="parseFloat(c.rating)" :read-only="true" :increment="0.1"
                                     active-color="#DFB971" inactive-color="#F1EEE6"
                                     :show-rating="false" :star-size="22"/>
                         <div class="clip-review">{{ c.reviewCount }} {{ $t('doctorchoice.review') }}</div>
