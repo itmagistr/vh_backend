@@ -292,7 +292,7 @@ body.chg-proc
   display: flex
   .btn
     padding: 0px
-  > .block-left, > .block-right
+  > .block-left, .block-right
     height: 867px
     width: 681px
 

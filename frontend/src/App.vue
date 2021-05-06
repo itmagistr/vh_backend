@@ -167,7 +167,7 @@ body
 footer
   padding-top: 3rem
   padding-bottom: 3.5rem
-  display: flex
+  display: none
   flex-direction: column
   > #ftr-tp
     display: flex
@@ -186,6 +186,8 @@ footer
 @media screen and (max-width: 1400px)
   /*header
     display: none*/
+  footer
+    display: flex
   #mdl-contacts
     > .modal-ctm
       max-width: 100%

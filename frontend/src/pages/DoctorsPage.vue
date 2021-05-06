@@ -173,14 +173,17 @@ body.chg-doc
   margin-top: -100px
 
 .doc
+  padding-top: 127px
   width: 100%
   > .filter
+    display: flex
+    flex-direction: row
+    justify-content: center
     > div
       height: 32px
       margin: 8px
       padding: 6px 16px
       line-height: 1rem
-      display: inline-block
       background: #F3E9D4
       border-radius: 27px
       color: $none
@@ -199,14 +202,14 @@ body.chg-doc
     margin: 40px auto auto
     @media (min-width: $minW)
       overflow: auto
-      width: calc(100% - 32px)
+      width: calc(100% - 150px)
       display: flex
+      flex-direction: row
       height: 486px
     &::-webkit-scrollbar
       display: none
     > .card-doc
       position: relative
-      display: inline-block
       width: 316px
       height: 452px
       background: $white
@@ -315,16 +318,12 @@ body.chg-doc
   .doc
     > .algo
       max-width: 696px
+      display: flex
+      flex-wrap: wrap
+      align-content: center
       margin: 32px auto auto
       > .card-doc
-        margin: 26px 16px 26px
+        margin: auto auto 52px
     > #slider
       display: none
-@media (max-width: 727px)
-  .doc
-    > .algo
-      margin: 32px auto auto
-      > .card-doc
-        display: block
-        margin: auto auto 52px
 </style>

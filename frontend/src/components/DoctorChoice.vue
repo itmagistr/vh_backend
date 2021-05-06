@@ -21,7 +21,7 @@
                                     <div class="clip-name">{{ data.firstName }} {{ data.lastName }} <br> {{ data.midName }}</div>
                                 </div>
                             </div>
-                            <div class="d-flex ml-auto flex-column clip-info">
+                            <div class="d-flex flex-column clip-info">
                                 <div>{{ data.experience }}</div>
                                 <div>{{ data.level }}</div>
                                 <div>{{ data.degree }}</div>
@@ -35,15 +35,17 @@
                             <div class="clip-accordion">{{ $t('doctorchoice.education') }} <i class="fas fa-caret-down"></i></div>
                         </div>
                         <div class="d-flex clip-footer">
-                            <StarRating class="clip-rating" :rating="parseFloat(data.rating)" :read-only="true" :increment="0.1"
-                                    active-color="#DFB971" inactive-color="#F1EEE6"
-                                    :show-rating="false" :star-size="22"/>
-                            <div class="d-flex clip-review">{{ data.reviewCount }} {{ $t('doctorchoice.review') }}</div>
-                            <div class="d-flex ml-auto clip-icons">
-                                <i class="fas fa-phone" style="transform: scaleX(-1)"/>
-                                <img src="/img/chat.svg"/>
-                                <i class="fas fa-heart"/>
+                            <div>
+                                <StarRating class="clip-rating" :rating="parseFloat(data.rating)" :read-only="true" :increment="0.1"
+                                        active-color="#DFB971" inactive-color="#F1EEE6"
+                                        :show-rating="false" :star-size="22"/>
+                                <div class="d-flex clip-review">{{ data.reviewCount }} {{ $t('doctorchoice.review') }}</div>
                             </div>
+                                <div class="d-flex clip-icons">
+                                    <i class="fas fa-phone" style="transform: scaleX(-1)"/>
+                                    <img src="/img/chat.svg"/>
+                                    <i class="fas fa-heart"/>
+                                </div>
                         </div>
                   </div>
             </div>
@@ -122,6 +124,8 @@ export default {
     height: 100%
     padding: 32px
     overflow: auto
+    display: flex
+    flex-direction: column
   &::-webkit-scrollbar
     display: none
 
@@ -156,15 +160,17 @@ export default {
     background: white
 
 .doctor-clip
+  display: flex
+  flex-direction: column
   border: 1px solid rgba(238, 209, 153, 0.32)
   border-radius: 8px
   width: 624px
-  min-height: 328px
   margin-bottom: 16px
   padding: 24px
   &:hover, &.active
       border: 2px solid #42E1C5
   > .clip-header
+    justify-content: space-between
     margin-bottom: 16px
     .clip-photo
       width: 64px
@@ -193,7 +199,9 @@ export default {
       line-height: 21px
       color: #071013
   > .clip-body
-    margin-bottom: 24px
+    display: flex
+    flex-direction: column
+    margin-bottom: 1.5rem
     .clip-accordion
       font-family: FuturaBookC
       font-size: 16px
@@ -201,20 +209,23 @@ export default {
       letter-spacing: 0.08em
       text-transform: uppercase
       color: #071013
-      margin: 8px 0px
+      margin: .25rem 0
       > i
        margin-left: 8px
        color: $blue_three
   > .clip-footer
+    justify-content: space-between
     vertical-align: middle
-    .clip-rating
-      font-size: 22px
-      line-height: 22px
-      margin-right: .5rem
-      display: inline-flex
-      > div
-        > span
-          margin-right: 4px!important
+    > div
+      display: flex
+      >.clip-rating
+        font-size: 22px
+        line-height: 22px
+        margin-right: .5rem
+        display: inline-flex
+        > div
+          > span
+            margin-right: 4px!important
     .clip-review, .clip-icons
       vertical-align: bottom
       font-family: FuturaBookC

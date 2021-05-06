@@ -26,7 +26,7 @@
         <ul class="navbar-nav">
           <li class="nav-item">
             <div class="inner-addon right-addon">
-              <i class="fas fa-search"></i>
+              <i class="fas fa-search" aria-hidden="true" data-toggle="modal" data-target="#mdl-future-ok"></i>
               <input class="form-control" type="search" :placeholder="$t('menu.search_ph')" aria-label="Search"/>
             </div>
           </li>
@@ -59,7 +59,7 @@
       <ul class="navbar-nav"><router-link :to="{name: 'main'}"><img class="mobile logo" src="/img/logo-sm.svg"/></router-link></ul>
       <ul class="navbar-nav">
         <li class="nav-item">
-            <i class="fas fa-search"></i>
+            <i class="fas fa-search" data-toggle="modal" data-target="#mdl-future-ok"></i>
         </li>
       </ul>
     </nav>
@@ -117,6 +117,7 @@ header
 
 #order-call
   text-align: right
+  padding-top: .25rem
   color: $active-text-link!important
 
 #active > a
@@ -172,12 +173,11 @@ nav
 
 .inner-addon
   position: relative
-
-.inner-addon .fas
-  position: absolute
-  padding: 12px
-  pointer-events: none
-  transform: scaleX(-1)
+  .fas
+    position: absolute
+    padding: 12px
+    pointer-events: none
+    transform: scaleX(-1)
 
 .right-addon .fas
   right: 0px
@@ -189,6 +189,7 @@ nav
   font-size: 21px!important
   line-height: 16px!important
   text-align: right
+  padding-bottom: .25rem
 
 .right-side
   position: absolute
