@@ -19,14 +19,10 @@
                     </div>
                     <div class="bottom">
                         <div class="name">{{ c.firstName }} {{ c.lastName }}</div>
-                        <div class="d-flex clip-rating">
-                            <i class="fas fa-star star-full"></i>
-                            <i class="fas fa-star star-full"></i>
-                            <i class="fas fa-star star-full"></i>
-                            <i class="fas fa-star star-half"></i>
-                            <i class="fas fa-star star-none"></i>
-                        </div>
-                        <div class="d-flex clip-review">{{ c.reviewCount }} {{ $t('doctorchoice.review') }}</div>
+                        <StarRating class="clip-rating" :rating="c.rating" :read-only="true" :increment="0.1"
+                                    active-color="#DFB971" inactive-color="#F1EEE6"
+                                    :show-rating="false" :star-size="22"/>
+                        <div class="clip-review">{{ c.reviewCount }} {{ $t('doctorchoice.review') }}</div>
                     </div>
                 </div>
                 <button class="btn" data-toggle="modal" data-target="#mdl-doc-card" @click="updCardModal(c.uid)">{{$t('doctorpage.details')}}</button>
@@ -39,6 +35,7 @@
 <script>
 import currencyFormat from '@/helpers/currencyFormat';
 import timeFormat from "@/helpers/timeFormat";
+import StarRating from "vue-star-rating";
 
 export default {
   data() {
@@ -76,6 +73,9 @@ export default {
   async created() {
     await this.docList("", this.$store.state.Booking.Date, this.vuel);
     this.specList();
+  },
+  components: {
+    StarRating,
   },
   filters: {
     currencyFormat, timeFormat
@@ -257,16 +257,18 @@ body.chg-doc
           > .clip-rating
             font-size: 22px
             line-height: 22px
-            margin: 1rem .75rem auto auto
-            display: inline-flex!important
-            > i
-              margin-right: 4px
+            margin: 1rem .5rem auto auto
+            display: inline-flex
+            > div
+              > span
+                margin-right: 4px!important
           > .clip-review, .clip-icons
+            vertical-align: bottom
             font-family: FuturaBookC
             font-size: 16px
             line-height: 21px
             color: $blue_three
-            display: inline-flex!important
+            display: inline-flex
       > img
         background: $active-link-line
         width: 316px

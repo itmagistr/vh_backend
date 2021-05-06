@@ -19,13 +19,9 @@
               </div>
               <div class="bottom">
                 <div class="card_footer">
-                  <div class="card_rating">
-                    <i class="fas fa-star star-full"></i>
-                    <i class="fas fa-star star-full"></i>
-                    <i class="fas fa-star star-full"></i>
-                    <i class="fas fa-star star-half"></i>
-                    <i class="fas fa-star star-none"></i>
-                  </div>
+                  <StarRating class="card_rating" :rating="rating" :read-only="true" :increment="0.1"
+                                    active-color="#DFB971" inactive-color="#F1EEE6"
+                                    :show-rating="false" :star-size="22"/>
                   <div class="card_review">{{ countReview }} {{$t('doctorpage.review')}}</div>
                   <div class="d-flex">
                       <div class="d-flex card_social">
@@ -58,6 +54,8 @@
 </template>
 
 <script>
+import StarRating from "vue-star-rating";
+
 export default {
   data(){
     return {
@@ -71,10 +69,13 @@ export default {
       arg1: 'стаж 19 лет',
       arg2: 'высшая кат.',
       arg3: 'КМН',
-      rating: 5,
+      rating: 3.3,
       countReview: 24,
     }
-  }
+  },
+  components: {
+    StarRating,
+  },
 }
 </script>
 
@@ -162,16 +163,19 @@ export default {
             display: inline-block
             font-size: 22px
             line-height: 22px
-            margin: auto 12px 16px auto
-            > i
-              margin-right: 4px
-          > .card_review, > .card_icons
-            display: inline-block
+            display: inline-flex
+            > div
+              > span
+                margin-right: 4px!important
+          > .card_review
+            display: inline-flex
+            vertical-align: bottom
             font-family: FuturaBookC
             font-size: 16px
             line-height: 21px
             color: $blue_three
-          > div
+          > div:last-child
+            margin: 16px auto 0
             > .card_social
               font-size: 22px
               line-height: 22px

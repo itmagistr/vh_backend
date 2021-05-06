@@ -3,22 +3,20 @@
     <div class="doctor">
       <div id="icon-doctor"> </div>
       <div id="name-doctor">
-        <div>{{ title }}</div>
-        <div>{{ lName }} {{ fName }}</div>
+        <div>{{ results.special }}</div>
+        <div>{{ results.lastName }} {{ results.firstName }}</div>
       </div>
-      <div id="star-doctor">
-        <i class="fas fa-star star-full"></i>
-        <i class="fas fa-star star-full"></i>
-        <i class="fas fa-star star-full"></i>
-        <i class="fas fa-star star-half"></i>
-        <i class="fas fa-star star-none"></i>
-      </div>
+      <StarRating class="star-doctor" :rating="results.rating" :read-only="true" :increment="0.1"
+                                    active-color="#DFB971" inactive-color="#F1EEE6"
+                                    :show-rating="false" :star-size="16"/>
       <button class="btn" id="btn-doctor" @click="doctors"><i class="fas fa-caret-right"></i></button>
     </div>
   </div>
 </template>
 
 <script>
+import StarRating from "vue-star-rating";
+
 export default {
   model: {
     prop: 'phase',
@@ -35,6 +33,9 @@ export default {
           errored: false,
           results: null
       };
+  },
+  components: {
+    StarRating,
   },
   async created() {
     if (this.$store.state.Booking.Doctor !== null)
@@ -58,9 +59,6 @@ export default {
       })
       .finally(() => {
         this.loading = false;
-        this.title = this.results.special;
-        this.fName = this.results.firstName;
-        this.lName = this.results.lastName;
       });
     },
      doctors() {
@@ -105,23 +103,19 @@ export default {
 #name-doctor > div:last-child
   font-size: 21px
 
-#star-doctor
+.star-doctor
   position: absolute
   top: 15px
   right: 34px
-  width: 96px
-  height: 16px
-
-#star-doctor > i
-  margin: 0px 2px
-  width: 16px
-  height: 16px
-
-#star-doctor > i:first-child
-  margin-left: 0px
-
-#star-doctor > i:last-child
-  margin-right: 0px
+  > div
+    > span
+      margin: 0 4px
+      width: 16px
+      height: 16px
+      &:first-child
+        margin-left: 0
+      &:last-child
+        margin-right: 0
 
 .star-none
   color: #f1eee6

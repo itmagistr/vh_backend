@@ -35,13 +35,9 @@
                             <div class="clip-accordion">{{ $t('doctorchoice.education') }} <i class="fas fa-caret-down"></i></div>
                         </div>
                         <div class="d-flex clip-footer">
-                            <div class="d-flex clip-rating">
-                                  <i class="fas fa-star star-full"></i>
-                                  <i class="fas fa-star star-full"></i>
-                                  <i class="fas fa-star star-full"></i>
-                                  <i class="fas fa-star star-half"></i>
-                                  <i class="fas fa-star star-none"></i>
-                            </div>
+                            <StarRating class="clip-rating" :rating="c.rating" :read-only="true" :increment="0.1"
+                                    active-color="#DFB971" inactive-color="#F1EEE6"
+                                    :show-rating="false" :star-size="22"/>
                             <div class="d-flex clip-review">{{ data.reviewCount }} {{ $t('doctorchoice.review') }}</div>
                             <div class="d-flex ml-auto clip-icons">
                                 <i class="fas fa-phone" style="transform: scaleX(-1)"/>
@@ -59,6 +55,7 @@
 <script>
 import currencyFormat from '@/helpers/currencyFormat';
 import timeFormat from "@/helpers/timeFormat";
+import StarRating from "vue-star-rating";
 
 export default {
     props: ['value'],
@@ -73,8 +70,11 @@ export default {
     async created() {
         await this.docList('', this.$store.state.Booking.Date, 'cc3c3aa6-590a-49c2-b9d1-faf4cf3505a0');
     },
+    components: {
+      StarRating,
+    },
     filters: {
-        currencyFormat, timeFormat
+      currencyFormat, timeFormat
     },
     methods: {
         docList(cat, date, medProcUID) {
@@ -210,10 +210,13 @@ export default {
     .clip-rating
       font-size: 22px
       line-height: 22px
-      margin-right: 12px
-      > i
-        margin-right: 4px
+      margin-right: .5rem
+      display: inline-flex
+      > div
+        > span
+          margin-right: 4px!important
     .clip-review, .clip-icons
+      vertical-align: bottom
       font-family: FuturaBookC
       font-size: 16px
       line-height: 21px
