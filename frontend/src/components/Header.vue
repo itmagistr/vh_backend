@@ -46,7 +46,7 @@
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link number" href="https://api.whatsapp.com/send?phone=79684208413" target="_blank">+7 900 881 88 88</a>
+            <a class="nav-link number" href="https://api.whatsapp.com/send?phone=74950238669" target="_blank">+7 495 023 86 69</a>
             <a class="nav-link" href="#" id="order-call" data-toggle="modal" data-target="#mdl-call-back">{{ $t('menu.callback_lnk')}}</a>
           </li>
         </ul>

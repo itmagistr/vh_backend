@@ -9,9 +9,9 @@
       </div>
       <a href="https://www.facebook.com/ToHwdDent" class="share fa fa-facebook facebook"
          target="_blank" rel="noreferrer"></a>
-      <a href="https://www.instagram.com/inessa_braginskaia/" class="share fa fa-instagram instagram"
+      <a href="https://www.instagram.com/tohwddent/" class="share fa fa-instagram instagram"
          target="_blank" rel="noreferrer"></a>
-      <a href="https://www.youtube.com/channel/UCQ5YCpgwVDsr1mTU0bsKNaQ" class="share fa fa-youtube youtube"
+      <a href="https://www.youtube.com/channel/UCeyxKBqdLFA79kCTH29RDsQ" class="share fa fa-youtube youtube"
          target="_blank" rel="noreferrer"></a>
     </div>
   </main>

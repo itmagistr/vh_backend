@@ -44,7 +44,7 @@
         <button class="social-btn" data-toggle="modal" data-target="#mdl-contacts"><i class="fas fa-map-marker-alt"></i></button>
         <button class="social-btn"><i class="fas fa-route"></i></button>
         <button class="social-btn" data-toggle="modal" data-target="#mdl-call-back"><i class="fas fa-phone-alt"></i></button>
-        <a href="https://api.whatsapp.com/send?phone=79684208413" target="_blank"><button class="social-btn"><i class="fab fa-whatsapp"></i></button></a>
+        <a href="https://api.whatsapp.com/send?phone=74950238669" target="_blank"><button class="social-btn"><i class="fab fa-whatsapp"></i></button></a>
       </div>
     </footer>
     <router-view v-if="$route.name === 'ComingSoon'"/>
