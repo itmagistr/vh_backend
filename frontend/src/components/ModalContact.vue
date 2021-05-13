@@ -16,7 +16,7 @@
               </div>
               <div class="mc-contact">
                 <div>{{ $t('modalcontact.phone') }}</div>
-                <div>+7 (495) 123-45-67</div>
+                <div>+7 (495) 023-86-69</div>
               </div>
               <div class="mc-contact">
                 <div>E-mail</div>
