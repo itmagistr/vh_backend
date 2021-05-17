@@ -143,3 +143,32 @@ class MedProcFilterView(generics.ListAPIView):
 			pass
 
 		return Response(resSerializer.data, status=status.HTTP_200_OK) #, headers=resSerializer.headers
+
+
+class MedProcSearchView(generics.ListAPIView):
+	serializer_class = MedProcEnSerializer
+	http_method_names = ['post']
+	
+	def get_serializer_class(self):
+		if 'ru' in translation.get_language():
+			# using 'in' because it can be set to something like 'es-ES; es'
+			return MedProcRuSerializer
+		return MedProcEnSerializer
+
+	@swagger_auto_schema(request_body=MedProcSearchSerializer, responses={201: MedProcRuSerializer,})
+	def post(self, request, *args, **kwargs):
+		serializer = MedProcSearchSerializer(data=request.data)
+		serializer.is_valid(raise_exception=True)
+		sclass = self.get_serializer_class()
+		if len(serializer.data['q']) ==0:
+			resQ = MedProc.objects.filter(code__startswith='CLV')
+		else:
+			if 'Ru' in str(sclass):
+				resQ = MedProc.objects.filter(Q(code__startswith=serializer.data['q']) | Q(title_ru__icontains=serializer.data['q']) )
+			else:
+				resQ = MedProc.objects.filter(Q(code__startswith=serializer.data['q']) | Q(title_en__icontains=serializer.data['q']) )
+		try:
+			resSerializer = sclass(resQ[:20], many=True)
+		except:
+			pass
+		return Response(resSerializer.data, status=status.HTTP_200_OK)

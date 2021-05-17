@@ -33,7 +33,7 @@ class DoctorRuSerializer(serializers.ModelSerializer):#serializers.HyperlinkedMo
 	firstName = serializers.CharField(source='firstName_ru')
 	special = serializers.CharField(default='...', source='special.title_ru')
 	midName = serializers.CharField(default='', source='midName_ru')
-	img = serializers.URLField(default='media/doctors/doc1.png')
+	img = serializers.URLField(source='image', default='media/doctors/doc1.png')
 	experience = serializers.IntegerField(default=1)
 	degree = serializers.CharField(default='...', source='degree.title')
 	level = serializers.CharField(default='...', source='level.title')

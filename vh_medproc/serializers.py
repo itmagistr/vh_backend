@@ -57,3 +57,8 @@ class MedProcFilterSerializer(serializers.Serializer):
 			field.required = False
 			new_fields[name] = field
 		return new_fields
+
+class MedProcSearchSerializer(serializers.Serializer):
+	q = serializers.CharField(max_length=50, allow_blank=True)
+	
+	
