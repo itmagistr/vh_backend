@@ -2,23 +2,27 @@ from django.db import models
 from vh_employee.models import Employee
 from vh_medproc.models import MedProc
 from vh_rating.models import Rating
+from vh_doctor.settings import UPLOAD_TO
 import uuid
+import os
+from django.utils.text import slugify
 import datetime
 from dateutil.relativedelta import relativedelta
 
-# def doctor_image_upload_to(self, filename):
-# 	"""
-# 	Compute the upload path for the image field.
-# 	"""
-# 	filename, extension = os.path.splitext(filename)
-# 	return os.path.join(
-# 		UPLOAD_TO, '%s%s' % (slugify(filename), extension))
+def image_upload_to(self, filename):
+	"""
+	Compute the upload path for the image field.
+	"""
+	filename, extension = os.path.splitext(filename)
+	return os.path.join(
+		UPLOAD_TO, '%s%s' % (slugify(filename), extension))
 
 class Special(models.Model):
 	uid = models.UUIDField(default=uuid.uuid4, editable=False)
 	code = models.CharField(max_length=25)
 	title = models.CharField(max_length=255)
 	description = models.TextField()
+	img =  models.ImageField(null=True, blank=True, upload_to=image_upload_to)
 	class Meta:
 		verbose_name = 'Специализация'
 		verbose_name_plural = 'Специализации'
