@@ -15,7 +15,9 @@
                   <div class="doctor-clip" v-for="data in results" :key="data.uid" :class="[select === data.uid ? 'active':'' ]"  @click="selected(data.uid)">
                         <div class="d-flex clip-header">
                             <div class="d-flex">
-                                <div class="clip-photo"></div>
+                                <div class="clip-photo">
+                                  <img :src="'http://localhost:8000' + data.img" height="64px"/>
+                                </div>
                                 <div class="clip-bk1">
                                     <div class="clip-tittle">{{ data.special }}</div>
                                     <div class="clip-name">{{ data.firstName }} {{ data.lastName }} <br> {{ data.midName }}</div>
@@ -173,9 +175,11 @@ export default {
     justify-content: space-between
     margin-bottom: 16px
     .clip-photo
+      display: flex
+      justify-content: center
       width: 64px
       height: 64px
-      background: $active-link-line
+      background: #e9ecef
       border-radius: 4px
       margin-right: 12px
     .clip-bk1

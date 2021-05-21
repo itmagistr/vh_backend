@@ -8,7 +8,9 @@
         </div>
         <div class="algo">
             <div class="card-doc" v-for="c in doc" :key="c.uid">
-                <img :src="c.img"/>
+                <div class="docPhoto">
+                  <img :src="'http://localhost:8000' + c.img"/>
+                </div>
                 <div class="info">
                     <div class="top">
                         <div class="icon"><img :src="c.imgCat"></div>
@@ -272,12 +274,16 @@ body.chg-doc
             line-height: 21px
             color: $blue_three
             display: inline-flex
-      > img
-        background: $active-link-line
+      > div.docPhoto
+        display: flex
+        justify-content: center
+        background: #e9ecef
         width: 316px
         height: 240px
         border-radius: 8px
         border: none
+        > img
+          height: 240px
       .btn
         position: absolute
         font-family: FuturaBookC

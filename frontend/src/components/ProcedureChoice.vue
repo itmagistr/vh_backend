@@ -5,9 +5,9 @@
         <div class="menu">
           <button class="btn" @click="backToBooking()"><i class="fas fa-long-arrow-alt-left"/> {{ $t('proсchoice.back') }}</button>
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Найти процедуру..." aria-describedby="ba2">
+            <input v-model='q' type="text" class="form-control" placeholder="Найти процедуру..." aria-describedby="ba2">
             <div class="input-group-append">
-              <button class="btn" type="button" id="ba2" data-toggle="modal" data-target="#mdl-future-ok"><i class="fas fa-search"></i></button>
+              <button class="btn" type="button" id="ba2" @click="search()"><i class="fas fa-search"></i></button>
             </div>
           </div>
         </div>
@@ -52,7 +52,8 @@ export default {
             ],
             loading: true,
             errored: false,
-            results: null,
+            results: [],
+            q: '',
         }
     },
     async mounted() {
@@ -79,6 +80,24 @@ export default {
             finally(() => {
               this.loading = false;
               this.cat[section].results = this.results;
+            });
+        },
+        search() {
+            const options = {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({"q": this.q})
+            };
+            fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/mpsearch/`, options).
+            then(response => response.json()).
+            then(data => {
+              this.results = data;
+              console.log(data);
+            }).
+            catch((error) => { console.log(error); this.results = null;}).
+            finally(() => {
+              this.loading = false;
+              this.cat[0].results = this.results;
             });
         },
         backToBooking(){

@@ -37,10 +37,12 @@
         <ul class="navbar-nav"><router-link :to="{name: 'main'}"><img class="logo" src="/img/logo-sm.svg"/></router-link></ul>
         <ul class="navbar-nav rightM">
           <li class="nav-item">
-            <div class="inner-addon right-addon">
-              <i class="fas fa-search" aria-hidden="true" data-toggle="modal" data-target="#mdl-future-ok"></i>
-              <input class="form-control" type="search" :placeholder="$t('menu.search_ph')" aria-label="Search"/>
-            </div>
+            <div class="input-group">
+              <input v-model='q' type="text" class="form-control" :placeholder="$t('menu.search_ph')" aria-describedby="ba2">
+              <div class="input-group-append">
+                <button class="btn" type="button" id="ba2" data-toggle="modal" data-target="#mdl-future-ok"><i class="fas fa-search"></i></button>
+              </div>
+          </div>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="nDML" role="button" data-toggle="dropdown"
@@ -77,12 +79,38 @@ export default {
   data() {
     return {
       locale: this.$i18n.locale,
+      q: '',
+      res: [],
     }
   },
   methods: {
     chLang(locale){
       this.locale = locale;
       this.$i18n.locale = locale;
+    },
+    search() {
+      return new Promise(() => {
+        // if (this.q.length < 3) {
+        //   return resolve([]);
+        // }
+
+        const options = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({"q": this.q})
+        };
+        fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/mpsearch/`, options).
+        then(response => response.json()).
+        then(data => {
+          this.res = data;
+          console.log(data);
+        }).
+        catch((error) => { console.log(error); this.results = null;}).
+        finally(() => {
+          this.loading = false;
+        });
+        return false;
+      });
     },
   }
 }
@@ -187,35 +215,17 @@ header
   &::placeholder
     color: $header_text
 
-.btn.focus, .btn, .social-btn
-  &:focus
-    outline: 0
-    box-shadow: 0 0 0 0.2rem rgba(184,136,47,.25)
-
 .form-control, .social-btn
   &:focus, &:hover
     outline: 0
     box-shadow: 0 0 0 0.2rem rgba(184,136,47,.25)
     color: $header_text
 
-.inner-addon
-  position: relative
-  .fas
-    position: absolute
-    padding: 12px
-    pointer-events: none
+#ba2
+  background: #FFF
+  > i
     transform: scaleX(-1)
-
-.right-addon .fas
-  right: 0px
-
-.right-addon input
-  padding-right: 30px
-
-.right-side
-  position: absolute
-  right: 7.3%
-  top: 304px
+    color: $header_text
 
 @media (max-width: 1399px)
   .navbar-light
