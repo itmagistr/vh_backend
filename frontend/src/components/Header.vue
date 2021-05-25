@@ -67,23 +67,34 @@
         <i class="fas fa-bars"></i>
       </button>
       <router-link :to="{name: 'main'}"><img class="mobile logo" src="/img/logo-sm.svg"/></router-link>
-      <i class="fas fa-search" data-toggle="modal" data-target="#mdl-future-ok"></i>
+      <label class="seaF" for="searchfField" :class="{active: isActive}">
+<!--    <input @blur="handleBlur" @focus="handleFocus" id="searchfField" type="text" v-model="q"
+        data-toggle="modal" data-target="#mdl-future-ok"/>-->
+        <input @blur="handleBlur" @focus="handleFocus" id="searchfField" type="text" v-model="q" @keyup="search"/>
+      </label>
     </nav>
   </header>
 </template>
 
 <script>
-
 export default {
   props: ['resize'],
   data() {
     return {
       locale: this.$i18n.locale,
       q: '',
+      isActive: false,
       res: [],
     }
   },
   methods: {
+    handleFocus() {
+      this.isActive = true;
+    },
+    handleBlur() {
+      if(this.q.length === 0)
+        this.isActive = false;
+    },
     chLang(locale){
       this.locale = locale;
       this.$i18n.locale = locale;
@@ -103,10 +114,10 @@ export default {
         then(response => response.json()).
         then(data => {
           this.res = data;
-          console.log(data);
         }).
         catch((error) => { console.log(error); this.results = null;}).
         finally(() => {
+          console.log(this.res)
           this.loading = false;
         });
         return false;
@@ -202,7 +213,38 @@ header
       width: 100%
   .btn-outline
     color: $header_text
-    background: #FFF
+    background: $white
+
+  .seaF
+    height: 2rem
+    width: 2rem
+    transition: all 200ms ease
+    cursor: text
+    margin: 0
+    &.active, &:hover
+      width: 200px
+      height: 2rem
+      border-radius: 0.5rem
+      border-width: 0
+      background: $white
+      box-shadow: 0 0 0 0.2rem rgba(184,136,47,.25)
+      &:after
+        height: 0px
+    input
+      background-color: transparent
+      background: url('/img/search.svg') no-repeat scroll 5px 5px
+      padding-left: 2rem
+      height: 2rem
+      width: 100%
+      border: none
+      box-sizing: border-box
+      font-family: Helvetica
+      font-size: 1rem
+      color: inherit
+      outline-width: 0px
+      &.active, &:hover
+        border: none
+        box-shadow: none
 
 .btn-outline
   &:hover
