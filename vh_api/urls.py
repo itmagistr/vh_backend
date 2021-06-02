@@ -32,6 +32,7 @@ apipatterns = [
 	#path('', include(router.urls)),
 	re_path('daystatus/(?P<dstart>\d\d\d\d-\d\d-\d\d)/(?P<dend>\d\d\d\d-\d\d-\d\d)/$', views.DayStatusView.as_view()),
 	re_path('timestatus/(?P<d>\d\d\d\d-\d\d-\d\d)/$', views.TimeStatusView.as_view()),
+	path('', include('vh_category.urls')),
 	path('', include('vh_doctor.urls')),
 	path('', include('vh_medproc.urls')),
 	path('', include('vh_booking.urls')),
