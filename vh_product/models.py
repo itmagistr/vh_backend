@@ -2,6 +2,7 @@ from django.db import models
 import uuid
 from polymorphic.models import PolymorphicModel
 from vh_category.models import Category
+from vh_employee.models import Employee
 
 class Product(PolymorphicModel):
 	uid = models.UUIDField(default=uuid.uuid4, editable=False)
@@ -30,3 +31,13 @@ class ProductCategory(models.Model):
 		verbose_name_plural = 'Категории продукта'
 	def __str__(self):
 		return u"{}.{}".format(self.category, self.product)
+
+class ProductEmployee(models.Model):
+	product = models.ForeignKey(Product, null=True, blank=True, on_delete=models.CASCADE, verbose_name='Продукт', help_text='Укажите продукт из каталога')
+	employee = models.ForeignKey(Employee, null=True, blank=True, on_delete=models.CASCADE, verbose_name='Исполнитель', help_text='Веберите исполнителя продукта')
+	pos = models.PositiveIntegerField(default=0, verbose_name='Номер по порядку', help_text='Укажите позицию связи для сортировки')
+	class Meta:
+		verbose_name = 'Связь продукта с исполнителем'
+		verbose_name_plural = 'Исполнители продукта'
+	def __str__(self):
+		return u"{}.{}".format(self.employee, self.product)
