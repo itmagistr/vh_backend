@@ -2,11 +2,15 @@ from django.contrib import admin
 from polymorphic.admin import PolymorphicChildModelAdmin
 from modeltranslation.admin import TranslationAdmin
 from .models import *
-from vh_product.models import ProductCategory
+from vh_product.models import ProductCategory, ProductEmployee
 # Register your models here.
 
 class ProdCategoryInline(admin.TabularInline):
 	model = ProductCategory
+	extra = 1
+
+class ProdEmployeeInline(admin.TabularInline):
+	model = ProductEmployee
 	extra = 1
 
 class MedProcAdmin(TranslationAdmin):
@@ -17,6 +21,6 @@ class MedProcAdmin(TranslationAdmin):
 	search_fields = ('code', 'title', )
 	list_filter = ('duration', )
 	#ordering = ('code',)
-	inlines = [ProdCategoryInline, ]
+	inlines = [ProdCategoryInline, ProdEmployeeInline]
 
 admin.site.register(MedProc, MedProcAdmin)
