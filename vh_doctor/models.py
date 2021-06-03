@@ -81,3 +81,15 @@ class DoctorMedProc(models.Model):
 	def __str__(self):
 		return u"{}.{}".format(self.doctor, self.medproc)
 
+class DocWorkRes(models.Model):
+	doctor = models.ForeignKey(Doctor, null=False, blank=False, on_delete=models.CASCADE, verbose_name='Врач', help_text='Укажите врача')
+	img = models.ImageField(null=False, blank=False, verbose_name='Фото', help_text='Выбор изображения результата работы')
+	title = models.CharField(null=True, blank=True, max_length=255)
+	pos = models.PositiveIntegerField(default=0, verbose_name='Номер по порядку', help_text='Укажите позицию связи для сортировки')
+	class Meta:
+		verbose_name = 'Фото работы врача'
+		verbose_name_plural = 'Фото работ врачей'
+
+	def __str__(self):
+		return u"{}.{}.{}".format(self.doctor, self.pos, self.img.name)
+
