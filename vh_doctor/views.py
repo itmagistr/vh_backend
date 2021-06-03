@@ -106,3 +106,22 @@ class SpecListView(generics.ListAPIView):
 	def get_queryset(self):
 		return Special.objects.all()
 	
+
+class DocWorkResView(generics.ListAPIView):
+	'''
+	Получить фото результатов врача
+	'''
+	serializer_class = DoctorWorkResSerializer
+	#lookup_field = 'uid'
+	lookup_url_kwarg = 'uid'
+	def get_serializer_class(self):
+		#logger.info(translation.get_language())
+
+		if 'ru' in translation.get_language():
+			# using 'in' because it can be set to something like 'es-ES; es'
+			return DoctorWorkResSerializer
+		return DoctorWorkResSerializer
+		
+	def get_queryset(self):
+		uid = self.kwargs.get(self.lookup_url_kwarg)
+		return DocWorkRes.objects.filter(doctor__uid=uid)

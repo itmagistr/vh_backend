@@ -1,4 +1,4 @@
-from .models import Doctor, Special
+from .models import *
 from rest_framework import serializers
 from vh_human.serializers import HumanSerializer
 import uuid
@@ -28,6 +28,12 @@ class SpecialCodeSerializer(serializers.ModelSerializer):
 		model = Special
 		fields = ['code', 'title']
 
+class DoctorWorkResSerializer(serializers.ModelSerializer):#serializers.HyperlinkedModelSerializer):
+	doc_uid = serializers.CharField(source='doctor.uid')
+	class Meta:
+		model = DocWorkRes
+		fields = ['doc_uid', 'pos', 'img', 'title']
+
 class DoctorRuSerializer(serializers.ModelSerializer):#serializers.HyperlinkedModelSerializer):
 	lastName = serializers.CharField(source='lastName_ru')
 	firstName = serializers.CharField(source='firstName_ru')
@@ -35,8 +41,8 @@ class DoctorRuSerializer(serializers.ModelSerializer):#serializers.HyperlinkedMo
 	midName = serializers.CharField(default='', source='midName_ru')
 	img = serializers.ImageField(source='image', default='media/doctors/doc1.png')
 	experience = serializers.IntegerField(default=1)
-	degree = serializers.CharField(default='...', source='degree.title')
-	level = serializers.CharField(default='...', source='level.title')
+	degree = serializers.CharField(default='...', source='degree.title_ru')
+	level = serializers.CharField(default='...', source='level.title_ru')
 	rating = serializers.DecimalField(default=4, max_digits=5, decimal_places=1, source='rating.rate')
 	reviewCount = serializers.IntegerField(default=0)
 	class Meta:
@@ -47,11 +53,16 @@ class DoctorEnSerializer(serializers.ModelSerializer):#serializers.HyperlinkedMo
 	lastName = serializers.CharField(source='lastName_en')
 	firstName = serializers.CharField(source='firstName_en')
 	special = serializers.CharField(source='special.title_en')
-
-	#special = SpecialRuSerializer()
+	midName = serializers.CharField(default='', source='midName_en')
+	img = serializers.ImageField(source='image', default='media/doctors/doc1.png')
+	experience = serializers.IntegerField(default=1)
+	degree = serializers.CharField(default='...', source='degree.title_en')
+	level = serializers.CharField(default='...', source='level.title_en')
+	rating = serializers.DecimalField(default=4, max_digits=5, decimal_places=1, source='rating.rate')
+	reviewCount = serializers.IntegerField(default=0)
 	class Meta:
 		model = Doctor
-		fields = ['uid', 'lastName', 'firstName', 'special']
+		fields = ['uid', 'lastName', 'firstName', 'special', 'midName', 'img', 'experience', 'degree', 'level', 'rating', 'reviewCount']
 
 class DoctorFilterSerializer(serializers.Serializer):
 	txt = serializers.CharField(max_length=50, allow_blank=True)
@@ -73,3 +84,5 @@ class DoctorFilterSerializer(serializers.Serializer):
 			field.required = False
 			new_fields[name] = field
 		return new_fields
+
+

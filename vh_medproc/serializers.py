@@ -8,6 +8,8 @@ class MedProcEnSerializer(serializers.ModelSerializer):
 	title = serializers.CharField(source='title_en')
 	title_check = serializers.CharField(source='title_check_en')
 	description = serializers.CharField(source='description_en')
+	recomend_before = serializers.CharField(source='recomend_before_en')
+	recomend_after = serializers.CharField(source='recomend_after_en')
 	# uid = serializers.CharField(source='product.uid')
 	# title = serializers.CharField(source='product.title')
 	# title_check = serializers.CharField(source='product.title_check')
@@ -17,15 +19,17 @@ class MedProcEnSerializer(serializers.ModelSerializer):
 	# #product = ProductSerializer()
 	class Meta:
 		model = MedProc
-		fields = ['uid', 'code', 'title', 'title_check', 'description', 'price', 'price_old', 'duration']
+		fields = ['uid', 'code', 'title', 'title_check', 'description', 'price', 'price_old', 'duration', 'recomend_before', 'recomend_after']
 
 class MedProcRuSerializer(serializers.ModelSerializer):
 	title = serializers.CharField(source='title_ru')
 	title_check = serializers.CharField(source='title_check_ru')
 	description = serializers.CharField(source='description_ru')
+	recomend_before = serializers.CharField(source='recomend_before_ru')
+	recomend_after = serializers.CharField(source='recomend_after_ru')
 	class Meta:
 		model = MedProc
-		fields = ['uid', 'code', 'title', 'title_check', 'description', 'price', 'price_old', 'duration']
+		fields = ['uid', 'code', 'title', 'title_check', 'description', 'price', 'price_old', 'duration', 'recomend_before', 'recomend_after']
 
 
 class MedProcFilterSerializer1(serializers.Serializer):
