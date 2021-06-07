@@ -97,6 +97,9 @@ export default {
       }).
       catch((error) => { console.log(error); this.results = null;}).
       finally(() => {
+        for (let i = 0; i < this.doc.length; i++)
+          if(this.doc[i].img === null)
+            this.doc[i].img = '/media/uploads/human/defaultAvatar.png';
         this.loading = false;
       });
     },
@@ -164,7 +167,7 @@ body.chg-doc
   width: 100%
   > .filter
     display: flex
-    flex-direction: row
+    flex-wrap: wrap
     justify-content: center
     > div
       height: 32px
