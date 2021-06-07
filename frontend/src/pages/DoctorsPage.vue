@@ -1,5 +1,6 @@
 <template>
     <div class="d-flex flex-column doc">
+        <modalDocCard :selfInfo="selfInfo"/>
         <div class="tittle-of-doctor">{{ $t('doctorpage.doc_header') }}</div>
         <div class="filter">
             <div :class="{active: c.st}" v-for="(c, index) in category" :key="index" @click="updCat(index)">
@@ -13,7 +14,7 @@
                 </div>
                 <div class="info">
                     <div class="top">
-                        <div class="icon"><img :src="c.imgCat"></div>
+                        <div class="icon"><img :src="'http://localhost:8000' + c.special_img"></div>
                         <div class="bk1">
                             <div class="tittle">{{ c.special }}</div>
                             <div class="education">{{ c.degree }}</div>
@@ -38,38 +39,19 @@
 import currencyFormat from '@/helpers/currencyFormat';
 import timeFormat from "@/helpers/timeFormat";
 import StarRating from "vue-star-rating";
+import modalDocCard from "@/components/ModalDocCard.vue";
 
 export default {
   data() {
     return {
       select: this.$store.state.Booking.Procedure,
       category: [],
-      doc: [
-        { uid: 'fa85a9ec-c7e8-466e-b3af-d852777db5f1', img: '/img/Teeth/Orthodontics.svg',
-          imgCat: '/img/Teeth/Orthodontics.svg', tittle: 'Стоматлог, Ортодонт', fName: 'Лариса',
-          lName: 'Василенко', tName: '', arg1: 'стаж 19 лет',
-          arg2: 'высшая кат.', arg3: 'КМН', rating: 5, countReview: 24,
-        },
-        { uid: '6f5773c0-c8b0-475d-8851-4ca909afeca4', img: '/img/Teeth/Orthodontics.svg',
-          imgCat: '/img/Teeth/Orthodontics.svg', tittle: 'Стоматлог, Ортодонт', fName: 'Лариса',
-          lName: 'Василенко', tName: '', arg1: 'стаж 19 лет',
-          arg2: 'высшая кат.', arg3: 'КМН', rating: 5, countReview: 24,
-        },
-        { uid: 'd28573a8-36a0-4293-bccf-acc6f56295e2', img: '/img/teeth/Surgery.svg',
-          imgCat: '/img/teeth/Surgery.svg', tittle: 'Хирург', fName: 'Лариса',
-          lName: 'Василенко', tName: '', arg1: 'стаж 19 лет',
-          arg2: 'высшая кат.', arg3: 'КМН', rating: 5, countReview: 24,
-        },
-        { uid: 'd4da8973-0f6a-4de3-9bc0-3a7bc6f5b9fe', img: '/img/teeth/Surgery.svg',
-          imgCat: '/img/teeth/Surgery.svg', tittle: 'Хирург', fName: 'Лариса',
-          lName: 'Василенко', tName: '', arg1: 'стаж 19 лет',
-          arg2: 'высшая кат.', arg3: 'КМН', rating: 4, countReview: 24,
-        },
-      ],
+      doc: [],
       loading: true,
       errored: false,
       results: null,
-      locale: this.$i18n.locale
+      selfInfo: null,
+      locale: this.$i18n.locale,
     }
   },
   async created() {
@@ -77,7 +59,7 @@ export default {
     this.specList();
   },
   components: {
-    StarRating,
+    StarRating, modalDocCard,
   },
   filters: {
     currencyFormat, timeFormat
@@ -99,7 +81,7 @@ export default {
   },
   methods: {
     updCardModal(uid){
-      console.log(uid);
+      this.selfInfo = uid;
     },
     docList(cat, date, specs) {
       const options = {
@@ -124,7 +106,10 @@ export default {
       then(data => {
         for (let i = 0; i < data.count; i++){
           const buf = data.results[i];
-          this.category.push({ code: buf.code, title: buf.title, st: false });
+          let img = buf.img;
+          if(img!=null)
+            img = buf.img.replace(".png",".svg");
+          this.category.push({ code: buf.code, title: buf.title, img: img, st: false });
         }
       }).
       catch((error) => { console.log(error); this.results = null;}).
@@ -277,7 +262,7 @@ body.chg-doc
       > div.docPhoto
         display: flex
         justify-content: center
-        background: #e9ecef
+        background: $backgroundImage
         width: 316px
         height: 240px
         border-radius: 8px

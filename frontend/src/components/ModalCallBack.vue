@@ -32,10 +32,10 @@
               </button>
             </div>
             <select class="form-vertical" v-model="hr">
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
+              <option value="6">06</option>
+              <option value="7">07</option>
+              <option value="8">08</option>
+              <option value="9">09</option>
               <option value="10">10</option>
               <option value="11">11</option>
               <option value="12">12</option>
@@ -52,8 +52,8 @@
             </select>
             
             <select class="form-vertical" v-model="min">
-              <option value="0">0</option>
-              <option value="5">5</option>
+              <option value="0">00</option>
+              <option value="5">05</option>
               <option value="10">10</option>
               <option value="15">15</option>
               <option value="20">20</option>
@@ -78,7 +78,10 @@
       </div>
       <div class="modal-footer">
          <div>{{ $t('callback.confident') }}</div>
-        <button type="button" class="btn btn-ok" @click="send()">{{ $t('callback.send-btn') }}</button>
+        <button type="button" class="btn btn-ok" @click="send()"
+                data-toggle="modal" data-dismiss="modal" data-target="#mdl-messenger">
+          {{ $t('callback.send-btn') }}
+        </button>
       </div>
     </div>
   </div>
@@ -99,6 +102,8 @@ export default{
     },
     created() {
       this.hr = new Date().getHours();
+      if(this.hr >= 23 || this.hr < 6)
+        this.hr = 6;
       this.min = new Date().getMinutes() - new Date().getMinutes() % 5;
     },
     methods: {

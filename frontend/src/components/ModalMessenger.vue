@@ -22,9 +22,9 @@
         </div>
         <div class="modal-footer">
           <div class="inner-addon right-addon">
-            <i class="fas" aria-hidden="true" @click="fun"></i>
             <input type="text" placeholder="Введите сообщение..." aria-label="Message"
                    class="form-control" v-model="msg">
+            <i class="fas" aria-hidden="true" @click="fun"></i>
           </div>
         </div>
       </div>
@@ -51,8 +51,12 @@ export default{
   },
   methods: {
     fun(){
-      this.msgs.push({ uid: this.msgs.length, name: 'Наталья Ковалева', time: Math.random(), msg: this.msg, type: 1 });
-      this.scrollingTo();
+      if(this.msg !== null){
+        console.log(this.msg);
+        this.msgs.push({ uid: this.msgs.length, name: 'Наталья Ковалева', time: Math.random(), msg: this.msg, type: 1 });
+        this.msg = null;
+        this.scrollingTo();
+      }
     },
     scrollingTo(){
       let scroll = document.getElementById("chatting");
@@ -139,6 +143,9 @@ export default{
       box-shadow: 0px 4px 12px 0px rgba(218,172,84,0.08)
       width: 100%
       > i
+        position: absolute
+        bottom: 36px
+        right: 36px
         transform: scaleY(1)
         height: 38px
         width: 38px
@@ -146,6 +153,8 @@ export default{
         background-position: center
         background-repeat: no-repeat
         pointer-events: auto
+      > input
+        padding-right: 38px
 
 @media (max-width: 450px)
   #mdl-messenger

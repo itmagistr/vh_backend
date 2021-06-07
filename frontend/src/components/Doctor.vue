@@ -1,9 +1,11 @@
 <template>
   <div class="col">
     <div class="doctor">
-      <div id="icon-doctor"> </div>
+      <div id="icon-doctor">
+        <img :src="results.img">
+      </div>
       <div id="name-doctor">
-        <div>{{ results.special }}</div>
+        <div>{{ results.special}}</div>
         <div>{{ results.lastName }} {{ results.firstName }}</div>
       </div>
       <StarRating class="star-doctor" :rating="parseFloat(results.rating)" :read-only="true" :increment="0.1"
@@ -31,7 +33,7 @@ export default {
           lName: null,
           loading: true,
           errored: false,
-          results: null
+          results: [],
       };
   },
   components: {
@@ -80,13 +82,17 @@ export default {
   display: inline-block
 
 #icon-doctor
+  display: flex
+  justify-content: center
   position: absolute
   top: 8px
   left: 8px
   width: 56px
   height: 56px
-  background: $active-link-line
+  background: $backgroundImage
   border-radius: 4px
+  > img
+    height: 100%
 
 #name-doctor
   font-family: FuturaBookC
