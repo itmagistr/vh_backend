@@ -12,44 +12,8 @@
                         </div>
                   </div>
                   <div v-if="loading">{{ $t('doctorchoice.dwnld') }}</div>
-                  <div class="doctor-clip" v-for="data in results" :key="data.uid" :class="[select === data.uid ? 'active':'' ]"  @click="selected(data.uid)">
-                        <div class="d-flex clip-header">
-                            <div class="d-flex">
-                                <div class="clip-photo">
-                                  <img :src="'http://localhost:8000' + data.img" height="64px"/>
-                                </div>
-                                <div class="clip-bk1">
-                                    <div class="clip-tittle">{{ data.special }}</div>
-                                    <div class="clip-name">{{ data.firstName }} {{ data.lastName }} <br> {{ data.midName }}</div>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column clip-info">
-                                <div>{{ data.experience }}</div>
-                                <div>{{ data.level }}</div>
-                                <div>{{ data.degree }}</div>
-                            </div>
-                        </div>
-                        <div class="clip-body">
-                            <div class="clip-accordion">{{ $t('doctorchoice.procedure') }} <i class="fas fa-caret-down"></i></div>
-                            <div class="clip-accordion">{{ $t('doctorchoice.photo') }} <i class="fas fa-caret-down"></i></div>
-                            <div class="clip-accordion">Youtube <i class="fas fa-caret-down"></i></div>
-                            <div class="clip-accordion">{{ $t('doctorchoice.certificate') }} <i class="fas fa-caret-down"></i></div>
-                            <div class="clip-accordion">{{ $t('doctorchoice.education') }} <i class="fas fa-caret-down"></i></div>
-                        </div>
-                        <div class="d-flex clip-footer">
-                            <div>
-                                <StarRating class="clip-rating" :rating="parseFloat(data.rating)" :read-only="true" :increment="0.1"
-                                        active-color="#DFB971" inactive-color="#F1EEE6"
-                                        :show-rating="false" :star-size="22"/>
-                                <div class="d-flex clip-review">{{ data.reviewCount }} {{ $t('doctorchoice.review') }}</div>
-                            </div>
-                                <div class="d-flex clip-icons">
-                                    <i class="fas fa-phone" style="transform: scaleX(-1)"/>
-                                    <img src="/img/chat.svg"/>
-                                    <i class="fas fa-heart"/>
-                                </div>
-                        </div>
-                  </div>
+                  <Card v-for="data in results" :key="data.uid" :data="data" :class="[select === data.uid ? 'active':'' ]"
+                         v-on:select="selected"></Card>
             </div>
             <button class="btn" @click="send()">{{ $t('doctorchoice.choose') }}</button>
         </div>
@@ -59,8 +23,7 @@
 <script>
 import currencyFormat from '@/helpers/currencyFormat';
 import timeFormat from "@/helpers/timeFormat";
-import StarRating from "vue-star-rating";
-
+import Card from "@/components/DoctorCardChoice.vue";
 export default {
     props: ['value'],
     data() {
@@ -75,7 +38,7 @@ export default {
         await this.docList('', this.$store.state.Booking.Date, []);
     },
     components: {
-      StarRating,
+      Card,
     },
     filters: {
       currencyFormat, timeFormat
@@ -160,88 +123,6 @@ export default {
     color: #B8882F
   #ba2
     background: white
-
-.doctor-clip
-  display: flex
-  flex-direction: column
-  border: 1px solid rgba(238, 209, 153, 0.32)
-  border-radius: 8px
-  width: 624px
-  margin-bottom: 16px
-  padding: 24px
-  &:hover, &.active
-      border: 2px solid #42E1C5
-  > .clip-header
-    justify-content: space-between
-    margin-bottom: 16px
-    .clip-photo
-      display: flex
-      justify-content: center
-      width: 64px
-      height: 64px
-      background: #e9ecef
-      border-radius: 4px
-      margin-right: 12px
-    .clip-bk1
-      vertical-align: top
-      .clip-tittle
-        font-family: FuturaBookC
-        font-size: 14px
-        line-height: 16px
-        color: #B8882F
-        padding-top: 4px
-        padding-bottom: 4px
-      .clip-name
-        font-family: Montserrat
-        font-size: 19px
-        line-height: 19px
-        color: #071013
-    .clip-info
-      text-align: right
-      font-family: FuturaBookC
-      font-size: 16px
-      line-height: 21px
-      color: #071013
-  > .clip-body
-    display: flex
-    flex-direction: column
-    margin-bottom: 1.5rem
-    .clip-accordion
-      font-family: FuturaBookC
-      font-size: 16px
-      line-height: 21px
-      letter-spacing: 0.08em
-      text-transform: uppercase
-      color: #071013
-      margin: .25rem 0
-      > i
-       margin-left: 8px
-       color: $blue_three
-  > .clip-footer
-    justify-content: space-between
-    vertical-align: middle
-    > div
-      display: flex
-      >.clip-rating
-        font-size: 22px
-        line-height: 22px
-        margin-right: .5rem
-        display: inline-flex
-        > div
-          > span
-            margin-right: 4px!important
-    .clip-review, .clip-icons
-      vertical-align: bottom
-      font-family: FuturaBookC
-      font-size: 16px
-      line-height: 21px
-      color: $blue_three
-    .clip-icons
-      font-size: 22px
-      line-height: 22px
-      color: $blue_three
-      > i, img
-        margin-left: 16px
 
 .doctor-choice
   > .btn

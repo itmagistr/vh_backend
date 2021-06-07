@@ -1,0 +1,91 @@
+<template>
+  <div class="gCarousel">
+    <button class="btn leftBtn" @click="chgPos(-1)">
+      <i class="fas fa-caret-left" aria-hidden="true"></i>
+    </button>
+    <div class="imgField">
+      <div v-for="(c, index) in data" :key="index" class="imgCarousel">
+        <p>{{c}}</p>
+      </div>
+    </div>
+    <button class="btn rightBtn" @click="chgPos(1)">
+      <i class="fas fa-caret-right" aria-hidden="true"></i>
+    </button>
+  </div>
+</template>
+
+<script>
+export default {
+  props: ['selfInfo'],
+  data(){
+    return {
+      data: [1,2,3,4,5,6,7,8,9,10],
+    }
+  },
+  methods: {
+    chgPos(val){
+      console.log(val);
+    },
+    show(pos){
+      this.states[pos] = !this.states[pos];
+    },
+    getInfo() {
+      //http://localhost:8000/ru/vhapi/doctor/bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82/workres/
+      fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/doctor/${this.selfInfo}/workres/`).then(response => response.json()).then(data => {
+        this.data = data;
+        console.log(data);
+      }).catch((error) => {
+        console.log(error);
+        //this.results = null;
+      }).finally(() => {
+        this.states = { proc: false, photo: false, youtube: false, cert: false, edu: false };
+        //this.loading = false;
+      });
+    },
+  },
+}
+</script>
+
+<style lang="sass">
+@import "@/styles/_variables.sass"
+
+.gCarousel
+  background: #F3E9D4
+  display: flex
+  margin: 0 1.5rem 1rem
+  height: 80px
+  border-radius: .25rem
+  color: $white
+  > .leftBtn, .rightBtn
+    height: 100%
+    width: 1rem
+    background-color: $active-link-line
+    border: none
+    border-radius: .25rem
+    &.btn
+      padding: 0
+    > i
+      right: 1px
+      position: relative
+      color: $white
+  > .imgField
+    overflow: auto
+    display: flex
+    width: 100%
+    > .imgCarousel
+      border-radius: .25rem
+      background: $active-text-link
+      width: 88px
+      height: 64px
+      margin: .5rem .25rem
+      &:first-child
+          margin-left: .5rem
+      &:last-child
+          margin-right: .5rem
+      > p
+        display: flex
+        width: 88px
+        height: 64px
+        justify-content: center
+        align-items: center
+</style>

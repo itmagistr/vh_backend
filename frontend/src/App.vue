@@ -32,17 +32,17 @@
       </div>
     </main>
     <footer v-if="$route.name !== 'ComingSoon'">
-      <div id="ftr-tp">
+      <div class="ftr-btn">
         <a href="https://www.instagram.com/tohwddent" target="_blank"><button class="social-btn"><i class="fab fa-instagram"></i></button></a>
         <a href="https://www.youtube.com/channel/UCeyxKBqdLFA79kCTH29RDsQ" target="_blank"><button class="social-btn"><i class="fab fa-youtube"></i></button></a>
         <a href="https://www.facebook.com/ToHwdDent" target="_blank"><button class="social-btn"><i class="fab fa-facebook-f"></i></button></a>
         <a href="https://vk.com/tohwddent" target="_blank"><button class="social-btn"><i class="fab fa-vk"></i></button></a>
       </div>
-      <div id="ftr-btm">
-        <button class="social-btn" data-toggle="modal" data-target="#mdl-leave-request"><i class="far fa-comment-alt"></i></button>
-        <button class="social-btn" data-toggle="modal" data-target="#mdl-contacts"><i class="fas fa-map-marker-alt"></i></button>
+      <div class="ftr-btn">
+        <a href="#"><button class="social-btn" data-toggle="modal" data-target="#mdl-leave-request"><i class="far fa-comment-alt"></i></button></a>
+        <a href="#"><button class="social-btn" data-toggle="modal" data-target="#mdl-contacts"><i class="fas fa-map-marker-alt"></i></button></a>
         <!--<button class="social-btn"><i class="fas fa-route"></i></button>-->
-        <button class="social-btn" data-toggle="modal" data-target="#mdl-call-back"><i class="fas fa-phone-alt"></i></button>
+        <a href="#"><button class="social-btn" data-toggle="modal" data-target="#mdl-call-back"><i class="fas fa-phone-alt"></i></button></a>
         <a href="https://api.whatsapp.com/send?phone=74950238669" target="_blank"><button class="social-btn"><i class="fab fa-whatsapp"></i></button></a>
       </div>
     </footer>
@@ -167,19 +167,14 @@ footer
   padding-bottom: 3.5rem
   display: none
   flex-direction: column
-  > #ftr-tp
+  align-items: center
+  > .ftr-btn
     display: flex
     justify-content: center
     > a
       margin: .5rem
-    margin: auto
-  > #ftr-btm
-    > a, button
-      margin: .5rem
-      > button
+      > .social-btn
         margin: 0
-    display: flex
-    justify-content: center
 
 @media screen and (max-width: 1400px)
   /*header

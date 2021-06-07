@@ -49,6 +49,7 @@
             <div class="clip-accordion" @click="show('photo')" :class="[states.photo ? 'active' : '']">
               {{ $t('modaldoccard.photo') }} <i class="fas fa-caret-down"></i>
             </div>
+            <Carousel v-if="states.photo"/>
             <div class="clip-accordion" @click="show('youtube')" :class="[states.youtube ? 'active' : '']">
               Youtube <i class="fas fa-caret-down"></i>
             </div>
@@ -69,6 +70,7 @@
 
 <script>
 import StarRating from "vue-star-rating";
+import Carousel from "@/components/DoctorWorkresCarousel"
 
 export default {
   props: ['selfInfo'],
@@ -128,7 +130,7 @@ export default {
     },
   },
   components: {
-    StarRating,
+    StarRating, Carousel
   },
 }
 </script>

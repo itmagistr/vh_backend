@@ -1,12 +1,14 @@
 <template>
   <div class="col">
     <div class="procedure">
-      <div id="icon-procedure"> </div>
+      <div id="icon-procedure">
+        <img :src="results.img">
+      </div>
       <div id="name-procedure">
         <div>{{ $t('procedure.head') }}</div>
-        <div>{{ title }}</div>
+        <div>{{ results.title_check }}</div>
       </div>
-      <div id="time-procedure">{{ duration | timeFormat("ru-RU")}}</div>
+      <div id="time-procedure">{{ results.duration | timeFormat("ru-RU")}}</div>
       <button class="btn" id="btn-procedure" @click="medproc()"><i class="fas fa-caret-right"></i></button>
     </div>
   </div>
@@ -23,12 +25,9 @@ export default {
   data() {
       return {
         uid: null,
-        title: null,
-        duration: null,
-        price: null,
         loading: true,
         errored: false,
-        results: null
+        results: []
       };
   },
   filters: {
@@ -42,7 +41,7 @@ export default {
   },
   methods: {
     medProcUID(uid){
-      fetch(`http://localhost:8000/ru/vhapi/medproc/`+uid)
+      fetch(`http://localhost:8000/ru/vhapi/medproc/${uid}`)
       .then(stream => stream.json())
       .then(response => {
         this.results = response;
@@ -55,11 +54,8 @@ export default {
       })
       .finally(() => {
         this.loading = false;
-        this.duration = this.results.duration;
-        this.title = this.results.title_check;
-        this.price = this.results.price;
-        this.$store.commit("updPrice", this.price);
-        this.$emit('modProc', this.price);
+        this.$store.commit("updPrice", this.results.price);
+        this.$emit('modProc', this.results.price);
       });
     },
      medproc() {
@@ -81,6 +77,8 @@ export default {
   display: inline-block
 
 #icon-procedure
+  display: flex
+  justify-content: center
   position: absolute
   top: 8px
   left: 8px
@@ -88,6 +86,8 @@ export default {
   height: 56px
   background: $active-link-line
   border-radius: 4px
+  > img
+    height: 100%
 
 #name-procedure
   font-family: FuturaBookC
