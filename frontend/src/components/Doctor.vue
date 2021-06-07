@@ -2,7 +2,7 @@
   <div class="col">
     <div class="doctor">
       <div id="icon-doctor">
-        <img :src="'http://localhost:8000' + results.img">
+        <img :src="results.img">
       </div>
       <div id="name-doctor">
         <div>{{ results.special}}</div>
@@ -61,7 +61,7 @@ export default {
       })
       .finally(() => {
         if(this.results.img === null)
-          this.results.img = '/media/uploads/human/defaultAvatar.png';
+          this.results.img = 'http://localhost:8000/media/uploads/human/defaultAvatar.png';
         this.loading = false;
       });
     },
