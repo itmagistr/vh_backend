@@ -26,7 +26,7 @@ class SpecialCodeRuSerializer(serializers.ModelSerializer):
 class SpecialCodeSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Special
-		fields = ['code', 'title']
+		fields = ['code']
 
 class DoctorWorkResSerializer(serializers.ModelSerializer):#serializers.HyperlinkedModelSerializer):
 	doc_uid = serializers.CharField(source='doctor.uid')

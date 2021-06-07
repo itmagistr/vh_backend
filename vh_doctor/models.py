@@ -70,8 +70,9 @@ class Doctor(Employee):
 		return relativedelta(datetime.datetime.now(), self.dt_practic).years
 	experience = property(_experience)
 
+# заменена на ProductEmployee
 class DoctorMedProc(models.Model):
-	doctor = models.ForeignKey(Doctor, null=False, blank=False, on_delete=models.CASCADE, verbose_name='Врач', help_text='Укажите врача')
+	doctor = models.ForeignKey(Doctor, null=False, blank=False, on_delete=models.CASCADE, verbose_name='Врач', help_text='Укажите врача', related_name='medprocs')
 	medproc = models.ForeignKey(MedProc, null=False, blank=False, on_delete=models.CASCADE, verbose_name='Процедура', help_text='Укажите процедуру, выполняемую выбранным врачом')
 	rating = models.ForeignKey(Rating, null=True, blank=True, on_delete=models.CASCADE, verbose_name='Рейтинг процедуры', help_text='Укажите рейтинг процедуры, выполненную врачом')
 	class Meta:

@@ -6,6 +6,7 @@ from rest_framework import generics
 from rest_framework import status
 from django.utils import translation
 from .serializers import *
+
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 import logging
@@ -74,6 +75,10 @@ class DoctorFilterView(generics.ListAPIView):
 
 
 		if 'Ru' in str(sclass):
+			# if len(serializer.data['medproc_uid']) > 0:
+			# 	docs = [e.id for e in MedProc.objects.get(uid=serializer.data['medproc_uid']).workers.all()]
+			# 	resQSet = Doctor.objects.filter(id__in=docs)
+			# elif
 			if len(speclist) > 0:
 				resQSet = Doctor.objects.filter(Q(special__code__in=speclist), Q(lastName_ru__icontains=serializer.data['txt']) | Q(firstName_ru__icontains=serializer.data['txt']) )
 			else:
@@ -84,7 +89,7 @@ class DoctorFilterView(generics.ListAPIView):
 			else:
 				resQSet = Doctor.objects.filter(Q(lastName_en__icontains=serializer.data['txt']) | Q(firstName_en__icontains=serializer.data['txt']) )
 		if len(resQSet)==0:
-			resQSet = Doctor.objects.filter(id=1)
+			resQSet = Doctor.objects.filter(id=7)
 		resSerializer = sclass(resQSet, many=True)
 		#headers = self.get_success_headers(resSerializer.data)
 		return Response(resSerializer.data, status=status.HTTP_200_OK) #, headers=resSerializer.headers

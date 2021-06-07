@@ -33,8 +33,8 @@ class ProductCategory(models.Model):
 		return u"{}.{}".format(self.category, self.product)
 
 class ProductEmployee(models.Model):
-	product = models.ForeignKey(Product, null=True, blank=True, on_delete=models.CASCADE, verbose_name='Продукт', help_text='Укажите продукт из каталога')
-	employee = models.ForeignKey(Employee, null=True, blank=True, on_delete=models.CASCADE, verbose_name='Исполнитель', help_text='Веберите исполнителя продукта')
+	product = models.ForeignKey(Product, null=True, blank=True, on_delete=models.CASCADE, verbose_name='Продукт', help_text='Укажите продукт из каталога', related_name='workers')
+	employee = models.ForeignKey(Employee, null=True, blank=True, on_delete=models.CASCADE, verbose_name='Исполнитель', help_text='Веберите исполнителя продукта', related_name='products')
 	pos = models.PositiveIntegerField(default=0, verbose_name='Номер по порядку', help_text='Укажите позицию связи для сортировки')
 	class Meta:
 		verbose_name = 'Связь продукта с исполнителем'
