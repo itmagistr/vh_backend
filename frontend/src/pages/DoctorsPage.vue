@@ -3,6 +3,9 @@
         <modalDocCard :selfInfo="selfInfo"/>
         <div class="tittle-of-doctor">{{ $t('doctorpage.doc_header') }}</div>
         <div class="filter">
+            <div @click="allFilters" :class="{active: allBtn.st}">
+              <img src="http://localhost:8000/media/uploads/doctorspec/defaultTeeth.svg">Все
+            </div>
             <div :class="{active: c.st}" v-for="(c, index) in category" :key="index" @click="updCat(index)">
                 <img :src="c.img"/>{{ c.title }}
             </div>
@@ -45,6 +48,9 @@ export default {
   data() {
     return {
       select: this.$store.state.Booking.Procedure,
+      allBtn: {
+        st: false
+      },
       category: [],
       doc: [],
       loading: true,
@@ -69,7 +75,7 @@ export default {
       let tmp = [];
       for(let i = 0; i < this.category.length; i++)
         if(this.category[i].st)
-          tmp.push({ code: this.category[i].code, title: this.category[i].title })
+          tmp.push({ code: this.category[i].code })
       return tmp;
     },
     otro() {
@@ -80,6 +86,18 @@ export default {
     }
   },
   methods: {
+    allFilters(){
+      if(this.allBtn.st === false){
+        this.allBtn.st = !this.allBtn.st;
+        for(let i = 0; i < this.category.length; i++)
+          this.category[i].st = true;
+      } else{
+         this.allBtn.st = false;
+        for(let i = 0; i < this.category.length; i++)
+          this.category[i].st = false;
+      }
+      this.docList("", this.$store.state.Booking.Date, this.vuel);
+    },
     updCardModal(uid){
       this.selfInfo = uid;
     },
@@ -95,12 +113,12 @@ export default {
       this.doc = data;
       console.log(data);
       }).
-      catch((error) => { console.log(error); this.results = null;}).
+      catch((error) => { console.log(error); this.results = null; }).
       finally(() => {
         for (let i = 0; i < this.doc.length; i++){
           if(this.doc[i].img === null)
             this.doc[i].img = '/media/uploads/human/defaultAvatar.png';
-          if(this.doc[i].special_img === null)
+          if(this.doc[i].special_img === null || this.doc[i].special_img === undefined)
             this.doc[i].special_img = '/media/uploads/doctorspec/defaultTeeth.svg';
         }
         this.loading = false;
@@ -110,13 +128,12 @@ export default {
       fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/doctor/spec/list/`).
       then(response => response.json()).
       then(data => {
+        this.category = [];
         for (let i = 0; i < data.count; i++){
           const buf = data.results[i];
           let img = buf.img;
           if(img === null)
             img = 'http://localhost:8000/media/uploads/doctorspec/defaultTeeth.svg';
-          else
-            img = buf.img.replace(".png",".svg");
           this.category.push({ code: buf.code, title: buf.title, img: img, st: false });
         }
       }).
@@ -126,13 +143,16 @@ export default {
       });
     },
     updCat(el){
-      for(let i = 0; i < this.category.length; i++){
-        if (i === el){
-          this.category[i].st = !this.category[i].st;
-          this.docList("", this.$store.state.Booking.Date, this.vuel);
+      this.category[el].st = !this.category[el].st;
+      for (let i = 0; i < this.category.length; i++){
+        if (this.category[i].st === false) {
+          this.allBtn.st = false;
           break;
         }
+        if(this.category.length - 1 === i && this.category[i].st === true)
+          this.allBtn.st = true;
       }
+      this.docList("", this.$store.state.Booking.Date, this.vuel);
     },
   },
   mounted() {
@@ -145,6 +165,17 @@ export default {
     slider.oninput = function() {
       acco.scrollTo(this.value, 0);
     }
+    this.$watch( "$i18n.locale",
+      (newLocale, oldLocale) => {
+        if (newLocale === oldLocale) {
+          return
+        }
+        this.locale = newLocale;
+        this.docList("", this.$store.state.Booking.Date, this.vuel);
+        this.specList();
+      },
+      { immediate: true }
+    )
   },
 }
 </script>
@@ -169,7 +200,7 @@ body.chg-doc
 
 .doc
   padding-top: 127px
-  width: 100%
+  width: calc(100% - 284px)
   > .filter
     display: flex
     flex-wrap: wrap
@@ -197,9 +228,8 @@ body.chg-doc
     margin: 40px auto auto
     @media (min-width: $minW)
       overflow: auto
-      width: calc(100% - 150px)
+      width: 100%
       display: flex
-      flex-direction: row
       height: 486px
     &::-webkit-scrollbar
       display: none

@@ -23,9 +23,15 @@
             <div class="clip-accordion" @click="show('photo')" :class="[states.photo ? 'active' : '']">
               {{ $t('modaldoccard.photo') }} <i class="fas fa-caret-down"></i>
             </div>
-            <Carousel v-if="states.photo"/>
-            <div class="clip-accordion" @click="show('youtube')" :class="[states.youtube ? 'active' : '']">
-              Youtube <i class="fas fa-caret-down"></i>
+            <Carousel v-show="states.photo" :self-info="data.uid"/>
+            <div class="clip-accordion" @click="show('social')" :class="[states.social ? 'active' : '']">
+              Соцсети <i class="fas fa-caret-down"></i>
+            </div>
+            <div class="soc-btn-card" v-show="states.social">
+              <a href="https://www.instagram.com/tohwddent" target="_blank"><button class="social-btn"><i class="fab fa-instagram"></i></button></a>
+              <a href="https://www.youtube.com/channel/UCeyxKBqdLFA79kCTH29RDsQ" target="_blank"><button class="social-btn"><i class="fab fa-youtube"></i></button></a>
+              <a href="https://www.facebook.com/ToHwdDent" target="_blank"><button class="social-btn"><i class="fab fa-facebook-f"></i></button></a>
+              <a href="https://vk.com/tohwddent" target="_blank"><button class="social-btn"><i class="fab fa-vk"></i></button></a>
             </div>
             <div class="clip-accordion" @click="show('cert')" :class="[states.cert ? 'active' : '']">
               {{ $t('modaldoccard.certificate') }} <i class="fas fa-caret-down"></i>
@@ -67,7 +73,7 @@ export default {
             states: {
               proc: false,
               photo: false,
-              youtube: false,
+              social: false,
               cert: false,
               edu: false
             },
@@ -167,6 +173,15 @@ export default {
       > i
         margin-left: 8px
         color: $blue_three
+    > .soc-btn-card
+      display: flex
+      margin: 0 1.5rem 1rem
+      > a
+        margin: 0 .5rem
+        > button
+          border: 1px solid #B8882F
+          border-radius: 4px
+          margin: 0
   > .clip-footer
     justify-content: space-between
     vertical-align: middle

@@ -20,7 +20,7 @@
             <div v-for="c in n.results" class="product" :class="[{spec: c.code.length > 5}, { active: c.uid === select}]" :key="c.uid" @click="selected(c.uid, c.price)">
               <div class="sr-start">
                 <div class="pr-code">{{ c.code }}</div>
-                <div class="pr-tittle">{{ c.title }}</div>
+                <div class="pr-tittle">{{ c.title_check }}</div>
               </div>
               <div class="sr-end">
                 <div class="pr-info"><i class="fas fa-info-circle"></i></div>
@@ -56,9 +56,19 @@ export default {
             q: '',
         }
     },
-    async mounted() {
+    async created() {
         await this.medProcList('', this.$store.state.Booking.Date, 'bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82', 0);
         /*await this.medProcList('Прот', this.$store.state.Booking.Date, 'bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82', 1);*/
+    },
+    mounted(){
+        this.$watch( "$i18n.locale",
+            (newLocale, oldLocale) => {
+                if (newLocale === oldLocale)
+                  return;
+               this.medProcList('', this.$store.state.Booking.Date, 'bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82', 0);
+            },
+            { immediate: true }
+        );
     },
     filters: {
         currencyFormat, timeFormat
@@ -70,7 +80,7 @@ export default {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({"txt": cat, "dt": date, "doctor_uid": docUID})
             };
-            fetch(`http://localhost:8000/ru/vhapi/medproc/list/`, options).
+            fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/medproc/list/`, options).
             then(response => response.json()).
             then(data => {
             this.results = data;

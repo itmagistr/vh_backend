@@ -48,7 +48,7 @@ export default {
   // определяйте методы в объекте `methods`
   methods: {
     docUID(uid){
-      fetch(`http://localhost:8000/ru/vhapi/doctor/${uid}`)
+      fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/doctor/${uid}`)
       .then(stream => stream.json())
       .then(response => {
         this.results = response;
@@ -69,7 +69,20 @@ export default {
         this.$store.commit("updPhase", 4);
         this.$emit('goToDoctor', 4);
     }
-  }
+  },
+  mounted() {
+    this.$watch( "$i18n.locale",
+      (newLocale, oldLocale) => {
+        if (newLocale === oldLocale)
+          return;
+        if (this.$store.state.Booking.Doctor !== null)
+          this.docUID(this.$store.state.Booking.Doctor);
+        else
+          this.docUID('');
+      },
+      { immediate: true }
+    )
+  },
 }
 </script>
 

@@ -49,9 +49,15 @@
             <div class="clip-accordion" @click="show('photo')" :class="[states.photo ? 'active' : '']">
               {{ $t('modaldoccard.photo') }} <i class="fas fa-caret-down"></i>
             </div>
-            <Carousel v-if="states.photo"/>
-            <div class="clip-accordion" @click="show('youtube')" :class="[states.youtube ? 'active' : '']">
-              Youtube <i class="fas fa-caret-down"></i>
+            <Carousel v-show="states.photo" :self-info="data.uid"/>
+            <div class="clip-accordion" @click="show('social')" :class="[states.social ? 'active' : '']">
+              Соцсети <i class="fas fa-caret-down"></i>
+            </div>
+            <div class="soc-btn-card" v-show="states.social">
+              <a href="https://www.instagram.com/tohwddent" target="_blank"><button class="social-btn"><i class="fab fa-instagram"></i></button></a>
+              <a href="https://www.youtube.com/channel/UCeyxKBqdLFA79kCTH29RDsQ" target="_blank"><button class="social-btn"><i class="fab fa-youtube"></i></button></a>
+              <a href="https://www.facebook.com/ToHwdDent" target="_blank"><button class="social-btn"><i class="fab fa-facebook-f"></i></button></a>
+              <a href="https://vk.com/tohwddent" target="_blank"><button class="social-btn"><i class="fab fa-vk"></i></button></a>
             </div>
             <div class="clip-accordion" @click="show('cert')" :class="[states.cert ? 'active' : '']">
               {{ $t('modaldoccard.certificate') }} <i class="fas fa-caret-down"></i>
@@ -61,7 +67,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-ok" @click="send()">{{ $t('modaldoccard.signup') }}</button>
+            <button type="button" class="btn btn-ok" @click="send()" data-dismiss="modal" >Закрыть</button>
+            <button type="button" class="btn btn-ok" @click="send()" data-dismiss="modal" >{{ $t('modaldoccard.signup') }}</button>
           </div>
         </div>
       </div>
@@ -76,24 +83,11 @@ export default {
   props: ['selfInfo'],
   data(){
     return {
-      data: {
-        degree: "...",
-        experience: 3,
-        firstName: "",
-        img: "",
-        special_img: "",
-        lastName: "",
-        level: "",
-        midName: "",
-        rating: "",
-        reviewCount: 0,
-        special: "",
-        uid: "",
-      },
+      data: [],
       states: {
         proc: false,
         photo: false,
-        youtube: false,
+        social: false,
         cert: false,
         edu: false
       },
@@ -105,14 +99,19 @@ export default {
     },
     getInfo() {
       //http://localhost:8000/ru/vhapi/doctor/bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82/workres/
-      fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/doctor/${this.selfInfo}`).then(response => response.json()).then(data => {
+      fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/doctor/${this.selfInfo}`)
+      .then(response => response.json()).then(data => {
         this.data = data;
         console.log(data);
       }).catch((error) => {
         console.log(error);
         //this.results = null;
       }).finally(() => {
-        this.states = { proc: false, photo: false, youtube: false, cert: false, edu: false };
+        if(this.data.img === null)
+            this.data.img = 'http://localhost:8000/media/uploads/human/defaultAvatar.png';
+        if(this.data.special_img === null)
+            this.data.special_img = 'http://localhost:8000/media/uploads/doctorspec/defaultTeeth.svg';
+        this.states = { proc: false, photo: false, social: false, cert: false, edu: false };
         //this.loading = false;
       });
     },
@@ -277,7 +276,15 @@ export default {
       > i
         margin-left: 8px
         color: $blue_three
-
+    > .soc-btn-card
+      display: flex
+      margin: 0 1.5rem 1rem
+      > a
+        margin: 0 .5rem
+        > button
+          border: 1px solid #B8882F
+          border-radius: 4px
+          margin: 0
   .modal-footer
     padding: 0px
     > .btn-ok

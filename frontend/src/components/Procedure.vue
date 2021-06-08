@@ -35,13 +35,13 @@ export default {
   },
   async created() {
     if (this.$store.state.Booking.Procedure !== null)
-      await this.medProcUID(this.$store.state.Booking.Procedure);
+      await this.medProcUID(this.$store.state.Booking.Procedure+'/light');
     else
       await this.medProcUID('');
   },
   methods: {
     medProcUID(uid){
-      fetch(`http://localhost:8000/ru/vhapi/medproc/${uid}`)
+      fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/medproc/${uid}`)
       .then(stream => stream.json())
       .then(response => {
         this.results = response;
@@ -64,7 +64,20 @@ export default {
         this.$store.commit("updPhase", 3);
         this.$emit('goToProcedure', 3);
     }
-  }
+  },
+   mounted() {
+      this.$watch( "$i18n.locale",
+        (newLocale, oldLocale) => {
+          if (newLocale === oldLocale)
+            return;
+          if (this.$store.state.Booking.Procedure !== null)
+            this.medProcUID(this.$store.state.Booking.Procedure+'/light');
+          else
+            this.medProcUID('');
+        },
+        { immediate: true }
+      )
+   },
 }
 </script>
 
@@ -87,7 +100,7 @@ export default {
   left: 8px
   width: 56px
   height: 56px
-  background: $backgroundImage
+  background: $active-link-line
   border-radius: 4px
   > img
     height: 32px

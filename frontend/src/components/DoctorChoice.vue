@@ -37,6 +37,16 @@ export default {
     async created() {
         await this.docList('', this.$store.state.Booking.Date, []);
     },
+    mounted (){
+         this.$watch( "$i18n.locale",
+              (newLocale, oldLocale) => {
+                  if (newLocale === oldLocale)
+                    return;
+                  this.docList('', this.$store.state.Booking.Date, []);
+              },
+              { immediate: true }
+          );
+    },
     components: {
       Card,
     },

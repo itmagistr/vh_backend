@@ -5,7 +5,7 @@
     </button>
     <div class="imgField">
       <div v-for="(c, index) in data" :key="index" class="imgCarousel">
-        <p>{{c}}</p>
+        <img :src="c.img" :alt="c.title">
       </div>
     </div>
     <button class="btn rightBtn" @click="chgPos(1)">
@@ -19,8 +19,21 @@ export default {
   props: ['selfInfo'],
   data(){
     return {
-      data: [1,2,3,4,5,6,7,8,9,10],
+      data: [],
     }
+  },
+  created() {
+    if(this.selfInfo !== undefined)
+      this.getInfo();
+  },
+  watch:{
+    selfInfo: {
+      handler(newValue, oldValue) {
+        if (newValue === oldValue)
+          return;
+        this.getInfo();
+      },
+    },
   },
   methods: {
     chgPos(val){
@@ -30,13 +43,13 @@ export default {
       this.states[pos] = !this.states[pos];
     },
     getInfo() {
-      //http://localhost:8000/ru/vhapi/doctor/bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82/workres/
-      fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/doctor/${this.selfInfo}/workres/`).then(response => response.json()).then(data => {
-        this.data = data;
-        console.log(data);
+      fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/doctor/${this.selfInfo}/workres/`)
+      .then(response => response.json())
+      .then(data => {
+        this.data = data.results;
       }).catch((error) => {
         console.log(error);
-        //this.results = null;
+        this.data = null;
       }).finally(() => {
         this.states = { proc: false, photo: false, youtube: false, cert: false, edu: false };
         //this.loading = false;
@@ -74,7 +87,7 @@ export default {
     width: 100%
     > .imgCarousel
       border-radius: .25rem
-      background: $active-text-link
+      background: $backgroundImage
       width: 88px
       height: 64px
       margin: .5rem .25rem
@@ -82,7 +95,8 @@ export default {
           margin-left: .5rem
       &:last-child
           margin-right: .5rem
-      > p
+      > img
+        border-radius: .25rem
         display: flex
         width: 88px
         height: 64px

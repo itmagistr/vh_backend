@@ -27,10 +27,10 @@
             <div class="block-left">
                 <div>{{ $t('servicepage.price') }}</div>
                 <template v-for="c in results">
-                    <div class="product" :class="[{spec: c.code.length > 5}, { active: c.uid === prselect}]" :key="c.uid" @click="selected(c.uid)">
+                    <div class="product" :class="[{spec: c.code.length > 5}, { active: c.uid === prselect}]" :key="c.uid" @click="selected(c.uid, c.price)">
                         <div class="sr-start">
                           <div class="pr-code">{{ c.code }}</div>
-                          <div class="pr-tittle">{{ c.title }}</div>
+                          <div class="pr-tittle">{{ c.title_check }}</div>
                         </div>
                         <div class="sr-end">
                           <div class="pr-price">{{ c.price | currencyFormat("RUB")}}</div>
@@ -137,7 +137,8 @@ export default {
     data() {
         return {
             select: this.$store.state.Booking.Procedure,
-            prselect: null,
+            prselect: this.$store.state.Booking.Procedure,
+            price: null,
             loading: true,
             errored: false,
             results: null,
@@ -155,7 +156,7 @@ export default {
             return
           }
           this.locale = newLocale;
-          this.getMedProc('', "2021-03-21", null);
+          this.getMedProc('', this.$store.state.Booking.Date, null);
         },
         { immediate: true }
       )
@@ -184,13 +185,21 @@ export default {
               this.loading = false;
             });
         },
-        selected(sel){
+        selected(sel, price){
           if(this.resize)
-            if(this.prselect === sel)
+            if(this.prselect === sel) {
               this.prselect = null;
-            else
+              this.price = null;
+            } else {
               this.prselect = sel;
+              this.price = price;
+            }
         },
+        send() {
+            this.$store.commit("updProc", this.prselect);
+            this.$store.commit("updPrice", this.price);
+            this.$emit('pageProcedure', this.select, 2);
+        }
     },
     filters: {
         currencyFormat, timeFormat
@@ -413,7 +422,7 @@ body.chg-proc
         font-size: 16px
       #btn-d
         position: relative
-        top: -16px
+        top: -17px
         right: -21px
         width: 26px
         height: 72px
