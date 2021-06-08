@@ -1,5 +1,6 @@
 from .models import MedProc
 from rest_framework import serializers
+from vh_category.serializers import * 
 import uuid
 import collections
 #from vh_product.serializers import *
@@ -57,7 +58,7 @@ class MedProcFilterSerializer(serializers.Serializer):
 	txt = serializers.CharField(max_length=50, allow_blank=True)
 	dt = serializers.DateField(allow_null=True)
 	doctor_uid = serializers.CharField(max_length=36, allow_blank=True)
-	
+	category = CategorySerializer(many=True)
 	def validate_doctor_uid(self, value):
 		if value is not None:
 			try:

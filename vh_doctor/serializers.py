@@ -48,12 +48,13 @@ class DoctorRuSerializer(serializers.ModelSerializer):#serializers.HyperlinkedMo
 	reviewCount = serializers.IntegerField(default=0)
 	class Meta:
 		model = Doctor
-		fields = ['uid', 'lastName', 'firstName', 'special', 'special_img', 'midName', 'img', 'experience', 'degree', 'level', 'rating', 'reviewCount']
+		fields = ['uid', 'lastName', 'firstName', 'special', 'special_img', 'midName', 'img', 'experience', 'degree', 'level', 'rating', 'reviewCount', 'youtube', 'fb', 'vk', 'insta', 'education']
 
 class DoctorEnSerializer(serializers.ModelSerializer):#serializers.HyperlinkedModelSerializer):
 	lastName = serializers.CharField(source='lastName_en')
 	firstName = serializers.CharField(source='firstName_en')
 	special = serializers.CharField(source='special.title_en')
+	special_img = serializers.ImageField(source='special.img')
 	midName = serializers.CharField(default='', source='midName_en')
 	img = serializers.ImageField(source='image', default='media/doctors/doc1.png')
 	experience = serializers.IntegerField(default=1)
@@ -63,7 +64,7 @@ class DoctorEnSerializer(serializers.ModelSerializer):#serializers.HyperlinkedMo
 	reviewCount = serializers.IntegerField(default=0)
 	class Meta:
 		model = Doctor
-		fields = ['uid', 'lastName', 'firstName', 'special', 'midName', 'img', 'experience', 'degree', 'level', 'rating', 'reviewCount']
+		fields = ['uid', 'lastName', 'firstName', 'special', 'special_img', 'midName', 'img', 'experience', 'degree', 'level', 'rating', 'reviewCount', 'youtube', 'fb', 'vk', 'insta', 'education']
 
 class DoctorFilterSerializer(serializers.Serializer):
 	txt = serializers.CharField(max_length=50, allow_blank=True)
@@ -86,4 +87,28 @@ class DoctorFilterSerializer(serializers.Serializer):
 			new_fields[name] = field
 		return new_fields
 
+class DoctorLightRuSerializer(serializers.ModelSerializer):
+	lastName = serializers.CharField(source='lastName_ru')
+	firstName = serializers.CharField(source='firstName_ru')
+	midName = serializers.CharField(default='', source='midName_ru')
+	img = serializers.ImageField(source='image', default='media/doctors/doc1.png')
+	experience = serializers.IntegerField(default=1)
+	level = serializers.CharField(default='...', source='level.title_ru')
+	rating = serializers.DecimalField(default=4, max_digits=5, decimal_places=1, source='rating.rate')
+	reviewCount = serializers.IntegerField(default=0)
+	class Meta:
+		model = Doctor
+		fields = ['uid', 'lastName', 'firstName', 'midName', 'img', 'experience', 'level', 'rating', 'reviewCount']
 
+class DoctorLightEnSerializer(serializers.ModelSerializer):#serializers.HyperlinkedModelSerializer):
+	lastName = serializers.CharField(source='lastName_en')
+	firstName = serializers.CharField(source='firstName_en')
+	midName = serializers.CharField(default='', source='midName_en')
+	img = serializers.ImageField(source='image', default='media/doctors/doc1.png')
+	experience = serializers.IntegerField(default=1)
+	level = serializers.CharField(default='...', source='level.title_en')
+	rating = serializers.DecimalField(default=4, max_digits=5, decimal_places=1, source='rating.rate')
+	reviewCount = serializers.IntegerField(default=0)
+	class Meta:
+		model = Doctor
+		fields = ['uid', 'lastName', 'firstName', 'midName', 'img', 'experience', 'level', 'rating', 'reviewCount']

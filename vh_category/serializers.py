@@ -19,3 +19,8 @@ class CategoryEnSerializer(serializers.ModelSerializer):
 		model = Category
 		fields = [ 'code', 'title', 'title_short', 'img']
 
+
+class CategorySerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Category
+		fields = [ 'code']

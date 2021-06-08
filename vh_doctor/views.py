@@ -6,7 +6,8 @@ from rest_framework import generics
 from rest_framework import status
 from django.utils import translation
 from .serializers import *
-
+from vh_medproc.serializers import *
+from vh_product.models import *
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 import logging
@@ -130,3 +131,23 @@ class DocWorkResView(generics.ListAPIView):
 	def get_queryset(self):
 		uid = self.kwargs.get(self.lookup_url_kwarg)
 		return DocWorkRes.objects.filter(doctor__uid=uid)
+
+
+class DoctorMedProcsView(generics.ListAPIView):
+	'''
+	Список процедур выполняемые врачом
+	'''
+	serializer_class = MedProcLightRuSerializer
+	lookup_url_kwarg = 'uid'
+	def get_serializer_class(self):
+		#logger.info(translation.get_language())
+
+		if 'ru' in translation.get_language():
+			# using 'in' because it can be set to something like 'es-ES; es'
+			return MedProcLightRuSerializer
+		return MedProcLightEnSerializer
+		
+	def get_queryset(self):
+		uid = self.kwargs.get(self.lookup_url_kwarg)
+		resQ = [el.product for el in Employee.objects.filter(uid=uid)[0].products.all()]
+		return resQ

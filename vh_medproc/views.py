@@ -7,6 +7,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.utils import translation
 from .serializers import *
+from vh_doctor.serializers import *
+from vh_product.models import *
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from vh_product.models import ProductCategory
@@ -129,7 +131,7 @@ class MedProcFilterView(generics.ListAPIView):
 			return MedProcLightRuSerializer
 		return MedProcLightEnSerializer
 	
-	@swagger_auto_schema(request_body=MedProcFilterSerializer, responses={201: MedProcLightRuSerializer,})
+	@swagger_auto_schema(request_body=MedProcFilterSerializer, responses={200: MedProcLightRuSerializer,})
 		# openapi.Schema(
   #       type=openapi.TYPE_OBJECT,
   #       properties={
@@ -141,7 +143,10 @@ class MedProcFilterView(generics.ListAPIView):
 		serializer = MedProcFilterSerializer(data=request.data)
 		serializer.is_valid(raise_exception=True)
 		sclass = self.get_serializer_class()
-		if len(serializer.data['txt']) ==0:
+		if len(serializer.data['category']) > 0:
+			categories = [ c["code"] for c in serializer.data['category']]
+			resQ = [el.product for el in ProductCategory.objects.filter(category__code__in=categories).order_by('pos')]
+		elif len(serializer.data['txt']) ==0:
 			#resQ = MedProc.objects.filter(code__startswith='CLV')
 			resQ = [el.product for el in ProductCategory.objects.filter(category__code='PRE_BOOKING').order_by('pos')]
 		else:
@@ -160,6 +165,26 @@ class MedProcFilterView(generics.ListAPIView):
 			pass
 
 		return Response(resSerializer.data, status=status.HTTP_200_OK) #, headers=resSerializer.headers
+
+
+class MedProcDoctorsView(generics.ListAPIView):
+	'''
+	Список докторов выполняющих процедуру
+	'''
+	serializer_class = DoctorLightRuSerializer
+	lookup_url_kwarg = 'uid'
+	def get_serializer_class(self):
+		#logger.info(translation.get_language())
+
+		if 'ru' in translation.get_language():
+			# using 'in' because it can be set to something like 'es-ES; es'
+			return DoctorLightRuSerializer
+		return DoctorLightEnSerializer
+		
+	def get_queryset(self):
+		uid = self.kwargs.get(self.lookup_url_kwarg)
+		resQ = [el.employee for el in Product.objects.filter(uid=uid)[0].workers.all()]
+		return resQ
 
 
 class MedProcSearchView(generics.ListAPIView):
