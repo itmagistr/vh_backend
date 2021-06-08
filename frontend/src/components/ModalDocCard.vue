@@ -16,7 +16,7 @@
                   <div class="icon"><img :src="data.special_img"></div>
                   <div class="bk1">
                     <div class="tittle">{{ data.special }}</div>
-                    <div class="education">{{ data.degree }}</div>
+                    <div class="education">{{ data.level }}</div>
                   </div>
                   <div class="name">{{ data.firstName }} {{ data.lastName }} {{ data.midName }}</div>
                 </div>

@@ -20,7 +20,7 @@
                         <div class="icon"><img :src="'http://localhost:8000' + c.special_img"></div>
                         <div class="bk1">
                             <div class="tittle">{{ c.special }}</div>
-                            <div class="education">{{ c.degree }}</div>
+                            <div class="education">{{ c.level }}</div>
                         </div>
                     </div>
                     <div class="bottom">
