@@ -60,6 +60,8 @@ export default {
         this.results = null;
       })
       .finally(() => {
+        if(this.results.img === null)
+          this.results.img = 'http://localhost:8000/media/uploads/human/defaultAvatar.png';
         this.loading = false;
       });
     },

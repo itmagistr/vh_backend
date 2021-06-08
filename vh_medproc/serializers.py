@@ -31,6 +31,17 @@ class MedProcRuSerializer(serializers.ModelSerializer):
 		model = MedProc
 		fields = ['uid', 'code', 'title', 'title_check', 'description', 'price', 'price_old', 'duration', 'recomend_before', 'recomend_after']
 
+class MedProcLightRuSerializer(serializers.ModelSerializer):
+	title_check = serializers.CharField(source='title_check_ru')
+	class Meta:
+		model = MedProc
+		fields = ['uid', 'code', 'title_check', 'price', 'price_old', 'duration']
+
+class MedProcLightEnSerializer(serializers.ModelSerializer):
+	title_check = serializers.CharField(source='title_check_en')
+	class Meta:
+		model = MedProc
+		fields = ['uid', 'code', 'title_check', 'price', 'price_old', 'duration']
 
 class MedProcFilterSerializer1(serializers.Serializer):
 	mp_code = serializers.CharField(max_length=20, allow_blank=True)

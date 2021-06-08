@@ -97,6 +97,12 @@ export default {
       }).
       catch((error) => { console.log(error); this.results = null;}).
       finally(() => {
+        for (let i = 0; i < this.doc.length; i++){
+          if(this.doc[i].img === null)
+            this.doc[i].img = '/media/uploads/human/defaultAvatar.png';
+          if(this.doc[i].special_img === null)
+            this.doc[i].special_img = '/media/uploads/doctorspec/defaultTeeth.svg';
+        }
         this.loading = false;
       });
     },
@@ -107,7 +113,9 @@ export default {
         for (let i = 0; i < data.count; i++){
           const buf = data.results[i];
           let img = buf.img;
-          if(img!=null)
+          if(img === null)
+            img = 'http://localhost:8000/media/uploads/doctorspec/defaultTeeth.svg';
+          else
             img = buf.img.replace(".png",".svg");
           this.category.push({ code: buf.code, title: buf.title, img: img, st: false });
         }
@@ -164,7 +172,7 @@ body.chg-doc
   width: 100%
   > .filter
     display: flex
-    flex-direction: row
+    flex-wrap: wrap
     justify-content: center
     > div
       height: 32px

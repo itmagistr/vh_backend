@@ -58,6 +58,9 @@ export default {
             }).
             catch((error) => { console.log(error); this.results = null;}).
             finally(() => {
+              for (let i = 0; i < this.results.length; i++)
+                if(this.results[i].img === null)
+                  this.results[i].img = '/media/uploads/human/defaultAvatar.png';
               this.loading = false;
             });
         },

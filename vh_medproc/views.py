@@ -40,7 +40,7 @@ class MedProcListView(generics.RetrieveAPIView):
 	serializer_class = MedProcEnSerializer
 	#lookup_field = 'uid'
 	def get_serializer_class(self):
-		logger.info(translation.get_language())
+		#logger.info(translation.get_language())
 
 		if 'ru' in translation.get_language():
 			# using 'in' because it can be set to something like 'es-ES; es'
@@ -61,12 +61,29 @@ class MedProcView(generics.RetrieveAPIView):
 	serializer_class = MedProcEnSerializer
 	lookup_field = 'uid'
 	def get_serializer_class(self):
-		logger.info(translation.get_language())
+		#logger.info(translation.get_language())
 
 		if 'ru' in translation.get_language():
 			# using 'in' because it can be set to something like 'es-ES; es'
 			return MedProcRuSerializer
 		return MedProcEnSerializer
+		
+	def get_queryset(self):
+		return MedProc.objects.all()
+
+class MedProcLightView(generics.RetrieveAPIView):
+	'''
+	Получить процедуру по uid с ограниченным набором полей.
+	'''
+	serializer_class = MedProcLightEnSerializer
+	lookup_field = 'uid'
+	def get_serializer_class(self):
+		#logger.info(translation.get_language())
+
+		if 'ru' in translation.get_language():
+			# using 'in' because it can be set to something like 'es-ES; es'
+			return MedProcLightRuSerializer
+		return MedProcLightEnSerializer
 		
 	def get_queryset(self):
 		return MedProc.objects.all()
@@ -102,17 +119,17 @@ class MedProcFilterView(generics.ListAPIView):
 	'''
 	Поиск процедур по части наименования или коду процедуры
 	'''
-	serializer_class = MedProcEnSerializer
+	serializer_class = MedProcLightEnSerializer
 	http_method_names = ['post']
 	def get_serializer_class(self):
 		logger.info(translation.get_language())
 
 		if 'ru' in translation.get_language():
 			# using 'in' because it can be set to something like 'es-ES; es'
-			return MedProcRuSerializer
-		return MedProcEnSerializer
+			return MedProcLightRuSerializer
+		return MedProcLightEnSerializer
 	
-	@swagger_auto_schema(request_body=MedProcFilterSerializer, responses={201: MedProcRuSerializer,})
+	@swagger_auto_schema(request_body=MedProcFilterSerializer, responses={201: MedProcLightRuSerializer,})
 		# openapi.Schema(
   #       type=openapi.TYPE_OBJECT,
   #       properties={

@@ -45,6 +45,8 @@ export default {
       .then(stream => stream.json())
       .then(response => {
         this.results = response;
+        if(this.results.img === null || this.results.img === undefined)
+          this.results.img = 'http://localhost:8000/media/uploads/doctorspec/defaultTeeth.svg';
         console.log(response);
       })
       .catch(error => {
@@ -79,15 +81,16 @@ export default {
 #icon-procedure
   display: flex
   justify-content: center
+  align-items: center
   position: absolute
   top: 8px
   left: 8px
   width: 56px
   height: 56px
-  background: $active-link-line
+  background: $backgroundImage
   border-radius: 4px
   > img
-    height: 100%
+    height: 32px
 
 #name-procedure
   font-family: FuturaBookC
