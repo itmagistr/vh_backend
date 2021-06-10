@@ -17,9 +17,13 @@
             </div>
         </div>
         <div class="clip-body">
-            <div class="clip-accordion" @click="show('proc')" :class="[states.proc ? 'active' : '']">
+            <div class="clip-accordion" @click="show('proc');" :class="[states.proc ? 'active' : '']">
               {{ $t('modaldoccard.procedure') }} <i class="fas fa-caret-down"></i>
             </div>
+            <listView v-show="states.proc"
+              :doctorUID="data.uid"
+                      class="listproc"
+            />
             <div class="clip-accordion" @click="show('photo')" :class="[states.photo ? 'active' : '']">
               {{ $t('modaldoccard.photo') }} <i class="fas fa-caret-down"></i>
             </div>
@@ -28,16 +32,23 @@
               Соцсети <i class="fas fa-caret-down"></i>
             </div>
             <div class="soc-btn-card" v-show="states.social">
-              <a href="https://www.instagram.com/tohwddent" target="_blank"><button class="social-btn"><i class="fab fa-instagram"></i></button></a>
-              <a href="https://www.youtube.com/channel/UCeyxKBqdLFA79kCTH29RDsQ" target="_blank"><button class="social-btn"><i class="fab fa-youtube"></i></button></a>
-              <a href="https://www.facebook.com/ToHwdDent" target="_blank"><button class="social-btn"><i class="fab fa-facebook-f"></i></button></a>
-              <a href="https://vk.com/tohwddent" target="_blank"><button class="social-btn"><i class="fab fa-vk"></i></button></a>
+              <a :href="data.insta || '#'" :target="data.insta !== null ? '_blank': ''">
+                <button class="social-btn"><i class="fab fa-instagram"></i></button></a>
+              <a :href="data.youtube || '#'" :target="data.youtube !== null ? '_blank': ''">
+                <button class="social-btn"><i class="fab fa-youtube"></i></button></a>
+              <a :href="data.fb || '#'" :target="data.fb !== null ? '_blank': ''">
+                <button class="social-btn"><i class="fab fa-facebook-f"></i></button></a>
+              <a :href="data.vk || '#'" :target="data.vk !== null ? '_blank': ''">
+                <button class="social-btn"><i class="fab fa-vk"></i></button></a>
             </div>
             <div class="clip-accordion" @click="show('cert')" :class="[states.cert ? 'active' : '']">
               {{ $t('modaldoccard.certificate') }} <i class="fas fa-caret-down"></i>
             </div>
             <div class="clip-accordion" @click="show('edu')" :class="[states.edu ? 'active' : '']">
               {{ $t('modaldoccard.education') }} <i class="fas fa-caret-down"></i>
+            </div>
+            <div v-show="states.edu" v-for="(edu, index) in data.education" :key="index">
+              <p>{{edu}}</p>
             </div>
         </div>
         <div class="d-flex clip-footer">
@@ -61,6 +72,7 @@ import StarRating from "vue-star-rating";
 import Carousel from "@/components/DoctorWorkresCarousel"
 import currencyFormat from "@/helpers/currencyFormat";
 import timeFormat from "@/helpers/timeFormat";
+import listView from "@/components/ProcedureListView";
 
 export default {
     props: ['data'],
@@ -70,6 +82,7 @@ export default {
             loading: true,
             errored: false,
             results: null,
+            medprocs: [],
             states: {
               proc: false,
               photo: false,
@@ -89,7 +102,7 @@ export default {
       },
     },
     components: {
-      StarRating, Carousel,
+      StarRating, Carousel, listView,
     },
     filters: {
       currencyFormat, timeFormat
@@ -101,6 +114,19 @@ export default {
         selected(val) {
             this.$emit('select', val);
             this.select = val;
+        },
+        getProcDoc() {
+          alert(`http://localhost:8000/${this.$i18n.locale}/vhapi/doctor/${this.data.uid}/medprocs/`);
+          fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/doctor/${this.data.uid}/medprocs/`)
+          .then(response => response.json()).then(data => {
+            this.medprocs = data;
+            console.log(data);
+          }).catch((error) => {
+            console.log(error);
+            //this.results = null;
+          }).finally(() => {
+            //this.loading = false;
+          });
         },
     }
 }
@@ -182,6 +208,8 @@ export default {
           border: 1px solid #B8882F
           border-radius: 4px
           margin: 0
+    > .listproc
+      margin-bottom: 1rem
   > .clip-footer
     justify-content: space-between
     vertical-align: middle

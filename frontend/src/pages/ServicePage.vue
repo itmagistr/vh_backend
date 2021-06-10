@@ -3,12 +3,13 @@
         <div class="bgz-main"></div>
         <div class="tittle-of-service">{{ $t('servicepage.service') }}</div>
         <div class="service">
-            <div class="card-tooth active"><img src="/img/teeth/Orthodontics.svg"/><div>{{ $t('servicepage.card1') }}</div></div>
-            <div class="card-tooth"><img src="/img/teeth/Surgery.svg"/><div>{{ $t('servicepage.card2') }}</div></div>
-            <div class="card-tooth"><img src="/img/teeth/Treatment.svg"/><div>{{ $t('servicepage.card3') }}</div></div>
-            <div class="card-tooth"><img src="/img/teeth/Whitening.svg"/><div>{{ $t('servicepage.card4') }}</div></div>
-            <div class="card-tooth"><img src="/img/teeth/Prosthetics.svg"/><div>{{ $t('servicepage.card5') }}</div></div>
-            <div class="card-tooth"><img src="/img/teeth/Implantation.svg"/><div>{{ $t('servicepage.card6') }}</div></div>
+            <div v-for="c in category" class="card-tooth"
+                 :class="[{active: catSel === c.code}]"
+                 :key="c.code"
+                  @click="chgCat(c.code)">
+              <img :src="c.img"/>
+              <div>{{c.title}}</div>
+            </div>
         </div>
         <div class="block-2">
             <div class="block-top">
@@ -27,7 +28,10 @@
             <div class="block-left">
                 <div>{{ $t('servicepage.price') }}</div>
                 <template v-for="c in results">
-                    <div class="product" :class="[{spec: c.code.length > 5}, { active: c.uid === prselect}]" :key="c.uid" @click="selected(c.uid, c.price)">
+                    <div class="product"
+                         :class="[{spec: c.code.length > 5}, { active: c.uid === prselect}]"
+                         :key="c.uid"
+                         @click="selected(c.uid, c.price)">
                         <div class="sr-start">
                           <div class="pr-code">{{ c.code }}</div>
                           <div class="pr-tittle">{{ c.title_check }}</div>
@@ -37,93 +41,14 @@
                           <div class="pr-duration">{{ c.duration | timeFormat("ru-RU")}}</div>
                         </div>
                     </div>
-                    <div v-if="prselect === c.uid" :key="'block-'+c.uid" class="hm-block">
-                        <div class="doctor-card">
-                            <div class="d-tittle">Очень длинное название процедуры, очень длинное врач Василенко Л.И.</div>
-                            <div class="d-card">
-                                <img id="icd" src="@/assets/defaultAvatar.png">
-                                <div id="nmd">
-                                  <div>Врач</div>
-                                  <div>Василенко Л.И.</div>
-                                </div>
-                                <button class="btn" id="btn-d"><i class="fas fa-caret-right"></i></button>
-                            </div>
-                        </div>
-                        <div class="description">
-                            <div>Описание процедуры</div>
-                            <div>
-                                Идейные соображения высшего порядка, а также начало повседневной работы по формированию позиции
-                                обеспечивает широкому кругу (специалистов) участие в формировании модели развития. С другой
-                                стороны начало повседневной работы по формированию позиции влечет за собой процесс внедрения.
-                            </div>
-                        </div>
-                        <div class="recomende">
-                            <div>Рекомендации перед процедурой</div>
-                            <div><i class="profi"></i> Не кушать и не пить за 2 часа до процедуры</div>
-                            <div><i class="profi"></i> Принять антигистаминный препарат</div>
-                            <div><i class="profi"></i> Ограничить физическую активность за день до процедуры</div>
-                            <div><i class="profi"></i> Хорошо очистить полость рта</div>
-                        </div>
-                        <div class="recomende">
-                            <div>Рекомендации после процедуры</div>
-                            <div><i class="profi"></i> Не кушать и не пить 3 часа после процедуры</div>
-                            <div><i class="profi"></i> Очистка полости рта ирригатором</div>
-                            <div><i class="profi"></i> Ограничить физическую активность на 3 дня после процедуры</div>
-                        </div>
-                        <div class="photo">
-                            <div>Фото</div>
-                            <div class="accordion">
-                                <button class="btn btn-accord"><i class="fas fa-caret-left"></i></button>
-                                <div></div>
-                                <button class="btn btn-accord"><i class="fas fa-caret-right"></i></button>
-                            </div>
-                        </div>
-                    </div>
+                    <info v-if="prselect === c.uid && resize"
+                          :key="'block-'+c.uid"
+                          class="hm-block"
+                          :info="prselect"/>
                 </template>
                 <button class="btn" @click="send()">{{ $t('proсchoice.select') }}</button>
             </div>
-            <div class="block-right">
-                <div class="doctor-card">
-                    <div class="d-tittle">Очень длинное название процедуры, очень длинное врач Василенко Л.И.</div>
-                    <div class="d-card">
-                        <img id="icd" src="@/assets/defaultAvatar.png">
-                        <div id="nmd">
-                          <div>Врач</div>
-                          <div>Василенко Л.И.</div>
-                        </div>
-                        <button class="btn" id="btn-d"><i class="fas fa-caret-right"></i></button>
-                    </div>
-                </div>
-                <div class="description">
-                    <div>Описание процедуры</div>
-                    <div>
-                        Идейные соображения высшего порядка, а также начало повседневной работы по формированию позиции
-                        обеспечивает широкому кругу (специалистов) участие в формировании модели развития. С другой
-                        стороны начало повседневной работы по формированию позиции влечет за собой процесс внедрения.
-                    </div>
-                </div>
-                <div class="recomende">
-                    <div>Рекомендации перед процедурой</div>
-                    <div><i class="profi"></i> Не кушать и не пить за 2 часа до процедуры</div>
-                    <div><i class="profi"></i> Принять антигистаминный препарат</div>
-                    <div><i class="profi"></i> Ограничить физическую активность за день до процедуры</div>
-                    <div><i class="profi"></i> Хорошо очистить полость рта</div>
-                </div>
-                <div class="recomende">
-                    <div>Рекомендации после процедуры</div>
-                    <div><i class="profi"></i> Не кушать и не пить 3 часа после процедуры</div>
-                    <div><i class="profi"></i> Очистка полости рта ирригатором</div>
-                    <div><i class="profi"></i> Ограничить физическую активность на 3 дня после процедуры</div>
-                </div>
-                <div class="photo">
-                    <div>Фото</div>
-                    <div class="accordion">
-                        <button class="btn btn-accord"><i class="fas fa-caret-left"></i></button>
-                        <div></div>
-                        <button class="btn btn-accord"><i class="fas fa-caret-right"></i></button>
-                    </div>
-                </div>
-            </div>
+            <info class="block-right" :info="prselect"/>
         </div>
     </div>
 </template>
@@ -131,6 +56,7 @@
 <script>
 import currencyFormat from '@/helpers/currencyFormat';
 import timeFormat from "@/helpers/timeFormat";
+import info from "@/components/servicePageInfoProc";
 
 export default {
     props: ['resize'],
@@ -138,6 +64,9 @@ export default {
         return {
             select: this.$store.state.Booking.Procedure,
             prselect: this.$store.state.Booking.Procedure,
+            catSel: null,
+            category: [],
+            doc: null,
             price: null,
             loading: true,
             errored: false,
@@ -145,45 +74,73 @@ export default {
             locale: this.$i18n.locale
         }
     },
+    components:{
+        info,
+    },
     async created() {
         //await this.getMedProc("Орто", "2021-03-21", "bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82");
-        await this.getMedProc('', "2021-03-21", null);
+        await this.categoryList();
     },
     mounted() {
       this.$watch( "$i18n.locale",
         (newLocale, oldLocale) => {
           if (newLocale === oldLocale) {
-            return
+            return;
           }
           this.locale = newLocale;
-          this.getMedProc('', this.$store.state.Booking.Date, null);
+          this.categoryList();
         },
         { immediate: true }
       )
     },
     methods: {
+      chgCat(cat){
+        this.catSel = cat;
+        this.getMedProc('', this.$store.state.Booking.Date, [{code: this.catSel}]);
+      },
+        categoryList() {
+          fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/category/`).
+          then(response => response.json()).
+          then(data => {
+          this.category = data.results;
+          console.log(data.results);
+          }).
+          catch((error) => { console.log(error); this.results = null;}).
+          finally(() => {
+            if(this.catSel === null)
+              this.catSel = this.category[0].code;
+            this.getMedProc('', this.$store.state.Booking.Date, [{code: this.catSel}]);
+            this.loading = false;
+          });
+        },
         getMedProc(cat, date, docUID) {
-            var docdict = {}
-            if (docUID)
-              docdict = { "txt": cat, "dt": date, "doctor_uid": docUID };
-            else
-              docdict = { "txt": cat, "dt": date };
-
-            const options = {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(docdict)
-            };
-            fetch(`http://localhost:8000/${this.locale}/vhapi/medproc/list/`, options).
-            then(response => response.json()).
-            then(data => {
-            this.results = data;
-            console.log(data);
-            }).
-            catch((error) => { console.log(error); this.results = null;}).
-            finally(() => {
-              this.loading = false;
-            });
+          const options = {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({"dt": date, "category": docUID})
+          };
+          fetch(`http://localhost:8000/${this.locale}/vhapi/medproc/list/`, options).
+          then(response => response.json()).
+          then(data => {
+          this.results = data;
+          console.log(data);
+          }).
+          catch((error) => { console.log(error); this.results = null;}).
+          finally(() => {
+            this.loading = false;
+          });
+        },
+        getMedProcDoctors(procUID) {
+          fetch(`http://localhost:8000/${this.locale}/vhapi/medproc/${procUID}/doctors/`).
+          then(response => response.json()).
+          then(data => {
+          this.doc = data;
+          console.log(data);
+          }).
+          catch((error) => { console.log(error); this.results = null;}).
+          finally(() => {
+            this.loading = false;
+          });
         },
         selected(sel, price){
           if(this.resize)
@@ -193,6 +150,7 @@ export default {
             } else {
               this.prselect = sel;
               this.price = price;
+              this.getMedProcDoctors(this.prselect);
             }
         },
         send() {
@@ -371,122 +329,6 @@ body.chg-proc
     border: none
     border-radius: 8px
     color: $white
-
-.hm-block
-  width: 100%
-  border-radius: 0px
-  margin-bottom: 24px
-  background: #F3E9D4
-.block-right
-  border-radius: 0px 16px 16px 0px
-  background: #F3E9D4
-.block-right, .hm-block
-  padding: 32px
-  text-align: left
-  .doctor-card
-    margin-bottom: 24px
-    .d-tittle
-      font-family: Montserrat
-      font-weight: 500
-      font-size: 21px
-      line-height: 26px
-      text-align: left
-      margin-bottom: 24px
-    .d-card
-      background: white
-      height: 72px
-      width: 280px
-      border-radius: 8px
-      > div, > button
-        display: inline-block
-      img#icd
-        position: relative
-        top: 8px
-        left: 8px
-        width: 56px
-        height: 56px
-        border-radius: .25rem
-        vertical-align: initial
-      #nmd
-        font-family: FuturaBookC
-        position: relative
-        top: -8px
-        left: 24px
-        width: 177px
-        line-height: 1
-        text-align: left
-      #nmd > div:first-child
-        color: $button-color
-        font-size: 14px
-      #nmd > div:last-child
-        font-size: 16px
-      #btn-d
-        position: relative
-        top: -17px
-        right: -21px
-        width: 26px
-        height: 72px
-        border: none
-        border-radius: 0px 8px 8px 0px
-        background: $none
-        color: $white
-  .description
-    margin-bottom: 24px
-    > div:first-child
-      font-family: Montserrat
-      font-size: 19px
-      line-height: 24px
-      color: #B8882F
-      margin-bottom: 16px
-    > div:last-child
-      font-family: FuturaBookC
-      font-size: 16px
-      line-height: 21px
-  .recomende
-    margin-bottom: 20px
-    i
-      display: inline-block
-      width: 8px
-      height: 8px
-      border-radius: 2px
-    > div:first-child
-      font-family: Montserrat
-      font-size: 19px
-      line-height: 24px
-      color: #B8882F
-      margin-bottom: 16px
-    div
-      font-family: FuturaBookC
-      font-size: 16px
-      line-height: 21px
-      margin-bottom: 8px
-  .photo
-    > div:first-child
-      font-family: Montserrat
-      font-size: 19px
-      line-height: 24px
-      color: #B8882F
-      margin-bottom: 16px
-    .accordion
-      height: 136px
-      width: 100%
-      background:  #F1EEE6
-      border-radius: 4px
-      overflow: hidden
-      > div
-        display: inline-block
-        width: calc(100% - 32px)
-      .btn-accord
-        display: inline-block
-        width: 16px
-        height: 136px
-        background: #42E1C5
-        border-radius: 4px
-        border: none
-        color: $white
-        &:hover
-          background: #EED199
-          box-shadow: none
 
 @media (max-width: 1399px)
   .container

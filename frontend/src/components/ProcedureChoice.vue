@@ -12,24 +12,16 @@
           </div>
         </div>
         <div v-if="loading">{{ $t('proсchoice.load') }}</div>
-          <div v-for="n in cat" :key="n.uid">
-            <div class="category">
-              <div><div class="icon-teeth"><img :src="n.img" alt=""/></div></div>
-              <div class="cat-name" colspan="4">{{n.title}}</div>
-            </div>
-            <div v-for="c in n.results" class="product" :class="[{spec: c.code.length > 5}, { active: c.uid === select}]" :key="c.uid" @click="selected(c.uid, c.price)">
-              <div class="sr-start">
-                <div class="pr-code">{{ c.code }}</div>
-                <div class="pr-tittle">{{ c.title_check }}</div>
-              </div>
-              <div class="sr-end">
-                <div class="pr-info"><i class="fas fa-info-circle"></i></div>
-                <div class="pr-price">{{ c.price | currencyFormat("RUB")}}</div>
-                <div class="pr-duration">{{ c.duration | timeFormat("ru-RU")}}</div>
-              </div>
-            </div>
-            <hr>
+        <div v-for="n in category" :key="n.code">
+          <div class="category">
+            <div><div class="icon-teeth"><img :src="n.img" alt=""/></div></div>
+            <div class="cat-name">{{n.title}}</div>
           </div>
+          <listView
+            :categoryCode="n.code"
+            v-model="select"/>
+          <hr>
+        </div>
       </div>
       <button class="btn" @click="send()">{{ $t('proсchoice.select') }}</button>
     </div>
@@ -37,8 +29,7 @@
 </template>
 
 <script>
-import currencyFormat from '@/helpers/currencyFormat';
-import timeFormat from "@/helpers/timeFormat";
+import listView from "@/components/ProcedureListView";
 
 export default {
     props: ['date'],
@@ -46,52 +37,45 @@ export default {
         return {
             select: this.$store.state.Booking.Procedure,
             price: this.$store.state.Booking.Price,
-            cat: [
-                { uid: '18abdf34-516f-4e95-9b61-2d2052d4f60d', img: '/img/Teeth/Orthodontics.svg', title: '01. Ортодонтия', results: [] },
-                { uid: '72c10fc6-350a-42ef-888a-4835f88de9ca', img: '/img/Teeth/Implantation.svg', title: '02. Хирургия', results: [] },
-            ],
             loading: true,
             errored: false,
-            results: [],
+            category: [],
             q: '',
         }
     },
+    components: {
+        listView
+    },
     async created() {
-        await this.medProcList('', this.$store.state.Booking.Date, 'bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82', 0);
-        /*await this.medProcList('Прот', this.$store.state.Booking.Date, 'bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82', 1);*/
+      //await this.categoryList();
+      //await this.medProcList('', this.$store.state.Booking.Date, 'bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82', 0);
+      /*await this.medProcList('Прот', this.$store.state.Booking.Date, 'bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82', 1);*/
     },
     mounted(){
         this.$watch( "$i18n.locale",
             (newLocale, oldLocale) => {
                 if (newLocale === oldLocale)
                   return;
-               this.medProcList('', this.$store.state.Booking.Date, 'bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82', 0);
+                this.categoryList();
+               //this.medProcList('', this.$store.state.Booking.Date, 'bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82', 0);
             },
             { immediate: true }
         );
     },
-    filters: {
-        currencyFormat, timeFormat
-    },
     methods: {
-        medProcList(cat, date, docUID, section) {
-            const options = {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({"txt": cat, "dt": date, "doctor_uid": docUID})
-            };
-            fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/medproc/list/`, options).
+        categoryList() {
+            fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/category/`).
             then(response => response.json()).
             then(data => {
-            this.results = data;
-            console.log(data);
+            this.category = data.results;
+            console.log(data.results);
             }).
             catch((error) => { console.log(error); this.results = null;}).
             finally(() => {
               this.loading = false;
-              this.cat[section].results = this.results;
             });
         },
+
         search() {
             const options = {
               method: "POST",
@@ -214,56 +198,7 @@ export default {
       font-size: 21px
       line-height: 26px
       color: #071013
-  .product
-    padding: .25rem 2rem
-    display: flex
-    justify-content: space-between
-    > div
-      > div
-        margin: auto
-    &.active, &:hover
-      background: rgba(238, 209, 153, 0.16)
-    &.active > .sr-end > .pr-info > i, &:hover > .sr-end > .pr-info > i
-      display: flex
-    &.active > .sr-end > .pr-price, &:hover > .sr-end > .pr-price
-      color: #B8882F
-    &.active > .sr-end > .pr-duration, &:hover > .sr-end > .pr-duration
-      color: #071013
-    > .sr-start
-      display: flex
-      justify-content: flex-start
-      > .pr-code
-        width: 62px
-        margin-right: 8px
-        font-family: Montserrat
-        font-size: 19px
-        line-height: 24px
-        color: #071013
-      > .pr-tittle
-        font-family: FuturaBookC
-        color: #071013
-    > .sr-end
-      display: flex
-      justify-content: flex-end
-      > .pr-info
-        width: 16px
-        > i
-          display: none
-          font-size: 16px
-          color: #42E1C5
-      > .pr-price
-        width: 72px
-        font-family: FuturaBookC
-        line-height: 21px
-        text-align: right
-        color: #DFB971
-        margin-right: 1rem
-      > .pr-duration
-        width: 56px
-        font-family: FuturaBookC
-        line-height: 21px
-        text-align: right
-        color: #9CC6BE
+
   > .btn
     font-family: FuturaBookC
     letter-spacing: 0.08em

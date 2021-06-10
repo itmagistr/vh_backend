@@ -46,6 +46,10 @@
             <div class="clip-accordion" @click="show('proc')" :class="[states.proc ? 'active' : '']">
               {{ $t('modaldoccard.procedure') }} <i class="fas fa-caret-down"></i>
             </div>
+            <listView v-show="states.proc"
+              :doctorUID="data.uid"
+                      class="listproc"
+            />
             <div class="clip-accordion" @click="show('photo')" :class="[states.photo ? 'active' : '']">
               {{ $t('modaldoccard.photo') }} <i class="fas fa-caret-down"></i>
             </div>
@@ -54,10 +58,14 @@
               Соцсети <i class="fas fa-caret-down"></i>
             </div>
             <div class="soc-btn-card" v-show="states.social">
-              <a href="https://www.instagram.com/tohwddent" target="_blank"><button class="social-btn"><i class="fab fa-instagram"></i></button></a>
-              <a href="https://www.youtube.com/channel/UCeyxKBqdLFA79kCTH29RDsQ" target="_blank"><button class="social-btn"><i class="fab fa-youtube"></i></button></a>
-              <a href="https://www.facebook.com/ToHwdDent" target="_blank"><button class="social-btn"><i class="fab fa-facebook-f"></i></button></a>
-              <a href="https://vk.com/tohwddent" target="_blank"><button class="social-btn"><i class="fab fa-vk"></i></button></a>
+              <a :href="data.insta || '#'" :target="data.insta !== null ? '_blank': ''">
+                <button class="social-btn"><i class="fab fa-instagram"></i></button></a>
+              <a :href="data.youtube || '#'" :target="data.youtube !== null ? '_blank': ''">
+                <button class="social-btn"><i class="fab fa-youtube"></i></button></a>
+              <a :href="data.fb || '#'" :target="data.fb !== null ? '_blank': ''">
+                <button class="social-btn"><i class="fab fa-facebook-f"></i></button></a>
+              <a :href="data.vk || '#'" :target="data.vk !== null ? '_blank': ''">
+                <button class="social-btn"><i class="fab fa-vk"></i></button></a>
             </div>
             <div class="clip-accordion" @click="show('cert')" :class="[states.cert ? 'active' : '']">
               {{ $t('modaldoccard.certificate') }} <i class="fas fa-caret-down"></i>
@@ -78,6 +86,7 @@
 <script>
 import StarRating from "vue-star-rating";
 import Carousel from "@/components/DoctorWorkresCarousel"
+import listView from "@/components/ProcedureListView";
 
 export default {
   props: ['selfInfo'],
@@ -93,12 +102,14 @@ export default {
       },
     }
   },
+  components: {
+    StarRating, Carousel, listView,
+  },
   methods: {
     show(pos){
       this.states[pos] = !this.states[pos];
     },
     getInfo() {
-      //http://localhost:8000/ru/vhapi/doctor/bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82/workres/
       fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/doctor/${this.selfInfo}`)
       .then(response => response.json()).then(data => {
         this.data = data;
@@ -115,6 +126,7 @@ export default {
         //this.loading = false;
       });
     },
+
     send(){
       this.$store.commit("updDoc", this.data.uid);
     }
@@ -127,9 +139,6 @@ export default {
         this.getInfo();
       },
     },
-  },
-  components: {
-    StarRating, Carousel
   },
 }
 </script>
@@ -285,6 +294,8 @@ export default {
           border: 1px solid #B8882F
           border-radius: 4px
           margin: 0
+    > .listproc
+      margin-bottom: 1rem
   .modal-footer
     padding: 0px
     > .btn-ok

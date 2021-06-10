@@ -25,7 +25,7 @@
           </li>
           <li class="nav-item">
             <hr>
-            <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-future-ok" data-name="докум">{{ $t('menu.documentation') }}</a>
+             <router-link class="nav-link" :to="{name: 'documents'}" data-name="докум">{{ $t('menu.documentation') }}</router-link>
             <hr>
           </li>
           <li class="nav-item">

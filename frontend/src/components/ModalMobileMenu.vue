@@ -35,7 +35,7 @@
                 <router-link class="nav-link" data-toggle="modal" data-dismiss="modal" data-target="#mdl-future-ok" to="#">{{ $t('menu.virtual_tour') }}</router-link>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link" data-toggle="modal" data-dismiss="modal" data-target="#mdl-future-ok" to="#">{{ $t('menu.documentation') }}</router-link>
+                <router-link class="nav-link" data-dismiss="modal" :to="{name: 'documents'}">{{ $t('menu.documentation') }}</router-link>
               </li>
               <li class="nav-item">
                 <a class="nav-link" data-toggle="modal" data-dismiss="modal" data-target="#mdl-contacts">{{ $t('menu.contacts') }}</a>

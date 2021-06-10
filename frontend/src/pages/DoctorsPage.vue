@@ -199,8 +199,11 @@ body.chg-doc
   margin-top: -100px
 
 .doc
-  padding-top: 127px
-  width: calc(100% - 284px)
+  padding: 127px 1rem 0
+  width: 100%
+  @media (min-width: 1400px)
+    width: calc(100% - 252px)
+  margin: auto
   > .filter
     display: flex
     flex-wrap: wrap
@@ -345,6 +348,8 @@ body.chg-doc
 
 @media (max-width: 768px)
   .doc
+    padding: 127px 0 0
+    width: 100%
     > .algo
       max-width: 696px
       display: flex
