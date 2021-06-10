@@ -39,6 +39,17 @@ export default {
       this.medProcListByDoc(this.doctorUID);
   },
   watch: {
+    "$i18n.locale": {
+      handler(newLocale, oldLocale) {
+        if (newLocale === oldLocale)
+          return;
+        if(this.categoryCode !== undefined)
+          this.medProcListByCat(this.$store.state.Booking.Date, [{code: this.categoryCode}]);
+        else if(this.doctorUID !== undefined)
+          this.medProcListByDoc(this.doctorUID);
+      },
+      immediate: true,
+    },
     value(newValue, oldValue) {
       if (newValue === oldValue)
         return;

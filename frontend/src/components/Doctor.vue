@@ -70,9 +70,9 @@ export default {
         this.$emit('goToDoctor', 4);
     }
   },
-  mounted() {
-    this.$watch( "$i18n.locale",
-      (newLocale, oldLocale) => {
+  watch: {
+    "$i18n.locale": {
+      handler(newLocale, oldLocale) {
         if (newLocale === oldLocale)
           return;
         if (this.$store.state.Booking.Doctor !== null)
@@ -80,8 +80,8 @@ export default {
         else
           this.docUID('');
       },
-      { immediate: true }
-    )
+      immediate: true,
+    },
   },
 }
 </script>

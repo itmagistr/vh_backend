@@ -56,42 +56,41 @@
 <script>
 import currencyFormat from '@/helpers/currencyFormat';
 import timeFormat from "@/helpers/timeFormat";
-import info from "@/components/servicePageInfoProc";
+import info from "@/components/ServicePageInfoProc";
 
 export default {
     props: ['resize'],
     data() {
-        return {
-            select: this.$store.state.Booking.Procedure,
-            prselect: this.$store.state.Booking.Procedure,
-            catSel: null,
-            category: [],
-            doc: null,
-            price: null,
-            loading: true,
-            errored: false,
-            results: null,
-            locale: this.$i18n.locale
-        }
+      return {
+        select: this.$store.state.Booking.Procedure,
+        prselect: this.$store.state.Booking.Procedure,
+        catSel: null,
+        category: [],
+        doc: null,
+        price: null,
+        loading: true,
+        errored: false,
+        results: null,
+        locale: this.$i18n.locale
+      }
     },
     components:{
-        info,
+      info,
     },
     async created() {
-        //await this.getMedProc("Орто", "2021-03-21", "bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82");
-        await this.categoryList();
+      //await this.getMedProc("Орто", "2021-03-21", "bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82");
+      await this.categoryList();
     },
-    mounted() {
-      this.$watch( "$i18n.locale",
-        (newLocale, oldLocale) => {
-          if (newLocale === oldLocale) {
+    watch: {
+      "$i18n.locale": {
+        handler(newLocale, oldLocale) {
+          if (newLocale === oldLocale)
             return;
-          }
           this.locale = newLocale;
           this.categoryList();
         },
-        { immediate: true }
-      )
+        immediate: true,
+      },
     },
     methods: {
       chgCat(cat){

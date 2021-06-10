@@ -51,16 +51,15 @@ export default {
       //await this.medProcList('', this.$store.state.Booking.Date, 'bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82', 0);
       /*await this.medProcList('Прот', this.$store.state.Booking.Date, 'bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82', 1);*/
     },
-    mounted(){
-        this.$watch( "$i18n.locale",
-            (newLocale, oldLocale) => {
-                if (newLocale === oldLocale)
-                  return;
-                this.categoryList();
-               //this.medProcList('', this.$store.state.Booking.Date, 'bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82', 0);
-            },
-            { immediate: true }
-        );
+    watch: {
+      "$i18n.locale": {
+        handler(newLocale, oldLocale) {
+          if (newLocale === oldLocale)
+            return;
+          this.categoryList();
+        },
+        immediate: true,
+      },
     },
     methods: {
         categoryList() {
@@ -75,7 +74,6 @@ export default {
               this.loading = false;
             });
         },
-
         search() {
             const options = {
               method: "POST",

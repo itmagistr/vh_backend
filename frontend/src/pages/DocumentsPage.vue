@@ -31,7 +31,7 @@ export default {
     plusSlides(n) {
       this.slideIndex += n;
       if(this.slideIndex < 0)
-        this.slideIndex = this.photo.length;
+        this.slideIndex = this.photo.length - 1;
       else if(this.slideIndex >= this.photo.length)
         this.slideIndex = 0;
     },
@@ -44,12 +44,6 @@ export default {
 
 <style lang="sass">
 @import "@/styles/_variables.sass"
-
-.fade-enter-active, .fade-leave-active
-  transition: opacity .5s
-
-.fade-enter, .fade-leave-to
-  opacity: 0
 
 .slideshow-container
   max-width: 1000px

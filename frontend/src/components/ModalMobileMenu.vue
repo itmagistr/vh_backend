@@ -40,9 +40,6 @@
               <li class="nav-item">
                 <a class="nav-link" data-toggle="modal" data-dismiss="modal" data-target="#mdl-contacts">{{ $t('menu.contacts') }}</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" data-dismiss="modal" data-target="#mdl-messenger">Онлайн-чат</a>
-              </li>
             </ul>
           </div>
           <div class="modal-footer">

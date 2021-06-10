@@ -65,19 +65,19 @@ export default {
         this.$emit('goToProcedure', 3);
     }
   },
-   mounted() {
-      this.$watch( "$i18n.locale",
-        (newLocale, oldLocale) => {
-          if (newLocale === oldLocale)
-            return;
-          if (this.$store.state.Booking.Procedure !== null)
-            this.medProcUID(this.$store.state.Booking.Procedure+'/light');
-          else
-            this.medProcUID('');
-        },
-        { immediate: true }
-      )
-   },
+  watch: {
+    "$i18n.locale": {
+      handler(newLocale, oldLocale) {
+        if (newLocale === oldLocale)
+          return;
+        if (this.$store.state.Booking.Procedure !== null)
+          this.medProcUID(this.$store.state.Booking.Procedure+'/light');
+        else
+          this.medProcUID('');
+      },
+      immediate: true,
+    },
+  },
 }
 </script>
 
