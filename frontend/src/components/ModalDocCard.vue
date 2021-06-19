@@ -73,6 +73,9 @@
             <div class="clip-accordion" @click="show('edu')" :class="[states.edu ? 'active' : '']">
               {{ $t('modaldoccard.education') }} <i class="fas fa-caret-down"></i>
             </div>
+            <div class="edu" v-show="states.edu">
+              {{data.education || null}}
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-ok" @click="send()" data-dismiss="modal" >Закрыть</button>
@@ -150,7 +153,7 @@ export default {
   > .modal-ctm
     max-width: 688px
     > .modal-content
-      background: #FEFDFB
+      background: $white
       border: none
       border-radius: 0.5rem
   .modal-header, .modal-footer
@@ -172,7 +175,7 @@ export default {
       position: absolute
       right: 16px
       top: 16px
-      color: #DFB971
+      color: $button-color
       > span
         font-size: 2rem
       &:hover
@@ -272,7 +275,7 @@ export default {
       font-size: 16px
       letter-spacing: 0.08em
       text-transform: uppercase
-      color: #071013
+      color: $black
       height: 1.5rem
       margin-bottom: 1rem
       padding: 0px 1.5rem
@@ -291,11 +294,14 @@ export default {
       > a
         margin: 0 .5rem
         > button
-          border: 1px solid #B8882F
+          border: 1px solid $header_text
           border-radius: 4px
           margin: 0
     > .listproc
       margin-bottom: 1rem
+    > .edu
+      display: flex
+      margin: 0 1.5rem 3rem
   .modal-footer
     padding: 0px
     > .btn-ok
@@ -305,14 +311,14 @@ export default {
       width: 240px
       height: 48px
       border-radius: 0.5rem
-      background: #42E1C5
+      background: $active-link-line
       color: white
       font-family: FuturaBookC
       font-size: 1rem
       line-height: 1.25rem
       letter-spacing: 0.08em
       text-transform: uppercase
-      color: #FEFDFB
+      color: $white
 .modal-backdrop
   background: #cef2e9
   backdrop-filter: blur(16px)

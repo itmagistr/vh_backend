@@ -12,8 +12,11 @@
                         </div>
                   </div>
                   <div v-if="loading">{{ $t('doctorchoice.dwnld') }}</div>
-                  <Card v-for="data in results" :key="data.uid" :data="data" :class="[select === data.uid ? 'active':'' ]"
-                         v-on:select="selected"></Card>
+                  <Card v-for="data in results"
+                        :key="data.uid"
+                        :data="data"
+                        :class="[select === data.uid ? 'active':'' ]"
+                        v-on:select="selected"/>
             </div>
             <button class="btn" @click="send()">{{ $t('doctorchoice.choose') }}</button>
         </div>

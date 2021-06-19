@@ -12,6 +12,7 @@
         <modalLeaveRequest/>
         <modalFutureOk/>
         <modalCallBack/>
+        <modalImage/>
         <modalMobileMenu v-if="mobile === true"/>
         <div class="d-flex align-items-center justify-content-between">
           <div class="d-flex flex-column ctm-col-rt">
@@ -58,7 +59,7 @@ import modalLeaveRequest from "@/components/ModalLeaveRequest.vue";
 import modalFutureOk from "@/components/ModalFutureOk.vue";
 import modalMobileMenu from "@/components/ModalMobileMenu.vue"
 import modalMessenger from "@/components/ModalMessenger.vue"
-
+import modalImage from "@/components/ModalImage";
 export default {
   name: 'App',
     metaInfo() {
@@ -94,7 +95,7 @@ export default {
   beforeDestroy() {
     window.removeEventListener('resize', this.onResize);
   },
-  components: { Header, modalContact, modalLeaveRequest, modalFutureOk, modalCallBack, modalMobileMenu, modalMessenger },
+  components: { Header, modalContact, modalLeaveRequest, modalFutureOk, modalCallBack, modalMobileMenu, modalMessenger, modalImage },
 };
 
 </script>

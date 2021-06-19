@@ -47,7 +47,7 @@ export default {
             return new Date(year, month, day).toLocaleString('en-CA', { dateStyle: 'short' });
         },
         daystatus(start, finish) {
-            fetch(`http://localhost:8000/ru/vhapi/daystatus/${start}/${finish}/`).
+            fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/daystatus/${start}/${finish}/`).
             then(stream => stream.json()).
             then(response => {
             this.results = response.results;

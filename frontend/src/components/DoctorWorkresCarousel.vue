@@ -5,7 +5,11 @@
     </button>
     <div class="imgField">
       <div v-for="(c, index) in data" :key="index" class="imgCarousel">
-        <img :src="c.img" :alt="c.title">
+        <img :src="c.img"
+             :alt="c.title"
+             @click="imgShow(c.img)"
+             data-toggle="modal"
+             data-target="#mdl-image">
       </div>
     </div>
     <button class="btn rightBtn" @click="chgPos(1)">
@@ -36,6 +40,9 @@ export default {
     },
   },
   methods: {
+    imgShow(val){
+      this.$root.$emit("imgShowGL", val);
+    },
     chgPos(val){
       console.log(val);
     },

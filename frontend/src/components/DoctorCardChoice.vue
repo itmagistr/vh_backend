@@ -27,7 +27,8 @@
             <div class="clip-accordion" @click="show('photo')" :class="[states.photo ? 'active' : '']">
               {{ $t('modaldoccard.photo') }} <i class="fas fa-caret-down"></i>
             </div>
-            <Carousel v-show="states.photo" :self-info="data.uid"/>
+            <Carousel v-show="states.photo"
+                      :self-info="data.uid"/>
             <div class="clip-accordion" @click="show('social')" :class="[states.social ? 'active' : '']">
               Соцсети <i class="fas fa-caret-down"></i>
             </div>
@@ -47,8 +48,8 @@
             <div class="clip-accordion" @click="show('edu')" :class="[states.edu ? 'active' : '']">
               {{ $t('modaldoccard.education') }} <i class="fas fa-caret-down"></i>
             </div>
-            <div v-show="states.edu" v-for="(edu, index) in data.education" :key="index">
-              <p>{{edu}}</p>
+            <div class="edu" v-show="states.edu">
+              {{data.education || null}}
             </div>
         </div>
         <div class="d-flex clip-footer">
@@ -145,7 +146,7 @@ export default {
   margin-bottom: 16px
   padding: 0
   &:hover, &.active
-      border: 2px solid #42E1C5
+      border: 2px solid $profi-main
   > .clip-header
     margin: 1.625rem 1.5rem 1rem 1.5rem
     justify-content: space-between
@@ -154,7 +155,7 @@ export default {
       justify-content: center
       width: 64px
       height: 64px
-      background: #e9ecef
+      background: $backgroundImage
       border-radius: 4px
       margin-right: 12px
     .clip-bk1
@@ -163,20 +164,20 @@ export default {
         font-family: FuturaBookC
         font-size: 14px
         line-height: 16px
-        color: #B8882F
+        color: $header_text
         padding-top: 4px
         padding-bottom: 4px
       .clip-name
         font-family: Montserrat
         font-size: 19px
         line-height: 19px
-        color: #071013
+        color: $black
     .clip-info
       text-align: right
       font-family: FuturaBookC
       font-size: 16px
       line-height: 21px
-      color: #071013
+      color: $black
   > .clip-body
     display: flex
     flex-direction: column
@@ -187,7 +188,7 @@ export default {
       line-height: 21px
       letter-spacing: 0.08em
       text-transform: uppercase
-      color: #071013
+      color: $black
       margin-bottom: 1rem
       padding: 0px 1.5rem
       &:hover, &.active
@@ -205,11 +206,14 @@ export default {
       > a
         margin: 0 .5rem
         > button
-          border: 1px solid #B8882F
+          border: 1px solid $header_text
           border-radius: 4px
           margin: 0
     > .listproc
       margin-bottom: 1rem
+    > .edu
+      display: flex
+      margin: 0 1.5rem 1rem
   > .clip-footer
     justify-content: space-between
     vertical-align: middle
