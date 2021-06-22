@@ -4,6 +4,10 @@ import router from "@/router";
 import store from "@/store";
 import VueMeta from 'vue-meta';
 import VueI18n from 'vue-i18n';
+import VueSplide from '@splidejs/vue-splide';
+import '@splidejs/splide/dist/css/themes/splide-default.min.css';
+
+Vue.use(VueSplide);
 Vue.use(VueMeta)
 Vue.use(VueI18n)
 
@@ -17,6 +21,6 @@ new Vue({
   i18n,
   router,
   store,
-   render: h => h(App),
+  render: h => h(App),
 }).$mount('#app')
 

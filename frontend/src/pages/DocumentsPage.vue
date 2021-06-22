@@ -1,10 +1,10 @@
 <template>
-  <div class="slideshow-container">
-    <div v-for="(data, index) in photo" class="mySlides" :key="index">
-      <img :src="data.img" v-if="index === slideIndex">
-    </div>
-    <a class="prev" @click="plusSlides(-1)">&#10094;</a>
-    <a class="next" @click="plusSlides(1)">&#10095;</a>
+  <div class="wrapper">
+    <splide :options="options" has-slider-wrapper>
+      <splide-slide v-for="slide in slides" :key="slide.src">
+        <img :src="slide.src">
+      </splide-slide>
+    </splide>
   </div>
 </template>
 
@@ -13,61 +13,28 @@ export default {
   props: ['resize'],
   data() {
     return {
-      slideIndex: 0,
-      timer: null,
-      photo: [
-        {img: "http://localhost:8000/media/uploads/documents/doc1.png"},
-        {img: "http://localhost:8000/media/uploads/documents/doc2.png"},
-        {img: "http://localhost:8000/media/uploads/documents/doc3.png"}
+      options: {
+        type: 'loop',
+        rewind: true,
+        autoWidth : true,
+        autoheight: true,
+        gap: '2rem',
+      },
+      slides: [
+        {src: "http://localhost:8000/media/uploads/documents/doc1.png"},
+        {src: "http://localhost:8000/media/uploads/documents/doc2.png"},
+        {src: "http://localhost:8000/media/uploads/documents/doc3.png"}
       ],
     }
   },
-  mounted() {
-    this.timer = setInterval(() => {
-      this.plusSlides(1);
-    }, 5000)
-  },
-  methods: {
-    plusSlides(n) {
-      this.slideIndex += n;
-      if(this.slideIndex < 0)
-        this.slideIndex = this.photo.length - 1;
-      else if(this.slideIndex >= this.photo.length)
-        this.slideIndex = 0;
-    },
-  },
-  beforeDestroy() {
-    clearInterval(this.timer)
-  }
 }
 </script>
 
 <style lang="sass">
 @import "@/styles/_variables.sass"
-
-.slideshow-container
-  max-width: 1000px
-  position: relative
-  margin: auto
-
-.prev, .next
-  cursor: pointer
-  position: absolute
-  top: 50%
-  width: auto
-  margin-top: -22px
-  padding: 16px
-  color: white
-  font-weight: bold
-  font-size: 18px
-  transition: 0.6s ease
-  border-radius: 0 3px 3px 0
-  user-select: none
-
-.next
-  right: 0
-  border-radius: 3px 0 0 3px
-
-.prev:hover, .next:hover
-  background-color: rgba(0,0,0,0.8)
+.wrapper
+  width: calc(100% - 300px)
+@media (max-width: 1399px)
+  .wrapper
+    width: 100%
 </style>
