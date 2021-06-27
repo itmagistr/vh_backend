@@ -8,19 +8,21 @@
     "contacts": "Контакты",
     "search_ph": "Найти",
     "profile": "Личный кабинет",
-    "callback_lnk": "Заказать звонок"
+    "callback_lnk": "Заказать звонок",
+    "phone_num": "+7 495 023 86 69"
   },
   "doctorpage": {
 	"doc_header": "Врачи",
 	"review": "отзыва",
-    "details": "Подробнее",
-    "titledoccard": "Карточка врача"
+  "details": "Подробнее",
+  "titledoccard": "Карточка врача",
+  "experience": "стаж"
   },
   "modaldoccard": {
-    "procedure": "Процедуры",
-    "photo": "Фото работ",
+  "procedure": "Процедуры",
+  "photo": "Фото работ",
 	"certificate": "Сертификаты",
-    "education": "Образование",
+  "education": "Образование",
 	"signup": "Записаться к врачу"
   },
   "servicepage": {

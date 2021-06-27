@@ -16,7 +16,7 @@
                   <div class="icon"><img :src="data.special_img"></div>
                   <div class="bk1">
                     <div class="tittle">{{ data.special }}</div>
-                    <div class="education">{{ data.level }}</div>
+                    <div class="education">стаж {{ data.experience }}, {{ data.level }}</div>
                   </div>
                   <div class="name">{{ data.firstName }} {{ data.lastName }} {{ data.midName }}</div>
                 </div>
@@ -69,6 +69,9 @@
             </div>
             <div class="clip-accordion" @click="show('cert')" :class="[states.cert ? 'active' : '']">
               {{ $t('modaldoccard.certificate') }} <i class="fas fa-caret-down"></i>
+            </div>
+            <div class="cert" v-show="states.cert">
+              {{data.certificate || null}}
             </div>
             <div class="clip-accordion" @click="show('edu')" :class="[states.edu ? 'active' : '']">
               {{ $t('modaldoccard.education') }} <i class="fas fa-caret-down"></i>
@@ -299,6 +302,9 @@ export default {
           margin: 0
     > .listproc
       margin-bottom: 1rem
+    > .cert
+      display: flex
+      margin: 0 1.5rem 3rem  
     > .edu
       display: flex
       margin: 0 1.5rem 3rem

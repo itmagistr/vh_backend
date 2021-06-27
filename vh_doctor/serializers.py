@@ -48,7 +48,7 @@ class DoctorRuSerializer(serializers.ModelSerializer):#serializers.HyperlinkedMo
 	reviewCount = serializers.IntegerField(default=0)
 	class Meta:
 		model = Doctor
-		fields = ['uid', 'lastName', 'firstName', 'special', 'special_img', 'midName', 'img', 'experience', 'degree', 'level', 'rating', 'reviewCount', 'youtube', 'fb', 'vk', 'insta', 'education']
+		fields = ['uid', 'lastName', 'firstName', 'special', 'special_img', 'midName', 'img', 'experience', 'degree', 'level', 'rating', 'reviewCount', 'youtube', 'fb', 'vk', 'insta', 'сertificate', 'education']
 
 class DoctorEnSerializer(serializers.ModelSerializer):#serializers.HyperlinkedModelSerializer):
 	lastName = serializers.CharField(source='lastName_en')
@@ -64,7 +64,7 @@ class DoctorEnSerializer(serializers.ModelSerializer):#serializers.HyperlinkedMo
 	reviewCount = serializers.IntegerField(default=0)
 	class Meta:
 		model = Doctor
-		fields = ['uid', 'lastName', 'firstName', 'special', 'special_img', 'midName', 'img', 'experience', 'degree', 'level', 'rating', 'reviewCount', 'youtube', 'fb', 'vk', 'insta', 'education']
+		fields = ['uid', 'lastName', 'firstName', 'special', 'special_img', 'midName', 'img', 'experience', 'degree', 'level', 'rating', 'reviewCount', 'youtube', 'fb', 'vk', 'insta', 'сertificate', 'education']
 
 class DoctorFilterSerializer(serializers.Serializer):
 	txt = serializers.CharField(max_length=50, allow_blank=True)

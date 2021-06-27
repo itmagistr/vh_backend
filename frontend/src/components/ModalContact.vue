@@ -41,7 +41,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A7a99b0b6bc976ab39bf895d707cb8aa60139b2c512dab621df6fbfb62d999caf&amp;source=constructor" frameborder="0"></iframe>
+          <iframe src="https://yandex.ru/map-widget/v1/-/CCUem8FCwC" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe>
+            <!--<iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A7a99b0b6bc976ab39bf895d707cb8aa60139b2c512dab621df6fbfb62d999caf&amp;source=constructor" frameborder="0"></iframe>-->
             <button type="button" class="btn btn-ok" data-dismiss="modal" data-toggle="modal" data-target="#mdl-leave-request">{{ $t('modalcontact.feed') }}</button>
           </div>
         </div>

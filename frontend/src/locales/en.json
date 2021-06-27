@@ -8,20 +8,22 @@
     "contacts": "Contacts",
     "search_ph": "Search",
     "profile": "Profile",
-    "callback_lnk": "Callback"
+    "callback_lnk": "Callback",
+    "phone_num": "+7 495 023 86 69"
   },
   "doctorpage": {
 	"doc_header": "Doctors",
 	"review": "review",
     "details": "Details",
-    "titledoccard": "En_Карточка врача"
+    "titledoccard": "En_Карточка врача",
+  "experience": "exp."
   },
   "modaldoccard": {
     "procedure": "Procedures",
     "photo": "Photos",
 	"certificate": "Certificates",
     "education": "Education",
-	"signup": "En_Записаться к врачу"
+	"signup": "Appointment"
   },
   "servicepage": {
 	"service": "Services",

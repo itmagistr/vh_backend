@@ -56,7 +56,7 @@
             <router-link class="nav-link" to="#"><h6 id="profile_field">{{ $t('menu.profile')}} </h6> <i class="fas fa-user"></i></router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link number" href="https://api.whatsapp.com/send?phone=79096952043" target="_blank">+7 495 023 86 69</a>
+            <a class="nav-link number" href="https://api.whatsapp.com/send?phone=79096952043" target="_blank">{{ $t('menu.phone_num')}}</a>
             <a class="nav-link" href="#" id="order-call" data-toggle="modal" data-target="#mdl-call-back">{{ $t('menu.callback_lnk')}}</a>
           </li>
         </ul>
