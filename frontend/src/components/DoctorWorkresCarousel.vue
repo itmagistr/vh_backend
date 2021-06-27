@@ -30,7 +30,7 @@ export default {
     if(this.selfInfo !== undefined)
       this.getInfo();
   },
-  watch:{
+  watch: {
     selfInfo: {
       handler(newValue, oldValue) {
         if (newValue === oldValue)

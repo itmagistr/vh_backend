@@ -45,6 +45,9 @@
             <div class="clip-accordion" @click="show('cert')" :class="[states.cert ? 'active' : '']">
               {{ $t('modaldoccard.certificate') }} <i class="fas fa-caret-down"></i>
             </div>
+            <div class="cert" v-show="states.cert">
+              {{data.сertificate || null}}
+            </div>
             <div class="clip-accordion" @click="show('edu')" :class="[states.edu ? 'active' : '']">
               {{ $t('modaldoccard.education') }} <i class="fas fa-caret-down"></i>
             </div>
@@ -211,6 +214,9 @@ export default {
           margin: 0
     > .listproc
       margin-bottom: 1rem
+    > .cert
+      display: flex
+      margin: 0 1.5rem 1rem
     > .edu
       display: flex
       margin: 0 1.5rem 1rem

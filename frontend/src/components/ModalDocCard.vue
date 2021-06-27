@@ -71,7 +71,7 @@
               {{ $t('modaldoccard.certificate') }} <i class="fas fa-caret-down"></i>
             </div>
             <div class="cert" v-show="states.cert">
-              {{data.certificate || null}}
+              {{data.сertificate || null}}
             </div>
             <div class="clip-accordion" @click="show('edu')" :class="[states.edu ? 'active' : '']">
               {{ $t('modaldoccard.education') }} <i class="fas fa-caret-down"></i>
@@ -82,7 +82,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-ok" @click="send()" data-dismiss="modal" >Закрыть</button>
-            <button type="button" class="btn btn-ok" @click="send()" data-dismiss="modal" >{{ $t('modaldoccard.signup') }}</button>
+<!--            <button type="button" class="btn btn-ok" @click="send()" data-dismiss="modal" >{{ $t('modaldoccard.signup') }}</button>-->
           </div>
         </div>
       </div>
@@ -304,7 +304,7 @@ export default {
       margin-bottom: 1rem
     > .cert
       display: flex
-      margin: 0 1.5rem 3rem  
+      margin: 0 1.5rem 1rem
     > .edu
       display: flex
       margin: 0 1.5rem 3rem
