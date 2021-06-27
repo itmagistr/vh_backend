@@ -42,44 +42,7 @@
               </div>
             </div>
           </div>
-          <div class="modal-body">
-            <div class="clip-accordion" @click="show('proc')" :class="[states.proc ? 'active' : '']">
-              {{ $t('modaldoccard.procedure') }} <i class="fas fa-caret-down"></i>
-            </div>
-            <listView v-show="states.proc"
-              :doctorUID="data.uid"
-                      class="listproc"
-            />
-            <div class="clip-accordion" @click="show('photo')" :class="[states.photo ? 'active' : '']">
-              {{ $t('modaldoccard.photo') }} <i class="fas fa-caret-down"></i>
-            </div>
-            <Carousel v-show="states.photo" :self-info="data.uid"/>
-            <div class="clip-accordion" @click="show('social')" :class="[states.social ? 'active' : '']">
-              Соцсети <i class="fas fa-caret-down"></i>
-            </div>
-            <div class="soc-btn-card" v-show="states.social">
-              <a :href="data.insta || '#'" :target="data.insta !== null ? '_blank': ''">
-                <button class="social-btn"><i class="fab fa-instagram"></i></button></a>
-              <a :href="data.youtube || '#'" :target="data.youtube !== null ? '_blank': ''">
-                <button class="social-btn"><i class="fab fa-youtube"></i></button></a>
-              <a :href="data.fb || '#'" :target="data.fb !== null ? '_blank': ''">
-                <button class="social-btn"><i class="fab fa-facebook-f"></i></button></a>
-              <a :href="data.vk || '#'" :target="data.vk !== null ? '_blank': ''">
-                <button class="social-btn"><i class="fab fa-vk"></i></button></a>
-            </div>
-            <div class="clip-accordion" @click="show('cert')" :class="[states.cert ? 'active' : '']">
-              {{ $t('modaldoccard.certificate') }} <i class="fas fa-caret-down"></i>
-            </div>
-            <div class="cert" v-show="states.cert">
-              {{data.сertificate || null}}
-            </div>
-            <div class="clip-accordion" @click="show('edu')" :class="[states.edu ? 'active' : '']">
-              {{ $t('modaldoccard.education') }} <i class="fas fa-caret-down"></i>
-            </div>
-            <div class="edu" v-show="states.edu">
-              {{data.education || null}}
-            </div>
-          </div>
+          <docAccordionMenu class="modal-body" :selfInfo="data"/>
           <div class="modal-footer">
             <button type="button" class="btn btn-ok" @click="send()" data-dismiss="modal" >Закрыть</button>
 <!--            <button type="button" class="btn btn-ok" @click="send()" data-dismiss="modal" >{{ $t('modaldoccard.signup') }}</button>-->
@@ -91,30 +54,28 @@
 
 <script>
 import StarRating from "vue-star-rating";
-import Carousel from "@/components/DoctorWorkresCarousel"
-import listView from "@/components/ProcedureListView";
+import docAccordionMenu from "@/components/DocAccordionMenu";
 
 export default {
   props: ['selfInfo'],
   data(){
     return {
       data: [],
-      states: {
-        proc: false,
-        photo: false,
-        social: false,
-        cert: false,
-        edu: false
-      },
     }
   },
   components: {
-    StarRating, Carousel, listView,
+    StarRating, docAccordionMenu
+  },
+  watch: {
+    selfInfo: {
+      handler(newValue, oldValue) {
+        if (newValue === oldValue)
+          return;
+        this.getInfo();
+      },
+    },
   },
   methods: {
-    show(pos){
-      this.states[pos] = !this.states[pos];
-    },
     getInfo() {
       fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/doctor/${this.selfInfo}`)
       .then(response => response.json()).then(data => {
@@ -128,23 +89,12 @@ export default {
             this.data.img = 'http://localhost:8000/media/uploads/human/defaultAvatar.png';
         if(this.data.special_img === null)
             this.data.special_img = 'http://localhost:8000/media/uploads/doctorspec/defaultTeeth.svg';
-        this.states = { proc: false, photo: false, social: false, cert: false, edu: false };
         //this.loading = false;
       });
     },
-
     send(){
       this.$store.commit("updDoc", this.data.uid);
     }
-  },
-  watch: {
-    selfInfo: {
-      handler(newValue, oldValue) {
-        if (newValue === oldValue)
-          return;
-        this.getInfo();
-      },
-    },
   },
 }
 </script>
@@ -273,41 +223,6 @@ export default {
                   margin-left: 16px
   .modal-body
     padding: inherit
-    > .clip-accordion
-      font-family: FuturaBookC
-      font-size: 16px
-      letter-spacing: 0.08em
-      text-transform: uppercase
-      color: $black
-      height: 1.5rem
-      margin-bottom: 1rem
-      padding: 0px 1.5rem
-      &:hover, &.active
-        color: $white
-        background-color: $active-link-line
-        > i
-          transform: scaleY(-1)
-          color: $white
-      > i
-        margin-left: 8px
-        color: $blue_three
-    > .soc-btn-card
-      display: flex
-      margin: 0 1.5rem 1rem
-      > a
-        margin: 0 .5rem
-        > button
-          border: 1px solid $header_text
-          border-radius: 4px
-          margin: 0
-    > .listproc
-      margin-bottom: 1rem
-    > .cert
-      display: flex
-      margin: 0 1.5rem 1rem
-    > .edu
-      display: flex
-      margin: 0 1.5rem 3rem
   .modal-footer
     padding: 0px
     > .btn-ok
@@ -330,6 +245,10 @@ export default {
   backdrop-filter: blur(16px)
 
 @media (max-width: 1399px)
+  .modal-backdrop
+    background: $white
+    &.show
+      opacity: 1
   #mdl-doc-card
     > .modal-ctm
       display: block
@@ -358,17 +277,18 @@ export default {
   #mdl-doc-card
     > .modal-ctm
       > .modal-content
-        height: initial
         > .modal-header
           > img
             width: 100%
             margin-left: initial
-          > .info
-            width: 100%
-            padding: 1rem 0 0
+          > .modalTop
+            flex-direction: column
+            align-items: center
+            > .info
+              width: 100%
+              padding: 1rem 0 0
         > .modal-footer
-          padding-top: 32px
-          padding-bottom: 70px
+          margin: 2rem 0
           > .btn
             margin: auto
             position: initial
