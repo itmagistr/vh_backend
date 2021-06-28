@@ -87,7 +87,7 @@ class Booking(models.Model):
 		verbose_name = 'Запись на приём'
 		verbose_name_plural = 'Записи на приём'
 	def __str__(self):
-		return u"{}.{}.{}".format(self.dt_start, self.medproc.code)
+		return u"{}.{}.{}".format(self.dt_start, self.client, self.medproc.code, )
 
 	@classmethod
 	def create(cls, dicdata):
