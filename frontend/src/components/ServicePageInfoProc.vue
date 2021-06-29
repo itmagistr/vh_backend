@@ -15,28 +15,30 @@
       <div>{{ $t('servicepage.description') }}</div>
       <div>{{ results.description }}</div>
     </div>
-    <div class="recomende" v-if="false">
+    <div class="recomende" v-if="true">
       <div><strong>Static </strong>Рекомендации перед процедурой</div>
-      <div><i class="profi"></i> Не кушать и не пить за 2 часа до процедуры</div>
+      <div>{{ results.recomend_before}}</div>
+      <!--<div><i class="profi"></i> Не кушать и не пить за 2 часа до процедуры</div>
       <div><i class="profi"></i> Принять антигистаминный препарат</div>
       <div><i class="profi"></i> Ограничить физическую активность за день до процедуры</div>
-      <div><i class="profi"></i> Хорошо очистить полость рта</div>
+      <div><i class="profi"></i> Хорошо очистить полость рта</div>-->
     </div>
-    <div class="recomende" v-if="false">
+    <div class="recomende" v-if="true">
       <div><strong>Static </strong>Рекомендации после процедуры</div>
-      <div><i class="profi"></i> Не кушать и не пить 3 часа после процедуры</div>
+      <div><i class="profi"></i> {{ results.recomend_after}}</div>
+      <!--<div><i class="profi"></i> Не кушать и не пить 3 часа после процедуры</div>
       <div><i class="profi"></i> Очистка полости рта ирригатором</div>
-      <div><i class="profi"></i> Ограничить физическую активность на 3 дня после процедуры</div>
+      <div><i class="profi"></i> Ограничить физическую активность на 3 дня после процедуры</div>-->
     </div>
-    <div class="photo">
+    <!--<div class="photo">
       <div>{{ $t('servicepage.photo') }}</div>
       <div class="accordion">
         <button class="btn btn-accord"><i class="fas fa-caret-left"></i></button>
         <div></div>
         <button class="btn btn-accord"><i class="fas fa-caret-right"></i></button>
       </div>
-    </div>
-    <button class="btn hid" @click="send()">{{ $t('proсchoice.select') }}</button>
+    </div>-->
+    <!--<button class="btn hid" @click="send()">{{ $t('proсchoice.select') }}</button>-->
   </div>
 </template>
 

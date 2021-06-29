@@ -20,9 +20,9 @@
                     {{ $t('servicepage.text') }}
                 </div>
             </div>
-            <div class="accordion">
-
-            </div>
+            <!--<div class="accordion">
+                TODO
+            </div>-->
         </div>
         <div class="block-3">
             <div class="block-left">
@@ -33,7 +33,7 @@
                          :key="c.uid"
                          @click="selected(c.uid, c.price)">
                         <div class="sr-start">
-                          <div class="pr-code">{{ c.code }}</div>
+                          <!--<div class="pr-code">{{ c.code }}</div>-->
                           <div class="pr-tittle">{{ c.title_check }}</div>
                         </div>
                         <div class="sr-end">
@@ -46,7 +46,7 @@
                           class="hm-block"
                           :info="prselect"/>
                 </template>
-                <button class="btn vis" @click="send()">{{ $t('proсchoice.select') }}</button>
+                <!--<button class="btn vis" @click="send()">{{ $t('proсchoice.select') }}</button>-->
             </div>
             <info class="block-right" :info="prselect" :resize="resize"/>
         </div>
@@ -95,7 +95,7 @@ export default {
     methods: {
       chgCat(cat){
         this.catSel = cat;
-        this.getMedProc('', this.$store.state.Booking.Date, [{code: this.catSel}]);
+        //this.getMedProc('', this.$store.state.Booking.Date, [{code: this.catSel}]);
       },
       categoryList() {
         fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/category/`).
@@ -108,7 +108,7 @@ export default {
         finally(() => {
           if(this.catSel === null)
             this.catSel = this.category[0].code;
-          this.getMedProc('', this.$store.state.Booking.Date, [{code: this.catSel}]);
+          this.getMedProc('', this.$store.state.Booking.Date, [{code: 'PRE_BOOKING'}]);
           this.loading = false;
         });
       },
