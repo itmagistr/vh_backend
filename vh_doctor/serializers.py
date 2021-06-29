@@ -46,6 +46,8 @@ class DoctorRuSerializer(serializers.ModelSerializer):#serializers.HyperlinkedMo
 	level = serializers.CharField(default='...', source='level.title_ru')
 	rating = serializers.DecimalField(default=4, max_digits=5, decimal_places=1, source='rating.rate')
 	reviewCount = serializers.IntegerField(default=0)
+	сertificate = serializers.CharField(default='...', source='сertificate_ru')
+	education = serializers.CharField(default='...', source='education_ru')
 	class Meta:
 		model = Doctor
 		fields = ['uid', 'lastName', 'firstName', 'special', 'special_img', 'midName', 'img', 'experience', 'degree', 'level', 'rating', 'reviewCount', 'youtube', 'fb', 'vk', 'insta', 'сertificate', 'education']
@@ -62,6 +64,9 @@ class DoctorEnSerializer(serializers.ModelSerializer):#serializers.HyperlinkedMo
 	level = serializers.CharField(default='...', source='level.title_en')
 	rating = serializers.DecimalField(default=4, max_digits=5, decimal_places=1, source='rating.rate')
 	reviewCount = serializers.IntegerField(default=0)
+	сertificate = serializers.CharField(default='...', source='сertificate_en')
+	education = serializers.CharField(default='...', source='education_en')
+
 	class Meta:
 		model = Doctor
 		fields = ['uid', 'lastName', 'firstName', 'special', 'special_img', 'midName', 'img', 'experience', 'degree', 'level', 'rating', 'reviewCount', 'youtube', 'fb', 'vk', 'insta', 'сertificate', 'education']

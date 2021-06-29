@@ -15,8 +15,12 @@
 	"doc_header": "Врачи",
 	"review": "отзыва",
   "details": "Подробнее",
+  "close": "Закрыть",
   "titledoccard": "Карточка врача",
-  "experience": "стаж"
+  "experience": "стаж",
+  "exp1": "год",
+  "exp2": "года",
+  "exp5": "лет"
   },
   "modaldoccard": {
   "procedure": "Процедуры",

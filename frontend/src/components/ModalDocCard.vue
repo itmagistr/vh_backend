@@ -16,7 +16,7 @@
                   <div class="icon"><img :src="data.special_img"></div>
                   <div class="bk1">
                     <div class="tittle">{{ data.special }}</div>
-                    <div class="education">стаж {{ data.experience }}, {{ data.level }}</div>
+                    <div class="education">{{ expFormat(data.experience) }}, {{ data.level }}</div>
                   </div>
                   <div class="name">{{ data.firstName }} {{ data.lastName }} {{ data.midName }}</div>
                 </div>
@@ -44,7 +44,7 @@
           </div>
           <docAccordionMenu class="modal-body" :selfInfo="data"/>
           <div class="modal-footer">
-            <button type="button" class="btn btn-ok" @click="send()" data-dismiss="modal" >Закрыть</button>
+            <button type="button" class="btn btn-ok" @click="send()" data-dismiss="modal" >{{$t('doctorpage.close')}}</button>
 <!--            <button type="button" class="btn btn-ok" @click="send()" data-dismiss="modal" >{{ $t('modaldoccard.signup') }}</button>-->
           </div>
         </div>
@@ -61,6 +61,7 @@ export default {
   data(){
     return {
       data: [],
+
     }
   },
   components: {
@@ -92,8 +93,13 @@ export default {
         //this.loading = false;
       });
     },
-    send(){
+    send() {
       this.$store.commit("updDoc", this.data.uid);
+    },
+    expFormat(v) {
+      if (v >= 5) return "" + this.$t('doctorpage.experience') + " " + v + " "+ this.$t('doctorpage.exp5')
+      if ([2, 3, 4].indexOf(v) >= 0) return "" + this.$t('doctorpage.experience') + " " + v + " " + this.$t('doctorpage.exp2')
+      if (v == 1) return "" + this.$t('doctorpage.experience') + " " + v + " " + this.$t('doctorpage.exp1')
     }
   },
 }

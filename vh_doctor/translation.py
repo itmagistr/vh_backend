@@ -10,8 +10,12 @@ class LevelTranslationOptions(TranslationOptions):
 class DegreeTranslationOptions(TranslationOptions):
      fields = ('title', 'description')
 
+class DoctorTranslationOptions(TranslationOptions):
+     fields = ('сertificate', 'education')
+     
 translator.register(Special, SpecialTranslationOptions)
 translator.register(Level, LevelTranslationOptions)
-translator.register(Doctor, TranslationOptions)
+translator.register(Doctor, DoctorTranslationOptions)
 translator.register(Degree, DegreeTranslationOptions)
+
 # #https://django-modeltranslation.readthedocs.io/en/latest/registration.html

@@ -20,7 +20,7 @@
                         <div class="icon"><img :src="'http://localhost:8000' + c.special_img"></div>
                         <div class="bk1">
                             <div class="tittle">{{ c.special }}</div>
-                            <div class="education">{{$t('doctorpage.experience')}} {{c.experience}}, {{ c.level }}</div>
+                            <div class="education">{{ expFormat(c.experience) }}, {{ c.level }}</div>
                         </div>
                     </div>
                     <div class="bottom">
@@ -97,6 +97,11 @@ export default {
           this.category[i].st = false;
       }
       this.docList("", this.$store.state.Booking.Date, this.vuel);
+    },
+    expFormat(v) {
+      if (v >= 5) return "" + this.$t('doctorpage.experience') + " " + v + " "+ this.$t('doctorpage.exp5')
+      if ([2, 3, 4].indexOf(v) >= 0) return "" + this.$t('doctorpage.experience') + " " + v + " " + this.$t('doctorpage.exp2')
+      if (v == 1) return "" + this.$t('doctorpage.experience') + " " + v + " " + this.$t('doctorpage.exp1')
     },
     updCardModal(uid){
       this.selfInfo = uid;
