@@ -97,6 +97,7 @@ export default {
   display: inline-block
 
 #icon-doctor
+  overflow: hidden
   display: flex
   justify-content: center
   position: absolute

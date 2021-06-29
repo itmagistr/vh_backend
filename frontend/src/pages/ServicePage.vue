@@ -6,7 +6,7 @@
             <div v-for="c in category" class="card-tooth"
                  :class="[{active: catSel === c.code}]"
                  :key="c.code"
-                  @click="chgCat(c.code)">
+                  @click="chgCat(c)">
               <img :src="c.img"/>
               <div>{{c.title}}</div>
             </div>
@@ -14,10 +14,10 @@
         <div class="block-2">
             <div class="block-top">
                 <div class="tittle">
-                    {{ $t('servicepage.title') }}
+                    {{ catObj.title }}
                 </div>
                 <div class="text">
-                    {{ $t('servicepage.text') }}
+                    {{ catObj.description }}
                 </div>
             </div>
             <!--<div class="accordion">
@@ -65,6 +65,7 @@ export default {
         select: this.$store.state.Booking.Procedure,
         prselect: this.$store.state.Booking.Procedure,
         catSel: null,
+        catObj: {},
         category: [],
         doc: null,
         price: null,
@@ -94,8 +95,9 @@ export default {
     },
     methods: {
       chgCat(cat){
-        this.catSel = cat;
-        //this.getMedProc('', this.$store.state.Booking.Date, [{code: this.catSel}]);
+        this.catSel = cat.code;
+        this.catObj = cat;
+        //this.getMedProc(this.$store.state.Booking.Date, [{code: this.catSel}]);
       },
       categoryList() {
         fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/category/`).
@@ -106,17 +108,19 @@ export default {
         }).
         catch((error) => { console.log(error); this.results = null;}).
         finally(() => {
-          if(this.catSel === null)
+          if(this.catSel === null) {
+            this.catObj = this.category[0];
             this.catSel = this.category[0].code;
-          this.getMedProc('', this.$store.state.Booking.Date, [{code: 'PRE_BOOKING'}]);
+          }
+          this.getMedProc(this.$store.state.Booking.Date, [{code: 'PRE_BOOKING'}]);
           this.loading = false;
         });
       },
-      getMedProc(cat, date, docUID) {
+      getMedProc(date, catSel) {
         const options = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({"dt": date, "category": docUID})
+            body: JSON.stringify({"dt": date, "category": catSel})
         };
         fetch(`http://localhost:8000/${this.locale}/vhapi/medproc/list/`, options).
         then(response => response.json()).

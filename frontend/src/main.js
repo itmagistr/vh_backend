@@ -5,7 +5,7 @@ import store from "@/store";
 import VueMeta from 'vue-meta';
 import VueI18n from 'vue-i18n';
 import VueSplide from '@splidejs/vue-splide';
-import '@splidejs/splide/dist/css/themes/splide-default.min.css';
+import '@splidejs/splide/dist/css/themes/splide-sea-green.min.css';
 
 Vue.use(VueSplide);
 Vue.use(VueMeta)

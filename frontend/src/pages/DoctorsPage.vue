@@ -34,7 +34,7 @@
                 <button class="btn" data-toggle="modal" data-target="#mdl-doc-card" @click="updCardModal(c.uid)">{{$t('doctorpage.details')}}</button>
             </div>
         </div>
-       <input type="range" min="1" :max="(doc.length - 1) * 348 - 32" value="1" id="slider">
+       <input type="range" min="1" :max="sliderLen" value="1" id="slider" @input="check">
     </div>
 </template>
 
@@ -57,6 +57,8 @@ export default {
       errored: false,
       results: null,
       selfInfo: null,
+      sliderLen: 0,
+      slider: 0,
       locale: this.$i18n.locale,
     }
   },
@@ -159,12 +161,17 @@ export default {
       }
       this.docList("", this.$store.state.Booking.Date, this.vuel);
     },
+    check(e) {
+      console.log(e);
+    }
   },
   mounted() {
     const slider = document.getElementById("slider");
     const acco = document.getElementsByClassName("algo")[0];
-    acco.addEventListener('scroll', function(){
-      console.log(acco.scrollLeft + " " + acco.offsetWidth);
+    console.log(document.getElementsByClassName("algo"));
+    this.sliderLen = acco.scrollWidth + 60;
+    acco.addEventListener('scroll', function() {
+      console.log(acco.scrollLeft + " " + acco.scrollWidth);
       slider.value = acco.scrollLeft;
     });
     slider.oninput = function() {
@@ -257,6 +264,7 @@ body.chg-doc
       > .info
         padding: 16px 24px
         > .top
+          display: flex
           margin-bottom: 16px
           > .icon
             background: $active-link-line
@@ -333,7 +341,7 @@ body.chg-doc
     -webkit-appearance: none
     width: 320px
     height: 8px
-    margin: 56px auto 0
+    margin: 1rem auto 0
     border-radius: 8px
     background: #D2E9E5
     outline: none

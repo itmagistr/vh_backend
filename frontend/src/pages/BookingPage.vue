@@ -287,4 +287,10 @@ export default {
         top: 20px
         font-size: 2rem
         line-height: 22px
+@media (max-width: 320px)
+  .registration
+    .calendary, .schedule, .doctor, .procedure
+      width: 320px
+    .calendary, .schedule
+      padding: 1rem
 </style>

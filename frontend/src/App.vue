@@ -1,5 +1,7 @@
 <template>
-  <body :class="[$route.name === 'doctors' ? 'chg-doc' : '', $route.name === 'service' ? 'chg-proc' : '']">
+  <body :class="[$route.name === 'doctors' ? 'chg-doc' : '',
+  $route.name === 'service' ? 'chg-proc' : '',
+  $route.name === 'documents' ? 'documGal' : '']">
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
         Please enable it to continue.</strong>

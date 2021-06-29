@@ -5,7 +5,7 @@
          :key="c.uid"
          @click="selected(c.uid, c.price)">
       <div class="sr-start">
-        <div class="pr-code">{{ c.code }}</div>
+<!--        <div class="pr-code">{{ c.code }}</div>-->
         <div class="pr-tittle">{{ c.title_check }}</div>
       </div>
       <div class="sr-end">
@@ -14,7 +14,7 @@
         <div class="pr-duration">{{ c.duration | timeFormat("ru-RU")}}</div>
       </div>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>

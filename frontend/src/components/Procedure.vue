@@ -138,7 +138,7 @@ export default {
 
 #btn-procedure
   position: absolute
-  left: 310px
+  right: 0px
   width: 26px
   height: 72px
   border: none

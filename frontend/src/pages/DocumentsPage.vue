@@ -16,9 +16,10 @@ export default {
       options: {
         type: 'loop',
         rewind: true,
+        autoHeight: true,
         autoWidth : true,
-        autoheight: true,
         gap: '2rem',
+        focus: 'center',
       },
       slides: [
         {src: "http://localhost:8000/media/uploads/documents/doc1.png"},
@@ -32,9 +33,26 @@ export default {
 
 <style lang="sass">
 @import "@/styles/_variables.sass"
-.wrapper
-  width: calc(100% - 300px)
-@media (max-width: 1399px)
+body.documGal
+  background: #F6F3ED
+  > header
+    background: #F6F3ED
+  > main
+    padding-bottom: 2rem
+    > div.container
+      padding: 0
   .wrapper
-    width: 100%
+    width: calc(100% - 300px)
+    .splide
+      padding: 0 0 3rem
+@media (max-width: 1399px)
+  body.documGal
+    background: #F6F3ED
+    > header
+      background: #F6F3ED
+    > main
+      padding: 0
+    .wrapper
+      margin: auto
+      width: calc(100% - 2rem)
 </style>
