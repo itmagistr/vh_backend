@@ -10,6 +10,7 @@ from vh_medproc.serializers import *
 from vh_product.models import *
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
+import random
 import logging
 logger = logging.getLogger(__name__)
 # Create your views here.
@@ -19,7 +20,7 @@ class DoctorListView(generics.RetrieveAPIView):
 	Получить дежурного врача
 	'''
 	serializer_class = DoctorEnSerializer
-	lookup_field = 'uid'
+	#lookup_field = 'uid'
 	def get_serializer_class(self):
 		#logger.info(translation.get_language())
 
@@ -31,7 +32,10 @@ class DoctorListView(generics.RetrieveAPIView):
 	def get_queryset(self):
 		return Doctor.objects.filter(id=1)
 	def get_object(self):
-		obj = get_object_or_404(self.get_queryset())
+		max_id = Doctor.objects.order_by('-id')[0].id
+		random_id = random.randint(1, max_id)
+		obj = Doctor.objects.filter(id__gte=random_id)[0]
+		#obj = get_object_or_404(self.get_queryset())
 		return obj
 
 class DoctorView(generics.RetrieveAPIView):

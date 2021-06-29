@@ -95,6 +95,8 @@ class DoctorFilterSerializer(serializers.Serializer):
 class DoctorLightRuSerializer(serializers.ModelSerializer):
 	lastName = serializers.CharField(source='lastName_ru')
 	firstName = serializers.CharField(source='firstName_ru')
+	special = serializers.CharField(source='special.title_ru')
+	special_img = serializers.ImageField(source='special.img')
 	midName = serializers.CharField(default='', source='midName_ru')
 	img = serializers.ImageField(source='image', default='media/doctors/doc1.png')
 	experience = serializers.IntegerField(default=1)
@@ -103,11 +105,13 @@ class DoctorLightRuSerializer(serializers.ModelSerializer):
 	reviewCount = serializers.IntegerField(default=0)
 	class Meta:
 		model = Doctor
-		fields = ['uid', 'lastName', 'firstName', 'midName', 'img', 'experience', 'level', 'rating', 'reviewCount']
+		fields = ['uid', 'lastName', 'firstName', 'special', 'special_img', 'midName', 'img', 'experience', 'level', 'rating', 'reviewCount']
 
 class DoctorLightEnSerializer(serializers.ModelSerializer):#serializers.HyperlinkedModelSerializer):
 	lastName = serializers.CharField(source='lastName_en')
 	firstName = serializers.CharField(source='firstName_en')
+	special = serializers.CharField(source='special.title_en')
+	special_img = serializers.ImageField(source='special.img')
 	midName = serializers.CharField(default='', source='midName_en')
 	img = serializers.ImageField(source='image', default='media/doctors/doc1.png')
 	experience = serializers.IntegerField(default=1)
@@ -116,4 +120,4 @@ class DoctorLightEnSerializer(serializers.ModelSerializer):#serializers.Hyperlin
 	reviewCount = serializers.IntegerField(default=0)
 	class Meta:
 		model = Doctor
-		fields = ['uid', 'lastName', 'firstName', 'midName', 'img', 'experience', 'level', 'rating', 'reviewCount']
+		fields = ['uid', 'lastName', 'firstName', 'special', 'special_img', 'midName', 'img', 'experience', 'level', 'rating', 'reviewCount']
