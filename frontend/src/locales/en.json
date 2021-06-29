@@ -14,17 +14,18 @@
   "doctorpage": {
 	"doc_header": "Doctors",
 	"review": "review",
-  "details": "Details",
-  "close": "Close",
-  "titledoccard": "Doctor details",
-  "experience": "exp.",
-  "exp1": "year",
-  "exp2": "years",
-  "exp5": "years"
+	"details": "Details",
+	"close": "Close",
+	"titledoccard": "Doctor details",
+	"experience": "exp.",
+	"exp1": "year",
+	"exp2": "years",
+	"exp5": "years"
   },
   "modaldoccard": {
     "procedure": "Procedures",
     "photo": "Photos",
+	"social": "Social networks",
 	"certificate": "Certificates",
     "education": "Education",
 	"signup": "Appointment"
@@ -39,7 +40,9 @@
 	"card6": "Implantation",
     "title": "Orthodontics",
 	"text": "The significance of these problems is so obvious that the implementation of the planned targets provides a wide range of (specialists) participation in the formation of systems of mass participation. Everyday practice shows that the existing structure of the organization allows you to perform important tasks for the development of forms of development. Diverse and rich experience, the existing structure of the organization largely determines the creation of directions for progressive development.",
-	"price": "Service prices"
+	"price": "Service prices",
+	"description": "Description of the procedure",
+	"photo": "Photo"
   },
   "bookingpage": {
 	"booking": "Appointment",

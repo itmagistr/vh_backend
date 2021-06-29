@@ -9,7 +9,7 @@
     </div>
     <Carousel v-show="states.photo" :self-info="selfInfo.uid"/>
     <div class="clip-accordion" @click="show('social')" :class="[states.social ? 'active' : '']">
-      Соцсети <i class="fas fa-caret-down"></i>
+      {{ $t('modaldoccard.social') }} <i class="fas fa-caret-down"></i>
     </div>
     <div class="soc-btn-card" v-show="states.social">
       <a :href="selfInfo.insta || '#'" :target="selfInfo.insta !== null ? '_blank': ''">

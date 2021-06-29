@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="description">
-      <div>Описание процедуры</div>
+      <div>{{ $t('servicepage.description') }}</div>
       <div>{{ results.description }}</div>
     </div>
     <div class="recomende" v-if="false">
@@ -29,7 +29,7 @@
       <div><i class="profi"></i> Ограничить физическую активность на 3 дня после процедуры</div>
     </div>
     <div class="photo">
-      <div>Фото</div>
+      <div>{{ $t('servicepage.photo') }}</div>
       <div class="accordion">
         <button class="btn btn-accord"><i class="fas fa-caret-left"></i></button>
         <div></div>
