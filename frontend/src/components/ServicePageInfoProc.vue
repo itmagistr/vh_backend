@@ -1,50 +1,133 @@
 <template>
   <div>
-      <div class="doctor-card">
-          <div class="d-tittle">Очень длинное название процедуры, очень длинное врач Василенко Л.И.</div>
-          <div class="d-card">
-              <img id="icd" src="@/assets/defaultAvatar.png">
-              <div id="nmd">
-                <div>Врач</div>
-                <div>Василенко Л.И.</div>
-              </div>
-              <button class="btn" id="btn-d"><i class="fas fa-caret-right"></i></button>
-          </div>
+    <div class="doctor-card">
+      <div class="d-tittle">{{results.title}} {{ doc.results.firstName }} {{ doc.results.lastName }}</div>
+      <div class="d-card">
+        <img id="icd" :src="doc.results.img">
+        <div id="nmd">
+          <div>{{ doc.results.special }}</div>
+          <div>{{ doc.results.firstName }} {{ doc.results.lastName }}</div>
+        </div>
+        <button class="btn" id="btn-d"><i class="fas fa-caret-right"></i></button>
       </div>
-      <div class="description">
-          <div>Описание процедуры</div>
-          <div>
-              Идейные соображения высшего порядка, а также начало повседневной работы по формированию позиции
-              обеспечивает широкому кругу (специалистов) участие в формировании модели развития. С другой
-              стороны начало повседневной работы по формированию позиции влечет за собой процесс внедрения.
-          </div>
+    </div>
+    <div class="description">
+      <div>Описание процедуры</div>
+      <div>{{ results.description }}</div>
+    </div>
+    <div class="recomende" v-if="false">
+      <div><strong>Static </strong>Рекомендации перед процедурой</div>
+      <div><i class="profi"></i> Не кушать и не пить за 2 часа до процедуры</div>
+      <div><i class="profi"></i> Принять антигистаминный препарат</div>
+      <div><i class="profi"></i> Ограничить физическую активность за день до процедуры</div>
+      <div><i class="profi"></i> Хорошо очистить полость рта</div>
+    </div>
+    <div class="recomende" v-if="false">
+      <div><strong>Static </strong>Рекомендации после процедуры</div>
+      <div><i class="profi"></i> Не кушать и не пить 3 часа после процедуры</div>
+      <div><i class="profi"></i> Очистка полости рта ирригатором</div>
+      <div><i class="profi"></i> Ограничить физическую активность на 3 дня после процедуры</div>
+    </div>
+    <div class="photo">
+      <div>Фото</div>
+      <div class="accordion">
+        <button class="btn btn-accord"><i class="fas fa-caret-left"></i></button>
+        <div></div>
+        <button class="btn btn-accord"><i class="fas fa-caret-right"></i></button>
       </div>
-      <div class="recomende">
-          <div>Рекомендации перед процедурой</div>
-          <div><i class="profi"></i> Не кушать и не пить за 2 часа до процедуры</div>
-          <div><i class="profi"></i> Принять антигистаминный препарат</div>
-          <div><i class="profi"></i> Ограничить физическую активность за день до процедуры</div>
-          <div><i class="profi"></i> Хорошо очистить полость рта</div>
-      </div>
-      <div class="recomende">
-          <div>Рекомендации после процедуры</div>
-          <div><i class="profi"></i> Не кушать и не пить 3 часа после процедуры</div>
-          <div><i class="profi"></i> Очистка полости рта ирригатором</div>
-          <div><i class="profi"></i> Ограничить физическую активность на 3 дня после процедуры</div>
-      </div>
-      <div class="photo">
-          <div>Фото</div>
-          <div class="accordion">
-              <button class="btn btn-accord"><i class="fas fa-caret-left"></i></button>
-              <div></div>
-              <button class="btn btn-accord"><i class="fas fa-caret-right"></i></button>
-          </div>
-      </div>
+    </div>
+    <button class="btn hid" @click="send()">{{ $t('proсchoice.select') }}</button>
   </div>
 </template>
 
 <script>
-
+export default {
+  props: {
+    info: String,
+    resize: Boolean,
+  },
+  data(){
+    return {
+      self: '',
+      doc: {
+        count: 0,
+        results: {},
+      },
+      results: {
+        title: '',
+        description: '',
+      },
+      locale: this.$i18n.locale,
+    }
+  },
+  created() {
+    if(this.doc.count === 0)
+      this.docUID();
+  },
+  watch: {
+    "$i18n.locale": {
+      handler(newLocale, oldLocale) {
+        if (newLocale === oldLocale)
+          return;
+        this.locale = newLocale;
+      },
+      immediate: true,
+    },
+    info: {
+      handler(newLocale, oldLocale) {
+        if (newLocale === oldLocale)
+          return;
+        if(newLocale !== null) {
+          this.self = newLocale;
+          this.getMoreInfo(this.self);
+          this.getMedProcDoctors(this.self);
+        }
+      },
+      immediate: true,
+    },
+  },
+  methods: {
+    send() {
+      this.$store.commit("updProc", this.prselect);
+      this.$store.commit("updPrice", this.price);
+    },
+    docUID(){
+      fetch(`http://localhost:8000/${this.locale}/vhapi/doctor/`)
+      .then(stream => stream.json())
+      .then(response => {
+        this.doc.count = 1;
+        this.doc.results = response;
+      })
+      .catch(error => { console.error(error); });
+    },
+    getMedProcDoctors(procUID) {
+      fetch(`http://localhost:8000/${this.locale}/vhapi/medproc/${procUID}/doctors/`).
+      then(response => response.json()).
+      then(data => {
+        this.doc.count = data.count;
+        if(this.doc.count > 0)
+          this.doc.results = data.results[0];
+        else
+          this.docUID();
+      }).
+      catch((error) => { console.log(error); this.results = null;}).
+      finally(() => {
+        this.loading = false;
+      });
+    },
+    getMoreInfo(procUID) {
+      fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/medproc/${procUID}/`).
+      then(response => response.json()).
+      then(data => {
+        this.results = data;
+      }).
+      catch((error) => { console.log(error); this.results = null;}).
+      finally(() => {
+        this.loading = false;
+      });
+    },
+  },
+}
 </script>
 
 <style lang="sass">
@@ -83,6 +166,7 @@
         left: 8px
         width: 56px
         height: 56px
+        background: $backgroundImage
         border-radius: .25rem
         vertical-align: initial
       #nmd
@@ -165,4 +249,21 @@
         &:hover
           background: #EED199
           box-shadow: none
+.block-right, .hm-block
+  > .hid
+    display: none
+    margin: 40px auto 1rem
+    font-family: FuturaBookC
+    letter-spacing: 0.08em
+    text-transform: uppercase
+    width: 300px
+    height: 48px
+    background: $active-link-line
+    border: none
+    border-radius: 8px
+    color: $white
+@media (max-width: 1399px)
+  .hm-block
+    > .hid
+      display: block
 </style>

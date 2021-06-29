@@ -46,9 +46,9 @@
                           class="hm-block"
                           :info="prselect"/>
                 </template>
-                <button class="btn" @click="send()">{{ $t('proсchoice.select') }}</button>
+                <button class="btn vis" @click="send()">{{ $t('proсchoice.select') }}</button>
             </div>
-            <info class="block-right" :info="prselect"/>
+            <info class="block-right" :info="prselect" :resize="resize"/>
         </div>
     </div>
 </template>
@@ -79,7 +79,7 @@ export default {
     },
     async created() {
       //await this.getMedProc("Орто", "2021-03-21", "bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82");
-      await this.categoryList();
+      this.categoryList();
     },
     watch: {
       "$i18n.locale": {
@@ -97,66 +97,54 @@ export default {
         this.catSel = cat;
         this.getMedProc('', this.$store.state.Booking.Date, [{code: this.catSel}]);
       },
-        categoryList() {
-          fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/category/`).
-          then(response => response.json()).
-          then(data => {
-          this.category = data.results;
-          console.log(data.results);
-          }).
-          catch((error) => { console.log(error); this.results = null;}).
-          finally(() => {
-            if(this.catSel === null)
-              this.catSel = this.category[0].code;
-            this.getMedProc('', this.$store.state.Booking.Date, [{code: this.catSel}]);
-            this.loading = false;
-          });
-        },
-        getMedProc(cat, date, docUID) {
-          const options = {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({"dt": date, "category": docUID})
-          };
-          fetch(`http://localhost:8000/${this.locale}/vhapi/medproc/list/`, options).
-          then(response => response.json()).
-          then(data => {
-          this.results = data;
-          console.log(data);
-          }).
-          catch((error) => { console.log(error); this.results = null;}).
-          finally(() => {
-            this.loading = false;
-          });
-        },
-        getMedProcDoctors(procUID) {
-          fetch(`http://localhost:8000/${this.locale}/vhapi/medproc/${procUID}/doctors/`).
-          then(response => response.json()).
-          then(data => {
-          this.doc = data;
-          console.log(data);
-          }).
-          catch((error) => { console.log(error); this.results = null;}).
-          finally(() => {
-            this.loading = false;
-          });
-        },
-        selected(sel, price){
-          if(this.resize)
-            if(this.prselect === sel) {
-              this.prselect = null;
-              this.price = null;
-            } else {
-              this.prselect = sel;
-              this.price = price;
-              this.getMedProcDoctors(this.prselect);
-            }
-        },
-        send() {
-            this.$store.commit("updProc", this.prselect);
-            this.$store.commit("updPrice", this.price);
-            this.$emit('pageProcedure', this.select, 2);
+      categoryList() {
+        fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/category/`).
+        then(response => response.json()).
+        then(data => {
+        this.category = data.results;
+        console.log(data.results);
+        }).
+        catch((error) => { console.log(error); this.results = null;}).
+        finally(() => {
+          if(this.catSel === null)
+            this.catSel = this.category[0].code;
+          this.getMedProc('', this.$store.state.Booking.Date, [{code: this.catSel}]);
+          this.loading = false;
+        });
+      },
+      getMedProc(cat, date, docUID) {
+        const options = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({"dt": date, "category": docUID})
+        };
+        fetch(`http://localhost:8000/${this.locale}/vhapi/medproc/list/`, options).
+        then(response => response.json()).
+        then(data => {
+        this.results = data;
+          if(!this.resize && this.results.length > 0)
+            this.prselect = this.results[0].uid;
+        console.log(data);
+        }).
+        catch((error) => { console.log(error); this.results = null;}).
+        finally(() => {
+          this.loading = false;
+        });
+      },
+      selected(sel, price){
+        if(this.prselect === sel) {
+          this.prselect = null;
+          this.price = null;
+        } else {
+          this.prselect = sel;
+          this.price = price;
         }
+      },
+      send() {
+          this.$store.commit("updProc", this.prselect);
+          this.$store.commit("updPrice", this.price);
+          this.$emit('pageProcedure', this.select, 2);
+      }
     },
     filters: {
         currencyFormat, timeFormat
@@ -167,28 +155,29 @@ export default {
 <style lang="sass">
 @import "@/styles/_variables.sass"
 body.chg-proc
-  backdrop-filter: blur(16px)
+  // backdrop-filter: blur(16px)
+  background: #F6F3ED
   > main
-    background-color: rgba(254, 253, 251, 0.64)
+    // background-color: rgba(254, 253, 251, 0.64)
     > .container
       padding-top: 27px
     > div
       > .modal
         height: 100vh
   > header
-    backdrop-filter: none
-
+    background: #F6F3ED
+    // backdrop-filter: none
 .bgz-main
   background: #F6F3ED
   position: absolute
   z-index: -1
   width: 100%
-  height: 100%
+  height: 105%
   left: 0
   top: 378px
 
 .mar
-    width: 100%
+    width: calc(100% - 280px)
     > div.service
         overflow: auto
         width: 100%
@@ -259,8 +248,9 @@ body.chg-proc
   .btn
     padding: 0px
   > .block-left, .block-right
-    height: 867px
-    width: 681px
+    // height: 867px
+    // width: 681px
+    width: 100%
 
 .block-left
   border-radius: 16px 0px 0px 16px
@@ -316,7 +306,7 @@ body.chg-proc
         line-height: 21px
         text-align: right
         color: #9CC6BE
-  > .btn
+  > .vis
     display: block
     margin: 40px auto 64px
     font-family: FuturaBookC
@@ -336,6 +326,7 @@ body.chg-proc
         &:first-child, &:last-child
           display: none!important
   .mar
+    width: 100%
     > .bgz-main
       top: 308px
     > .tittle-of-service
@@ -343,24 +334,29 @@ body.chg-proc
     > .block-3
       margin: 64px -16px 0
       .block-left
+        max-width: inherit
         padding: 32px 0px
         width: 100%
         height: 100%
         border-radius: 16px
+        .vis
+          display: none
       .block-right
         display: none
         width: 100%
         height: 100%
         border-radius: 0px
 @media (max-width: 450px)
-  .block-left
-    > div:first-child
-      margin-left: 16px
-    > .product
-      padding: .25rem 1rem
-      > .sr-end
-        margin-left: .5rem
-        flex-direction: column
-        > .pr-price
-          margin-right: 0
+  .block-3
+    margin: 64px -16px 0
+    > .block-left
+      > div:first-child
+        margin-left: 16px
+      > .product
+        padding: .25rem 1rem
+        > .sr-end
+          margin-left: .5rem
+          flex-direction: column
+          > .pr-price
+            margin-right: 0
 </style>
