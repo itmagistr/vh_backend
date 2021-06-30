@@ -1,14 +1,19 @@
 <template>
   <div>
     <div class="doctor-card">
-      <div class="d-tittle">{{results.title}} {{ doc.results.firstName }} {{ doc.results.lastName }}</div>
-      <div class="d-card">
-        <img id="icd" :src="doc.results.img">
-        <div id="nmd">
-          <div>{{ doc.results.special }}</div>
-          <div>{{ doc.results.firstName }} {{ doc.results.lastName }}</div>
+      <div class="d-tittle">{{results.title}}</div>
+      <div class="d-flex" style="overflow-y: auto;">
+        <div v-for="c in doc.results" :key="c.uid">
+          <div class="d-card">
+            <img id="icd" :src="c.img">
+            <div id="nmd">
+              <div>{{ c.special }}</div>
+              <div>{{ c.firstName }} {{ c.lastName }}</div>
+            </div>
+            <button class="btn" id="btn-d" data-toggle="modal" data-target="#mdl-doc-card" @click="updCardModal(c.uid)">
+              <i class="fas fa-caret-right"></i></button>
+          </div>
         </div>
-        <button class="btn" id="btn-d"><i class="fas fa-caret-right"></i></button>
       </div>
     </div>
     <div class="description">
@@ -53,7 +58,7 @@ export default {
       self: '',
       doc: {
         count: 0,
-        results: {},
+        results: [],
       },
       results: {
         title: '',
@@ -89,6 +94,9 @@ export default {
     },
   },
   methods: {
+    updCardModal(uid){
+      this.$emit('showDocM', uid);
+    },
     send() {
       this.$store.commit("updProc", this.prselect);
       this.$store.commit("updPrice", this.price);
@@ -98,7 +106,7 @@ export default {
       .then(stream => stream.json())
       .then(response => {
         this.doc.count = 1;
-        this.doc.results = response;
+        this.doc.results = [response];
       })
       .catch(error => { console.error(error); });
     },
@@ -108,7 +116,7 @@ export default {
       then(data => {
         this.doc.count = data.count;
         if(this.doc.count > 0)
-          this.doc.results = data.results[0];
+          this.doc.results = data.results;
         else
           this.docUID();
       }).

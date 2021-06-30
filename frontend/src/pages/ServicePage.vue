@@ -1,5 +1,6 @@
 <template>
     <div class="d-flex flex-column mar">
+        <modalDocCard :selfInfo="selfInfo"/>
         <div class="bgz-main"></div>
         <div class="tittle-of-service">{{ $t('servicepage.service') }}</div>
         <div class="service">
@@ -25,7 +26,7 @@
             </div>-->
         </div>
         <div class="block-3">
-            <div class="block-left">
+            <div class="block-left col-6">
                 <div>{{ $t('servicepage.price') }}</div>
                 <template v-for="c in results">
                     <div class="product"
@@ -48,7 +49,7 @@
                 </template>
                 <!--<button class="btn vis" @click="send()">{{ $t('proсchoice.select') }}</button>-->
             </div>
-            <info class="block-right" :info="prselect" :resize="resize"/>
+            <info class="block-right col-6" :info="prselect" :resize="resize" v-on:showDocM="updCardModal"/>
         </div>
     </div>
 </template>
@@ -57,6 +58,7 @@
 import currencyFormat from '@/helpers/currencyFormat';
 import timeFormat from "@/helpers/timeFormat";
 import info from "@/components/ServicePageInfoProc";
+import modalDocCard from "@/components/ModalDocCard";
 
 export default {
     props: ['resize'],
@@ -64,6 +66,7 @@ export default {
       return {
         select: this.$store.state.Booking.Procedure,
         prselect: this.$store.state.Booking.Procedure,
+        selfInfo: '',
         catSel: null,
         catObj: {},
         category: [],
@@ -76,7 +79,7 @@ export default {
       }
     },
     components:{
-      info,
+      info, modalDocCard,
     },
     async created() {
       //await this.getMedProc("Орто", "2021-03-21", "bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82");
@@ -94,8 +97,12 @@ export default {
       },
     },
     methods: {
+      updCardModal(uid) {
+        this.selfInfo = uid;
+      },
       chgCat(cat){
         this.catSel = cat.code;
+        //this.catSel = 'PRE_BOOKING';
         this.catObj = cat;
         //this.getMedProc(this.$store.state.Booking.Date, [{code: this.catSel}]);
       },
@@ -109,8 +116,7 @@ export default {
         catch((error) => { console.log(error); this.results = null;}).
         finally(() => {
           if(this.catSel === null) {
-            this.catObj = this.category[0];
-            this.catSel = this.category[0].code;
+            this.chgCat(this.category[0]);
           }
           this.getMedProc(this.$store.state.Booking.Date, [{code: 'PRE_BOOKING'}]);
           this.loading = false;
@@ -125,10 +131,10 @@ export default {
         fetch(`http://localhost:8000/${this.locale}/vhapi/medproc/list/`, options).
         then(response => response.json()).
         then(data => {
-        this.results = data;
+          this.results = data;
           if(!this.resize && this.results.length > 0)
             this.prselect = this.results[0].uid;
-        console.log(data);
+          console.log(data);
         }).
         catch((error) => { console.log(error); this.results = null;}).
         finally(() => {
@@ -145,9 +151,9 @@ export default {
         }
       },
       send() {
-          this.$store.commit("updProc", this.prselect);
-          this.$store.commit("updPrice", this.price);
-          this.$emit('pageProcedure', this.select, 2);
+        this.$store.commit("updProc", this.prselect);
+        this.$store.commit("updPrice", this.price);
+        //this.$emit('pageProcedure', this.select, 2);
       }
     },
     filters: {
@@ -247,7 +253,7 @@ body.chg-proc
     border-radius: 16px
 
 .block-3
-  margin: 64px auto 128px
+  margin: 64px 0 128px
   display: flex
   .btn
     padding: 0px
@@ -343,6 +349,8 @@ body.chg-proc
         width: 100%
         height: 100%
         border-radius: 16px
+        &.col-6
+          flex: inherit
         .vis
           display: none
       .block-right

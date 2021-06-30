@@ -34,7 +34,7 @@
                 <button class="btn" data-toggle="modal" data-target="#mdl-doc-card" @click="updCardModal(c.uid)">{{$t('doctorpage.details')}}</button>
             </div>
         </div>
-       <input type="range" min="1" :max="sliderLen" value="1" id="slider" @input="check">
+       <input type="range" min="1" :max="(doc.length - 1) * 312" value="1" id="slider" @input="check">
     </div>
 </template>
 

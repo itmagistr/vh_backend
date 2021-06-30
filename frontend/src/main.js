@@ -7,6 +7,7 @@ import VueI18n from 'vue-i18n';
 import VueSplide from '@splidejs/vue-splide';
 import '@splidejs/splide/dist/css/themes/splide-sea-green.min.css';
 
+Vue.use(require('vue-cookies'));
 Vue.use(VueSplide);
 Vue.use(VueMeta)
 Vue.use(VueI18n)

@@ -66,10 +66,19 @@ import capitalize from '@/helpers/capitalizeFormat';
     filters: {
       capitalize,
     },
+    mounted() {
+      if(this.$cookies.get('lang')) {
+        this.locale = this.$cookies.get('lang');
+        this.$i18n.locale = this.locale;
+      } else {
+        this.$cookies.set("lang", this.$i18n.locale);
+      }
+    },
     methods: {
-      chLang(locale){
+      chLang(locale) {
         this.locale = locale;
         this.$i18n.locale = locale;
+        this.$cookies.set("lang", locale);
       },
     },
   }

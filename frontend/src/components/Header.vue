@@ -87,6 +87,14 @@ export default {
       res: [],
     }
   },
+  mounted() {
+    if(this.$cookies.get('lang')) {
+      this.locale = this.$cookies.get('lang');
+      this.$i18n.locale = this.locale;
+    } else {
+      this.$cookies.set("lang", this.$i18n.locale);
+    }
+  },
   methods: {
     handleFocus() {
       this.isActive = true;
@@ -95,9 +103,10 @@ export default {
       if(this.q.length === 0)
         this.isActive = false;
     },
-    chLang(locale){
+    chLang(locale) {
       this.locale = locale;
       this.$i18n.locale = locale;
+      this.$cookies.set("lang", locale);
     },
     search() {
       return new Promise(() => {
