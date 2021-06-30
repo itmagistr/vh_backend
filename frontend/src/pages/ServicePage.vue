@@ -117,7 +117,10 @@ export default {
         finally(() => {
           if(this.catSel === null) {
             this.chgCat(this.category[0]);
-          }
+          } else
+            for(let i = 0; i < this.category.length; i++)
+              if(this.category[i].code === this.catSel)
+                this.chgCat(this.category[i]);
           this.getMedProc(this.$store.state.Booking.Date, [{code: 'PRE_BOOKING'}]);
           this.loading = false;
         });

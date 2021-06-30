@@ -76,6 +76,8 @@ export default {
       handler(newLocale, oldLocale) {
         if (newLocale === oldLocale)
           return;
+        this.getMoreInfo(this.self);
+        this.getMedProcDoctors(this.self);
         this.locale = newLocale;
       },
       immediate: true,
@@ -108,7 +110,11 @@ export default {
         this.doc.count = 1;
         this.doc.results = [response];
       })
-      .catch(error => { console.error(error); });
+      .catch(error => { console.error(error); })
+      .finally(()=>{
+        if(this.doc.results[0].img === null)
+            this.doc.results[0].img = 'http://localhost:8000/media/uploads/human/defaultAvatar.png';
+      });
     },
     getMedProcDoctors(procUID) {
       fetch(`http://localhost:8000/${this.locale}/vhapi/medproc/${procUID}/doctors/`).
