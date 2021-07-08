@@ -66,7 +66,7 @@ import capitalize from '@/helpers/capitalizeFormat';
     filters: {
       capitalize,
     },
-    mounted() {
+    created() {
       if(this.$cookies.get('lang')) {
         this.locale = this.$cookies.get('lang');
         this.$i18n.locale = this.locale;

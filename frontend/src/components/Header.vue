@@ -87,7 +87,7 @@ export default {
       res: [],
     }
   },
-  mounted() {
+  created() {
     if(this.$cookies.get('lang')) {
       this.locale = this.$cookies.get('lang');
       this.$i18n.locale = this.locale;
