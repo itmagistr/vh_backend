@@ -20,7 +20,8 @@
 	"experience": "exp.",
 	"exp1": "year",
 	"exp2": "years",
-	"exp5": "years"
+	"exp5": "years",
+	"all": "All"
   },
   "modaldoccard": {
     "procedure": "Procedures",
@@ -42,7 +43,9 @@
 	"text": "The significance of these problems is so obvious that the implementation of the planned targets provides a wide range of (specialists) participation in the formation of systems of mass participation. Everyday practice shows that the existing structure of the organization allows you to perform important tasks for the development of forms of development. Diverse and rich experience, the existing structure of the organization largely determines the creation of directions for progressive development.",
 	"price": "Service prices",
 	"description": "Description of the procedure",
-	"photo": "Photo"
+	"photo": "Photo",
+	"rec1": "Recommendations before the procedure",
+	"rec2": "Recommendations after the procedure"
   },
   "bookingpage": {
 	"booking": "Appointment",
@@ -71,10 +74,10 @@
 	"call": "Back call",
 	"text": "Leave a request and we will call you back at a convenient time",
 	"time": "Convenient time to call",
-  "confident": "By clicking the button, you agree to the terms of the Privacy Policy",
+	"confident": "By clicking the button, you agree to the terms of the Privacy Policy",
 	"send-btn": "Send",
-  "yourname": "Your name",
-  "phonenumber": "Phone number"
+	"yourname": "Your name",
+	"phonenumber": "Phone number"
   },
   "modalcontact": {
 	"contact": "Contacts",
@@ -92,8 +95,8 @@
 	"text": "Ask a question and we will answer you within 24 hours.",
     "confident": "By clicking the button, you agree to the terms of the Privacy Policy",
 	"send-btn": "Send",
-  "yourname": "Your name",
-  "phonenumber": "Phone number"
+	"yourname": "Your name",
+	"phonenumber": "Phone number"
   },
   "procedure": {
 	"head": "Procedure"
@@ -116,14 +119,14 @@
   "og": {
 	"title": "Dentistry \"vHollyWood\"",
 	"sitename": "Dentistry \"vHollyWood\"",
-  "description": "We are making smiles",
-  "locale": "en_EN"
+	"description": "We are making smiles",
+	"locale": "en_EN"
   },
   "comingsoon": {
 	"dentistry": "To Hollywood with a Smile",
 	"wwwhere": "The website of the Dentistry",
 	"salon": " ",
-  "opens": "Grand opening",
-  "dateopen": "at May 17 2021"
+	"opens": "Grand opening",
+	"dateopen": "at May 17 2021"
   }
 }
