@@ -81,7 +81,7 @@ export default {
     components:{
       info, modalDocCard,
     },
-    async created() {
+    async mounted() {
       //await this.getMedProc("Орто", "2021-03-21", "bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82");
       this.categoryList();
     },

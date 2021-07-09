@@ -15,7 +15,7 @@
         <modalFutureOk/>
         <modalCallBack/>
         <modalImage/>
-        <modalMobileMenu v-if="mobile === true"/>
+        <modalMobileMenu v-if="mobile === true" :resize="mobile"/>
         <div class="d-flex align-items-center justify-content-between">
           <div class="d-flex flex-column ctm-col-rt">
             <a href="https://www.instagram.com/tohwddent" target="_blank"><button class="social-btn"><i class="fab fa-instagram"></i></button></a>

@@ -57,31 +57,33 @@
 <script>
 import capitalize from '@/helpers/capitalizeFormat';
 
-  export default{
-    data() {
-      return {
-        locale: this.$i18n.locale,
-      }
-    },
-    filters: {
-      capitalize,
-    },
-    created() {
+export default {
+  props: ['resize'],
+  data() {
+    return {
+      locale: this.$i18n.locale,
+    }
+  },
+  filters: {
+    capitalize,
+  },
+  created() {
+    if(this.resize)
       if(this.$cookies.get('lang')) {
         this.locale = this.$cookies.get('lang');
-        this.$i18n.locale = this.locale;
+        this.$i18n.locale = this.$cookies.get('lang');
       } else {
         this.$cookies.set("lang", this.$i18n.locale);
       }
+  },
+  methods: {
+    chLang(locale) {
+      this.locale = locale;
+      this.$i18n.locale = locale;
+      this.$cookies.set("lang", locale);
     },
-    methods: {
-      chLang(locale) {
-        this.locale = locale;
-        this.$i18n.locale = locale;
-        this.$cookies.set("lang", locale);
-      },
-    },
-  }
+  },
+}
 </script>
 
 <style lang="sass">
