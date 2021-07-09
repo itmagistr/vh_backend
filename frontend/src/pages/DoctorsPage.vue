@@ -4,7 +4,7 @@
         <div class="tittle-of-doctor">{{ $t('doctorpage.doc_header') }}</div>
         <div class="filter">
             <div @click="allFilters" :class="{active: allBtn.st}">
-              <img src="http://localhost:8000/media/uploads/doctorspec/defaultTeeth.svg">Все
+              <img src="http://localhost:8000/media/uploads/doctorspec/defaultTeeth.svg">{{ $t('doctorpage.all') }}
             </div>
             <div :class="{active: c.st}" v-for="(c, index) in category" :key="index" @click="updCat(index)">
                 <img :src="c.img"/>{{ c.title }}

@@ -21,7 +21,7 @@
       <div>{{ results.description }}</div>
     </div>
     <div class="recomende">
-      <div>Рекомендации перед процедурой</div>
+      <div>{{ $t('servicepage.rec1') }}</div>
       <div>{{ results.recomend_before}}</div>
       <!--<div><i class="profi"></i> Не кушать и не пить за 2 часа до процедуры</div>
       <div><i class="profi"></i> Принять антигистаминный препарат</div>
@@ -29,7 +29,7 @@
       <div><i class="profi"></i> Хорошо очистить полость рта</div>-->
     </div>
     <div class="recomende">
-      <div>Рекомендации после процедуры</div>
+      <div>{{ $t('servicepage.rec2') }}</div>
       <div><i class="profi"></i> {{ results.recomend_after}}</div>
       <!--<div><i class="profi"></i> Не кушать и не пить 3 часа после процедуры</div>
       <div><i class="profi"></i> Очистка полости рта ирригатором</div>
