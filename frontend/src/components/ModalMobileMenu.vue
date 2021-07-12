@@ -45,7 +45,7 @@
           <div class="modal-footer">
             <div class="number">
               <a class="nav-link" href="https://api.whatsapp.com/send?phone=79096952043" target="_blank">{{ $t('menu.phone_num') }}</a>
-              <a class="nav-link" href="#" data-toggle="modal" data-target="#mdl-call-back">{{ $t('menu.callback_lnk')}}</a>
+              <a class="nav-link" href="#" data-toggle="modal" data-dismiss="modal" data-target="#mdl-call-back">{{ $t('menu.callback_lnk')}}</a>
             </div>
             <router-link :to="{name: 'main'}"><img class="logo" data-dismiss="modal" src="/img/logo_light.svg"/></router-link>
           </div>
