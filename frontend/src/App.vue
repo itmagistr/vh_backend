@@ -17,14 +17,14 @@
         <modalImage/>
         <modalMobileMenu v-if="mobile === true" :resize="mobile"/>
         <div class="d-flex align-items-center justify-content-between">
-          <div class="d-flex flex-column ctm-col-rt">
+          <div class="d-flex flex-column ctm-col-rt col">
             <a href="https://www.instagram.com/tohwddent" target="_blank"><button class="social-btn"><i class="fab fa-instagram"></i></button></a>
             <a href="https://www.youtube.com/channel/UCeyxKBqdLFA79kCTH29RDsQ" target="_blank"><button class="social-btn"><i class="fab fa-youtube"></i></button></a>
             <a href="https://www.facebook.com/ToHwdDent" target="_blank"><button class="social-btn"><i class="fab fa-facebook-f"></i></button></a>
             <a href="https://vk.com/tohwddent" target="_blank"><button class="social-btn"><i class="fab fa-vk"></i></button></a>
           </div>
-          <router-view :resize="mobile"/>
-          <div class="d-flex flex-column ctm-col-lt">
+          <router-view :resize="mobile" :class="[$route.name !== 'booking' ? 'col' : '']"/>
+          <div class="d-flex flex-column ctm-col-lt col">
             <button class="social-btn" data-toggle="modal" data-target="#mdl-leave-request"><i class="far fa-comment-alt"></i></button>
             <button class="social-btn" data-toggle="modal" data-target="#mdl-contacts"><i class="fas fa-map-marker-alt"></i></button>
             <!--<button class="social-btn"><i class="fas fa-route"></i></button>-->
@@ -141,8 +141,8 @@ body
   display: none
 
 .container
-  padding-top: 127px
-
+  .ctm-col-lt
+    align-items: flex-end
 .social-btn
   display: block
   width: 64px
@@ -179,9 +179,14 @@ footer
       > .social-btn
         margin: 0
 
-@media screen and (max-width: 1400px)
+@media screen and (max-width: 1399px)
   /*header
     display: none*/
+  .container
+    >.d-flex
+      >.d-flex
+        &:first-child, &:last-child
+          display: none!important
   footer
     display: flex
   #mdl-contacts
@@ -194,7 +199,7 @@ footer
 
 @media screen and (min-width: 1200px)
   .container
-    max-width: 1560px
+    max-width: 1640px
 
 @media screen and (max-width: 1200px)
   .container

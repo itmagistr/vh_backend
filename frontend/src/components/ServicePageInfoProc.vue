@@ -113,7 +113,7 @@ export default {
       .catch(error => { console.error(error); })
       .finally(()=>{
         if(this.doc.results[0].img === null)
-            this.doc.results[0].img = 'http://localhost:8000/media/uploads/human/defaultAvatar.png';
+          this.doc.results[0].img = 'http://localhost:8000/media/uploads/human/defaultAvatar.png';
       });
     },
     getMedProcDoctors(procUID) {

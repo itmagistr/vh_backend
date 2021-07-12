@@ -199,8 +199,6 @@ body.chg-doc
   background: #F6F3ED
   > header
     background: #F6F3ED
-  .container
-    padding: initial
 .tittle-of-doctor
   text-align: center
   font-family: FuturaBookC
@@ -208,13 +206,12 @@ body.chg-doc
   line-height: 61px
   color: $button-color
   margin-bottom: 56px
-  margin-top: -100px
+  margin-top: 27px
 
 .doc
-  padding: 127px 1rem 0
   width: 100%
   @media (min-width: 1400px)
-    width: calc(100% - 252px)
+    width: calc(100% - 248px)
   margin: auto
   > .filter
     display: flex
@@ -335,7 +332,7 @@ body.chg-doc
         border-radius: 8px
         padding: 12px 32px
         bottom: -20px
-        left: 75px
+        left: 25%
         border: none
   > #slider
     -webkit-appearance: none
@@ -361,7 +358,6 @@ body.chg-doc
 
 @media (max-width: 768px)
   .doc
-    padding: 127px 0 0
     width: 100%
     > .algo
       max-width: 696px

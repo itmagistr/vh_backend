@@ -168,7 +168,7 @@ header
   backdrop-filter: blur(32px)
   font-family: FuturaBookC
   > nav.navbar
-    max-width: 1560px
+    max-width: 1640px
     margin: auto
     height: $heightHeader
     > div

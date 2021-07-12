@@ -35,8 +35,8 @@ export default {
     right: 1rem
     font-size: 3rem
   > .modal-dialog
-    max-width: 50%
     > .modal-content
+      width: -webkit-fill-available
       border-radius: 1rem
 @media (max-width: 450px)
   #mdl-image

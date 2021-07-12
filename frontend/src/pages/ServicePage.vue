@@ -8,8 +8,10 @@
                  :class="[{active: catSel === c.code}]"
                  :key="c.code"
                   @click="chgCat(c)">
-              <img :src="c.img"/>
-              <div>{{c.title}}</div>
+              <div>
+                <img :src="c.img"/>
+                <div>{{c.title}}</div>
+              </div>
             </div>
         </div>
         <div class="block-2">
@@ -190,12 +192,13 @@ body.chg-proc
   top: 378px
 
 .mar
-    width: calc(100% - 280px)
+    width: calc(100% - 152px)
     > div.service
-        overflow: auto
-        width: 100%
         text-align: center
-        display: -webkit-box
+        overflow: auto
+        max-width: 100%
+        display: flex
+        margin: auto
     .tittle-of-service
         text-align: center
         font-family: FuturaBookC
@@ -205,10 +208,6 @@ body.chg-proc
         margin-bottom: 56px
 
 .card-tooth
-  vertical-align: middle
-  width: 200px
-  height: 200px
-  padding: 40px 0
   background: #F3E9D4
   border-radius: 8px
   margin: 0px 16px
@@ -218,20 +217,24 @@ body.chg-proc
     margin-right: 1px
   &.active
     background: $active-link-line
-  &.active > div
+  &.active > div > div
     color: $white
-  > img
-    margin-bottom: 36px
   > div
-    font-family: FuturaBookC
-    font-style: normal
-    font-weight: normal
-    font-size: 16px
-    line-height: 21px
-    text-align: center
-    letter-spacing: 0.08em
-    text-transform: uppercase
-    color: $button-color
+    width: 200px
+    height: 200px
+    padding: 40px 0
+    > img
+      margin-bottom: 36px
+    > div
+      font-family: FuturaBookC
+      font-style: normal
+      font-weight: normal
+      font-size: 16px
+      line-height: 21px
+      text-align: center
+      letter-spacing: 0.08em
+      text-transform: uppercase
+      color: $button-color
 
 .block-2
   margin-top: 64px
@@ -256,6 +259,7 @@ body.chg-proc
     border-radius: 16px
 
 .block-3
+  max-width: 100%
   margin: 64px 0 128px
   display: flex
   .btn
@@ -333,34 +337,32 @@ body.chg-proc
     color: $white
 
 @media (max-width: 1399px)
-  .container
-    >.d-flex
-      >.d-flex
-        &:first-child, &:last-child
-          display: none!important
-  .mar
-    width: 100%
-    > .bgz-main
-      top: 308px
-    > .tittle-of-service
-      text-align: center
-    > .block-3
-      margin: 64px -16px 0
-      .block-left
-        max-width: inherit
-        padding: 32px 0px
+  .chg-proc
+    .container
+      padding: 0
+      .mar
         width: 100%
-        height: 100%
-        border-radius: 16px
-        &.col-6
-          flex: inherit
-        .vis
-          display: none
-      .block-right
-        display: none
-        width: 100%
-        height: 100%
-        border-radius: 0px
+        > .bgz-main
+          top: 308px
+        > .tittle-of-service, > .service, > .block-2
+          padding: 0 1rem
+        > .block-3
+          margin: 64px 0
+          .block-left
+            max-width: inherit
+            padding: 32px 0px
+            width: 100%
+            height: 100%
+            border-radius: 16px
+            &.col-6
+              flex: inherit
+            .vis
+              display: none
+          .block-right
+            display: none
+            width: 100%
+            height: 100%
+            border-radius: 0px
 @media (max-width: 450px)
   .block-3
     margin: 64px -16px 0
