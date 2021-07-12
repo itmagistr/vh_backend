@@ -129,3 +129,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 db_backup.sqlite3
+db_backup_210713.sqlite3
+db_Andrey.sqlite3
