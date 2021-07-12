@@ -11,7 +11,8 @@
       <div class="sr-end">
         <div class="pr-info"><i class="fas fa-info-circle"></i></div>
         <div class="pr-price">{{ c.price | currencyFormat("RUB")}}</div>
-        <div class="pr-duration">{{ c.duration | timeFormat("ru-RU")}}</div>
+        <!--<div class="pr-duration">{{ c.duration | timeFormat("ru-RU")}}</div>-->
+        <div class="pr-duration">{{ c.duration}} {{$t("servicepage.min")}}</div>
       </div>
     </div>
   </div>

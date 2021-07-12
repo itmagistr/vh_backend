@@ -26,7 +26,7 @@
                 <router-link class="nav-link" data-dismiss="modal" :to="{name: 'service'}">{{ $t('menu.services') }}</router-link>
               </li>
               <li class="nav-item" :id="[$route.name === 'booking' ? 'active' : '']">
-                <a class="nav-link active" data-toggle="modal" data-target="#mdl-future-ok" >{{ $t('menu.booking') }}</a>
+                <a class="nav-link active" data-toggle="modal" data-dismiss="modal" data-target="#mdl-future-ok" >{{ $t('menu.booking') }}</a>
               </li>
               <li class="nav-item" :id="[$route.name === 'doctors' ? 'active' : '']">
                 <router-link class="nav-link" data-dismiss="modal" :to="{name: 'doctors'}">{{ $t('menu.doctors') }}</router-link>

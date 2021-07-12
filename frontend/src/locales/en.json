@@ -45,7 +45,8 @@
 	"description": "Description of the procedure",
 	"photo": "Photo",
 	"rec1": "Recommendations before the procedure",
-	"rec2": "Recommendations after the procedure"
+	"rec2": "Recommendations after the procedure",
+  "min": "min"
   },
   "bookingpage": {
 	"booking": "Appointment",
@@ -84,7 +85,8 @@
 	"adress": "Address",
 	"place": "Moscow, Novaya Square, 8s2",
     "phone": "Telephone",
-	"feed": "Feedback"
+	"feed": "Feedback",
+  "show_direction": "Show direction from the address"
   },
   "modalfuture": {
 	"info": "Information",
@@ -96,7 +98,8 @@
     "confident": "By clicking the button, you agree to the terms of the Privacy Policy",
 	"send-btn": "Send",
 	"yourname": "Your name",
-	"phonenumber": "Phone number"
+	"phonenumber": "Phone number",
+  "yourmsg": "Your message"
   },
   "procedure": {
 	"head": "Procedure"

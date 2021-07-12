@@ -16,7 +16,7 @@
           <input type="text" class="form-control form-ctm" v-model="name" :placeholder="$t('leaverequest.yourname')">
           <input type="text" class="form-control form-ctm" v-model="phone" :placeholder="$t('leaverequest.phonenumber')">
           <input type="text" class="form-control form-ctm mail" v-model="mail" placeholder="Myname@yandex.ru">
-          <textarea class="form-control form-ctm area" v-model="msg" placeholder="Ваше сообщение"></textarea>
+          <textarea class="form-control form-ctm area" v-model="msg" :placeholder="$t('leaverequest.yourmsg')"></textarea>
         </div>
       </div>
       <div class="modal-footer">

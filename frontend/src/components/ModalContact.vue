@@ -31,7 +31,7 @@
                 <a class="icon" href="https://vk.com/tohwddent" target="_blank"><i class="fab fa-vk"></i></a>
               </div>
               <div class="input-group" :class="[address !== '' ? 'active' : '']">
-                <input type="text" class="form-control form-control-lg" placeholder="Показать проезд от адреса"
+                <input type="text" class="form-control form-control-lg" :placeholder="$t('modalcontact.show_direction')"
                        v-model="address" aria-describedby="button-addon4">
                 <div class="input-group-append" id="button-addon4">
                   <button class="btn" type="button" @click="type=0" :class="[type === 0 ? 'active' : '']"><img class="svgIcons" src="/img/car.svg"/></button>

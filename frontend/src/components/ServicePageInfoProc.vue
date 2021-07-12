@@ -22,7 +22,7 @@
     </div>
     <div class="recomende">
       <div>{{ $t('servicepage.rec1') }}</div>
-      <div>{{ results.recomend_before}}</div>
+      <div><i class="profi"></i> {{ results.recomend_before}}</div>
       <!--<div><i class="profi"></i> Не кушать и не пить за 2 часа до процедуры</div>
       <div><i class="profi"></i> Принять антигистаминный препарат</div>
       <div><i class="profi"></i> Ограничить физическую активность за день до процедуры</div>
