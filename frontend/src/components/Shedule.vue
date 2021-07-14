@@ -36,7 +36,7 @@ export default {
     },
     methods: {
         daystatus(day) {
-            fetch(`http://localhost:8000/ru/vhapi/timestatus/${day}/`).
+            fetch(`${this.$store.state.apihost}ru/vhapi/timestatus/${day}/`).
             then(stream => stream.json()).
             then(response => {
                 this.results = response.results;

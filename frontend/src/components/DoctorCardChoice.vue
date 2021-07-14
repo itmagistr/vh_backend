@@ -81,7 +81,7 @@ export default {
             this.select = val;
         },
         getProcDoc() {
-          fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/doctor/${this.data.uid}/medprocs/`)
+          fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/doctor/${this.data.uid}/medprocs/`)
           .then(response => response.json()).then(data => {
             this.medprocs = data;
             console.log(data);

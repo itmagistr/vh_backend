@@ -83,7 +83,7 @@ export default {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({code: 'HEADER_MENU'})
             };
-            fetch(`http://localhost:8000/${this.locale}/vhapi/dictstr/list/`, options).
+            fetch(`${this.$store.state.apihost}${this.locale}/vhapi/dictstr/list/`, options).
             then(response => response.json()).
             then(data => {
               this.results = data;

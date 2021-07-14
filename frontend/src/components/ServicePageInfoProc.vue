@@ -104,7 +104,7 @@ export default {
       this.$store.commit("updPrice", this.price);
     },
     docUID(){
-      fetch(`http://localhost:8000/${this.locale}/vhapi/doctor/`)
+      fetch(`${this.$store.state.apihost}${this.locale}/vhapi/doctor/`)
       .then(stream => stream.json())
       .then(response => {
         this.doc.count = 1;
@@ -113,11 +113,11 @@ export default {
       .catch(error => { console.error(error); })
       .finally(()=>{
         if(this.doc.results[0].img === null)
-          this.doc.results[0].img = 'http://localhost:8000/media/uploads/human/defaultAvatar.png';
+          this.doc.results[0].img = `${this.$store.state.apihost}media/uploads/human/defaultAvatar.png`;
       });
     },
     getMedProcDoctors(procUID) {
-      fetch(`http://localhost:8000/${this.locale}/vhapi/medproc/${procUID}/doctors/`).
+      fetch(`${this.$store.state.apihost}${this.locale}/vhapi/medproc/${procUID}/doctors/`).
       then(response => response.json()).
       then(data => {
         this.doc.count = data.count;
@@ -132,7 +132,7 @@ export default {
       });
     },
     getMoreInfo(procUID) {
-      fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/medproc/${procUID}/`).
+      fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/medproc/${procUID}/`).
       then(response => response.json()).
       then(data => {
         this.results = data;

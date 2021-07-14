@@ -41,12 +41,12 @@ export default {
   },
   methods: {
     medProcUID(uid){
-      fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/medproc/${uid}`)
+      fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/medproc/${uid}`)
       .then(stream => stream.json())
       .then(response => {
         this.results = response;
         if(this.results.img === null || this.results.img === undefined)
-          this.results.img = 'http://localhost:8000/media/uploads/doctorspec/defaultTeeth.svg';
+          this.results.img = `${this.$store.state.apihost}media/uploads/doctorspec/defaultTeeth.svg`;
         console.log(response);
       })
       .catch(error => {

@@ -48,7 +48,7 @@ export default {
   // определяйте методы в объекте `methods`
   methods: {
     docUID(uid){
-      fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/doctor/${uid}`)
+      fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/doctor/${uid}`)
       .then(stream => stream.json())
       .then(response => {
         this.results = response;
@@ -61,7 +61,7 @@ export default {
       })
       .finally(() => {
         if(this.results.img === null)
-          this.results.img = 'http://localhost:8000/media/uploads/human/defaultAvatar.png';
+          this.results.img = `${this.$store.state.apihost}media/uploads/human/defaultAvatar.png`;
         this.loading = false;
       });
     },

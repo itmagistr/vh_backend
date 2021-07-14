@@ -66,7 +66,7 @@ export default {
         },
     },
   async created() {
-    await fetch('http://localhost:8000/ru/vhapi/timestatus/2020-10-10/')
+    await fetch(`${this.$store.state.apihost}ru/vhapi/timestatus/2020-10-10/`)
         .then(stream => stream.json())
         .then(response => {
           this.shedule = response.results;
@@ -81,7 +81,7 @@ export default {
   methods: {
      
     medproc: function () {
-      fetch('http://localhost:8000/ru/vhapi/medproc/').
+      fetch(`${this.$store.state.apihost}ru/vhapi/medproc/`).
       then(stream => stream.json()).
       then((response) => {this.invoice=false; this.results = response.results;}).
       catch((error) => {
@@ -89,7 +89,7 @@ export default {
                 });
     },
     invcreate: function () {
-      fetch('http://localhost:8000/ru/vhapi/invoice/create/', {
+      fetch(`${this.$store.state.apihost}ru/vhapi/invoice/create/`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',

@@ -78,7 +78,7 @@ export default {
   },
   methods: {
     getInfo() {
-      fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/doctor/${this.selfInfo}`)
+      fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/doctor/${this.selfInfo}`)
       .then(response => response.json()).then(data => {
         this.data = data;
         console.log(data);
@@ -87,9 +87,9 @@ export default {
         //this.results = null;
       }).finally(() => {
         if(this.data.img === null)
-            this.data.img = 'http://localhost:8000/media/uploads/human/defaultAvatar.png';
+            this.data.img = `${this.$store.state.apihost}media/uploads/human/defaultAvatar.png`;
         if(this.data.special_img === null)
-            this.data.special_img = 'http://localhost:8000/media/uploads/doctorspec/defaultTeeth.svg';
+            this.data.special_img = `${this.$store.state.apihost}media/uploads/doctorspec/defaultTeeth.svg`;
         //this.loading = false;
       });
     },

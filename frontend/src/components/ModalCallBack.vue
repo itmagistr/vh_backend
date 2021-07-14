@@ -114,7 +114,7 @@ export default{
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({"name": this.name, "phone": this.phone, "hr": this.hr, "min": this.min})
             };
-            fetch(`http://localhost:8000/ru/vhapi/feedback/call/`, options).
+            fetch(`${this.$store.state.apihost}ru/vhapi/feedback/call/`, options).
             then(response => response.json()).
             then(data => {
             this.results = data;

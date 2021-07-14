@@ -73,7 +73,7 @@ export default {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({"dt": date, "category": docUID})
       };
-      fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/medproc/list/`, options).
+      fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/medproc/list/`, options).
       then(response => response.json()).
       then(data => {
       this.results = data;
@@ -85,7 +85,7 @@ export default {
       });
     },
     medProcListByDoc(docUID) {
-      fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/doctor/${docUID}/medprocs/`).
+      fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/doctor/${docUID}/medprocs/`).
       then(response => response.json()).
       then(data => {
       this.results = data.results;

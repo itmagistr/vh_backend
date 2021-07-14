@@ -27,9 +27,9 @@ export default {
         focus: 'center',
       },
       slides: [
-        {src: "http://localhost:8000/media/uploads/documents/doc1.png"},
-        {src: "http://localhost:8000/media/uploads/documents/doc2.png"},
-        {src: "http://localhost:8000/media/uploads/documents/doc3.png"}
+        {src: `${this.$store.state.apihost}media/uploads/documents/doc1.png`},
+        {src: `${this.$store.state.apihost}media/uploads/documents/doc2.png`},
+        {src: `${this.$store.state.apihost}media/uploads/documents/doc3.png`}
       ],
     }
   },

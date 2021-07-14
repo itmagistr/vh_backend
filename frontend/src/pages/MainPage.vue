@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex ctm-main">
-        <div class="cl-full">
+        <!--<div class="cl-full">
             <div class="calen">
                 <div class="cl-day" >
                     <img src="/img/calendary.svg"/>
@@ -8,8 +8,8 @@
                 </div>
                 <div class="cl-month">{{months[month]}}</div>
             </div>
-            <!--<router-link tag="button" class="btn" :to="{name: 'booking'}">Выбрать дату посещения</router-link>-->
-        </div>
+            <router-link tag="button" class="btn" :to="{name: 'booking'}">Выбрать дату посещения</router-link>
+        </div>-->
     </div>
 </template>
 

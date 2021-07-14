@@ -114,7 +114,7 @@ export default {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({"txt": cat, "dt": date, "spec": specs})
       };
-      fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/doctor/list/`, options).
+      fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/doctor/list/`, options).
       then(response => response.json()).
       then(data => {
       this.doc = data;
@@ -132,7 +132,7 @@ export default {
       });
     },
     specList() {
-      fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/doctor/spec/list/`).
+      fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/doctor/spec/list/`).
       then(response => response.json()).
       then(data => {
         this.category = [];
@@ -140,7 +140,7 @@ export default {
           const buf = data.results[i];
           let img = buf.img;
           if(img === null)
-            img = 'http://localhost:8000/media/uploads/doctorspec/defaultTeeth.svg';
+            img = `${this.$store.state.apihost}media/uploads/doctorspec/defaultTeeth.svg`;
           this.category.push({ code: buf.code, title: buf.title, img: img, st: false });
         }
       }).

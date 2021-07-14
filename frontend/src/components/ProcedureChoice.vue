@@ -63,7 +63,7 @@ export default {
     },
     methods: {
         categoryList() {
-            fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/category/`).
+            fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/category/`).
             then(response => response.json()).
             then(data => {
             this.category = data.results;
@@ -80,7 +80,7 @@ export default {
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({"q": this.q})
             };
-            fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/mpsearch/`, options).
+            fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/mpsearch/`, options).
             then(response => response.json()).
             then(data => {
               this.results = data;

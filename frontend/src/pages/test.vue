@@ -44,7 +44,7 @@ export default {
       };
   },
   async created() {
-    await fetch('http://localhost:8000/ru/vhapi/timestatus/2020-10-10/')
+    await fetch(`${this.$store.state.apihost}ru/vhapi/timestatus/2020-10-10/`)
         .then(stream => stream.json())
         .then(response => {
           this.shedule = response.results;
@@ -58,7 +58,7 @@ export default {
   // определяйте методы в объекте `methods`
   methods: {
      daystatus: function () {
-      fetch('http://localhost:8000/ru/vhapi/daystatus/2020-10-10/2020-10-31/').
+      fetch(`${this.$store.state.apihost}ru/vhapi/daystatus/2020-10-10/2020-10-31/`).
       then(stream => stream.json()).
       then(response => this.results = response.results).
       catch((error) => {
@@ -66,7 +66,7 @@ export default {
                 });
     },
      tslots: function () {
-      fetch('http://localhost:8000/ru/vhapi/timestatus/2020-10-10/').
+      fetch(`${this.$store.state.apihost}ru/vhapi/timestatus/2020-10-10/`).
       then(stream => stream.json()).
       then(response => this.results = response.results).
       catch((error) => {
@@ -74,7 +74,7 @@ export default {
                 });
     },
     medproc: function () {
-      fetch('http://localhost:8000/ru/vhapi/medproc/').
+      fetch(`${this.$store.state.apihost}ru/vhapi/medproc/`).
       then(stream => stream.json()).
       then(response => this.results = response.results).
       catch((error) => {
@@ -82,7 +82,7 @@ export default {
                 });
     },
     doctors: function () {
-      fetch('http://localhost:8000/ru/vhapi/doctor/').
+      fetch(`${this.$store.state.apihost}ru/vhapi/doctor/`).
       then(stream => stream.json()).
       then(response => this.results = response.results).
       catch((error) => {

@@ -13,13 +13,13 @@ import Documents from "@/pages/DocumentsPage";
 Vue.use(VueRouter);
 
 const routes = [
-    {name: 'ComingSoon', component: ComingSoon, path: '/'},
-    {name: 'main', component: MainPage, path: '/secret_place/'},
-    {name: 'service', component: Service, path: '/secret_place/service'},
+    {name: 'ComingSoon', component: ComingSoon, path: '/secret_place'},
+    {name: 'main', component: MainPage, path: '/'},
+    {name: 'service', component: Service, path: '/service'},
     // {name: 'test', component: test, path: '/test/:id'},
-    {name: 'booking', component: Booking, path: '/secret_place/booking'},
-    {name: 'doctors', component: Doctors, path: '/secret_place/doctors'},
-    {name: 'documents', component: Documents, path: '/secret_place/documents'},
+    {name: 'booking', component: Booking, path: '/booking'},
+    {name: 'doctors', component: Doctors, path: '/doctors'},
+    {name: 'documents', component: Documents, path: '/documents'},
     {name: 'test', component: test, path: '/secret_place/test'},
     {name: 'testPayment', component: testPayment, path: '/secret_place/testPayment'},
     {name: 'notFound', component: NotFoundPage, path: '*'}

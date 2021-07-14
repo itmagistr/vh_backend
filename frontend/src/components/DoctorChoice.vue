@@ -63,7 +63,7 @@ export default {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({"txt": cat, "dt": date, "spec": medProcUID})
             };
-            fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/doctor/list/`, options).
+            fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/doctor/list/`, options).
             then(response => response.json()).
             then(data => {
             this.results = data;

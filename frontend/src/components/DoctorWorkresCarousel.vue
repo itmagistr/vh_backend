@@ -50,7 +50,7 @@ export default {
       this.states[pos] = !this.states[pos];
     },
     getInfo() {
-      fetch(`http://localhost:8000/${this.$i18n.locale}/vhapi/doctor/${this.selfInfo}/workres/`)
+      fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/doctor/${this.selfInfo}/workres/`)
       .then(response => response.json())
       .then(data => {
         this.data = data.results;
