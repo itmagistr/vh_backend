@@ -4,7 +4,7 @@
         <div class="tittle-of-doctor">{{ $t('doctorpage.doc_header') }}</div>
         <div class="filter">
             <div @click="allFilters" :class="{active: allBtn.st}">
-              <img src="http://localhost:8000/media/uploads/doctorspec/defaultTeeth.svg">{{ $t('doctorpage.all') }}
+              <img :src="$store.state.apihostImg + '/media/uploads/doctorspec/defaultTeeth.svg'">{{ $t('doctorpage.all') }}
             </div>
             <div :class="{active: c.st}" v-for="(c, index) in category" :key="index" @click="updCat(index)">
                 <img :src="c.img"/>{{ c.title }}
@@ -13,11 +13,11 @@
         <div class="algo">
             <div class="card-doc" v-for="c in doc" :key="c.uid">
                 <div class="docPhoto">
-                  <img :src="'http://localhost:8000' + c.img"/>
+                  <img :src="$store.state.apihostImg + c.img"/>
                 </div>
                 <div class="info">
                     <div class="top">
-                        <div class="icon"><img :src="'http://localhost:8000' + c.special_img"></div>
+                        <div class="icon"><img :src="$store.state.apihostImg + c.special_img"></div>
                         <div class="bk1">
                             <div class="tittle">{{ c.special }}</div>
                             <div class="education">{{ expFormat(c.experience) }}, {{ c.level }}</div>

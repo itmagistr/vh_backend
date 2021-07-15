@@ -15,6 +15,7 @@ export default new Vuex.Store({
         usefulTips: false,
         phase: 2,
         apihost: 'http://localhost:8000/',
+        apihostImg: 'http://localhost:8000',
     },
     mutations: {
         updDoc(state, Doctor){
