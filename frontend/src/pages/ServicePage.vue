@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex flex-column mar">
         <modalDocCard :selfInfo="selfInfo"/>
-        <div class="bgz-main"></div>
+<!--        <div class="bgz-main"></div>-->
         <div class="tittle-of-service">{{ $t('servicepage.service') }}</div>
         <div class="service">
             <div v-for="c in category" class="card-tooth"

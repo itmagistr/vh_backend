@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex ctm-main">
-        <!--<div class="cl-full">
+        <div class="cl-full">
             <div class="calen">
                 <div class="cl-day" >
                     <img src="/img/calendary.svg"/>
@@ -8,8 +8,9 @@
                 </div>
                 <div class="cl-month">{{months[month]}}</div>
             </div>
-            <router-link tag="button" class="btn" :to="{name: 'booking'}">Выбрать дату посещения</router-link>
-        </div>-->
+            <router-link tag="button" class="btn" data-toggle="modal"
+                    data-dismiss="modal" data-target="#mdl-future-ok" to="#">Выбрать дату посещения</router-link>
+        </div>
     </div>
 </template>
 
@@ -28,6 +29,11 @@ export default {
 <style lang="sass">
 @import "@/styles/_variables.sass"
 
+.ctm-main
+  display: flex
+  justify-content: center
+  align-items: center
+  height: calc(100vh - 136px)
 .calen
   width: 120px
   height: 148px
@@ -47,8 +53,8 @@ export default {
     font-weight: 300
     font-style: normal
     position: absolute
-    top: 75%
-    left: 51%
+    top: 80%
+    left: 50%
     transform: translate(-50%, -50%)
 
 .cl-month
@@ -58,6 +64,7 @@ export default {
   line-height: 21px
 
 .cl-full
+  margin-top: 50vh
   position: relative
   text-align: center
   .btn
@@ -76,7 +83,5 @@ export default {
 
 @media (max-width: 1399px)
   .ctm-main
-    margin-top: 50%
-    margin: auto
-
+    height: calc(100vh - 64px)
 </style>

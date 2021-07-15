@@ -1,7 +1,9 @@
 <template>
   <body :class="[$route.name === 'doctors' ? 'chg-doc' : '',
   $route.name === 'service' ? 'chg-proc' : '',
-  $route.name === 'documents' ? 'documGal' : '']">
+  $route.name === 'documents' ? 'documGal' : '',
+  $route.name === 'main' ? 'mainP' : '',
+  $route.name === 'booking' ? 'booking' : '']">
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
         Please enable it to continue.</strong>
@@ -182,13 +184,14 @@ footer
 @media screen and (max-width: 1399px)
   /*header
     display: none*/
-  .container
-    >.d-flex
+  body:not(.mainP)
+    .container
       >.d-flex
-        &:first-child, &:last-child
-          display: none!important
-  footer
-    display: flex
+        >.d-flex
+          &:first-child, &:last-child
+            display: none!important
+    footer
+      display: flex
   #mdl-contacts
     > .modal-ctm
       max-width: 100%

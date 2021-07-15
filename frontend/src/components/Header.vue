@@ -10,7 +10,7 @@
           </li>
           <li class="nav-item" :id="[$route.name === 'booking' ? 'active' : '']">
             <hr>
-            <a class="nav-link active" data-toggle="modal" data-target="#mdl-future-ok" >{{ $t('menu.booking') }}</a>
+            <router-link class="nav-link active" data-toggle="modal" data-target="#mdl-future-ok" to="#">{{ $t('menu.booking') }}</router-link>
             <hr>
           </li>
           <li class="nav-item" :id="[$route.name === 'doctors' ? 'active' : '']">
@@ -20,12 +20,12 @@
           </li>
           <li class="nav-item">
             <hr>
-            <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-future-ok" data-name="тур">{{ $t('menu.virtual_tour') }}</a>
+            <router-link class="nav-link" data-toggle="modal" data-target="#mdl-future-ok" data-name="тур" to="#">{{ $t('menu.virtual_tour') }}</router-link>
             <hr>
           </li>
           <li class="nav-item" :id="[$route.name === 'documents' ? 'active' : '']">
             <hr>
-             <router-link class="nav-link" :to="{name: 'documents'}" data-name="докум">{{ $t('menu.documentation') }}</router-link>
+            <router-link class="nav-link" :to="{name: 'documents'}" data-name="докум">{{ $t('menu.documentation') }}</router-link>
             <hr>
           </li>
           <li class="nav-item">
