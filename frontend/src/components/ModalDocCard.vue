@@ -60,8 +60,7 @@ export default {
   props: ['selfInfo'],
   data(){
     return {
-      data: [],
-
+      data: {},
     }
   },
   components: {

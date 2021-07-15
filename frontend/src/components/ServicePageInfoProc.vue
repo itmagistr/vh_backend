@@ -151,29 +151,29 @@ export default {
 
 .hm-block
   width: 100%
-  border-radius: 0px
-  margin-bottom: 24px
+  border-radius: 0
+  margin-bottom: 1.5rem
   background: #F3E9D4
 .block-right
-  border-radius: 0px 16px 16px 0px
+  border-radius: 0 1rem 1rem 0
   background: #F3E9D4
 .block-right, .hm-block
-  padding: 32px
+  padding: 2rem
   text-align: left
   .doctor-card
-    margin-bottom: 24px
+    margin-bottom: 1.5rem
     .d-tittle
       font-family: Montserrat
       font-weight: 500
       font-size: 21px
       line-height: 26px
       text-align: left
-      margin-bottom: 24px
+      margin-bottom: 1.5rem
     .d-card
       background: white
       height: 72px
       width: 280px
-      border-radius: 8px
+      border-radius: .5rem
       > div, > button
         display: inline-block
       img#icd
@@ -205,11 +205,11 @@ export default {
         width: 26px
         height: 72px
         border: none
-        border-radius: 0px 8px 8px 0px
+        border-radius: 0 .5rem .5rem 0
         background: $none
         color: $white
   .description
-    margin-bottom: 24px
+    margin-bottom: 1.5rem
     > div:first-child
       font-family: Montserrat
       font-size: 19px
@@ -224,8 +224,8 @@ export default {
     margin-bottom: 20px
     i
       display: inline-block
-      width: 8px
-      height: 8px
+      width: .5rem
+      height: .5rem
       border-radius: 2px
     > div:first-child
       font-family: Montserrat
@@ -235,7 +235,7 @@ export default {
       margin-bottom: 16px
     div
       font-family: FuturaBookC
-      font-size: 16px
+      font-size: 1rem
       line-height: 21px
       margin-bottom: 8px
   .photo
@@ -249,7 +249,7 @@ export default {
       height: 136px
       width: 100%
       background:  #F1EEE6
-      border-radius: 4px
+      border-radius: .25rem
       overflow: hidden
       > div
         display: inline-block
@@ -259,7 +259,7 @@ export default {
         width: 16px
         height: 136px
         background: #42E1C5
-        border-radius: 4px
+        border-radius: .25rem
         border: none
         color: $white
         &:hover
@@ -273,7 +273,7 @@ export default {
     letter-spacing: 0.08em
     text-transform: uppercase
     width: 300px
-    height: 48px
+    height: 3rem
     background: $active-link-line
     border: none
     border-radius: 8px
@@ -282,4 +282,9 @@ export default {
   .hm-block
     > .hid
       display: block
+@media (max-width: 450px)
+  .block-3
+    > .block-left
+     > .hm-block
+        padding: 1rem
 </style>

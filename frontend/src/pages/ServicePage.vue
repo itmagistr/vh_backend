@@ -48,7 +48,8 @@
                     <info v-if="prselect === c.uid && resize"
                           :key="'block-'+c.uid"
                           class="hm-block"
-                          :info="prselect"/>
+                          :info="prselect"
+                          v-on:showDocM="updCardModal"/>
                 </template>
                 <!--<button class="btn vis" @click="send()">{{ $t('proсchoice.select') }}</button>-->
             </div>
@@ -364,9 +365,9 @@ body.chg-proc
             width: 100%
             height: 100%
             border-radius: 0px
+
 @media (max-width: 450px)
   .block-3
-    margin: 64px -16px 0
     > .block-left
       > div:first-child
         margin-left: 16px
