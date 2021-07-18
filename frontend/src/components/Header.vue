@@ -18,9 +18,9 @@
             <router-link class="nav-link" :to="{name: 'doctors'}">{{ $t('menu.doctors') }}</router-link>
             <hr>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" :id="[$route.name === 'virtualtour' ? 'active' : '']">
             <hr>
-            <router-link class="nav-link" data-toggle="modal" data-target="#mdl-future-ok" data-name="тур" to="#">{{ $t('menu.virtual_tour') }}</router-link>
+            <router-link class="nav-link" data-name="тур" :to="{name: 'virtualtour'}">{{ $t('menu.virtual_tour') }}</router-link>
             <hr>
           </li>
           <li class="nav-item" :id="[$route.name === 'documents' ? 'active' : '']">

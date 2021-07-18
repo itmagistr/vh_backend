@@ -250,7 +250,7 @@ export default {
   backdrop-filter: blur(16px)
 
 @media (max-width: 1399px)
-  body:not(.mainP):not(.documGal):not(.booking)
+  body:not(.mainP):not(.documGal):not(.booking):not(.tour)
     .modal-backdrop
       background: $white
       &.show

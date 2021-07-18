@@ -83,5 +83,5 @@ export default {
 
 @media (max-width: 1399px)
   .ctm-main
-    height: calc(100vh - 64px)
+    height: calc(100vh - 64px)!important
 </style>

@@ -53,6 +53,7 @@ body.documGal
   .wrapper
     width: calc(100% - 300px)
     .proto2
+      padding: 1rem
       height: 320px
       width: 100%
       overflow: auto
@@ -67,6 +68,7 @@ body.documGal
         &:last-child
           margin-right: 0
         > img
+          border-radius: .5rem
           height: 100%
     .splide
       padding: 0 0 3rem

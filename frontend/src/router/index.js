@@ -9,6 +9,7 @@ import Service from "@/pages/ServicePage";
 import Doctors from "@/pages/DoctorsPage";
 import ComingSoon from "@/pages/ComingSoonPage"
 import Documents from "@/pages/DocumentsPage";
+import VirtualTour from "@/pages/VirtualTour";
 
 Vue.use(VueRouter);
 
@@ -19,6 +20,7 @@ const routes = [
     // {name: 'test', component: test, path: '/test/:id'},
     {name: 'booking', component: Booking, path: '/booking'},
     {name: 'doctors', component: Doctors, path: '/doctors'},
+    {name: 'virtualtour', component: VirtualTour, path: '/virtual_tour'},
     {name: 'documents', component: Documents, path: '/documents'},
     {name: 'test', component: test, path: '/secret_place/test'},
     {name: 'testPayment', component: testPayment, path: '/secret_place/testPayment'},

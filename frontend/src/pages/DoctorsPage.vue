@@ -211,6 +211,7 @@ body.chg-doc
 .doc
   width: 100%
   @media (min-width: 1400px)
+    min-width: calc(100% - 248px)
     width: calc(100% - 248px)
   margin: auto
   > .filter

@@ -2,6 +2,7 @@
   <body :class="[$route.name === 'doctors' ? 'chg-doc' : '',
   $route.name === 'service' ? 'chg-proc' : '',
   $route.name === 'documents' ? 'documGal' : '',
+  $route.name === 'virtualtour' ? 'tour' : '',
   $route.name === 'main' ? 'mainP' : '',
   $route.name === 'booking' ? 'booking' : '']">
     <noscript>
