@@ -250,11 +250,11 @@ export default {
   backdrop-filter: blur(16px)
 
 @media (max-width: 1399px)
-  body:not(.mainP):not(.documGal):not(.booking):not(.tour)
-    .modal-backdrop
-      background: $white
-      &.show
-        opacity: 1
+  //body:not(.mainP):not(.documGal):not(.booking):not(.tour)
+  //  .modal-backdrop
+  //    background: $white
+  //    &.show
+  //      opacity: 1
   #mdl-doc-card
     > .modal-ctm
       display: block

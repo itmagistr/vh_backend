@@ -71,6 +71,7 @@ export default {
     }
   },
   async created() {
+    window.addEventListener('resize', this.checkSlider);
     await this.docList("", this.$store.state.Booking.Date, this.vuel);
     this.specList();
   },
@@ -176,7 +177,7 @@ export default {
       const tmp = e.target.scrollLeft;
       this.sli.cur = tmp;
     },
-    checkSlider(){
+    checkSlider() {
       const acco = document.getElementById("algo");
       this.sli.scroll = acco.scrollWidth;
       this.sli.offset = acco.offsetWidth;
@@ -189,6 +190,9 @@ export default {
       this.sli.max = this.sli.scroll - this.sli.offset;
     },
   },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.checkSlider);
+  },
   watch: {
     "$i18n.locale": {
       handler(newLocale, oldLocale) {
@@ -197,14 +201,6 @@ export default {
         this.locale = newLocale;
         this.docList("", this.$store.state.Booking.Date, this.vuel);
         this.specList();
-      },
-      immediate: true
-    },
-    resize: {
-      handler(newLocale, oldLocale) {
-        if (newLocale === oldLocale)
-          return
-        this.checkSlider();
       },
       immediate: true
     },

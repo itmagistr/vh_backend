@@ -3,7 +3,11 @@
   <div class="modal-dialog modal-ctm modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <div>
+        <div v-if="success" >
+          <h5 class="modal-title">Ваша заявка отправлена</h5>
+          <h6 class="sec-title">Спасибо за обращене, мы ответим вам в ближайшее время</h6>
+        </div>
+        <div v-else >
           <h5 class="modal-title">{{ $t('callback.call') }}</h5>
           <h6 class="sec-title">{{ $t('callback.text') }}</h6>
         </div>
@@ -16,9 +20,9 @@
           <svg class="sucess" viewBox="0 0 130.2 130.2">
             <polyline class="path check" fill="none" stroke="#42E1C5" stroke-width="20" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
           </svg>
-          <div class="checkmark draw"></div>
+<!--      <div class="checkmark draw"></div>-->
         </div>
-        <div class="form">
+        <div v-else class="form">
           <input type="text" class="form-control form-ctm" v-model="name" :placeholder="$t('callback.yourname')">
           <input type="text" class="form-control form-ctm" v-model="phone" :placeholder="$t('callback.phonenumber')">
           <h6>{{ $t('callback.time') }}</h6>
@@ -76,10 +80,9 @@
           </div>
         </div>
       </div>
-      <div class="modal-footer">
-         <div>{{ $t('callback.confident') }}</div>
-        <button type="button" class="btn btn-ok" @click="send()"
-                data-toggle="modal" data-dismiss="modal" data-target="#mdl-messenger">
+      <div v-if="!success" class="modal-footer">
+        <div>{{ $t('callback.confident') }}</div>
+        <button type="button" class="btn btn-ok" @click="send()">
           {{ $t('callback.send-btn') }}
         </button>
       </div>
@@ -90,53 +93,58 @@
 
 <script>
 export default{
-    data(){
-        return {
-            name: null,
-            phone: null,
-            hr: null,
-            min: null,
-            results: null,
-            success: false,
-        }
+  data(){
+    return {
+      name: null,
+      phone: null,
+      hr: null,
+      min: null,
+      results: null,
+      success: false,
+    }
+  },
+  created() {
+    this.hr = new Date().getHours();
+    if(this.hr >= 23 || this.hr < 6)
+      this.hr = 6;
+    this.min = new Date().getMinutes() - new Date().getMinutes() % 5;
+  },
+  mounted() {
+    document.getElementById("mdl-call-back").addEventListener("click", this.close);
+  },
+  methods: {
+    close(){
+      this.success = false;
     },
-    created() {
-      this.hr = new Date().getHours();
-      if(this.hr >= 23 || this.hr < 6)
-        this.hr = 6;
-      this.min = new Date().getMinutes() - new Date().getMinutes() % 5;
+    send(){
+      /*alert(`POST: /feedback/call/${JSON.stringify({"name": this.name, "phone": this.phone, "hr": this.hr, "min": this.min})}`);*/
+      const options = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({"name": this.name, "phone": this.phone, "hr": this.hr, "min": this.min})
+      };
+      fetch(`${this.$store.state.apihost}ru/vhapi/feedback/call/`, options).
+      then(response => response.json()).
+      then(data => {
+      this.results = data;
+      console.log(data);
+      }).
+      catch((error) => { console.log(error); this.results = null;}).
+      finally(() => {
+        this.loading = false;
+        this.success = true;
+      });
     },
-    methods: {
-        send(){
-            /*alert(`POST: /feedback/call/${JSON.stringify({"name": this.name, "phone": this.phone, "hr": this.hr, "min": this.min})}`);*/
-            const options = {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({"name": this.name, "phone": this.phone, "hr": this.hr, "min": this.min})
-            };
-            fetch(`${this.$store.state.apihost}ru/vhapi/feedback/call/`, options).
-            then(response => response.json()).
-            then(data => {
-            this.results = data;
-            console.log(data);
-            }).
-            catch((error) => { console.log(error); this.results = null;}).
-            finally(() => {
-              this.loading = false;
-              this.results = 200;
-            });
-
-        },
-        hrMinFun(str){
-            switch(str){
-                case 'hrIncr': this.hr = (this.hr + 1 <= 22) ? this.hr + 1 : this.hr; break;
-                case 'hrDecr': this.hr = (this.hr - 1 >= 6) ? this.hr - 1 : this.hr; break;
-                case 'minIncr': this.min = (this.min + 5 <= 55) ? this.min + 5 : this.min; break;
-                case 'minDecr': this.min = (this.min - 5 >= 0) ? this.min - 5 : this.min; break;
-                default: break;
-            }
-        },
+    hrMinFun(str){
+      switch(str){
+        case 'hrIncr': this.hr = (this.hr + 1 <= 22) ? this.hr + 1 : this.hr; break;
+        case 'hrDecr': this.hr = (this.hr - 1 >= 6) ? this.hr - 1 : this.hr; break;
+        case 'minIncr': this.min = (this.min + 5 <= 55) ? this.min + 5 : this.min; break;
+        case 'minDecr': this.min = (this.min - 5 >= 0) ? this.min - 5 : this.min; break;
+        default: break;
+      }
     },
+  },
 }
 </script>
 
@@ -155,7 +163,6 @@ export default{
         padding-bottom: 8px
         > div
           margin: auto
-          text-align: center
           > .modal-title
             margin-top: 8px
             margin-bottom: 12px
@@ -164,6 +171,7 @@ export default{
             font-size: 21px
             line-height: 26px
           > .sec-title
+            margin: auto
             width: 230px
             font-family: FuturaBookC
             line-height: 21px
