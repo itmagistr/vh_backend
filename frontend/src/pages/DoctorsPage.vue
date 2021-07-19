@@ -10,7 +10,7 @@
                 <img :src="c.img"/>{{ c.title }}
             </div>
         </div>
-        <div class="algo">
+        <div id="algo" v-on:scroll.passive="scroll">
             <div class="card-doc" v-for="c in doc" :key="c.uid">
                 <div class="docPhoto">
                   <img :src="$store.state.apihostImg + c.img"/>
@@ -34,7 +34,8 @@
                 <button class="btn" data-toggle="modal" data-target="#mdl-doc-card" @click="updCardModal(c.uid)">{{$t('doctorpage.details')}}</button>
             </div>
         </div>
-       <input type="range" min="1" :max="(doc.length - 1) * 312" value="1" id="slider" @input="check">
+       <input v-if="sli.isShow" type="range" min="0" :max="sli.max" value="1" id="slider"
+              v-model.number="sli.cur" @input="slide">
     </div>
 </template>
 
@@ -45,8 +46,17 @@ import StarRating from "vue-star-rating";
 import modalDocCard from "@/components/ModalDocCard.vue";
 
 export default {
+  props: ['resize'],
   data() {
     return {
+      exp: 0,
+      sli: {
+        scroll: 0,
+        offset: 0,
+        max: 0,
+        cur: 0,
+        isShow: true
+      },
       select: this.$store.state.Booking.Procedure,
       allBtn: {
         st: false
@@ -57,8 +67,6 @@ export default {
       errored: false,
       results: null,
       selfInfo: null,
-      sliderLen: 0,
-      slider: 0,
       locale: this.$i18n.locale,
     }
   },
@@ -75,120 +83,132 @@ export default {
   computed: {
     vuel() {
       let tmp = [];
-      for(let i = 0; i < this.category.length; i++)
-        if(this.category[i].st)
-          tmp.push({ code: this.category[i].code })
+      for (let i = 0; i < this.category.length; i++)
+        if (this.category[i].st)
+          tmp.push({code: this.category[i].code})
       return tmp;
     },
     otro() {
-      if(document.getElementsByClassName("algo")[0].offsetWidth <= this.doc.length * 348 - 32)
+      if (document.getElementById("algo").offsetWidth <= this.doc.length * 348 - 32)
         return 0;
       else
         return 1;
     }
   },
   methods: {
-    allFilters(){
-      if(this.allBtn.st === false){
+    allFilters() {
+      if (this.allBtn.st === false) {
         this.allBtn.st = !this.allBtn.st;
-        for(let i = 0; i < this.category.length; i++)
+        for (let i = 0; i < this.category.length; i++)
           this.category[i].st = true;
-      } else{
-         this.allBtn.st = false;
-        for(let i = 0; i < this.category.length; i++)
+      } else {
+        this.allBtn.st = false;
+        for (let i = 0; i < this.category.length; i++)
           this.category[i].st = false;
       }
       this.docList("", this.$store.state.Booking.Date, this.vuel);
     },
     expFormat(v) {
-      if (v >= 5) return "" + this.$t('doctorpage.experience') + " " + v + " "+ this.$t('doctorpage.exp5')
+      if (v >= 5) return "" + this.$t('doctorpage.experience') + " " + v + " " + this.$t('doctorpage.exp5')
       if ([2, 3, 4].indexOf(v) >= 0) return "" + this.$t('doctorpage.experience') + " " + v + " " + this.$t('doctorpage.exp2')
       if (v == 1) return "" + this.$t('doctorpage.experience') + " " + v + " " + this.$t('doctorpage.exp1')
     },
-    updCardModal(uid){
+    updCardModal(uid) {
       this.selfInfo = uid;
     },
     docList(cat, date, specs) {
       const options = {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({"txt": cat, "dt": date, "spec": specs})
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({"txt": cat, "dt": date, "spec": specs})
       };
-      fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/doctor/list/`, options).
-      then(response => response.json()).
-      then(data => {
-      this.doc = data;
-      console.log(data);
-      }).
-      catch((error) => { console.log(error); this.results = null; }).
-      finally(() => {
+      fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/doctor/list/`, options).then(response => response.json()).then(data => {
+        this.doc = data;
+        console.log(data);
+      }).catch((error) => {
+        console.log(error);
+        this.results = null;
+      }).finally(() => {
+        this.checkSlider();
         for (let i = 0; i < this.doc.length; i++) {
-          if(this.doc[i].img === null)
+          if (this.doc[i].img === null)
             this.doc[i].img = '/media/uploads/human/defaultAvatar.png';
-          if(this.doc[i].special_img === null || this.doc[i].special_img === undefined)
+          if (this.doc[i].special_img === null || this.doc[i].special_img === undefined)
             this.doc[i].special_img = '/media/uploads/doctorspec/defaultTeeth.svg';
         }
         this.loading = false;
       });
     },
     specList() {
-      fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/doctor/spec/list/`).
-      then(response => response.json()).
-      then(data => {
+      fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/doctor/spec/list/`).then(response => response.json()).then(data => {
         this.category = [];
-        for (let i = 0; i < data.count; i++){
+        for (let i = 0; i < data.count; i++) {
           const buf = data.results[i];
           let img = buf.img;
-          if(img === null)
+          if (img === null)
             img = `${this.$store.state.apihost}media/uploads/doctorspec/defaultTeeth.svg`;
-          this.category.push({ code: buf.code, title: buf.title, img: img, st: false });
+          this.category.push({code: buf.code, title: buf.title, img: img, st: false});
         }
-      }).
-      catch((error) => { console.log(error); this.results = null;}).
-      finally(() => {
+      }).catch((error) => {
+        console.log(error);
+        this.results = null;
+      }).finally(() => {
         this.loading = false;
       });
     },
-    updCat(el){
+    updCat(el) {
       this.category[el].st = !this.category[el].st;
-      for (let i = 0; i < this.category.length; i++){
+      for (let i = 0; i < this.category.length; i++) {
         if (this.category[i].st === false) {
           this.allBtn.st = false;
           break;
         }
-        if(this.category.length - 1 === i && this.category[i].st === true)
+        if (this.category.length - 1 === i && this.category[i].st === true)
           this.allBtn.st = true;
       }
       this.docList("", this.$store.state.Booking.Date, this.vuel);
     },
-    check(e) {
-      console.log(e);
-    }
+    slide() {
+      const acco = document.getElementById("algo");
+      acco.scrollLeft = this.sli.cur;
+    },
+    scroll(e) {
+      const tmp = e.target.scrollLeft;
+      this.sli.cur = tmp;
+    },
+    checkSlider(){
+      const acco = document.getElementById("algo");
+      this.sli.scroll = acco.scrollWidth;
+      this.sli.offset = acco.offsetWidth;
+
+      if (this.sli.scroll === this.sli.offset)
+        this.sli.isShow = false;
+      else
+        this.sli.isShow = true;
+
+      this.sli.max = this.sli.scroll - this.sli.offset;
+    },
   },
-  mounted() {
-    const slider = document.getElementById("slider");
-    const acco = document.getElementsByClassName("algo")[0];
-    console.log(document.getElementsByClassName("algo"));
-    this.sliderLen = acco.scrollWidth + 60;
-    acco.addEventListener('scroll', function() {
-      console.log(acco.scrollLeft + " " + acco.scrollWidth);
-      slider.value = acco.scrollLeft;
-    });
-    slider.oninput = function() {
-      acco.scrollTo(this.value, 0);
-    }
-    this.$watch( "$i18n.locale",
-      (newLocale, oldLocale) => {
-        if (newLocale === oldLocale) {
+  watch: {
+    "$i18n.locale": {
+      handler(newLocale, oldLocale) {
+        if (newLocale === oldLocale)
           return
-        }
         this.locale = newLocale;
         this.docList("", this.$store.state.Booking.Date, this.vuel);
         this.specList();
       },
-      { immediate: true }
-    )
-  },
+      immediate: true
+    },
+    resize: {
+      handler(newLocale, oldLocale) {
+        if (newLocale === oldLocale)
+          return
+        this.checkSlider();
+      },
+      immediate: true
+    },
+  }
 }
 </script>
 
@@ -219,9 +239,9 @@ body.chg-doc
     flex-wrap: wrap
     justify-content: center
     > div
-      height: 32px
+      height: 2rem
       margin: 8px
-      padding: 6px 16px
+      padding: 6px 1rem
       line-height: 1rem
       background: #F3E9D4
       border-radius: 27px
@@ -237,8 +257,8 @@ body.chg-doc
         color: $white
     &::-webkit-scrollbar
       display: none
-  > .algo
-    margin: 40px auto auto
+  > #algo
+    margin: 2.5rem auto auto
     @media (min-width: $minW)
       overflow: auto
       width: 100%
@@ -251,16 +271,19 @@ body.chg-doc
       width: 316px
       height: 452px
       background: $white
-      border-radius: 8px
+      border-radius: .5rem
       border: none
-      margin: 0px 16px
+      margin: 0 1rem
+      //@media (min-width: 678px)
+      //  &:nth-child(even)
+      //    margin-left: 1rem
       @media (min-width: $minW)
         &:first-child
             margin-left: 0px
         &:last-child
             margin-right: 0px
       > .info
-        padding: 16px 24px
+        padding: 1rem 1.5rem
         > .top
           display: flex
           margin-bottom: 16px
@@ -268,15 +291,15 @@ body.chg-doc
             background: $active-link-line
             width: 40px
             height: 40px
-            margin-right: 8px
+            margin-right: .5rem
             border-radius: 4px
-            padding: 8px
+            padding: .5rem
             text-align: center
             vertical-align: middle
             display: inline-block
             > img
-              width: 24px
-              height: 24px
+              width: 1.5rem
+              height: 1.5rem
           > .bk1
             display: inline-block
             vertical-align: middle
@@ -307,7 +330,7 @@ body.chg-doc
           > .clip-review, .clip-icons
             vertical-align: bottom
             font-family: FuturaBookC
-            font-size: 16px
+            font-size: 1rem
             line-height: 21px
             color: $blue_three
             display: inline-flex
@@ -324,30 +347,30 @@ body.chg-doc
       .btn
         position: absolute
         font-family: FuturaBookC
-        font-size: 16px
+        font-size: 1rem
         line-height: 21px
         letter-spacing: 0.08em
         text-transform: uppercase
         color: $white
         background: $active-link-line
-        border-radius: 8px
-        padding: 12px 32px
+        border-radius: .5rem
+        padding: 12px 2rem
         bottom: -20px
         left: 25%
         border: none
   > #slider
     -webkit-appearance: none
     width: 320px
-    height: 8px
+    height: .5rem
     margin: 1rem auto 0
-    border-radius: 8px
+    border-radius: .5rem
     background: #D2E9E5
     outline: none
     &::-webkit-slider-thumb
       -webkit-appearance: none
       appearance: none
       width: 80px
-      height: 8px
+      height: .5rem
       border-radius: 8px
       background: #42E1C5
       cursor: pointer
@@ -360,14 +383,14 @@ body.chg-doc
 @media (max-width: 768px)
   .doc
     width: 100%
-    > .algo
+    > #algo
       max-width: 696px
       display: flex
       flex-wrap: wrap
       align-content: center
-      margin: 32px auto auto
+      margin: 2rem auto auto
       > .card-doc
-        margin: auto auto 52px
+        margin: auto auto 3.25rem
     > #slider
       display: none
 </style>
