@@ -20,7 +20,7 @@
               </div>
               <div class="mc-contact">
                 <div>E-mail</div>
-                <div>tohlwdmsk@gmail.com</div>
+                <div>desk@vhollywood.ru</div>
               </div>
             </div>
             <div class="social-directions">
