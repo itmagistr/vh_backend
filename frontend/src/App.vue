@@ -156,7 +156,7 @@ body
   border-radius: 4px
   color: $header_text
   font-size: 22px
-  margin: 12px 0px
+  margin: 12px 0
 .btn:hover
   box-shadow: 0 0 0 0.2rem #b8882f40
 .logo
@@ -197,9 +197,9 @@ footer
     > .modal-ctm
       max-width: 100%
       min-height: 100%
-      margin: 0px
+      margin: 0
       > .modal-content
-        border-radius: 0px
+        border-radius: 0
 
 @media screen and (min-width: 1200px)
   .container
@@ -208,4 +208,14 @@ footer
 @media screen and (max-width: 1200px)
   .container
     max-width: none
+
+@media screen and (max-width: 768px)
+  body.mainP
+    .container
+      >.d-flex
+        >.d-flex
+          &:first-child, &:last-child
+            display: none!important
+    footer
+      display: flex
 </style>
