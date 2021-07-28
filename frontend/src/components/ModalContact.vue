@@ -73,10 +73,10 @@ export default {
       coords: [55.758266, 37.626502],
       markerIcon: {
         layout: 'default#imageWithContent',
-        imageHref: 'https://image.flaticon.com/icons/png/512/33/33447.png',
+        imageHref: `${this.$store.state.apihostImg}/media/aroundIcon.png`,
         imageSize: [43, 43],
         imageOffset: [0, 0],
-        content: 'Измени меня',
+        // content: 'Измени меня',
         contentOffset: [0, 15],
         // contentLayout: '<div style="background: red; width: 50px; color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
       },
