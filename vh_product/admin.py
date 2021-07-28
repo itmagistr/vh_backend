@@ -8,11 +8,16 @@ from modeltranslation.admin import TranslationAdmin
 # 	model = MedProc
 # 	extra = 0
 
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(TranslationAdmin):
 	model = Product
-	# inlines = [MedProcInline,]
-	readonly_fields = ['uid']
+	readonly_fields=('uid',)
+	list_display = ('code', 'title', 'price', 'price_old',  )
+	list_display_links = ('code', 'title', 'price')
+	search_fields = ('code', 'title', )
+	list_filter = ('price', )
+	ordering = ('code',)
 
-admin.site.register(Product, TranslationAdmin)
+
+admin.site.register(Product, ProductAdmin)
 #from modeltranslation.admin import TranslationAdmin
 #https://django-modeltranslation.readthedocs.io/en/latest/admin.html#tweaks-applied-to-the-admin
