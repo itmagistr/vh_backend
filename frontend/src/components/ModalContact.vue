@@ -41,7 +41,15 @@
             </div>
           </div>
           <div class="modal-footer">
-          <iframe src="https://yandex.ru/map-widget/v1/-/CCUem8FCwC" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe>
+<!--            <iframe src="https://yandex.ru/map-widget/v1/-/CCUem8FCwC" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe>-->
+          <yandex-map :coords="coords" zoom=18>
+                <ymap-marker
+                  marker-id="123"
+                  :coords="coords"
+                  :icon="markerIcon"
+                  :balloon-template="balloonTemplate"
+                />
+            </yandex-map>
             <!--<iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A7a99b0b6bc976ab39bf895d707cb8aa60139b2c512dab621df6fbfb62d999caf&amp;source=constructor" frameborder="0"></iframe>-->
             <button type="button" class="btn btn-ok" data-dismiss="modal" data-toggle="modal" data-target="#mdl-leave-request">{{ $t('modalcontact.feed') }}</button>
           </div>
@@ -51,14 +59,42 @@
 </template>
 
 <script>
+import { yandexMap, ymapMarker } from 'vue-yandex-maps'
+
 export default {
   data(){
     return {
+      settings: {
+        // apiKey: 'CCUem8FCwC',
+        lang: 'ru_RU',
+        coordorder: '55.758266, 37.626502',
+        version: '2.1'
+      },
+      coords: [55.758266, 37.626502],
+      markerIcon: {
+        layout: 'default#imageWithContent',
+        imageHref: 'https://image.flaticon.com/icons/png/512/33/33447.png',
+        imageSize: [43, 43],
+        imageOffset: [0, 0],
+        content: 'Измени меня',
+        contentOffset: [0, 15],
+        // contentLayout: '<div style="background: red; width: 50px; color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
+      },
       results: null,
       address: '',
       type: null,
     }
-  }
+  },
+  computed: {
+    balloonTemplate() {
+      return `
+        <h3>"вГолливуд сУлыбкой"</h3>
+<!--        <p>I am here: ${this.coords}</p>-->
+        <img src="https://vh.v-hollywood.ru/media/virttur/hollywood_dentistry_gal2.jpg">
+      `
+    }
+  },
+  components: { yandexMap, ymapMarker }
 }
 </script>
 
@@ -149,11 +185,21 @@ export default {
                 //background: #42E1C5
   .modal-footer
     padding: 0px
-    > iframe
+    > section.ymap-container
       width: 100%
       height: 271px
       border-radius: 8px
       margin: 8px
+      overflow: hidden
+      .ymaps-2-1-79-balloon
+        border-radius: 1rem
+        > .ymaps-2-1-79-balloon__layout
+          border-radius: 1rem
+          > .ymaps-2-1-79-balloon__content > ymaps
+            height: 200px!important
+            width: 300px!important
+      img
+        height: 150px
     > .btn-ok
       position: absolute
       bottom: -25px

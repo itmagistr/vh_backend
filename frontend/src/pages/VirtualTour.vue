@@ -72,6 +72,7 @@ body.tour
           margin-right: 0
         > img, video
           height: 100%
+          width: auto
           border-radius: .5rem
     .splide
       padding: 0 0 3rem
