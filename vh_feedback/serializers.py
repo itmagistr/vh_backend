@@ -15,6 +15,7 @@ class FBCreateSerializer(serializers.Serializer):
 	phone = serializers.RegexField(regex='\d+', allow_blank=False)
 	email = serializers.EmailField(allow_blank=False)
 	message = serializers.CharField(allow_blank=False)
+	recap = serializers.CharField(max_length=255, allow_blank=True)
 
 
 class FBCallCreateSerializer(serializers.Serializer):
@@ -22,6 +23,7 @@ class FBCallCreateSerializer(serializers.Serializer):
 	phone = serializers.RegexField(regex='\d{11,16}', allow_blank=False)
 	hr = serializers.IntegerField(min_value=6, max_value=23)
 	min = serializers.IntegerField(min_value=0, max_value=59)
+	recap = serializers.CharField(max_length=255, allow_blank=True)
 
 	def get_fields(self):
 		new_fields = collections.OrderedDict()

@@ -20,7 +20,7 @@ class MedProcAdmin(TranslationAdmin):
 	list_display_links = ('code', 'title', 'price')
 	search_fields = ('code', 'title', )
 	list_filter = ('duration', )
-	#ordering = ('code',)
+	ordering = ('code',)
 	inlines = [ProdCategoryInline, ProdEmployeeInline]
 
 admin.site.register(MedProc, MedProcAdmin)
