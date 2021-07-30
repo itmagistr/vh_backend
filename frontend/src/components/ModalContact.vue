@@ -42,13 +42,13 @@
           </div>
           <div class="modal-footer">
 <!--            <iframe src="https://yandex.ru/map-widget/v1/-/CCUem8FCwC" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe>-->
-          <yandex-map :coords="coords" zoom=18>
-                <ymap-marker
-                  marker-id="123"
-                  :coords="coords"
-                  :icon="markerIcon"
-                  :balloon-template="balloonTemplate"
-                />
+            <yandex-map :coords="coords" zoom=18 :settings="settings">
+              <ymap-marker
+                marker-id="123"
+                :coords="coords"
+                :icon="markerIcon"
+                :balloon-template="balloonTemplate"
+              />
             </yandex-map>
             <!--<iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A7a99b0b6bc976ab39bf895d707cb8aa60139b2c512dab621df6fbfb62d999caf&amp;source=constructor" frameborder="0"></iframe>-->
             <button type="button" class="btn btn-ok" data-dismiss="modal" data-toggle="modal" data-target="#mdl-leave-request">{{ $t('modalcontact.feed') }}</button>
@@ -65,10 +65,10 @@ export default {
   data(){
     return {
       settings: {
-        // apiKey: 'CCUem8FCwC',
-        lang: 'ru_RU',
-        coordorder: '55.758266, 37.626502',
-        version: '2.1'
+        lang: this.$i18n.locale,
+        coords: [
+          [55.734876, 37.59308], // Lva Tolstogo street
+        ]
       },
       coords: [55.758266, 37.626502],
       markerIcon: {
@@ -77,13 +77,23 @@ export default {
         imageSize: [43, 43],
         imageOffset: [0, 0],
         // content: 'Измени меня',
-        contentOffset: [0, 15],
+        // contentOffset: [0, 15],
         // contentLayout: '<div style="background: red; width: 50px; color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
       },
       results: null,
       address: '',
       type: null,
     }
+  },
+  watch: {
+    "$i18n.locale": {
+      handler(newLocale, oldLocale) {
+        if (newLocale === oldLocale)
+          return
+        this.settings.lang = newLocale;
+      },
+      immediate: true
+    },
   },
   computed: {
     balloonTemplate() {

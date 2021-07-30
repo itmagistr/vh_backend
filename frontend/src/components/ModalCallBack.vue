@@ -3,7 +3,7 @@
   <div class="modal-dialog modal-ctm modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <div v-if="success" >
+        <div v-if="success">
           <h5 class="modal-title">Ваша заявка отправлена</h5>
           <h6 class="sec-title">Спасибо за обращене, мы ответим вам в ближайшее время</h6>
         </div>
@@ -113,15 +113,20 @@ export default{
     document.getElementById("mdl-call-back").addEventListener("click", this.close);
   },
   methods: {
+    truncate(str, len) {
+      return (str.length > len) ? str.substr(0, len) : str;
+    },
     close(){
       this.success = false;
     },
-    send(){
+    async send() {
+      await this.$recaptchaLoaded();
+      const token = await this.$recaptcha('feedbackCall');
       /*alert(`POST: /feedback/call/${JSON.stringify({"name": this.name, "phone": this.phone, "hr": this.hr, "min": this.min})}`);*/
       const options = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({"name": this.name, "phone": this.phone, "hr": this.hr, "min": this.min})
+        body: JSON.stringify({"name": this.name, "phone": this.phone, "hr": this.hr, "min": this.min, 'recap': this.truncate(token, 255)})
       };
       fetch(`${this.$store.state.apihost}ru/vhapi/feedback/call/`, options).
       then(response => response.json()).

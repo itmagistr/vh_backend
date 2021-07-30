@@ -3,7 +3,11 @@
   <div class="modal-dialog modal-ctm modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <div>
+        <div v-if="success">
+          <h5 class="modal-title">Ваша заявка отправлена</h5>
+          <h6 class="sec-title">Спасибо за обращене, мы ответим вам в ближайшее время</h6>
+        </div>
+        <div v-else>
           <h5 class="modal-title">{{ $t('leaverequest.app') }}</h5>
           <h6 class="sec-title">{{ $t('leaverequest.text') }}</h6>
         </div>
@@ -12,14 +16,20 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="form">
+        <div v-if="success" class="checkmark-circle">
+          <svg class="sucess" viewBox="0 0 130.2 130.2">
+            <polyline class="path check" fill="none" stroke="#42E1C5" stroke-width="20" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+          </svg>
+<!--      <div class="checkmark draw"></div>-->
+        </div>
+        <div v-else class="form">
           <input type="text" class="form-control form-ctm" v-model="name" :placeholder="$t('leaverequest.yourname')">
           <input type="text" class="form-control form-ctm" v-model="phone" :placeholder="$t('leaverequest.phonenumber')">
           <input type="text" class="form-control form-ctm mail" v-model="mail" placeholder="Myname@yandex.ru">
           <textarea class="form-control form-ctm area" v-model="msg" :placeholder="$t('leaverequest.yourmsg')"></textarea>
         </div>
       </div>
-      <div class="modal-footer">
+      <div v-if="!success" class="modal-footer">
          <div>{{ $t('leaverequest.confident') }}</div>
         <button type="button" class="btn btn-ok" @click="send()">{{ $t('leaverequest.send-btn') }}</button>
       </div>
@@ -30,36 +40,49 @@
 
 <script>
 export default{
-    data(){
-        return {
-            name: null,
-            phone: null,
-            mail: null,
-            msg: null,
-            results: null,
-        }
+  data(){
+    return {
+      name: null,
+      phone: null,
+      mail: null,
+      msg: null,
+      results: null,
+      success: false,
+    }
+  },
+  mounted() {
+    document.getElementById("mdl-leave-request").addEventListener("click", this.close);
+  },
+  methods: {
+    truncate(str, len) {
+      return (str.length > len) ? str.substr(0, len) : str;
     },
-    methods: {
-        send(){
-            /*alert(`POST: /feedback/message/${JSON.stringify({"name": this.name, "phone": this.phone, "mail": this.mail, "message": this.msg})}`);*/
-            const options = {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({"name": this.name, "phone": this.phone, "email": this.mail, "message": this.msg})
-            };
-            fetch(`${this.$store.state.apihost}ru/vhapi/feedback/msg/`, options).
-            then(response => response.json()).
-            then(data => {
-            this.results = data;
-            console.log(data);
-            }).
-            catch((error) => { console.log(error); this.results = null;}).
-            finally(() => {
-              this.loading = false;
-              this.results = 200;
-            });
-        },
+    close(){
+      this.success = false;
     },
+    async send(){
+      await this.$recaptchaLoaded();
+      const token = await this.$recaptcha('feedbackMsg');
+      /*alert(`POST: /feedback/message/${JSON.stringify({"name": this.name, "phone": this.phone, "mail": this.mail, "message": this.msg})}`);*/
+      const options = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({"name": this.name, "phone": this.phone, "email": this.mail, "message": this.msg, 'recap': this.truncate(token, 255)})
+      };
+      fetch(`${this.$store.state.apihost}ru/vhapi/feedback/msg/`, options).
+      then(response => response.json()).
+      then(data => {
+      this.results = data;
+      console.log(data);
+      }).
+      catch((error) => { console.log(error); this.results = null;}).
+      finally(() => {
+        this.loading = false;
+        this.results = 200;
+        this.success = true;
+      });
+    },
+  },
 }
 </script>
 

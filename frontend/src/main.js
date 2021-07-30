@@ -6,7 +6,9 @@ import VueMeta from 'vue-meta';
 import VueI18n from 'vue-i18n';
 import VueSplide from '@splidejs/vue-splide';
 import '@splidejs/splide/dist/css/themes/splide-sea-green.min.css';
+import { VueReCaptcha } from 'vue-recaptcha-v3'
 
+Vue.use(VueReCaptcha, { siteKey: '6Ldwx8cbAAAAAKd8-Y96OBm9pISwHFmfx5hEfcfy' })
 Vue.use(require('vue-cookies'));
 Vue.use(VueSplide);
 Vue.use(VueMeta)
@@ -23,5 +25,11 @@ new Vue({
   router,
   store,
   render: h => h(App),
+  async created() {
+    await this.$recaptchaLoaded().then(() => {
+      const recaptcha = this.$recaptchaInstance;
+      recaptcha.hideBadge();
+    });
+  },
 }).$mount('#app')
 
