@@ -21,15 +21,15 @@ export default {
   data() {
     return {
       images: [
-        {src: `https://vh.v-hollywood.ru/media/virttur/hollywood_dentistry_gal2.jpg`},
-        {src: `https://vh.v-hollywood.ru/media/virttur/hollywood_dentistry_gal4.jpg`},
-        {src: `https://vh.v-hollywood.ru/media/virttur/image1.jpeg`},
-        {src: `https://vh.v-hollywood.ru/media/virttur/image0.jpeg`},
-        {src: `https://vh.v-hollywood.ru/media/virttur/image2.jpeg`}],
+        {src: `${this.$store.state.apihostImg}/media/virttur/hollywood_dentistry_gal2.jpg`},
+        {src: `${this.$store.state.apihostImg}/media/virttur/hollywood_dentistry_gal4.jpg`},
+        {src: `${this.$store.state.apihostImg}/media/virttur/image1.jpeg`},
+        {src: `${this.$store.state.apihostImg}/media/virttur/image0.jpeg`},
+        {src: `${this.$store.state.apihostImg}/media/virttur/image2.jpeg`}],
       videos: [
-        {src: `https://vh.v-hollywood.ru/media/virttur/181336916.mp4`},
-        {src: `https://vh.v-hollywood.ru/media/virttur/93671.mp4`},
-        {src: `https://vh.v-hollywood.ru/media/virttur/93672.mp4`}
+        {src: `${this.$store.state.apihostImg}/media/virttur/181336916.mp4`},
+        {src: `${this.$store.state.apihostImg}/media/virttur/93671.mp4`},
+        {src: `${this.$store.state.apihostImg}/media/virttur/93672.mp4`}
       ],
     }
   },

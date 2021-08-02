@@ -42,7 +42,7 @@
           </div>
           <div class="modal-footer">
 <!--            <iframe src="https://yandex.ru/map-widget/v1/-/CCUem8FCwC" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe>-->
-            <yandex-map :coords="coords" zoom=18 :settings="settings">
+            <yandex-map :coords="coords" zoom=17 :settings="settings">
               <ymap-marker
                 marker-id="123"
                 :coords="coords"

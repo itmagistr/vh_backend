@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 	'django.contrib.staticfiles',
 	'drf_yasg',
 	'rest_framework',
+	'rest_framework_recaptcha',
 	'corsheaders',
 	'vh_api',
 	'vh_rating',
@@ -169,7 +170,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_URLS_REGEX = r'^/.*/vhapi/.*$'
-
+DRF_RECAPTCHA_SECRET_KEY ='6Ldwx8cbAAAAAL5b3qaXSoO9im-3Wcr4ArTDa5X-'
 import os
 
 LOGGING = {
