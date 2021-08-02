@@ -133,7 +133,7 @@ export default{
             "phone": this.phone,
             "hr": this.hr,
             "min": this.min,
-            'recap': this.truncate(token, 255)
+            'recap': this.truncate(token, 1024)
           })
         };
         fetch(`${this.$store.state.apihost}ru/vhapi/feedback/call/`, options).then(response => response.json()).then(data => {

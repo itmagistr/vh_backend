@@ -77,7 +77,7 @@ export default{
             "phone": this.phone,
             "email": this.mail,
             "message": this.msg,
-            'recap': this.truncate(token, 255)
+            'recap': this.truncate(token, 1024)
           })
         };
         fetch(`${this.$store.state.apihost}ru/vhapi/feedback/msg/`, options).then(response => response.json()).then(data => {
