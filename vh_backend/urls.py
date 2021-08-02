@@ -27,7 +27,7 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
 	path(_('vhapi/'), include('vh_api.urls')),
-	path(_('admin/'), admin.site.urls),
+	path(_('vhback/'), admin.site.urls),
 )
 
 # This is only needed when using runserver.
