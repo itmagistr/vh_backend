@@ -23,10 +23,14 @@
 <!--      <div class="checkmark draw"></div>-->
         </div>
         <div v-else class="form">
-          <input type="text" class="form-control form-ctm" v-model="name" :placeholder="$t('leaverequest.yourname')">
-          <input type="text" class="form-control form-ctm" v-model="phone" :placeholder="$t('leaverequest.phonenumber')">
-          <input type="text" class="form-control form-ctm mail" v-model="mail" placeholder="Myname@yandex.ru">
-          <textarea class="form-control form-ctm area" v-model="msg" :placeholder="$t('leaverequest.yourmsg')"></textarea>
+          <input type="text" class="form-control form-ctm"
+                 v-model="name" :placeholder="$t('leaverequest.yourname')">
+          <input type="tel" class="form-control form-ctm"
+                 v-model="phone" :placeholder="$t('leaverequest.phonenumber')">
+          <input type="email" class="form-control form-ctm mail"
+                 v-model="mail" placeholder="Myname@yandex.ru" >
+          <textarea class="form-control form-ctm area"
+                    v-model="msg" :placeholder="$t('leaverequest.yourmsg')"></textarea>
         </div>
       </div>
       <div v-if="!success" class="modal-footer">
@@ -63,24 +67,31 @@ export default{
     async send(){
       await this.$recaptchaLoaded();
       const token = await this.$recaptcha('feedbackMsg');
-      /*alert(`POST: /feedback/message/${JSON.stringify({"name": this.name, "phone": this.phone, "mail": this.mail, "message": this.msg})}`);*/
-      const options = {
+
+      if(this.name !== null && this.phone !== null && this.mail !== null && this.msg !== null) {
+        const options = {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({"name": this.name, "phone": this.phone, "email": this.mail, "message": this.msg, 'recap': this.truncate(token, 255)})
-      };
-      fetch(`${this.$store.state.apihost}ru/vhapi/feedback/msg/`, options).
-      then(response => response.json()).
-      then(data => {
-      this.results = data;
-      console.log(data);
-      }).
-      catch((error) => { console.log(error); this.results = null;}).
-      finally(() => {
-        this.loading = false;
-        this.results = 200;
-        this.success = true;
-      });
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            "name": this.name,
+            "phone": this.phone,
+            "email": this.mail,
+            "message": this.msg,
+            'recap': this.truncate(token, 255)
+          })
+        };
+        fetch(`${this.$store.state.apihost}ru/vhapi/feedback/msg/`, options).then(response => response.json()).then(data => {
+          this.results = data;
+          console.log(data);
+        }).catch((error) => {
+          console.log(error);
+          this.results = null;
+        }).finally(() => {
+          this.loading = false;
+          console.log(this.results);
+          this.success = true;
+        });
+      }
     },
   },
 }
