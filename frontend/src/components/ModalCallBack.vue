@@ -23,8 +23,10 @@
 <!--      <div class="checkmark draw"></div>-->
         </div>
         <div v-else class="form">
-          <input type="text" class="form-control form-ctm" v-model="name" :placeholder="$t('callback.yourname')">
-          <input type="text" class="form-control form-ctm" v-model="phone" :placeholder="$t('callback.phonenumber')">
+          <input type="text" class="form-control form-ctm"
+                 v-model="name" :placeholder="$t('callback.yourname')">
+          <input type="phone" class="form-control form-ctm"
+                 v-model="phone" :placeholder="$t('callback.phonenumber')">
           <h6>{{ $t('callback.time') }}</h6>
           <div class="sel-schedule">
             <div class="btn-chg-group">
@@ -122,23 +124,29 @@ export default{
     async send() {
       await this.$recaptchaLoaded();
       const token = await this.$recaptcha('feedbackCall');
-      /*alert(`POST: /feedback/call/${JSON.stringify({"name": this.name, "phone": this.phone, "hr": this.hr, "min": this.min})}`);*/
-      const options = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({"name": this.name, "phone": this.phone, "hr": this.hr, "min": this.min, 'recap': this.truncate(token, 255)})
-      };
-      fetch(`${this.$store.state.apihost}ru/vhapi/feedback/call/`, options).
-      then(response => response.json()).
-      then(data => {
-      this.results = data;
-      console.log(data);
-      }).
-      catch((error) => { console.log(error); this.results = null;}).
-      finally(() => {
-        this.loading = false;
-        this.success = true;
-      });
+      if(this.name !== null && this.phone !== null && this.phone.length >= 10 && this.hr !== null && this.min !== null) {
+        const options = {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            "name": this.name,
+            "phone": this.phone,
+            "hr": this.hr,
+            "min": this.min,
+            'recap': this.truncate(token, 255)
+          })
+        };
+        fetch(`${this.$store.state.apihost}ru/vhapi/feedback/call/`, options).then(response => response.json()).then(data => {
+          this.results = data;
+          console.log(data);
+        }).catch((error) => {
+          console.log(error);
+          this.results = null;
+        }).finally(() => {
+          this.loading = false;
+          this.success = true;
+        });
+      }
     },
     hrMinFun(str){
       switch(str){
