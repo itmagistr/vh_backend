@@ -115,7 +115,6 @@ export default {
         then(response => response.json()).
         then(data => {
         this.category = data.results;
-        console.log(data.results);
         }).
         catch((error) => { console.log(error); this.results = null;}).
         finally(() => {
@@ -141,7 +140,6 @@ export default {
           this.results = data;
           if(!this.resize && this.results.length > 0)
             this.prselect = this.results[0].uid;
-          console.log(data);
         }).
         catch((error) => { console.log(error); this.results = null;}).
         finally(() => {

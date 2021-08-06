@@ -49,13 +49,14 @@
 
 <script>
 export default {
+  // name: 'Field',
   props: {
     info: String,
     resize: Boolean,
   },
   data(){
     return {
-      self: '',
+      selfProcUid: null,
       doc: {
         count: 0,
         results: [],
@@ -76,9 +77,11 @@ export default {
       handler(newLocale, oldLocale) {
         if (newLocale === oldLocale)
           return;
-        this.getMoreInfo(this.self);
-        this.getMedProcDoctors(this.self);
         this.locale = newLocale;
+        if (this.selfProcUid) {
+          this.getMoreInfo();
+          this.getMedProcDoctors();
+        }
       },
       immediate: true,
     },
@@ -87,9 +90,9 @@ export default {
         if (newLocale === oldLocale)
           return;
         if(newLocale !== null) {
-          this.self = newLocale;
-          this.getMoreInfo(this.self);
-          this.getMedProcDoctors(this.self);
+          this.selfProcUid = newLocale;
+          this.getMoreInfo();
+          this.getMedProcDoctors();
         }
       },
       immediate: true,
@@ -103,7 +106,7 @@ export default {
       this.$store.commit("updProc", this.prselect);
       this.$store.commit("updPrice", this.price);
     },
-    docUID(){
+    docUID() {
       fetch(`${this.$store.state.apihost}${this.locale}/vhapi/doctor/`)
       .then(stream => stream.json())
       .then(response => {
@@ -116,8 +119,8 @@ export default {
           this.doc.results[0].img = `${this.$store.state.apihost}media/uploads/human/defaultAvatar.png`;
       });
     },
-    getMedProcDoctors(procUID) {
-      fetch(`${this.$store.state.apihost}${this.locale}/vhapi/medproc/${procUID}/doctors/`).
+    getMedProcDoctors() {
+      fetch(`${this.$store.state.apihost}${this.locale}/vhapi/medproc/${this.selfProcUid}/doctors/`).
       then(response => response.json()).
       then(data => {
         this.doc.count = data.count;
@@ -131,8 +134,8 @@ export default {
         this.loading = false;
       });
     },
-    getMoreInfo(procUID) {
-      fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/medproc/${procUID}/`).
+    getMoreInfo() {
+      fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/medproc/${this.selfProcUid}/`).
       then(response => response.json()).
       then(data => {
         this.results = data;
