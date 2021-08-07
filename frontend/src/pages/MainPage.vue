@@ -6,10 +6,10 @@
                     <img src="/img/calendary.svg"/>
                     <span>{{day}}</span>
                 </div>
-                <div class="cl-month">{{months[month]}}</div>
+                <div class="cl-month">{{$t(`months.m${month}`)}}</div>
             </div>
             <router-link tag="button" class="btn" data-toggle="modal"
-                    data-dismiss="modal" data-target="#mdl-future-ok" to="#">Выбрать дату посещения</router-link>
+                    data-dismiss="modal" data-target="#mdl-future-ok" to="#">{{ $t('bookingpage.calendar') }}</router-link>
         </div>
     </div>
 </template>
@@ -20,7 +20,6 @@ export default {
       return {
         day: new Date().getDate(),
         month: new Date().getMonth(),
-        months: ['Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'],
         }
     }
 };
