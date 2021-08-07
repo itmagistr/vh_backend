@@ -123,22 +123,19 @@ export default {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({"txt": cat, "dt": date, "spec": specs})
       };
-      fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/doctor/list/`, options).then(response => response.json()).then(data => {
-        this.doc = data;
-        console.log(data);
-      }).catch((error) => {
-        console.log(error);
-        this.results = null;
-      }).finally(() => {
-        this.checkSlider();
-        for (let i = 0; i < this.doc.length; i++) {
-          if (this.doc[i].img === null)
-            this.doc[i].img = '/media/uploads/human/defaultAvatar.png';
-          if (this.doc[i].special_img === null || this.doc[i].special_img === undefined)
-            this.doc[i].special_img = '/media/uploads/doctorspec/defaultTeeth.svg';
-        }
-        this.loading = false;
-      });
+      fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/doctor/list/`, options)
+          .then(response => response.json()).then(data => { this.doc = data; })
+          .catch((error) => { console.log(error); this.results = null; })
+          .finally(() => {
+            this.checkSlider();
+            for (let i = 0; i < this.doc.length; i++) {
+              if (this.doc[i].img === null)
+                this.doc[i].img = '/media/uploads/human/defaultAvatar.png';
+              if (this.doc[i].special_img === null || this.doc[i].special_img === undefined)
+                this.doc[i].special_img = '/media/uploads/doctorspec/defaultTeeth.svg';
+            }
+            this.loading = false;
+          });
     },
     specList() {
       fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/doctor/spec/list/`).then(response => response.json()).then(data => {

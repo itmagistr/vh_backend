@@ -23,10 +23,10 @@
 <!--      <div class="checkmark draw"></div>-->
         </div>
         <div v-else class="form">
-          <input type="text" class="form-control form-ctm"
-                 v-model="name" :placeholder="$t('callback.yourname')">
-          <input type="phone" class="form-control form-ctm"
-                 v-model="phone" :placeholder="$t('callback.phonenumber')">
+          <input type="text" class="form-control form-ctm" :class="{error: errorField.name}"
+                 v-model="name" @keyup="checkForm('name')" :placeholder="$t('callback.yourname')">
+          <input type="phone" class="form-control form-ctm" :class="{error: errorField.phone}"
+                 v-model="phone" @keyup="checkForm('phone')" :placeholder="$t('callback.phonenumber')">
           <h6>{{ $t('callback.time') }}</h6>
           <div class="sel-schedule">
             <div class="btn-chg-group">
@@ -101,6 +101,10 @@ export default{
       phone: null,
       hr: null,
       min: null,
+      errorField: {
+        name: false,
+        phone: false,
+      },
       results: null,
       success: false,
     }
@@ -115,6 +119,17 @@ export default{
     document.getElementById("mdl-call-back").addEventListener("click", this.close);
   },
   methods: {
+    checkForm(br) {
+      switch (br) {
+        case 'name': this.errorField.name = this.name === null ||  this.name === ''; break;
+        case 'phone': this.errorField.phone = this.phone === null ||  this.phone === '' || this.phone.length < 10; break;
+        case 'all':
+          this.errorField.name = this.name === null ||  this.name === '';
+          this.errorField.phone = this.phone === null ||  this.phone === '' || this.phone.length < 10;
+          break;
+        default: console.log(br); break;
+      }
+    },
     truncate(str, len) {
       return (str.length > len) ? str.substr(0, len) : str;
     },
@@ -124,7 +139,8 @@ export default{
     async send() {
       await this.$recaptchaLoaded();
       const token = await this.$recaptcha('feedbackCall');
-      if(this.name !== null && this.phone !== null && this.phone.length >= 10 && this.hr !== null && this.min !== null) {
+      if(this.name !== '' && this.phone !== '' && this.name !== null && this.phone !== null &&
+          this.phone.length >= 10 && this.hr !== null && this.min !== null) {
         const options = {
           method: "POST",
           headers: {"Content-Type": "application/json"},
@@ -144,8 +160,11 @@ export default{
           this.results = null;
         }).finally(() => {
           this.loading = false;
+          this.checkForm();
           this.success = true;
         });
+      } else {
+        this.checkForm('all');
       }
     },
     hrMinFun(str){
@@ -212,6 +231,11 @@ export default{
             &.form-ctm
               &:first-child
                 margin-bottom: 8px
+            &.error
+              box-shadow: 0 0 12px 0 #FF00007F
+              color: #FF0000
+              &::placeholder
+                color: #FF0000
             &::placeholder
               font-family: FuturaBookC
               font-size: 1rem

@@ -23,14 +23,14 @@
 <!--      <div class="checkmark draw"></div>-->
         </div>
         <div v-else class="form">
-          <input type="text" class="form-control form-ctm"
-                 v-model="name" :placeholder="$t('leaverequest.yourname')">
-          <input type="tel" class="form-control form-ctm"
-                 v-model="phone" :placeholder="$t('leaverequest.phonenumber')">
-          <input type="email" class="form-control form-ctm mail"
-                 v-model="mail" placeholder="Myname@yandex.ru" >
-          <textarea class="form-control form-ctm area"
-                    v-model="msg" :placeholder="$t('leaverequest.yourmsg')"></textarea>
+          <input type="text" class="form-control" :class="{error: errorField.name}"
+                 v-model="name" @keyup="checkForm('name')" :placeholder="$t('leaverequest.yourname')">
+          <input type="tel" class="form-control" :class="{error: errorField.phone}"
+                 v-model="phone" @keyup="checkForm('phone')" :placeholder="$t('leaverequest.phonenumber')">
+          <input type="email" class="form-control mail" :class="{error: errorField.mail}"
+                 v-model="mail" @keyup="checkForm('mail')" placeholder="Myname@yandex.ru" >
+          <textarea class="form-control area" :class="{error: errorField.msg}"
+                    v-model="msg" @keyup="checkForm('msg')" :placeholder="$t('leaverequest.yourmsg')"></textarea>
         </div>
       </div>
       <div v-if="!success" class="modal-footer">
@@ -50,6 +50,12 @@ export default{
       phone: null,
       mail: null,
       msg: null,
+      errorField: {
+        name: false,
+        phone: false,
+        mail: false,
+        msg: false,
+      },
       results: null,
       success: false,
     }
@@ -57,7 +63,38 @@ export default{
   mounted() {
     document.getElementById("mdl-leave-request").addEventListener("click", this.close);
   },
+  computed: {
+    compCheckForm() {
+      if (this.name === null)
+        return false;
+      else
+        return true;
+    }
+  },
   methods: {
+    checkForm(br) {
+      switch (br) {
+        case 'name':
+          this.errorField.name = this.name === null || this.name === '';
+          break;
+        case 'phone':
+          this.errorField.phone = this.phone === null || this.phone === '' || this.phone.length < 10;
+          break;
+        case 'mail':
+          this.errorField.mail = this.mail === null || this.mail === '';
+          break;
+        case 'msg':
+          this.errorField.msg = this.msg === null || this.msg === '';
+          break;
+        case 'all':
+          this.errorField.name = this.name === null || this.name === '';
+          this.errorField.phone = this.phone === null || this.phone === '' || this.phone.length < 10;
+          this.errorField.mail = this.mail === null || this.mail === '';
+          this.errorField.msg = this.msg === null || this.msg === '';
+          break;
+        default: console.log(br); break;
+      }
+    },
     truncate(str, len) {
       return (str.length > len) ? str.substr(0, len) : str;
     },
@@ -68,7 +105,8 @@ export default{
       await this.$recaptchaLoaded();
       const token = await this.$recaptcha('feedbackMsg');
 
-      if(this.name !== null && this.phone !== null && this.mail !== null && this.msg !== null) {
+      if(this.name !== null && this.phone !== null && this.mail !== null && this.msg !== null &&
+          this.name !== '' && this.phone !== '' && this.mail !== '' && this.msg !== '' && this.phone.length >= 10) {
         const options = {
           method: "POST",
           headers: {"Content-Type": "application/json"},
@@ -80,7 +118,8 @@ export default{
             'recap': this.truncate(token, 1024)
           })
         };
-        fetch(`${this.$store.state.apihost}ru/vhapi/feedback/msg/`, options).then(response => response.json()).then(data => {
+        fetch(`${this.$store.state.apihost}ru/vhapi/feedback/msg/`, options)
+        .then(response => response.json()).then(data => {
           this.results = data;
           console.log(data);
         }).catch((error) => {
@@ -91,6 +130,8 @@ export default{
           console.log(this.results);
           this.success = true;
         });
+      } else {
+        this.checkForm('all');
       }
     },
   },
@@ -144,17 +185,20 @@ export default{
         height: 3rem
         border-radius: 0.5rem
         border: none
-        box-shadow: 0px 4px 12px 0px rgba(218,172,84,0.08)
-        &.form-ctm
-          margin-bottom: 8px
-          &.mail
+        box-shadow: 0 4px 12px 0 rgba(218,172,84,0.08)
+        margin-bottom: 8px
+        &.mail
+          color: #42E1C5
+          &::placeholder
             color: #42E1C5
-            &::placeholder
-              color: #42E1C5
-          &.area
-            height: 96px
-          &:last-child
-            margin-bottom: 0px
+        &.area
+          height: 96px
+          margin-bottom: 0
+        &.error
+          box-shadow: 0 0 12px 0 #FF00007F
+          color: #FF0000
+          &::placeholder
+            color: #FF0000
         &::placeholder
           font-family: FuturaBookC
           font-size: 1rem

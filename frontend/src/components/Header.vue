@@ -5,27 +5,37 @@
         <ul class="navbar-nav hract">
           <li class="nav-item" :id="[$route.name === 'service' ? 'active' : '']">
             <hr>
-            <router-link class="nav-link" :to="{name: 'service'}">{{ $t('menu.services') }}</router-link>
+            <router-link to="/service" custom v-slot="{ navigate }">
+              <a @click="navigate" class="nav-link" @keypress.enter="navigate">{{ $t('menu.services') }}</a>
+            </router-link>
             <hr>
           </li>
           <li class="nav-item" :id="[$route.name === 'booking' ? 'active' : '']">
             <hr>
-            <router-link class="nav-link active" data-toggle="modal" data-target="#mdl-future-ok" to="#">{{ $t('menu.booking') }}</router-link>
+            <router-link to="#" custom v-slot="{ navigate }">
+              <a @click="navigate" class="nav-link" @keypress.enter="navigate" data-toggle="modal" data-target="#mdl-future-ok">{{ $t('menu.booking') }}</a>
+            </router-link>
             <hr>
           </li>
           <li class="nav-item" :id="[$route.name === 'doctors' ? 'active' : '']">
             <hr>
-            <router-link class="nav-link" :to="{name: 'doctors'}">{{ $t('menu.doctors') }}</router-link>
+            <router-link to="/doctors" custom v-slot="{ navigate }">
+              <a @click="navigate" class="nav-link" @keypress.enter="navigate">{{ $t('menu.doctors') }}</a>
+            </router-link>
             <hr>
           </li>
           <li class="nav-item" :id="[$route.name === 'virtualtour' ? 'active' : '']">
             <hr>
-            <router-link class="nav-link" data-name="тур" :to="{name: 'virtualtour'}">{{ $t('menu.virtual_tour') }}</router-link>
+            <router-link to="/virtual_tour" custom v-slot="{ navigate }">
+              <a @click="navigate" class="nav-link" @keypress.enter="navigate">{{ $t('menu.virtual_tour') }}</a>
+            </router-link>
             <hr>
           </li>
           <li class="nav-item" :id="[$route.name === 'documents' ? 'active' : '']">
             <hr>
-            <router-link class="nav-link" :to="{name: 'documents'}" data-name="докум">{{ $t('menu.documentation') }}</router-link>
+            <router-link to="/documents" custom v-slot="{ navigate }">
+              <a @click="navigate" class="nav-link" @keypress.enter="navigate">{{ $t('menu.documentation') }}</a>
+            </router-link>
             <hr>
           </li>
           <li class="nav-item">
@@ -34,7 +44,11 @@
             <hr>
           </li>
         </ul>
-        <ul class="navbar-nav"><router-link :to="{name: 'main'}"><img class="logo" src="/img/logo-sm.svg"/></router-link></ul>
+        <ul class="navbar-nav">
+          <router-link to="/" custom v-slot="{ navigate }">
+            <img @click="navigate" @keypress.enter="navigate" class="logo" src="/img/logo-sm.svg"/>
+          </router-link>
+        </ul>
         <ul class="navbar-nav rightM">
           <li class="nav-item">
             <div class="input-group">
@@ -53,7 +67,9 @@
             </div>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="#"><h6 id="profile_field">{{ $t('menu.profile')}} </h6> <i class="fas fa-user"></i></router-link>
+            <router-link to="#" custom v-slot="{ navigate }">
+              <a @click="navigate" class="nav-link" @keypress.enter="navigate">{{ $t('menu.profile') }} <i class="fas fa-user"></i></a>
+            </router-link>
           </li>
           <li class="nav-item">
             <span class="number">{{ $t('menu.phone_num')}}</span>
@@ -66,7 +82,9 @@
       <button class="navbar-toggler" type="button" data-toggle="modal" data-target="#mdlm-menu">
         <i class="fas fa-bars"></i>
       </button>
-      <router-link :to="{name: 'main'}"><img class="mobile logo" src="/img/logo-sm.svg"/></router-link>
+      <router-link to="/" custom v-slot="{ navigate }">
+        <img @click="navigate" @keypress.enter="navigate" class="mobile logo" src="/img/logo-sm.svg"/>
+      </router-link>
       <label class="seaF" for="searchfField" :class="{active: isActive}">
 <!--    <input @blur="handleBlur" @focus="handleFocus" id="searchfField" type="text" v-model="q"
         data-toggle="modal" data-target="#mdl-future-ok"/>-->
@@ -174,9 +192,8 @@ header
     > div
       justify-content: space-between
       > ul
-        > a
-          > img.logo
-            width: 250px
+        > img.logo
+          width: 250px
         > li
           > a
             &#nDML

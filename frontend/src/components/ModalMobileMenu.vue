@@ -16,26 +16,38 @@
                 </div>
               </li>
               <li>
-                <router-link to="#">{{ $t('menu.profile')}} <i class="fas fa-user"></i></router-link>
+                <router-link to="#" custom v-slot="{ navigate }">
+                  <a @click="navigate" class="nav-link" @keypress.enter="navigate">{{ $t('menu.profile') }} <i class="fas fa-user"></i></a>
+                </router-link>
               </li>
             </ul>
           </div>
           <div class="modal-body">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item" :id="[$route.name === 'service' ? 'active' : '']">
-                <router-link class="nav-link" data-dismiss="modal" :to="{name: 'service'}">{{ $t('menu.services') }}</router-link>
+                <router-link to="/service" custom v-slot="{ navigate }">
+                  <a @click="navigate" class="nav-link" data-dismiss="modal" @keypress.enter="navigate">{{ $t('menu.services') }}</a>
+                </router-link>
               </li>
               <li class="nav-item" :id="[$route.name === 'booking' ? 'active' : '']">
-                <router-link class="nav-link active" data-toggle="modal" data-dismiss="modal" data-target="#mdl-future-ok" to="#">{{ $t('menu.booking') }}</router-link>
+                <router-link to="#" custom v-slot="{ navigate }">
+                  <a @click="navigate" class="nav-link" data-toggle="modal" data-dismiss="modal" data-target="#mdl-future-ok" @keypress.enter="navigate">{{ $t('menu.booking') }}</a>
+                </router-link>
               </li>
               <li class="nav-item" :id="[$route.name === 'doctors' ? 'active' : '']">
-                <router-link class="nav-link" data-dismiss="modal" :to="{name: 'doctors'}">{{ $t('menu.doctors') }}</router-link>
+                <router-link to="/doctors" custom v-slot="{ navigate }">
+                  <a @click="navigate" class="nav-link" data-dismiss="modal" @keypress.enter="navigate">{{ $t('menu.doctors') }}</a>
+                </router-link>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link" data-dismiss="modal" :to="{name: 'virtualtour'}">{{ $t('menu.virtual_tour') }}</router-link>
+                <router-link to="/virtual_tour" custom v-slot="{ navigate }">
+                  <a @click="navigate" class="nav-link" data-dismiss="modal" @keypress.enter="navigate">{{ $t('menu.virtual_tour') }}</a>
+                </router-link>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link" data-dismiss="modal" :to="{name: 'documents'}">{{ $t('menu.documentation') }}</router-link>
+                <router-link to="/documents" custom v-slot="{ navigate }">
+                  <a @click="navigate" class="nav-link" data-dismiss="modal" @keypress.enter="navigate">{{ $t('menu.documentation') }}</a>
+                </router-link>
               </li>
               <li class="nav-item">
                 <a class="nav-link" data-toggle="modal" data-dismiss="modal" data-target="#mdl-contacts">{{ $t('menu.contacts') }}</a>
@@ -47,7 +59,9 @@
               <a class="nav-link" href="#">{{ $t('menu.phone_num') }}</a>
               <a class="nav-link" href="#" data-toggle="modal" data-dismiss="modal" data-target="#mdl-call-back">{{ $t('menu.callback_lnk')}}</a>
             </div>
-            <router-link :to="{name: 'main'}"><img class="logo" data-dismiss="modal" src="/img/logo_light.svg"/></router-link>
+            <router-link to="/" custom v-slot="{ navigate }">
+              <img @click="navigate" @keypress.enter="navigate" class="logo" data-dismiss="modal" src="/img/logo_light.svg"/>
+            </router-link>
           </div>
         </div>
       </div>

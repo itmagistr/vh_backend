@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="proto2">
-      <div v-for="slide in slides" :key="slide.src">
+      <div v-for="(slide, ind) in slides" :key="ind">
         <img :src="slide.src"  @click="imgShow(slide.src)" data-toggle="modal" data-target="#mdl-image">
       </div>
     </div>
@@ -29,7 +29,10 @@ export default {
       slides: [
         {src: `${this.$store.state.apihostImg}/media/uploads/documents/doc1.jpg`},
         {src: `${this.$store.state.apihostImg}/media/uploads/documents/doc2.jpg`},
-        {src: `${this.$store.state.apihostImg}/media/uploads/documents/doc3.jpg`}
+        {src: `${this.$store.state.apihostImg}/media/uploads/documents/doc3.jpg`},
+        {src: `${this.$store.state.apihostImg}/media/uploads/documents/doc1.png`},
+        {src: `${this.$store.state.apihostImg}/media/uploads/documents/doc2.png`},
+        {src: `${this.$store.state.apihostImg}/media/uploads/documents/doc3.png`}
       ],
     }
   },
