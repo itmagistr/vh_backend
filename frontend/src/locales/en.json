@@ -51,7 +51,8 @@
   "bookingpage": {
 	"booking": "Appointment",
 	"price": "Service cost:",
-	"btn": "Sign up"
+	"btn": "Sign up",
+	"calendar": "Date of visit"
   },
   "notfoundpage": {
 	"header": "Page not found"
@@ -131,5 +132,19 @@
 	"salon": " ",
 	"opens": "Grand opening",
 	"dateopen": "at May 17 2021"
+  },
+  "months": {
+	"m0": "Jan",
+	"m1": "Feb",
+	"m2": "Mar",
+	"m3": "Apr",
+	"m4": "May",
+	"m5": "Jun",
+	"m6": "Jul",
+	"m7": "Aug",
+	"m8": "Sen",
+	"m9": "Okt",
+	"m10": "Nov",
+	"m11": "Dec"
   }
 }
