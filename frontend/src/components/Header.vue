@@ -51,12 +51,19 @@
         </ul>
         <ul class="navbar-nav rightM">
           <li class="nav-item">
-            <div class="input-group">
-              <input v-model='q' type="text" class="form-control" :placeholder="$t('menu.search_ph')" aria-describedby="ba2">
-              <div class="input-group-append">
-                <button class="btn" type="button" id="ba2" data-toggle="modal" data-target="#mdl-future-ok"><i class="fas fa-search"></i></button>
+            <div class="search-field" :class="{active: isActive}">
+              <input v-model='q' type="text" class="form-control"
+                     :placeholder="$t('menu.search_ph')" @keyup.enter="search">
+              <button @click="clear" v-show="q.length !== 0 && isActive" class="btn close-search-btn">
+                <i class="bi bi-x"></i>
+              </button>
+              <button class="btn search-btn" type="button" @click="search">
+                <i class="fas fa-search"></i>
+              </button>
+              <div class="search-result" v-show="isActive">
+                <div class="result" v-for="(n, idx) in res" :key="n.uid" @click="underground(idx)">{{n.title}}</div>
               </div>
-          </div>
+            </div>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="nDML" role="button" data-toggle="dropdown"
@@ -85,10 +92,17 @@
       <router-link to="/" custom v-slot="{ navigate }">
         <img @click="navigate" @keypress.enter="navigate" class="mobile logo" src="/img/logo-sm.svg"/>
       </router-link>
-      <label class="seaF" for="searchfField" :class="{active: isActive}">
-<!--    <input @blur="handleBlur" @focus="handleFocus" id="searchfField" type="text" v-model="q"
-        data-toggle="modal" data-target="#mdl-future-ok"/>-->
-        <input @blur="handleBlur" @focus="handleFocus" id="searchfField" type="text" v-model="q" @keyup="search"/>
+      <label class="seaF" for="searchfField" :class="{active: isActiveSearch, act: isActive}">
+        <button class="btn search-btn" type="button" @click="search">
+          <i class="fas fa-search"></i>
+        </button>
+        <input @blur="handleBlur" @focus="handleFocus" id="searchfField" type="text" v-model="q" @keyup.enter="search"/>
+        <div class="search-result-mobile" v-show="isActive">
+          <div class="result" v-for="(n, idx) in res" :key="n.uid" @click="underground(idx)">{{n.title}}</div>
+        </div>
+        <button @click="clear" v-show="q.length !== 0 && isActiveSearch" class="btn close-search-btn">
+          <i class="bi bi-x"></i>
+        </button>
       </label>
     </nav>
   </header>
@@ -102,6 +116,7 @@ export default {
       locale: this.$i18n.locale,
       q: '',
       isActive: false,
+      isActiveSearch: false,
       res: [],
     }
   },
@@ -114,12 +129,21 @@ export default {
     }
   },
   methods: {
+    clear(){
+      this.res = [];
+      this.q = '';
+      this.isActive = this.res.length !== 0;
+      this.isActiveSearch = this.q.length !== 0;
+    },
+    underground(e) {
+      console.log(this.res[e]);
+    },
     handleFocus() {
-      this.isActive = true;
+      this.isActiveSearch = true;
     },
     handleBlur() {
       if(this.q.length === 0)
-        this.isActive = false;
+        this.isActiveSearch = false;
     },
     chLang(locale) {
       this.locale = locale;
@@ -128,9 +152,9 @@ export default {
     },
     search() {
       return new Promise(() => {
-        // if (this.q.length < 3) {
-        //   return resolve([]);
-        // }
+        if (this.q.length < 3) {
+          return [];
+        }
 
         const options = {
           method: "POST",
@@ -146,6 +170,7 @@ export default {
         finally(() => {
           console.log(this.res)
           this.loading = false;
+          this.isActive = this.res.length !== 0;
         });
         return false;
       });
@@ -215,6 +240,53 @@ header
               display: inline-flex
         &.rightM
           align-items: center
+          .search-field
+            position: relative
+            display: flex
+            align-items: center
+            input
+              width: 210px
+              padding-right: 3.25rem
+            .close-search-btn
+              position: absolute
+              border: none
+              right: 36px
+              padding: .25rem 0
+              font-size: 1.25rem
+              z-index: 10
+              color: $header_text
+              &:hover
+                box-shadow: none
+            .search-btn
+              position: absolute
+              border: none
+              right: 0
+              font-size: 1.25rem
+              z-index: 10
+              padding: .375rem .5rem
+              > i
+                transform: scaleX(-1)
+                color: $header_text
+              &:hover
+                box-shadow: none
+            &.active
+              > input
+                border-radius: .5rem .5rem 0 0
+              button
+                border-radius: 0 .5rem 0 0
+            > .search-result
+              width: 210px
+              height: 100px
+              position: absolute
+              background: #FEFDFB
+              top: 38px
+              border-radius: 0 0 .5rem .5rem
+              overflow: auto
+              > .result
+                overflow: hidden
+                white-space: nowrap
+                text-overflow: ellipsis
+                padding: .375rem .75rem
         &.hract
           text-transform: uppercase
           height: $heightHeader
@@ -242,6 +314,7 @@ header
     background: $white
 
   .seaF
+    display: flex
     height: 2rem
     width: 2rem
     transition: all 200ms ease
@@ -255,23 +328,48 @@ header
       background: $white
       box-shadow: 0 0 0 0.2rem rgba(184,136,47,.25)
       &:after
-        height: 0px
+        height: 0
+    &.act
+      border-radius: .5rem .5rem 0 0
+    .close-search-btn
+      padding: .25rem 0
+      font-size: 1.25rem
+      z-index: 10
+      color: $header_text
+      &:hover
+        box-shadow: none
+    .search-btn
+      font-size: 1.25rem
+      z-index: 10
+      padding: .375rem .5rem
+      > i
+        transform: scaleX(-1)
+        color: $header_text
+      &:hover
+        box-shadow: none
     input
-      background-color: transparent
-      background: url('/img/search.svg') no-repeat scroll 5px 5px
-      padding-left: 2rem
       height: 2rem
       width: 100%
+      background: transparent
       border: none
       box-sizing: border-box
       font-family: Helvetica
       font-size: 1rem
       color: inherit
-      outline-width: 0px
-      &.active, &:hover
-        border: none
-        box-shadow: none
-
+      outline-width: 0
+    > .search-result-mobile
+      width: 200px
+      height: 100px
+      position: absolute
+      background: #FEFDFB
+      top: 3rem
+      border-radius: 0 0 .5rem .5rem
+      overflow: auto
+      > .result
+        overflow: hidden
+        white-space: nowrap
+        text-overflow: ellipsis
+        padding: .375rem .75rem
 .btn-outline
   &:hover
     color: $header_text
@@ -287,12 +385,6 @@ header
   &:focus, &:hover
     outline: 0
     box-shadow: 0 0 0 0.2rem rgba(184,136,47,.25)
-    color: $header_text
-
-#ba2
-  background: #FFF
-  > i
-    transform: scaleX(-1)
     color: $header_text
 
 @media (max-width: 1399px)
