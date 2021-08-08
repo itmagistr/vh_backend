@@ -42,7 +42,7 @@ class MedProcAdmin(TranslationAdmin):
 							procat["PRE_BOOKING"], procat["ORTHO"], procat["SURGEON"], procat["THERAPY"], procat["WHITE"], procat["PROSTHET"], procat["IMPLANT"]])
 		f.seek(0)
 		response = HttpResponse(f, content_type='text/csv')
-		response['Content-Disposition'] = 'attachment; filename=eventorders_%s.csv' % datetime.date.today().strftime('%Y%m%d')
+		response['Content-Disposition'] = 'attachment; filename=medprocs_%s.csv' % datetime.date.today().strftime('%Y%m%d')
 		return response
 	export_medprocs.short_description = "Export Medprocs"
 admin.site.register(MedProc, MedProcAdmin)

@@ -8,6 +8,8 @@ from django.utils import translation
 from .serializers import *
 from vh_medproc.serializers import *
 from vh_product.models import *
+from vh_category.models import Category
+from vh_category.serializers import *
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 import random
@@ -104,17 +106,18 @@ class SpecListView(generics.ListAPIView):
 	'''
 	Получить список специализаций врачей
 	'''
-	serializer_class = SpecialCodeEnSerializer
+	serializer_class = CategoryDocSpecEnSerializer #SpecialCodeEnSerializer
 	def get_serializer_class(self):
 		#logger.info(translation.get_language())
 
 		if 'ru' in translation.get_language():
 			# using 'in' because it can be set to something like 'es-ES; es'
-			return SpecialCodeRuSerializer
-		return SpecialCodeEnSerializer
+			return CategoryDocSpecRuSerializer #SpecialCodeRuSerializer
+		return CategoryDocSpecEnSerializer #SpecialCodeEnSerializer
 		
 	def get_queryset(self):
-		return Special.objects.all()
+		#return Special.objects.all()
+		return Category.objects.filter(parent__code__exact='DOCSPEC')
 	
 
 class DocWorkResView(generics.ListAPIView):
