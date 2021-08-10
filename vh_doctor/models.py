@@ -1,5 +1,6 @@
 from django.db import models
 from vh_employee.models import Employee
+from vh_category.models import Category
 from vh_medproc.models import MedProc
 from vh_rating.models import Rating
 from vh_doctor.settings import UPLOAD_TO
@@ -94,3 +95,12 @@ class DocWorkRes(models.Model):
 	def __str__(self):
 		return u"{}.{}.{}".format(self.doctor, self.pos, self.img.name)
 
+class DocCategory(models.Model):
+	doctor = models.ForeignKey(Doctor, null=False, blank=False, on_delete=models.CASCADE, verbose_name='Врач', help_text='Укажите врача')
+	category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE, verbose_name='Специализация', help_text='Укажите специализацию врача из разделов каталога')
+	pos = models.PositiveIntegerField(default=0, verbose_name='Номер по порядку', help_text='Укажите позицию для сортировки')
+	class Meta:
+		verbose_name = 'Связь врача со специализацией'
+		verbose_name_plural = 'Специализации врачей'
+	def __str__(self):
+		return u"{}.{}.{}".format(self.pos, self.category, self.doctor)
