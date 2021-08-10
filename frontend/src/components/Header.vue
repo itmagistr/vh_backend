@@ -6,35 +6,35 @@
           <li class="nav-item" :id="[$route.name === 'service' ? 'active' : '']">
             <hr>
             <router-link to="/service" custom v-slot="{ navigate }">
-              <a @click="navigate" class="nav-link" @keypress.enter="navigate">{{ $t('menu.services') }}</a>
+              <a href="#" @click="navigate" class="nav-link" @keypress.enter="navigate">{{ $t('menu.services') }}</a>
             </router-link>
             <hr>
           </li>
           <li class="nav-item" :id="[$route.name === 'booking' ? 'active' : '']">
             <hr>
             <router-link to="#" custom v-slot="{ navigate }">
-              <a @click="navigate" class="nav-link" @keypress.enter="navigate" data-toggle="modal" data-target="#mdl-future-ok">{{ $t('menu.booking') }}</a>
+              <a href="#" @click="navigate" class="nav-link" @keypress.enter="navigate" data-toggle="modal" data-target="#mdl-future-ok">{{ $t('menu.booking') }}</a>
             </router-link>
             <hr>
           </li>
           <li class="nav-item" :id="[$route.name === 'doctors' ? 'active' : '']">
             <hr>
             <router-link to="/doctors" custom v-slot="{ navigate }">
-              <a @click="navigate" class="nav-link" @keypress.enter="navigate">{{ $t('menu.doctors') }}</a>
+              <a href="#" @click="navigate" class="nav-link" @keypress.enter="navigate">{{ $t('menu.doctors') }}</a>
             </router-link>
             <hr>
           </li>
           <li class="nav-item" :id="[$route.name === 'virtualtour' ? 'active' : '']">
             <hr>
             <router-link to="/virtual_tour" custom v-slot="{ navigate }">
-              <a @click="navigate" class="nav-link" @keypress.enter="navigate">{{ $t('menu.virtual_tour') }}</a>
+              <a href="#" @click="navigate" class="nav-link" @keypress.enter="navigate">{{ $t('menu.virtual_tour') }}</a>
             </router-link>
             <hr>
           </li>
           <li class="nav-item" :id="[$route.name === 'documents' ? 'active' : '']">
             <hr>
             <router-link to="/documents" custom v-slot="{ navigate }">
-              <a @click="navigate" class="nav-link" @keypress.enter="navigate">{{ $t('menu.documentation') }}</a>
+              <a href="#" @click="navigate" class="nav-link" @keypress.enter="navigate">{{ $t('menu.documentation') }}</a>
             </router-link>
             <hr>
           </li>

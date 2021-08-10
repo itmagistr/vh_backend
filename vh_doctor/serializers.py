@@ -37,7 +37,8 @@ class DoctorWorkResSerializer(serializers.ModelSerializer):#serializers.Hyperlin
 class DoctorRuSerializer(serializers.ModelSerializer):#serializers.HyperlinkedModelSerializer):
 	lastName = serializers.CharField(source='lastName_ru')
 	firstName = serializers.CharField(source='firstName_ru')
-	special = serializers.CharField(default='...', source='special.title_ru')
+	#special = serializers.CharField(default='...', source='special.title_ru')
+	special = serializers.SerializerMethodField()
 	special_img = serializers.ImageField(source='special.img')
 	midName = serializers.CharField(default='', source='midName_ru')
 	img = serializers.ImageField(source='image', default='media/doctors/doc1.png')
@@ -51,11 +52,17 @@ class DoctorRuSerializer(serializers.ModelSerializer):#serializers.HyperlinkedMo
 	class Meta:
 		model = Doctor
 		fields = ['uid', 'lastName', 'firstName', 'special', 'special_img', 'midName', 'img', 'experience', 'degree', 'level', 'rating', 'reviewCount', 'youtube', 'fb', 'vk', 'insta', 'сertificate', 'education']
+	
+	def get_special(self, obj):
+		specs = DocCategory.objects.filter(doctor=obj).order_by('pos')[:2]
+		str_specs = '-'.join([s.category.title_ru for s in specs])
+		return str_specs if len(specs) > 1 else obj.special.title_ru
 
 class DoctorEnSerializer(serializers.ModelSerializer):#serializers.HyperlinkedModelSerializer):
 	lastName = serializers.CharField(source='lastName_en')
 	firstName = serializers.CharField(source='firstName_en')
-	special = serializers.CharField(source='special.title_en')
+	#special = serializers.CharField(source='special.title_en')
+	special = serializers.SerializerMethodField()
 	special_img = serializers.ImageField(source='special.img')
 	midName = serializers.CharField(default='', source='midName_en')
 	img = serializers.ImageField(source='image', default='media/doctors/doc1.png')
@@ -70,6 +77,12 @@ class DoctorEnSerializer(serializers.ModelSerializer):#serializers.HyperlinkedMo
 	class Meta:
 		model = Doctor
 		fields = ['uid', 'lastName', 'firstName', 'special', 'special_img', 'midName', 'img', 'experience', 'degree', 'level', 'rating', 'reviewCount', 'youtube', 'fb', 'vk', 'insta', 'сertificate', 'education']
+
+	def get_special(self, obj):
+		specs = DocCategory.objects.filter(doctor=obj).order_by('pos')[:2]
+		str_specs = '-'.join([s.category.title_en for s in specs])
+		return str_specs if len(specs) > 1 else obj.special.title_en
+
 
 class DoctorFilterSerializer(serializers.Serializer):
 	txt = serializers.CharField(max_length=50, allow_blank=True)
@@ -95,7 +108,8 @@ class DoctorFilterSerializer(serializers.Serializer):
 class DoctorLightRuSerializer(serializers.ModelSerializer):
 	lastName = serializers.CharField(source='lastName_ru')
 	firstName = serializers.CharField(source='firstName_ru')
-	special = serializers.CharField(source='special.title_ru')
+	#special = serializers.CharField(source='special.title_ru')
+	special = serializers.SerializerMethodField()
 	special_img = serializers.ImageField(source='special.img')
 	midName = serializers.CharField(default='', source='midName_ru')
 	img = serializers.ImageField(source='image', default='media/doctors/doc1.png')
@@ -107,10 +121,16 @@ class DoctorLightRuSerializer(serializers.ModelSerializer):
 		model = Doctor
 		fields = ['uid', 'lastName', 'firstName', 'special', 'special_img', 'midName', 'img', 'experience', 'level', 'rating', 'reviewCount']
 
+	def get_special(self, obj):
+		specs = DocCategory.objects.filter(doctor=obj).order_by('pos')[:2]
+		str_specs = '-'.join([s.category.title_ru for s in specs])
+		return str_specs if len(specs) > 1 else obj.special.title_ru
+
 class DoctorLightEnSerializer(serializers.ModelSerializer):#serializers.HyperlinkedModelSerializer):
 	lastName = serializers.CharField(source='lastName_en')
 	firstName = serializers.CharField(source='firstName_en')
-	special = serializers.CharField(source='special.title_en')
+	#special = serializers.CharField(source='special.title_en')
+	special = serializers.SerializerMethodField()
 	special_img = serializers.ImageField(source='special.img')
 	midName = serializers.CharField(default='', source='midName_en')
 	img = serializers.ImageField(source='image', default='media/doctors/doc1.png')
@@ -121,3 +141,8 @@ class DoctorLightEnSerializer(serializers.ModelSerializer):#serializers.Hyperlin
 	class Meta:
 		model = Doctor
 		fields = ['uid', 'lastName', 'firstName', 'special', 'special_img', 'midName', 'img', 'experience', 'level', 'rating', 'reviewCount']
+
+	def get_special(self, obj):
+		specs = DocCategory.objects.filter(doctor=obj).order_by('pos')[:2]
+		str_specs = '-'.join([s.category.title_en for s in specs])
+		return str_specs if len(specs) > 1 else obj.special.title_en
