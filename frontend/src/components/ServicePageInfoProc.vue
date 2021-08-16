@@ -2,17 +2,28 @@
   <div>
     <div class="doctor-card">
       <div class="d-tittle">{{results.title}}</div>
-      <div class="d-flex" style="overflow-y: auto;">
-        <div v-for="c in doc.results" :key="c.uid">
-          <div class="d-card">
-            <img id="icd" :src="c.img">
-            <div id="nmd">
-              <div>{{ c.special }}</div>
-              <div>{{ c.firstName }} {{ c.lastName }}</div>
-            </div>
-            <button class="btn" id="btn-d" data-toggle="modal" data-target="#mdl-doc-card" @click="updCardModal(c.uid)">
-              <i class="fas fa-caret-right"></i></button>
+      <div class="probe">
+        <div v-if="doc.results.length > 1" class="d-card">
+          <img id="icd" :src="doc.results[0].img">
+          <div id="nmd">
+            <div>{{ doc.results[0].special }}</div>
+            <div>{{ doc.results[0].firstName }} {{ doc.results[0].lastName }}</div>
           </div>
+          <button class="btn" id="btn-d" data-toggle="modal" data-target="#mdl-doc-list"
+                  @click="updCardListModal">
+            <i class="fas fa-caret-right"></i>
+          </button>
+        </div>
+        <div v-else class="d-card">
+          <img id="icd" :src="doc.results.img">
+          <div id="nmd">
+            <div>{{ doc.results.special }}</div>
+            <div>{{ doc.results.firstName }} {{ doc.results.lastName }}</div>
+          </div>
+          <button class="btn" id="btn-d" data-toggle="modal" data-target="#mdl-doc-card"
+                  @click="updCardModal(doc.results.uid)">
+            <i class="fas fa-caret-right"></i>
+          </button>
         </div>
       </div>
     </div>
@@ -68,10 +79,6 @@ export default {
       locale: this.$i18n.locale,
     }
   },
-  created() {
-    if(this.doc.count === 0)
-      this.docUID();
-  },
   watch: {
     "$i18n.locale": {
       handler(newLocale, oldLocale) {
@@ -102,6 +109,9 @@ export default {
     updCardModal(uid){
       this.$emit('showDocM', uid);
     },
+    updCardListModal(){
+      this.$emit('showListDocM', this.doc.results);
+    },
     send() {
       this.$store.commit("updProc", this.prselect);
       this.$store.commit("updPrice", this.price);
@@ -110,13 +120,13 @@ export default {
       fetch(`${this.$store.state.apihost}${this.locale}/vhapi/doctor/`)
       .then(stream => stream.json())
       .then(response => {
-        this.doc.count = 1;
-        this.doc.results = [response];
+        this.doc = {count: 1, results: response};
+        console.log(this.doc);
       })
       .catch(error => { console.error(error); })
       .finally(()=>{
-        if(this.doc.results[0].img === null)
-          this.doc.results[0].img = `${this.$store.state.apihost}media/uploads/human/defaultAvatar.png`;
+        if(this.doc.results.img === null)
+          this.doc.results.img = `${this.$store.state.apihost}media/uploads/human/defaultAvatar.png`;
       });
     },
     getMedProcDoctors() {
@@ -124,7 +134,7 @@ export default {
       then(response => response.json()).
       then(data => {
         this.doc.count = data.count;
-        if(this.doc.count > 0)
+        if(this.doc.count > 1)
           this.doc.results = data.results;
         else
           this.docUID();
@@ -165,52 +175,58 @@ export default {
   text-align: left
   .doctor-card
     margin-bottom: 1.5rem
-    .d-tittle
+    > .d-tittle
       font-family: Montserrat
       font-weight: 500
       font-size: 21px
       line-height: 26px
       text-align: left
       margin-bottom: 1.5rem
-    .d-card
-      background: white
-      height: 72px
-      width: 280px
-      border-radius: .5rem
-      > div, > button
-        display: inline-block
-      img#icd
-        position: relative
-        top: 8px
-        left: 8px
-        width: 56px
-        height: 56px
-        background: $backgroundImage
-        border-radius: .25rem
-        vertical-align: initial
-      #nmd
-        font-family: FuturaBookC
-        position: relative
-        top: -8px
-        left: 24px
-        width: 177px
-        line-height: 1
-        text-align: left
-      #nmd > div:first-child
-        color: $button-color
-        font-size: 14px
-      #nmd > div:last-child
-        font-size: 16px
-      #btn-d
-        position: relative
-        top: -17px
-        right: -21px
-        width: 26px
+    > .probe
+      padding: 0 .5rem
+      &:first-child
+        padding-left: 0
+      &:last-child
+        padding-right: 0
+      > .d-card
+        background: white
         height: 72px
-        border: none
-        border-radius: 0 .5rem .5rem 0
-        background: $none
-        color: $white
+        width: 280px
+        border-radius: .5rem
+        > div, > button
+          display: inline-block
+        img#icd
+          position: relative
+          top: 8px
+          left: 8px
+          width: 56px
+          height: 56px
+          background: $backgroundImage
+          border-radius: .25rem
+          vertical-align: initial
+        #nmd
+          font-family: FuturaBookC
+          position: relative
+          top: -8px
+          left: 24px
+          width: 177px
+          line-height: 1
+          text-align: left
+        #nmd > div:first-child
+          color: $button-color
+          font-size: 14px
+        #nmd > div:last-child
+          font-size: 16px
+        #btn-d
+          position: relative
+          top: -17px
+          right: -21px
+          width: 26px
+          height: 72px
+          border: none
+          border-radius: 0 .5rem .5rem 0
+          background: $none
+          color: $white
   .description
     margin-bottom: 1.5rem
     > div:first-child

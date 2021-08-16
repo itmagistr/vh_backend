@@ -1,5 +1,6 @@
 <template>
     <div class="d-flex flex-column mar">
+        <modalDoctorList :data="list"/>
         <modalDocCard :selfInfo="selfInfo"/>
 <!--        <div class="bgz-main"></div>-->
         <div class="tittle-of-service">{{ $t('servicepage.service') }}</div>
@@ -49,11 +50,11 @@
                           :key="'block-'+c.uid"
                           class="hm-block"
                           :info="prselect"
-                          v-on:showDocM="updCardModal"/>
+                          v-on:showDocM="updCardModal" v-on:showListDocM="updCardListModal"/>
                 </template>
                 <!--<button class="btn vis" @click="send()">{{ $t('proсchoice.select') }}</button>-->
             </div>
-            <info class="block-right col-6" :info="prselect" :resize="resize" v-on:showDocM="updCardModal"/>
+            <info class="block-right col-6" :info="prselect" :resize="resize" v-on:showDocM="updCardModal" v-on:showListDocM="updCardListModal"/>
         </div>
     </div>
 </template>
@@ -63,6 +64,7 @@ import currencyFormat from '@/helpers/currencyFormat';
 import timeFormat from "@/helpers/timeFormat";
 import info from "@/components/ServicePageInfoProc";
 import modalDocCard from "@/components/ModalDocCard";
+import modalDoctorList from "@/components/ModalDoctorList";
 
 export default {
     props: ['resize'],
@@ -71,10 +73,10 @@ export default {
         select: this.$store.state.Booking.Procedure,
         prselect: this.$store.state.Booking.Procedure,
         selfInfo: '',
+        list: [],
         catSel: null,
         catObj: {},
         category: [],
-        doc: null,
         price: null,
         loading: true,
         errored: false,
@@ -83,7 +85,7 @@ export default {
       }
     },
     components:{
-      info, modalDocCard,
+      info, modalDocCard, modalDoctorList
     },
     async mounted() {
       //await this.getMedProc("Орто", "2021-03-21", "bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82");
@@ -101,6 +103,9 @@ export default {
       },
     },
     methods: {
+      updCardListModal(list) {
+        this.list = list;
+      },
       updCardModal(uid) {
         this.selfInfo = uid;
       },

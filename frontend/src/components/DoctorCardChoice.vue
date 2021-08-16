@@ -3,7 +3,7 @@
         <div class="d-flex clip-header">
             <div class="d-flex">
                 <div class="clip-photo">
-                  <img :src="'http://localhost:8000' + data.img" height="64px"/>
+                  <img :src="data.img" height="64px"/>
                 </div>
                 <div class="clip-bk1">
                     <div class="clip-tittle">{{ data.special }}</div>
@@ -119,8 +119,9 @@ export default {
       width: 64px
       height: 64px
       background: $backgroundImage
-      border-radius: 4px
       margin-right: 12px
+      border-radius: .25rem
+      overflow: hidden
     .clip-bk1
       vertical-align: top
       .clip-tittle

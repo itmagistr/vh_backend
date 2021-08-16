@@ -229,11 +229,11 @@ export default {
   .modal-body
     padding: inherit
   .modal-footer
-    padding: 0px
+    padding: 0
+    display: flex
+    justify-content: center
     > .btn-ok
       position: absolute
-      bottom: -25px
-      left: 35%
       width: 240px
       height: 48px
       border-radius: 0.5rem
