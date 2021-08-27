@@ -2,7 +2,11 @@ from django.contrib import admin
 from .models import *
 from modeltranslation.admin import TranslationAdmin
 from vh_product.models import ProductEmployee
-from vh_doctor.models import DocWorkRes
+from vh_doctor.models import DocWorkRes, DocCategory
+from django.http import HttpResponse
+import csv
+from io import StringIO
+import datetime
 # Register your models here.
 
 class DocWorkResInline(admin.TabularInline):
@@ -13,13 +17,13 @@ class EmployeeProdInline(admin.TabularInline):
 	model = ProductEmployee
 	extra = 1
 
+class DocCategoryInline(admin.TabularInline):
+	model = DocCategory
+	extra = 1
+
 class DoctorAdmin(TranslationAdmin):
 	model = Doctor
 	readonly_fields=('uid',)
-<<<<<<< Updated upstream
-	list_display = ('human_fio', 'level', 'degree', 'rating')
-	inlines = [DocWorkResInline, EmployeeProdInline]
-=======
 	list_display = ('human_fio', 'uid', 'level', 'degree', 'rating')
 	inlines = [DocCategoryInline, DocWorkResInline, EmployeeProdInline]
 
@@ -41,7 +45,6 @@ class DoctorAdmin(TranslationAdmin):
 		response['Content-Disposition'] = 'attachment; filename=doctors_%s.csv' % datetime.date.today().strftime('%Y%m%d')
 		return response
 	export_doctors.short_description = "Export Doctors"
->>>>>>> Stashed changes
 
 admin.site.register(Doctor, DoctorAdmin)
 admin.site.register(Special, TranslationAdmin)

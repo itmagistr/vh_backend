@@ -26,3 +26,17 @@ class CategorySerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Category
 		fields = [ 'code']
+
+
+class CategoryDocSpecRuSerializer(serializers.ModelSerializer):
+	title = serializers.CharField(source='title_ru')
+	class Meta:
+		model = Category
+		fields = [ 'code', 'title', 'img']
+
+class CategoryDocSpecEnSerializer(serializers.ModelSerializer):
+	title = serializers.CharField(source='title_en')
+	class Meta:
+		model = Category
+		fields = [ 'code', 'title', 'img']
+
