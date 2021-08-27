@@ -27,6 +27,7 @@ class MedProcAdmin(TranslationAdmin):
 	list_filter = ('duration', )
 	ordering = ('code',)
 	inlines = [ProdCategoryInline, ProdEmployeeInline]
+	
 	actions = ["export_medprocs", ]
 	def export_medprocs(self, request, queryset):
 		f = StringIO()
