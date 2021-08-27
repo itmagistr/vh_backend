@@ -24,7 +24,7 @@ class DocCategoryInline(admin.TabularInline):
 class DoctorAdmin(TranslationAdmin):
 	model = Doctor
 	readonly_fields=('uid',)
-	list_display = ('human_fio', 'level', 'degree', 'rating')
+	list_display = ('human_fio', 'uid', 'level', 'degree', 'rating')
 	inlines = [DocCategoryInline, DocWorkResInline, EmployeeProdInline]
 
 	actions = ["export_doctors", ]

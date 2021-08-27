@@ -102,6 +102,56 @@ class DoctorFilterView(generics.ListAPIView):
 		return Response(resSerializer.data, status=status.HTTP_200_OK) #, headers=resSerializer.headers
 
 
+class DoctorFilterViewV2(generics.ListAPIView):
+	'''
+	v.2.Поиск врачей по части наименования или кодам специализации
+	'''
+	serializer_class = DocSpecRuSerializer
+	http_method_names = ['post']
+	def get_serializer_class(self):
+		#logger.info(translation.get_language())
+
+		if 'ru' in translation.get_language():
+			# using 'in' because it can be set to something like 'es-ES; es'
+			return DocSpecRuSerializer
+		return DocSpecEnSerializer
+	
+	@swagger_auto_schema(request_body=DoctorFilterSerializer, responses={201: DocSpecRuSerializer,})
+	def post(self, request, *args, **kwargs):
+		serializer = DoctorFilterSerializer(data=request.data)
+		serializer.is_valid(raise_exception=True)
+		sclass = self.get_serializer_class()
+		speclist = []
+		if len(serializer.data['spec']) > 0:
+			speclist = [s["code"] for s in serializer.data['spec']]
+
+
+		if 'Ru' in str(sclass):
+			# if len(serializer.data['medproc_uid']) > 0:
+			# 	docs = [e.id for e in MedProc.objects.get(uid=serializer.data['medproc_uid']).workers.all()]
+			# 	resQSet = Doctor.objects.filter(id__in=docs)
+			# elif
+			if len(speclist) > 0:
+				resQSet = DocCategory.objects.filter(Q(category__code__in=speclist), Q(doctor__lastName_ru__icontains=serializer.data['txt']) | Q(doctor__firstName_ru__icontains=serializer.data['txt']) )
+			else:
+				resQSet = DocCategory.objects.filter(Q(doctor__lastName_ru__icontains=serializer.data['txt']) | Q(doctor__firstName_ru__icontains=serializer.data['txt']) )
+		else:
+			if len(speclist) > 0:
+				resQSet = DocCategory.objects.filter(Q(category__code__in=speclist), Q(doctor__lastName_en__icontains=serializer.data['txt']) | Q(doctor__firstName_en__icontains=serializer.data['txt']) )
+			else:
+				resQSet = DocCategory.objects.filter(Q(doctor__lastName_en__icontains=serializer.data['txt']) | Q(doctor__firstName_en__icontains=serializer.data['txt']) )
+		if len(resQSet)==0:
+			resQSet = DocCategory.objects.filter(doctor__lastName_en__icontains='Braginsk')
+		docsPK = []
+		doctors = []
+		for r in resQSet:
+			if r.doctor.id not in docsPK:
+				docsPK.append(r.doctor.id)
+				doctors.append(r)
+		resSerializer = sclass(doctors, many=True)
+		#headers = self.get_success_headers(resSerializer.data)
+		return Response(resSerializer.data, status=status.HTTP_200_OK) #, headers=resSerializer.headers
+
 class SpecListView(generics.ListAPIView):
 	'''
 	Получить список специализаций врачей

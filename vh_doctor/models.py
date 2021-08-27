@@ -70,6 +70,14 @@ class Doctor(Employee):
 	def _experience(self):
 		return relativedelta(datetime.datetime.now(), self.dt_practic).years
 	experience = property(_experience)
+	def _special_ru_str(self):
+		specs = DocCategory.objects.filter(doctor=self).order_by('pos')[:2]
+		return '-'.join([s.category.title_ru for s in specs])
+	special_ru_str = property(_special_ru_str)
+	def _special_en_str(self):
+		specs = DocCategory.objects.filter(doctor=self).order_by('pos')[:2]
+		return '-'.join([s.category.title_en for s in specs])
+	special_en_str = property(_special_en_str)
 
 # заменена на ProductEmployee
 class DoctorMedProc(models.Model):

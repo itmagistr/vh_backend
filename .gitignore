@@ -131,3 +131,6 @@ dmypy.json
 db_backup.sqlite3
 db_backup_210713.sqlite3
 db_Andrey.sqlite3
+*.json
+db_.sqlite3
+*.sql
