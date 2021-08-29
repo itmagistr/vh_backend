@@ -101,7 +101,7 @@ export default{
     close(){
       this.success = false;
     },
-    async send(){
+    async send() {
       await this.$recaptchaLoaded();
       const token = await this.$recaptcha('feedbackMsg');
 

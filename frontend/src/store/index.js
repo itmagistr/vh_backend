@@ -12,12 +12,19 @@ export default new Vuex.Store({
             Hour: null,
             Price: null,
         },
+        question: '',
         usefulTips: false,
         phase: 2,
         apihost: 'http://localhost:8000/',
         apihostImg: 'http://localhost:8000',
     },
+    getters: {
+        question: state => state.question,
+    },
     mutations: {
+        setQuestion(state, q){
+            state.question = q;
+        },
         updDoc(state, Doctor){
             state.Booking.Doctor = Doctor;
         },

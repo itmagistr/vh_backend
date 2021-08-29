@@ -51,18 +51,15 @@
         </ul>
         <ul class="navbar-nav rightM">
           <li class="nav-item">
-            <div class="search-field" :class="{active: isActive}">
+            <div class="search-field">
               <input v-model='q' type="text" class="form-control"
                      :placeholder="$t('menu.search_ph')" @keyup.enter="search">
-              <button @click="clear" v-show="q.length !== 0 && isActive" class="btn close-search-btn">
+              <button @click="clear" v-show="q.length !== 0" class="btn close-search-btn">
                 <i class="bi bi-x"></i>
               </button>
               <button class="btn search-btn" type="button" @click="search">
                 <i class="fas fa-search"></i>
               </button>
-              <div class="search-result" v-show="isActive">
-                <div class="result" v-for="(n, idx) in res" :key="n.uid" @click="underground(idx)">{{n.title}}</div>
-              </div>
             </div>
           </li>
           <li class="nav-item dropdown">
@@ -90,17 +87,14 @@
         <i class="fas fa-bars"></i>
       </button>
       <router-link to="/" custom v-slot="{ navigate }">
-        <img @click="navigate" @keypress.enter="navigate" class="mobile logo" src="/img/logo-sm.svg"/>
+        <img @click="navigate" @keypress.enter="navigate" class="mobile logo" :class="{hide: isActive}" src="/img/logo-sm.svg"/>
       </router-link>
-      <label class="seaF" for="searchfField" :class="{active: isActiveSearch, act: isActive}">
+      <label class="seaF" for="searchfField" :class="{active: isActive}">
         <button class="btn search-btn" type="button" @click="search">
           <i class="fas fa-search"></i>
         </button>
         <input @blur="handleBlur" @focus="handleFocus" id="searchfField" type="text" v-model="q" @keyup.enter="search"/>
-        <div class="search-result-mobile" v-show="isActive">
-          <div class="result" v-for="(n, idx) in res" :key="n.uid" @click="underground(idx)">{{n.title}}</div>
-        </div>
-        <button @click="clear" v-show="q.length !== 0 && isActiveSearch" class="btn close-search-btn">
+        <button @click="clear" v-show="q.length !== 0" class="btn close-search-btn">
           <i class="bi bi-x"></i>
         </button>
       </label>
@@ -116,34 +110,21 @@ export default {
       locale: this.$i18n.locale,
       q: '',
       isActive: false,
-      isActiveSearch: false,
       res: [],
-    }
-  },
-  created() {
-    if(this.$cookies.get('lang')) {
-      this.locale = this.$cookies.get('lang');
-      this.$i18n.locale = this.$cookies.get('lang');
-    } else {
-      this.$cookies.set("lang", this.$i18n.locale);
     }
   },
   methods: {
     clear(){
       this.res = [];
       this.q = '';
-      this.isActive = this.res.length !== 0;
-      this.isActiveSearch = this.q.length !== 0;
-    },
-    underground(e) {
-      console.log(this.res[e]);
+      this.isActive = this.q.length !== 0;
     },
     handleFocus() {
-      this.isActiveSearch = true;
+      this.isActive = true;
     },
     handleBlur() {
       if(this.q.length === 0)
-        this.isActiveSearch = false;
+        this.isActive = false;
     },
     chLang(locale) {
       this.locale = locale;
@@ -151,27 +132,14 @@ export default {
       this.$cookies.set("lang", locale);
     },
     search() {
-      return new Promise(() => {
+      this.isActive = true;
+      return new Promise( () => {
         if (this.q.length < 3) {
           return [];
         }
-
-        const options = {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({"q": this.q})
-        };
-        fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/mpsearch/`, options).
-        then(response => response.json()).
-        then(data => {
-          this.res = data;
-        }).
-        catch((error) => { console.log(error); this.results = null;}).
-        finally(() => {
-          console.log(this.res)
-          this.loading = false;
-          this.isActive = this.res.length !== 0;
-        });
+        this.$store.commit('setQuestion', this.q);
+        if(this.$route.path !== '/search')
+          this.$router.push('/search');
         return false;
       });
     },
@@ -183,7 +151,6 @@ export default {
 @import "@/styles/_variables.sass"
 
 $heightHeader: 136px
-
 .dropdown-submenu
   position: relative
   a::after
@@ -395,4 +362,8 @@ header
       height: 64px
       > i.fas.fa-search
         transform: scaleX(-1)
+@media (max-width: 425px)
+  header
+    .hide
+      display: none
 </style>
