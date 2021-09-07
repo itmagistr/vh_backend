@@ -10,13 +10,13 @@
             </router-link>
             <hr>
           </li>
-          <li class="nav-item" :id="[$route.name === 'booking' ? 'active' : '']">
+          <!--<li class="nav-item" :id="[$route.name === 'booking' ? 'active' : '']">
             <hr>
             <router-link to="#" custom v-slot="{ navigate }">
               <a href="#" @click="navigate" class="nav-link" @keypress.enter="navigate" data-toggle="modal" data-target="#mdl-future-ok">{{ $t('menu.booking') }}</a>
             </router-link>
             <hr>
-          </li>
+          </li>-->
           <li class="nav-item" :id="[$route.name === 'doctors' ? 'active' : '']">
             <hr>
             <router-link to="/doctors" custom v-slot="{ navigate }">
