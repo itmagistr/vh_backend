@@ -186,6 +186,7 @@ header
       > ul
         > img.logo
           width: 250px
+          cursor: pointer
         > li
           > a
             &#nDML

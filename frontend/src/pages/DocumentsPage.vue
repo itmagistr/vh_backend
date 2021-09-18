@@ -72,6 +72,7 @@ body.documGal
         > img
           border-radius: .5rem
           height: 100%
+          width: 200px
     .splide
       padding: 0 0 3rem
 @media (max-width: 1399px)
