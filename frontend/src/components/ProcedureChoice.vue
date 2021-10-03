@@ -17,9 +17,7 @@
             <div><div class="icon-teeth"><img :src="n.img" alt=""/></div></div>
             <div class="cat-name">{{n.title}}</div>
           </div>
-          <listView
-            :categoryCode="n.code"
-            v-model="select"/>
+          <listView :categoryCode="n.code" v-model="select" :infoButton="true" :resize="true"/>
           <hr>
         </div>
       </div>

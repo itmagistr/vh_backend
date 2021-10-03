@@ -2,49 +2,51 @@
   <div>
     <div class="doctor-card">
       <div class="d-tittle">{{results.title}}</div>
-      <div v-if="doc.results.length > 1">
-        <div>
-          <div class="d-card">
-            <img id="icd" :src="doc.results[0].img">
-            <div id="nmd">
-              <div>{{ doc.results[0].special }}</div>
-              <div>{{ doc.results[0].firstName }} {{ doc.results[0].lastName }}</div>
+      <template v-if="showDoc">
+        <div v-if="doc.results.length > 1">
+          <div>
+            <div class="d-card">
+              <img id="icd" :src="doc.results[0].img">
+              <div id="nmd">
+                <div>{{ doc.results[0].special }}</div>
+                <div>{{ doc.results[0].firstName }} {{ doc.results[0].lastName }}</div>
+              </div>
+              <button class="btn" id="btn-d" data-toggle="modal" data-target="#mdl-doc-list"
+                      @click="updCardListModal">
+                <i class="fas fa-caret-right"></i>
+              </button>
             </div>
-            <button class="btn" id="btn-d" data-toggle="modal" data-target="#mdl-doc-list"
-                    @click="updCardListModal">
+          </div>
+          <div>
+            <div class="d-card">
+              <img id="icd" :src="doc.results[1].img">
+              <div id="nmd">
+                <div>{{ doc.results[1].special }}</div>
+                <div>{{ doc.results[1].firstName }} {{ doc.results[1].lastName }}</div>
+              </div>
+              <button class="btn" id="btn-d" data-toggle="modal" data-target="#mdl-doc-list"
+                      @click="updCardListModal">
+                <i class="fas fa-caret-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div v-else>
+          <div>
+           <div class="d-card">
+            <img id="icd" :src="doc.results.img">
+            <div id="nmd">
+              <div>{{ doc.results.special }}</div>
+              <div>{{ doc.results.firstName }} {{ doc.results.lastName }}</div>
+            </div>
+            <button class="btn" id="btn-d" data-toggle="modal" data-target="#mdl-doc-card"
+                    @click="updCardModal(doc.results.uid)">
               <i class="fas fa-caret-right"></i>
             </button>
           </div>
-        </div>
-        <div>
-          <div class="d-card">
-            <img id="icd" :src="doc.results[1].img">
-            <div id="nmd">
-              <div>{{ doc.results[1].special }}</div>
-              <div>{{ doc.results[1].firstName }} {{ doc.results[1].lastName }}</div>
-            </div>
-            <button class="btn" id="btn-d" data-toggle="modal" data-target="#mdl-doc-list"
-                    @click="updCardListModal">
-              <i class="fas fa-caret-right"></i>
-            </button>
           </div>
         </div>
-      </div>
-      <div v-else>
-        <div>
-         <div class="d-card">
-          <img id="icd" :src="doc.results.img">
-          <div id="nmd">
-            <div>{{ doc.results.special }}</div>
-            <div>{{ doc.results.firstName }} {{ doc.results.lastName }}</div>
-          </div>
-          <button class="btn" id="btn-d" data-toggle="modal" data-target="#mdl-doc-card"
-                  @click="updCardModal(doc.results.uid)">
-            <i class="fas fa-caret-right"></i>
-          </button>
-        </div>
-        </div>
-      </div>
+      </template>
     </div>
     <div class="description">
       <div>{{ $t('servicepage.description') }}</div>
@@ -83,6 +85,7 @@ export default {
   props: {
     info: String,
     resize: Boolean,
+    showDoc: Boolean,
   },
   data(){
     return {
@@ -125,12 +128,8 @@ export default {
     },
   },
   methods: {
-    updCardModal(uid){
-      this.$emit('showDocM', uid);
-    },
-    updCardListModal(){
-      this.$emit('showListDocM', this.doc.results);
-    },
+    updCardModal(uid) { this.$emit('showDocM', uid); },
+    updCardListModal() { this.$emit('showListDocM', this.doc.results); },
     send() {
       this.$store.commit("updProc", this.prselect);
       this.$store.commit("updPrice", this.price);

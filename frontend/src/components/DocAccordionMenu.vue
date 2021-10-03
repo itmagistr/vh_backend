@@ -3,7 +3,8 @@
     <div class="clip-accordion" @click="show('proc')" :class="[states.proc ? 'active' : '']">
       {{ $t('modaldoccard.procedure') }} <i class="fas fa-caret-down"></i>
     </div>
-    <listView v-show="states.proc" :doctorUID="selfInfo.uid" class="listproc"/>
+    <listView class="listproc" v-show="states.proc" :doctorUID="selfInfo.uid"
+              :infoButton="true" :resize="true" :infoBlock="true"/>
     <div class="clip-accordion" @click="show('photo')" :class="[states.photo ? 'active' : '']">
       {{ $t('modaldoccard.photo') }} <i class="fas fa-caret-down"></i>
     </div>
@@ -54,7 +55,7 @@ export default {
     }
   },
   components: {
-    Carousel, listView,
+    Carousel, listView
   },
   watch: {
     selfInfo: {
