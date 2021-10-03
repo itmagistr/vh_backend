@@ -135,6 +135,7 @@ export default {
       this.$store.commit("updPrice", this.price);
     },
     docUID() {
+      if (this.showDoc === false) return;
       fetch(`${this.$store.state.apihost}${this.locale}/vhapi/doctor/`)
       .then(stream => stream.json())
       .then(response => {
@@ -148,6 +149,7 @@ export default {
       });
     },
     getMedProcDoctors() {
+      if (this.showDoc === false) return;
       fetch(`${this.$store.state.apihost}${this.locale}/vhapi/medproc/${this.selfProcUid}/doctors/`).
       then(response => response.json()).
       then(data => {

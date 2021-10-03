@@ -75,7 +75,7 @@ export default {
     },
     created() {
         if (this.$store.state.Booking.Date === null){
-            this.date = new Date().toLocaleString('en-CA', { dateStyle: 'short' });
+            this.date = new Date().toISOString().split('T')[0];
             this.$store.commit("updDate", this.date);
         }
         //this.langBooking();

@@ -7,8 +7,7 @@
         <div class="service">
             <div v-for="c in category" class="card-tooth"
                  :class="[{active: catSel === c.code}]"
-                 :key="c.code"
-                  @click="chgCat(c)">
+                 :key="c.code" @click="chgCat(c)">
               <div>
                 <img :src="c.img"/>
                 <div>{{c.title}}</div>
@@ -50,9 +49,7 @@ import modalDocCard from "@/components/ModalDocCard";
 import modalDoctorList from "@/components/ModalDoctorList";
 
 export default {
-    props: {
-      resize: Boolean
-    },
+    props: { resize: Boolean },
     data() {
       return {
         select: this.$store.state.Booking.Procedure,
@@ -60,6 +57,7 @@ export default {
         selfInfo: '',
         catSel: null,
         catObj: {},
+        list: [],
         category: [],
         price: null,
         loading: true,
@@ -67,10 +65,9 @@ export default {
         locale: this.$i18n.locale
       }
     },
-    components:{
-      info, modalDocCard, modalDoctorList, listView
-    },
-    async mounted() {
+    filters: { currencyFormat, timeFormat },
+    components: { info, modalDocCard, modalDoctorList, listView },
+    async created() {
       //await this.getMedProc("Орто", "2021-03-21", "bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82");
       this.categoryList();
     },
@@ -80,7 +77,7 @@ export default {
           if (newLocale === oldLocale)
             return;
           this.locale = newLocale;
-          this.categoryList();
+          if (oldLocale !== undefined) this.categoryList();
         },
         immediate: true,
       },
@@ -89,9 +86,13 @@ export default {
       updCardListModal(list) { this.list = list; },
       updCardModal(uid) { this.selfInfo = uid; },
       chgCat(cat) {
-        this.catSel = cat.code;
-        //this.catSel = 'PRE_BOOKING';
-        this.catObj = cat;
+        if (cat.code === this.catSel) {
+          this.catSel = 'PRE_BOOKING';
+        } else {
+          this.catSel = cat.code;
+          //this.catSel = 'PRE_BOOKING';
+          this.catObj = cat;
+        }
       },
       categoryList() {
         fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/category/`).
@@ -99,7 +100,7 @@ export default {
         then(data => { this.category = data.results; }).
         catch((error) => { console.log(error); this.results = null;}).
         finally(() => {
-          if(this.catSel === null) {
+          if (this.catSel === null) {
             this.chgCat(this.category[0]);
           } else
             for(let i = 0; i < this.category.length; i++)
@@ -112,9 +113,6 @@ export default {
         this.prselect = sel;
         this.price = price;
       },
-    },
-    filters: {
-        currencyFormat, timeFormat
     },
 }
 </script>

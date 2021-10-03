@@ -13,7 +13,7 @@
             <div v-if="infoButton" @click="detail(c.uid)" class="pr-info"><i class="fas fa-info-circle"></i></div>
             <div class="pr-price">{{ c.price | currencyFormat("RUB")}}</div>
             <!--<div class="pr-duration">{{ c.duration | timeFormat("ru-RU")}}</div>-->
-            <div class="pr-duration">{{ c.duration}} {{$t("servicepage.min")}}</div>
+            <div class="pr-duration">{{ c.duration }} {{$t("servicepage.min")}}</div>
           </div>
       </div>
       <info v-if="prselect === c.uid && resize && infoBlock"
@@ -63,17 +63,17 @@ export default {
           if (newLocale === oldLocale)
             return;
           this.locale = newLocale;
-           if(this.categoryCode !== undefined)
+          if (this.categoryCode !== undefined)
               this.medProcListByCat();
-           else if(this.doctorUID !== undefined)
+          else if (this.doctorUID !== undefined)
               this.medProcListByDoc();
         },
         immediate: true,
       },
-      categoryCode(newLocale, oldLocale) {
-        if (newLocale === oldLocale)
+      categoryCode(newValue, oldValue) {
+        if (newValue === oldValue)
           return;
-        this.catSel = newLocale;
+        this.catSel = newValue;
         this.medProcListByCat();
       },
       doctorUID(newValue, oldValue) {
@@ -87,40 +87,44 @@ export default {
       detail(uid){
         console.log(uid);
       },
-      updCardModal(uid) { this.$emit('showDocM', uid); },
-      updCardListModal() { this.$emit('showListDocM', this.doc.results); },
+      updCardModal(next) { this.$emit('showDocM', next); },
+      updCardListModal(next) { this.$emit('showListDocM', next); },
       medProcListByCat() {
+        if (this.catSel === null)
+          return;
         const options = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({"dt": this.$store.state.Booking.Date, "category": [{code: this.catSel}]})
         };
-        fetch(`${this.$store.state.apihost}${this.locale}/vhapi/medproc/list/`, options).
-        then(response => response.json()).
-        then(data => {
-          this.results = data;
-          if(!this.resize && this.results.length > 0 && this.infoBlock)
-            this.selected(this.results[0].uid, 0);
-        }).
-        catch((error) => { console.log(error); this.results = null;}).
-        finally(() => {
-          this.loading = false;
-        });
+        fetch(`${this.$store.state.apihost}${this.locale}/vhapi/medproc/list/`, options)
+            .then(response => response.json())
+            .then(data => {
+              this.results = data;
+              if (!this.resize && this.results.length > 0 && this.infoBlock)
+                this.selected(this.results[0].uid, 0);
+            })
+            .catch((error) => { console.log(error); this.results = null; })
+            .finally(() => {
+              this.loading = false;
+            });
       },
       medProcListByDoc() {
+        if (this.docSel === null)
+          return;
         fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/doctor/${this.docSel}/medprocs/`).
         then(response => response.json()).
         then(data => {
-        this.results = data.results;
-        console.log(data);
+          this.results = data.results;
+          console.log(data);
         }).
         catch((error) => { console.log(error); this.results = null;}).
         finally(() => {
           this.loading = false;
         });
       },
-      selected(sel, price){
-        if(this.prselect === sel) {
+      selected(sel, price) {
+        if (this.prselect === sel) {
           this.prselect = null;
           this.price = null;
         } else {
@@ -132,12 +136,9 @@ export default {
       send() {
         this.$store.commit("updProc", this.prselect);
         this.$store.commit("updPrice", this.price);
-        //this.$emit('pageProcedure', this.select, 2);
       }
     },
-    filters: {
-        currencyFormat, timeFormat
-    },
+    filters: { currencyFormat, timeFormat },
 }
 </script>
 
