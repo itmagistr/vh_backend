@@ -23,29 +23,25 @@
 import DoctorCardChoice from "@/components/DoctorCardChoice";
 
 export default {
-    props: {
-      data: Array,
-    },
-    data() {
-      return {
-      }
-    },
-    watch:{
-      data: {
-        handler(newValue, oldValue) {
-          if (newValue === oldValue)
-            return;
-          console.log(newValue);
-        },
+  props: {
+    data: Array,
+  },
+  data() {
+    return {
+    }
+  },
+  watch: {
+    data: {
+      handler(newValue, oldValue) {
+        if (newValue === oldValue)
+          return;
+        console.log(newValue);
       },
     },
-    components: {
-      DoctorCardChoice,
-    },
+  },
+  components: { DoctorCardChoice, },
   methods:{
-    send(){
-      console.log(this.data);
-    },
+    send() { console.log(this.data); },
   }
 }
 </script>

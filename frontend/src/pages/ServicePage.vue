@@ -30,7 +30,7 @@
         <div class="block-3">
             <div class="block-left col-6">
                 <div>{{ $t('servicepage.price') }}</div>
-                <listView v-model="prselect" :categoryCode="catSel" :resize="resize" :infoBlock="true"
+                <listView v-model="prselect" :categoryCode="catSel" :resize="resize" :infoBlock="true" :showDoc="true"
                                  v-on:showDocM="updCardModal" v-on:showListDocM="updCardListModal"/>
                 <!--<button class="btn vis" @click="send()">{{ $t('proсchoice.select') }}</button>-->
             </div>

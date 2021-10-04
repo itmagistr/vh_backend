@@ -16,7 +16,7 @@
             <div class="pr-duration">{{ c.duration }} {{$t("servicepage.min")}}</div>
           </div>
       </div>
-      <info v-if="prselect === c.uid && resize && infoBlock"
+      <info v-if="prselect === c.uid && resize && infoBlock" :showDoc="showDoc"
             :key="'block-' + c.uid" class="hm-block" :info="prselect"
             v-on:showDocM="updCardModal" v-on:showListDocM="updCardListModal"/>
     </template>
@@ -34,7 +34,8 @@ export default {
       doctorUID: String,
       resize: Boolean,
       infoButton: Boolean,
-      infoBlock: Boolean
+      infoBlock: Boolean,
+      showDoc: Boolean
     },
     data() {
       return {
@@ -85,13 +86,12 @@ export default {
     },
     methods: {
       detail(uid){
-        console.log(uid);
+        console.debug(uid);
       },
       updCardModal(next) { this.$emit('showDocM', next); },
       updCardListModal(next) { this.$emit('showListDocM', next); },
       medProcListByCat() {
-        if (this.catSel === null)
-          return;
+        if (this.catSel === null) return;
         const options = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -99,29 +99,18 @@ export default {
         };
         fetch(`${this.$store.state.apihost}${this.locale}/vhapi/medproc/list/`, options)
             .then(response => response.json())
-            .then(data => {
-              this.results = data;
+            .then(data => { this.results = data;
               if (!this.resize && this.results.length > 0 && this.infoBlock)
                 this.selected(this.results[0].uid, 0);
             })
-            .catch((error) => { console.log(error); this.results = null; })
-            .finally(() => {
-              this.loading = false;
-            });
+            .catch((error) => { console.log(error); this.results = null; });
       },
       medProcListByDoc() {
-        if (this.docSel === null)
-          return;
+        if (this.docSel === null) return;
         fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/doctor/${this.docSel}/medprocs/`).
         then(response => response.json()).
-        then(data => {
-          this.results = data.results;
-          console.log(data);
-        }).
-        catch((error) => { console.log(error); this.results = null;}).
-        finally(() => {
-          this.loading = false;
-        });
+        then(data => { this.results = data.results; }).
+        catch((error) => { console.log(error); this.results = null; });
       },
       selected(sel, price) {
         if (this.prselect === sel) {

@@ -138,12 +138,9 @@ export default {
       if (this.showDoc === false) return;
       fetch(`${this.$store.state.apihost}${this.locale}/vhapi/doctor/`)
       .then(stream => stream.json())
-      .then(response => {
-        this.doc = {count: 1, results: response};
-        console.log(this.doc);
-      })
+      .then(response => { this.doc = {count: 1, results: response}; })
       .catch(error => { console.error(error); })
-      .finally(()=>{
+      .finally(() => {
         if(this.doc.results.img === null)
           this.doc.results.img = `${this.$store.state.apihost}media/uploads/human/defaultAvatar.png`;
       });
@@ -154,26 +151,16 @@ export default {
       then(response => response.json()).
       then(data => {
         this.doc.count = data.count;
-        if(this.doc.count > 1)
-          this.doc.results = data.results;
-        else
-          this.docUID();
+        if (this.doc.count > 1) this.doc.results = data.results;
+        else this.docUID();
       }).
-      catch((error) => { console.log(error); this.results = null;}).
-      finally(() => {
-        this.loading = false;
-      });
+      catch((error) => { console.log(error); this.results = null; });
     },
     getMoreInfo() {
       fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/medproc/${this.selfProcUid}/`).
       then(response => response.json()).
-      then(data => {
-        this.results = data;
-      }).
-      catch((error) => { console.log(error); this.results = null;}).
-      finally(() => {
-        this.loading = false;
-      });
+      then(data => { this.results = data; }).
+      catch((error) => { console.log(error); this.results = null; });
     },
   },
 }
