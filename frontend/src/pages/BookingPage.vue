@@ -3,7 +3,14 @@
         <div v-if="phase === 2" class="registration">
             <div class="tittle-pnp">
                 <h5>{{ $t('bookingpage.booking') }}</h5>
-                <router-link tag="button" aria-label="Close" class="close" :to="{name: 'main'}"><span aria-hidden="true">×</span></router-link>
+                <router-link to="/" custom v-slot="{ navigate }">
+                  <button class="close" @click="navigate" @keypress.enter="navigate">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </router-link>
+                <!--<router-link tag="button" aria-label="Close" class="close" :to="{name: 'main'}">
+                  <span aria-hidden="true">×</span>
+                </router-link>-->
             </div>
             <div class="row">
                 <Procedure v-model="phase" @modProc="getModProc"/>
@@ -68,7 +75,7 @@ export default {
     },
     created() {
         if (this.$store.state.Booking.Date === null){
-            this.date = new Date().toLocaleString('en-CA', { dateStyle: 'short' });
+            this.date = new Date().toISOString().split('T')[0];
             this.$store.commit("updDate", this.date);
         }
         //this.langBooking();

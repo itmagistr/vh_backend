@@ -1,15 +1,15 @@
 <template>
     <div class="d-flex ctm-main">
         <div class="cl-full">
-            <div class="calen">
+            <!--<div class="calen">
                 <div class="cl-day" >
                     <img src="/img/calendary.svg"/>
                     <span>{{day}}</span>
                 </div>
                 <div class="cl-month">{{$t(`months.m${month}`)}}</div>
-            </div>
-            <router-link tag="button" class="btn" data-toggle="modal"
-                    data-dismiss="modal" data-target="#mdl-future-ok" to="#">{{ $t('bookingpage.calendar') }}</router-link>
+            </div>-->
+            <!--<router-link tag="button" class="btn" data-toggle="modal"
+                    data-dismiss="modal" data-target="#mdl-future-ok" to="#">{{ $t('bookingpage.calendar') }}</router-link>-->
         </div>
     </div>
 </template>

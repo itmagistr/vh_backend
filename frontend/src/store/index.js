@@ -8,16 +8,23 @@ export default new Vuex.Store({
         Booking: {
             Procedure: null,
             Doctor: null,
-            Date: new Date().toLocaleString('en-CA', { dateStyle: 'short' }),
+            Date: new Date().toISOString().split('T')[0],
             Hour: null,
             Price: null,
         },
+        question: '',
         usefulTips: false,
         phase: 2,
         apihost: 'https://vh.v-hollywood.ru/',
         apihostImg: 'https://vh.v-hollywood.ru',
     },
+    getters: {
+        question: state => state.question,
+    },
     mutations: {
+        setQuestion(state, q){
+            state.question = q;
+        },
         updDoc(state, Doctor){
             state.Booking.Doctor = Doctor;
         },

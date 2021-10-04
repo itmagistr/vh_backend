@@ -7,8 +7,7 @@
         <div class="service">
             <div v-for="c in category" class="card-tooth"
                  :class="[{active: catSel === c.code}]"
-                 :key="c.code"
-                  @click="chgCat(c)">
+                 :key="c.code" @click="chgCat(c)">
               <div>
                 <img :src="c.img"/>
                 <div>{{c.title}}</div>
@@ -31,30 +30,12 @@
         <div class="block-3">
             <div class="block-left col-6">
                 <div>{{ $t('servicepage.price') }}</div>
-                <template v-for="c in results">
-                    <div class="product"
-                         :class="[{spec: c.code.length > 5}, { active: c.uid === prselect}]"
-                         :key="c.uid"
-                         @click="selected(c.uid, c.price)">
-                        <div class="sr-start">
-                          <!--<div class="pr-code">{{ c.code }}</div>-->
-                          <div class="pr-tittle">{{ c.title_check }}</div>
-                        </div>
-                        <div class="sr-end">
-                          <div class="pr-price">{{ c.price | currencyFormat("RUB")}}</div>
-                          <!--<div class="pr-duration">{{ c.duration | timeFormat("ru-RU")}}</div>-->
-                          <div class="pr-duration">{{ c.duration}} {{$t("servicepage.min")}}</div>
-                        </div>
-                    </div>
-                    <info v-if="prselect === c.uid && resize"
-                          :key="'block-'+c.uid"
-                          class="hm-block"
-                          :info="prselect"
-                          v-on:showDocM="updCardModal" v-on:showListDocM="updCardListModal"/>
-                </template>
+                <listView v-model="prselect" :categoryCode="catSel" :resize="resize" :infoBlock="true" :showDoc="true"
+                                 v-on:showDocM="updCardModal" v-on:showListDocM="updCardListModal"/>
                 <!--<button class="btn vis" @click="send()">{{ $t('proсchoice.select') }}</button>-->
             </div>
-            <info class="block-right col-6" :info="prselect" :resize="resize" v-on:showDocM="updCardModal" v-on:showListDocM="updCardListModal"/>
+            <info class="block-right col-6" :info="prselect" :resize="resize" :showDoc="true"
+                  v-on:showDocM="updCardModal" v-on:showListDocM="updCardListModal"/>
         </div>
     </div>
 </template>
@@ -63,33 +44,33 @@
 import currencyFormat from '@/helpers/currencyFormat';
 import timeFormat from "@/helpers/timeFormat";
 import info from "@/components/ServicePageInfoProc";
+import listView from "@/components/ProcedureListView";
 import modalDocCard from "@/components/ModalDocCard";
 import modalDoctorList from "@/components/ModalDoctorList";
 
 export default {
-    props: ['resize'],
+    props: { resize: Boolean },
     data() {
       return {
         select: this.$store.state.Booking.Procedure,
         prselect: this.$store.state.Booking.Procedure,
         selfInfo: '',
-        list: [],
         catSel: null,
         catObj: {},
+        list: [],
         category: [],
+        categoryPre: {},
         price: null,
         loading: true,
         errored: false,
-        results: null,
         locale: this.$i18n.locale
       }
     },
-    components:{
-      info, modalDocCard, modalDoctorList
-    },
-    async mounted() {
-      //await this.getMedProc("Орто", "2021-03-21", "bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82");
+    filters: { currencyFormat, timeFormat },
+    components: { info, modalDocCard, modalDoctorList, listView },
+    async created() {
       this.categoryList();
+      this.preBookingReq();
     },
     watch: {
       "$i18n.locale": {
@@ -97,77 +78,40 @@ export default {
           if (newLocale === oldLocale)
             return;
           this.locale = newLocale;
-          this.categoryList();
+          if (oldLocale !== undefined) this.categoryList();
         },
         immediate: true,
       },
     },
     methods: {
-      updCardListModal(list) {
-        this.list = list;
+      updCardListModal(list) { this.list = list; },
+      updCardModal(uid) { this.selfInfo = uid; },
+      chgCat(cat) {
+        if (cat.code === this.catSel) {
+          this.catSel = this.categoryPre.code;
+          this.catObj = this.categoryPre;
+        } else {
+          this.catSel = cat.code;
+          this.catObj = cat;
+        }
       },
-      updCardModal(uid) {
-        this.selfInfo = uid;
-      },
-      chgCat(cat){
-        this.catSel = cat.code;
-        //this.catSel = 'PRE_BOOKING';
-        this.catObj = cat;
-        //this.getMedProc(this.$store.state.Booking.Date, [{code: this.catSel}]);
+      preBookingReq() {
+        fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/category/PRE_BOOKING/`).
+        then(response => response.json()).
+        then(data => { this.categoryPre = data; }).
+        catch((error) => { console.log(error); }).
+        finally(() => { this.chgCat(this.categoryPre); });
       },
       categoryList() {
         fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/category/`).
         then(response => response.json()).
-        then(data => {
-        this.category = data.results;
-        }).
-        catch((error) => { console.log(error); this.results = null;}).
-        finally(() => {
-          if(this.catSel === null) {
-            this.chgCat(this.category[0]);
-          } else
-            for(let i = 0; i < this.category.length; i++)
-              if(this.category[i].code === this.catSel)
-                this.chgCat(this.category[i]);
-          this.getMedProc(this.$store.state.Booking.Date, [{code: 'PRE_BOOKING'}]);
-          this.loading = false;
-        });
+        then(data => { this.category = data.results; }).
+        catch((error) => { console.log(error); this.results = null;});
       },
-      getMedProc(date, catSel) {
-        const options = {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({"dt": date, "category": catSel})
-        };
-        fetch(`${this.$store.state.apihost}${this.locale}/vhapi/medproc/list/`, options).
-        then(response => response.json()).
-        then(data => {
-          this.results = data;
-          if(!this.resize && this.results.length > 0)
-            this.prselect = this.results[0].uid;
-        }).
-        catch((error) => { console.log(error); this.results = null;}).
-        finally(() => {
-          this.loading = false;
-        });
+      selected(sel, price) {
+        this.prselect = sel;
+        this.price = price;
       },
-      selected(sel, price){
-        if(this.prselect === sel) {
-          this.prselect = null;
-          this.price = null;
-        } else {
-          this.prselect = sel;
-          this.price = price;
-        }
-      },
-      send() {
-        this.$store.commit("updProc", this.prselect);
-        this.$store.commit("updPrice", this.price);
-        //this.$emit('pageProcedure', this.select, 2);
-      }
-    },
-    filters: {
-        currencyFormat, timeFormat
     },
 }
 </script>
@@ -287,47 +231,6 @@ body.chg-proc
     font-size: 21px
     line-height: 26px
     margin-bottom: 32px
-  > .product
-    padding: .25rem 2rem
-    display: flex
-    justify-content: space-between
-    > div
-      > div
-        margin: auto
-    &.active, &:hover
-      background: rgba(238, 209, 153, 0.16)
-    &.active > .sr-end > .pr-price, &:hover > .sr-end > .pr-price
-      color: #B8882F
-    &.active > .sr-end > .pr-duration, &:hover > .sr-end > .pr-duration
-      color: #071013
-    > .sr-start
-      display: flex
-      justify-content: flex-start
-      > .pr-code
-        width: 62px
-        margin-right: 8px
-        font-family: Montserrat
-        font-size: 19px
-        line-height: 24px
-        color: #071013
-      > .pr-tittle
-        font-family: FuturaBookC
-        color: #071013
-    > .sr-end
-      display: flex
-      justify-content: flex-end
-      > .pr-price
-        font-family: FuturaBookC
-        line-height: 21px
-        text-align: right
-        color: #DFB971
-        margin-right: 1rem
-      > .pr-duration
-        width: 56px
-        font-family: FuturaBookC
-        line-height: 21px
-        text-align: right
-        color: #9CC6BE
   > .vis
     display: block
     margin: 40px auto 64px
@@ -374,11 +277,4 @@ body.chg-proc
     > .block-left
       > div:first-child
         margin-left: 16px
-      > .product
-        padding: .25rem 1rem
-        > .sr-end
-          margin-left: .5rem
-          flex-direction: column
-          > .pr-price
-            margin-right: 0
 </style>

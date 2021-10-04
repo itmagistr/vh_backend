@@ -2,30 +2,51 @@
   <div>
     <div class="doctor-card">
       <div class="d-tittle">{{results.title}}</div>
-      <div class="probe">
-        <div v-if="doc.results.length > 1" class="d-card">
-          <img id="icd" :src="doc.results[0].img">
-          <div id="nmd">
-            <div>{{ doc.results[0].special }}</div>
-            <div>{{ doc.results[0].firstName }} {{ doc.results[0].lastName }}</div>
+      <template v-if="showDoc">
+        <div v-if="doc.results.length > 1">
+          <div>
+            <div class="d-card">
+              <img id="icd" :src="doc.results[0].img">
+              <div id="nmd">
+                <div>{{ doc.results[0].special }}</div>
+                <div>{{ doc.results[0].firstName }} {{ doc.results[0].lastName }}</div>
+              </div>
+              <button class="btn" id="btn-d" data-toggle="modal" data-target="#mdl-doc-list"
+                      @click="updCardListModal">
+                <i class="fas fa-caret-right"></i>
+              </button>
+            </div>
           </div>
-          <button class="btn" id="btn-d" data-toggle="modal" data-target="#mdl-doc-list"
-                  @click="updCardListModal">
-            <i class="fas fa-caret-right"></i>
-          </button>
-        </div>
-        <div v-else class="d-card">
-          <img id="icd" :src="doc.results.img">
-          <div id="nmd">
-            <div>{{ doc.results.special }}</div>
-            <div>{{ doc.results.firstName }} {{ doc.results.lastName }}</div>
+          <div>
+            <div class="d-card">
+              <img id="icd" :src="doc.results[1].img">
+              <div id="nmd">
+                <div>{{ doc.results[1].special }}</div>
+                <div>{{ doc.results[1].firstName }} {{ doc.results[1].lastName }}</div>
+              </div>
+              <button class="btn" id="btn-d" data-toggle="modal" data-target="#mdl-doc-list"
+                      @click="updCardListModal">
+                <i class="fas fa-caret-right"></i>
+              </button>
+            </div>
           </div>
-          <button class="btn" id="btn-d" data-toggle="modal" data-target="#mdl-doc-card"
-                  @click="updCardModal(doc.results.uid)">
-            <i class="fas fa-caret-right"></i>
-          </button>
         </div>
-      </div>
+        <div v-else>
+          <div>
+           <div class="d-card">
+            <img id="icd" :src="doc.results.img">
+            <div id="nmd">
+              <div>{{ doc.results.special }}</div>
+              <div>{{ doc.results.firstName }} {{ doc.results.lastName }}</div>
+            </div>
+            <button class="btn" id="btn-d" data-toggle="modal" data-target="#mdl-doc-card"
+                    @click="updCardModal(doc.results.uid)">
+              <i class="fas fa-caret-right"></i>
+            </button>
+          </div>
+          </div>
+        </div>
+      </template>
     </div>
     <div class="description">
       <div>{{ $t('servicepage.description') }}</div>
@@ -64,6 +85,7 @@ export default {
   props: {
     info: String,
     resize: Boolean,
+    showDoc: Boolean,
   },
   data(){
     return {
@@ -106,54 +128,39 @@ export default {
     },
   },
   methods: {
-    updCardModal(uid){
-      this.$emit('showDocM', uid);
-    },
-    updCardListModal(){
-      this.$emit('showListDocM', this.doc.results);
-    },
+    updCardModal(uid) { this.$emit('showDocM', uid); },
+    updCardListModal() { this.$emit('showListDocM', this.doc.results); },
     send() {
       this.$store.commit("updProc", this.prselect);
       this.$store.commit("updPrice", this.price);
     },
     docUID() {
+      if (this.showDoc === false) return;
       fetch(`${this.$store.state.apihost}${this.locale}/vhapi/doctor/`)
       .then(stream => stream.json())
-      .then(response => {
-        this.doc = {count: 1, results: response};
-        console.log(this.doc);
-      })
+      .then(response => { this.doc = {count: 1, results: response}; })
       .catch(error => { console.error(error); })
-      .finally(()=>{
+      .finally(() => {
         if(this.doc.results.img === null)
           this.doc.results.img = `${this.$store.state.apihost}media/uploads/human/defaultAvatar.png`;
       });
     },
     getMedProcDoctors() {
+      if (this.showDoc === false) return;
       fetch(`${this.$store.state.apihost}${this.locale}/vhapi/medproc/${this.selfProcUid}/doctors/`).
       then(response => response.json()).
       then(data => {
         this.doc.count = data.count;
-        if(this.doc.count > 1)
-          this.doc.results = data.results;
-        else
-          this.docUID();
+        if (this.doc.count > 1) this.doc.results = data.results;
+        else this.docUID();
       }).
-      catch((error) => { console.log(error); this.results = null;}).
-      finally(() => {
-        this.loading = false;
-      });
+      catch((error) => { console.log(error); this.results = null; });
     },
     getMoreInfo() {
       fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/medproc/${this.selfProcUid}/`).
       then(response => response.json()).
-      then(data => {
-        this.results = data;
-      }).
-      catch((error) => { console.log(error); this.results = null;}).
-      finally(() => {
-        this.loading = false;
-      });
+      then(data => { this.results = data; }).
+      catch((error) => { console.log(error); this.results = null; });
     },
   },
 }
@@ -182,17 +189,16 @@ export default {
       line-height: 26px
       text-align: left
       margin-bottom: 1.5rem
-    > .probe
-      padding: 0 .5rem
-      &:first-child
-        padding-left: 0
-      &:last-child
-        padding-right: 0
-      > .d-card
+      min-height: 52px
+    > div
+      display: flex
+      overflow: auto
+      > div > .d-card
         background: white
         height: 72px
         width: 280px
         border-radius: .5rem
+        margin: 0 .25rem
         > div, > button
           display: inline-block
         img#icd

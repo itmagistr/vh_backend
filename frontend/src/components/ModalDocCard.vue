@@ -78,23 +78,17 @@ export default {
   methods: {
     getInfo() {
       fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/doctor/${this.selfInfo}`)
-      .then(response => response.json()).then(data => {
-        this.data = data;
-        console.log(data);
-      }).catch((error) => {
-        console.log(error);
-        //this.results = null;
-      }).finally(() => {
-        if(this.data.img === null)
-            this.data.img = `${this.$store.state.apihost}media/uploads/human/defaultAvatar.png`;
-        if(this.data.special_img === null)
-            this.data.special_img = `${this.$store.state.apihost}media/uploads/doctorspec/defaultTeeth.svg`;
-        //this.loading = false;
-      });
+          .then(response => response.json())
+          .then(data => { this.data = data; })
+          .catch((error) => { console.log(error); this.results = null; })
+          .finally(() => {
+            if (this.data.img === null)
+                this.data.img = `${this.$store.state.apihost}media/uploads/human/defaultAvatar.png`;
+            if (this.data.special_img === null)
+                this.data.special_img = `${this.$store.state.apihost}media/uploads/doctorspec/defaultTeeth.svg`;
+          });
     },
-    send() {
-      this.$store.commit("updDoc", this.data.uid);
-    },
+    send() { this.$store.commit("updDoc", this.data.uid); },
     expFormat(v) {
       if (v >= 5) return "" + this.$t('doctorpage.experience') + " " + v + " "+ this.$t('doctorpage.exp5')
       if ([2, 3, 4].indexOf(v) >= 0) return "" + this.$t('doctorpage.experience') + " " + v + " " + this.$t('doctorpage.exp2')

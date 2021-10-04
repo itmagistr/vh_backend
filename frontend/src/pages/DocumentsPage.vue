@@ -29,7 +29,8 @@ export default {
       slides: [
         {src: `${this.$store.state.apihostImg}/media/uploads/documents/doc1.jpg`},
         {src: `${this.$store.state.apihostImg}/media/uploads/documents/doc2.jpg`},
-        {src: `${this.$store.state.apihostImg}/media/uploads/documents/doc3.jpg`}
+        {src: `${this.$store.state.apihostImg}/media/uploads/documents/doc3.jpg`},
+        {src: `${this.$store.state.apihostImg}/media/uploads/documents/doc4.jpg`}
 
       ],
     }
@@ -71,6 +72,7 @@ body.documGal
         > img
           border-radius: .5rem
           height: 100%
+          width: 200px
     .splide
       padding: 0 0 3rem
 @media (max-width: 1399px)

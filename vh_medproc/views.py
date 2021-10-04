@@ -157,7 +157,7 @@ class MedProcFilterView(generics.ListAPIView):
 				resQ = MedProc.objects.filter(Q(code__startswith=serializer.data['txt']) | Q(title_en__icontains=serializer.data['txt']) )
 		#headers = self.get_success_headers(resSerializer.data)
 		if len(resQ)==0:
-			resQ = MedProc.objects.filter(code__startswith='CLV')
+			resQ = [el.product for el in ProductCategory.objects.filter(category__code='PRE_BOOKING').order_by('pos')]
 		try:
 			resSerializer = sclass(resQ[:20], many=True)
 			logger.info(request.data)

@@ -72,7 +72,7 @@ export default {
   },
   async created() {
     window.addEventListener('resize', this.checkSlider);
-    await this.docList("", this.$store.state.Booking.Date, this.vuel);
+    await this.docList("", this.$store.state.Booking.Date);
     this.specList();
   },
   components: {
@@ -88,12 +88,6 @@ export default {
         if (this.category[i].st)
           tmp.push({code: this.category[i].code})
       return tmp;
-    },
-    otro() {
-      if (document.getElementById("algo").offsetWidth <= this.doc.length * 348 - 32)
-        return 0;
-      else
-        return 1;
     }
   },
   methods: {
@@ -107,7 +101,7 @@ export default {
         for (let i = 0; i < this.category.length; i++)
           this.category[i].st = false;
       }
-      this.docList("", this.$store.state.Booking.Date, this.vuel);
+      this.docList("", this.$store.state.Booking.Date);
     },
     expFormat(v) {
       if (v >= 5) return "" + this.$t('doctorpage.experience') + " " + v + " " + this.$t('doctorpage.exp5')
@@ -117,11 +111,11 @@ export default {
     updCardModal(uid) {
       this.selfInfo = uid;
     },
-    docList(cat, date, specs) {
+    docList(cat, date) {
       const options = {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({"txt": cat, "dt": date, "spec": specs})
+        body: JSON.stringify({"txt": cat, "dt": date, "spec": this.vuel})
       };
       fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/doctor/list/`, options)
           .then(response => response.json()).then(data => { this.doc = data; })
@@ -138,7 +132,8 @@ export default {
           });
     },
     specList() {
-      fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/doctor/spec/list/`).then(response => response.json()).then(data => {
+      fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/doctor/spec/list/`).
+      then(response => response.json()).then(data => {
         this.category = [];
         for (let i = 0; i < data.count; i++) {
           const buf = data.results[i];
@@ -164,7 +159,7 @@ export default {
         if (this.category.length - 1 === i && this.category[i].st === true)
           this.allBtn.st = true;
       }
-      this.docList("", this.$store.state.Booking.Date, this.vuel);
+      this.docList("", this.$store.state.Booking.Date);
     },
     slide() {
       const acco = document.getElementById("algo");
@@ -196,8 +191,10 @@ export default {
         if (newLocale === oldLocale)
           return
         this.locale = newLocale;
-        this.docList("", this.$store.state.Booking.Date, this.vuel);
-        this.specList();
+        if (oldLocale !== undefined){
+          this.docList("", this.$store.state.Booking.Date);
+          this.specList();
+        }
       },
       immediate: true
     },

@@ -91,13 +91,29 @@ export default {
     onResize() {
       this.mobile = document.documentElement.clientWidth <= 1399;
     },
+    onCurPage(){
+      this.$cookies.set("curPage", this.$route.path);
+    },
   },
   created() {
-    this.$i18n.locale = navigator.language.slice(0,2) || navigator.userLanguage.slice(0,2);
+    window.addEventListener('beforeunload', this.onCurPage);
     window.addEventListener('resize', this.onResize);
+
+    if(this.$cookies.get('curPage') !== this.$route.path)
+      this.$router.push(this.$cookies.get('curPage'));
+
+    if(this.$cookies.get('lang')) {
+      this.locale = this.$cookies.get('lang');
+      this.$i18n.locale = this.$cookies.get('lang');
+    } else {
+    this.$i18n.locale = navigator.language.slice(0,2) || navigator.userLanguage.slice(0,2);
+      this.$cookies.set("lang", this.$i18n.locale);
+    }
+
     this.onResize();
   },
   beforeDestroy() {
+    window.removeEventListener('beforeunload', this.onCurPage);
     window.removeEventListener('resize', this.onResize);
   },
   components: { Header, modalContact, modalLeaveRequest, modalFutureOk, modalCallBack, modalMobileMenu, modalMessenger, modalImage },

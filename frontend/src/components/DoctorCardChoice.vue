@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="d-flex flex-column clip-info">
-                <div>{{ data.experience }}</div>
+                <div>{{ expFormat(data.experience) }}</div>
                 <div>{{ data.level }}</div>
                 <div>{{ data.degree }}</div>
             </div>
@@ -79,6 +79,11 @@ export default {
         selected(val) {
             this.$emit('select', val);
             this.select = val;
+        },
+        expFormat(v) {
+          if (v >= 5) return "" + this.$t('doctorpage.experience') + " " + v + " "+ this.$t('doctorpage.exp5')
+          if ([2, 3, 4].indexOf(v) >= 0) return "" + this.$t('doctorpage.experience') + " " + v + " " + this.$t('doctorpage.exp2')
+          if (v == 1) return "" + this.$t('doctorpage.experience') + " " + v + " " + this.$t('doctorpage.exp1')
         },
         getProcDoc() {
           fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/doctor/${this.data.uid}/medprocs/`)
