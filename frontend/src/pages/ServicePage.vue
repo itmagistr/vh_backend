@@ -59,6 +59,7 @@ export default {
         catObj: {},
         list: [],
         category: [],
+        categoryPre: {},
         price: null,
         loading: true,
         errored: false,
@@ -68,8 +69,8 @@ export default {
     filters: { currencyFormat, timeFormat },
     components: { info, modalDocCard, modalDoctorList, listView },
     async created() {
-      //await this.getMedProc("Орто", "2021-03-21", "bf0f0856-f57d-48c6-b99c-b3c8a2e3ea82");
       this.categoryList();
+      this.preBookingReq();
     },
     watch: {
       "$i18n.locale": {
@@ -87,27 +88,25 @@ export default {
       updCardModal(uid) { this.selfInfo = uid; },
       chgCat(cat) {
         if (cat.code === this.catSel) {
-          this.catSel = 'PRE_BOOKING';
+          this.catSel = this.categoryPre.code;
+          this.catObj = this.categoryPre;
         } else {
           this.catSel = cat.code;
-          //this.catSel = 'PRE_BOOKING';
           this.catObj = cat;
         }
+      },
+      preBookingReq() {
+        fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/category/PRE_BOOKING/`).
+        then(response => response.json()).
+        then(data => { this.categoryPre = data; }).
+        catch((error) => { console.log(error); }).
+        finally(() => { this.chgCat(this.categoryPre); });
       },
       categoryList() {
         fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/category/`).
         then(response => response.json()).
         then(data => { this.category = data.results; }).
-        catch((error) => { console.log(error); this.results = null;}).
-        finally(() => {
-          if (this.catSel === null) {
-            this.chgCat(this.category[0]);
-          } else
-            for(let i = 0; i < this.category.length; i++)
-              if(this.category[i].code === this.catSel)
-                this.chgCat(this.category[i]);
-          this.loading = false;
-        });
+        catch((error) => { console.log(error); this.results = null;});
       },
       selected(sel, price) {
         this.prselect = sel;
