@@ -30,3 +30,17 @@ class CategoryListView(generics.ListAPIView):
 	def get_queryset(self):
 		mp = Category.objects.filter(code__exact='MEDPROCS')
 		return Category.objects.filter(parent=mp[0])
+
+class CategoryItemView(generics.RetrieveAPIView):
+	'''
+	Получить категорию по code.
+	'''
+	serializer_class = CategoryEnSerializer
+	lookup_field = 'code'
+	def get_serializer_class(self):
+		if 'ru' in translation.get_language():
+			return CategoryRuSerializer
+		return CategoryEnSerializer
+		
+	def get_queryset(self):
+		return Category.objects.all()
