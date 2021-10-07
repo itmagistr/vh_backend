@@ -167,7 +167,8 @@ class SpecListView(generics.ListAPIView):
 		
 	def get_queryset(self):
 		#return Special.objects.all()
-		return Category.objects.filter(parent__code__exact='DOCSPEC')
+		ds = Category.objects.filter(code__exact='DOCSPEC')
+		return Category.objects.filter(path__startswith=ds[0].path+'0')
 	
 
 class DocWorkResView(generics.ListAPIView):

@@ -1,5 +1,6 @@
 from django.db import models
-from tree_queries.models import TreeNode
+#from tree_queries.models import TreeNode
+from treebeard.mp_tree import MP_Node
 from vh_category.settings import UPLOAD_TO
 import os
 import uuid
@@ -13,7 +14,8 @@ def image_upload_to(self, filename):
 	return os.path.join(
 		UPLOAD_TO, '%s%s' % (slugify(filename), extension))
 
-class Category(TreeNode):
+#class Category(TreeNode):
+class Category(MP_Node): 
 	uid = models.UUIDField(default=uuid.uuid4, editable=False)
 	code = models.CharField(max_length=20, null=False, blank=False)
 	title = models.CharField(max_length=255, null=False, blank=False)

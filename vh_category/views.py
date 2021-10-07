@@ -29,7 +29,7 @@ class CategoryListView(generics.ListAPIView):
 		
 	def get_queryset(self):
 		mp = Category.objects.filter(code__exact='MEDPROCS')
-		return Category.objects.filter(parent=mp[0])
+		return Category.objects.filter(path__startswith=mp[0].path+'0')
 
 class CategoryItemView(generics.RetrieveAPIView):
 	'''

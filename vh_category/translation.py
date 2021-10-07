@@ -6,5 +6,4 @@ class CategoryTranslationOptions(TranslationOptions):
 
 
 translator.register(Category, CategoryTranslationOptions)
-
 # #https://django-modeltranslation.readthedocs.io/en/latest/registration.html
