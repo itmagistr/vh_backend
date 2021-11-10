@@ -1,62 +1,32 @@
 {
-  "name": "frontend",
-  "version": "0.1.0",
+  "name": "nuxtFrontEnd",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "i18n:report": "vue-cli-service i18n:report --src \"./src/**/*.?(js|vue)\" --locales \"./src/locales/**/*.json\""
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
+    "lint": "npm run lint:js"
   },
   "dependencies": {
-    "@splidejs/vue-splide": "^0.3.5",
-    "@trevoreyre/autocomplete-vue": "^2.2.0",
-    "core-js": "^3.9.1",
-    "jquery": "^3.6.0",
-    "package.json": "^2.0.1",
-    "vue": "^2.6.11",
-    "vue-cookies": "^1.7.4",
-    "vue-i18n": "^8.22.3",
-    "vue-loader": "^15.9.6",
-    "vue-meta": "^2.4.0",
-    "vue-recaptcha-v3": "^1.9.0",
-    "vue-router": "^3.5.1",
-    "vue-star-rating": "^1.7.0",
-    "vue-yandex-maps": "^0.10.12",
-    "vuex": "^3.6.2"
+    "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/i18n": "^7.1.0",
+    "core-js": "^3.15.1",
+    "nuxt": "^2.15.7"
   },
   "devDependencies": {
-    "@kazupon/vue-i18n-loader": "^0.5.0",
-    "@vue/cli-plugin-babel": "^4.5.11",
-    "@vue/cli-plugin-eslint": "^4.5.11",
-    "@vue/cli-plugin-router": "^4.5.11",
-    "@vue/cli-plugin-vuex": "^4.5.11",
-    "@vue/cli-service": "^4.5.11",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "node-sass": "^4.14.1",
-    "sass-loader": "^10.1.1",
-    "vue-cli-plugin-i18n": "^2.0.1",
-    "vue-template-compiler": "^2.6.11"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+    "@babel/eslint-parser": "^7.14.7",
+    "@nuxtjs/eslint-config": "^6.0.1",
+    "@nuxtjs/eslint-module": "^3.0.2",
+    "eslint": "^7.29.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-nuxt": "^2.0.0",
+    "eslint-plugin-vue": "^7.12.1",
+    "fibers": "^5.0.0",
+    "prettier": "^2.3.2",
+    "sass": "^1.43.4",
+    "sass-loader": "^10.2.0"
+  }
 }
