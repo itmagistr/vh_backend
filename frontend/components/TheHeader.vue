@@ -1,38 +1,26 @@
 <template>
   <header>
-    <nav v-if="resize === false" class="navbar navbar-expand-xl navbar-light">
-      <div class="collapse navbar-collapse" id="navbarNav">
+    <nav v-if="!resize" class="navbar navbar-expand-xl navbar-light">
+      <div id="navbarNav" class="collapse navbar-collapse">
         <ul class="navbar-nav hract">
+          <NuxtLink to="/service" class="nav-item" tag="li">
+            <hr><a class="nav-link">{{ $t('menu.services') }}</a><hr>
+          </NuxtLink>
+          <NuxtLink to="#" class="nav-item" tag="li" >
+            <hr><a class="nav-link" data-toggle="modal" data-target="#mdl-future-ok">{{ $t('menu.booking') }}</a><hr>
+          </NuxtLink>
+          <NuxtLink class="nav-item" to="/doctors" tag="li">
+            <hr><a class="nav-link">{{ $t('menu.doctors') }}</a><hr>
+          </NuxtLink>
+          <NuxtLink class="nav-item" to="/virtual-tour" tag="li">
+            <hr><a class="nav-link">{{ $t('menu.virtual_tour') }}</a><hr>
+          </NuxtLink>
+          <NuxtLink to="/documents" class="nav-item" tag="li">
+            <hr><a class="nav-link">{{ $t('menu.documentation') }}</a><hr>
+          </NuxtLink>
           <li class="nav-item">
             <hr>
-            <NuxtLink to="/service" class="nav-link">Услуги</NuxtLink>
-            <hr>
-          </li>
-          <!--<li class="nav-item">
-            <hr>
-            <NuxtLink to="#">
-              <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-future-ok">{{ $t('menu.booking') }}</a>
-            </NuxtLink>
-            <hr>
-          </li>-->
-          <li class="nav-item">
-            <hr>
-            <NuxtLink to="/doctors">Доктора</NuxtLink>
-            <hr>
-          </li>
-          <li class="nav-item">
-            <hr>
-            <NuxtLink to="/virtual-tour">Виртуальный тур</NuxtLink>
-            <hr>
-          </li>
-          <li class="nav-item">
-            <hr>
-            <NuxtLink to="/documents">Документация</NuxtLink>
-            <hr>
-          </li>
-          <li class="nav-item">
-            <hr>
-            <a href="#" class="nav-link" data-toggle="modal" data-target="#mdl-contacts">Контакты</a>
+            <a class="nav-link" data-toggle="modal" data-target="#mdl-contacts">{{ $t('menu.contacts') }}</a>
             <hr>
           </li>
         </ul>
@@ -42,9 +30,9 @@
         <ul class="navbar-nav rightM">
           <li class="nav-item">
             <div class="search-field">
-              <input v-model='q' type="text" class="form-control"
+              <input v-model="q" type="text" class="form-control"
                      :placeholder="Поиск" @keyup.enter="search">
-              <button @click="clear" v-show="q.length !== 0" class="btn close-search-btn">
+              <button v-show="q.length !== 0" class="btn close-search-btn" @click="clear">
                 <i class="bi bi-x"></i>
               </button>
               <button class="btn search-btn" type="button" @click="search">
@@ -53,24 +41,24 @@
             </div>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="nDML" role="button" data-toggle="dropdown"
+            <a id="nDML" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false"> {{ locale }} </a>
             <div class="dropdown-menu" aria-labelledby="nDML">
               <a class="dropdown-item" @click="chLang('ru')">Русский</a>
               <a class="dropdown-item" @click="chLang('en')">English</a>
             </div>
           </li>
+          <NuxtLink to="#" class="nav-item" tag="li">
+            <a class="nav-link" >{{ $t('menu.profile') }} <i class="fas fa-user"></i></a>
+          </NuxtLink>
           <li class="nav-item">
-            <NuxtLink to="#">Профиль <i class="fas fa-user"></i></NuxtLink>
-          </li>
-          <li class="nav-item">
-            <span class="number">Телефон</span>
-            <a class="nav-link" href="#" id="order-call" data-toggle="modal" data-target="#mdl-call-back">Обратная связь</a>
+            <span id="number">{{ $t('menu.phone_num')}}</span>
+            <a id="order-call" class="nav-link" data-toggle="modal" data-target="#mdl-call-back">{{ $t('menu.callback_lnk')}}</a>
           </li>
         </ul>
       </div>
     </nav>
-    <nav v-if="resize === true" class="navbar navbar-light">
+    <nav v-else-if="resize" class="navbar navbar-light">
       <button class="navbar-toggler" type="button" data-toggle="modal" data-target="#mdlm-menu">
         <i class="fas fa-bars"></i>
       </button>
@@ -81,8 +69,8 @@
         <button class="btn search-btn" type="button" @click="search">
           <i class="fas fa-search"></i>
         </button>
-        <input @blur="handleBlur" @focus="handleFocus" id="searchfField" type="text" v-model="q" @keyup.enter="search"/>
-        <button @click="clear" v-show="q.length !== 0" class="btn close-search-btn">
+        <input id="searchfField" v-model="q" type="text" @blur="handleBlur" @focus="handleFocus" @keyup.enter="search"/>
+        <button v-show="q.length !== 0" class="btn close-search-btn" @click="clear">
           <i class="bi bi-x"></i>
         </button>
       </label>
@@ -92,7 +80,7 @@
 
 <script>
 export default {
-  props: ['resize'],
+  props: { resize: Boolean },
   data() {
     return {
       locale: this.$i18n.locale,
@@ -130,7 +118,7 @@ export default {
         return false;
       });
     },
-  }
+  },
 }
 </script>
 
@@ -184,15 +172,11 @@ header
               text-align: right
               padding-top: .25rem
               color: $active-text-link!important
-            &.number
+          > span#number
               font-size: 21px!important
               line-height: 16px!important
               text-align: right
               padding-bottom: .25rem
-            > h6#profile_field
-              line-height: 21px
-              margin-right: 8px
-              display: inline-flex
         &.rightM
           align-items: center
           .search-field
@@ -256,7 +240,7 @@ header
               width: 40px
               height: 4px
               margin: 0
-            &#active
+            &.nuxt-link-active
               > hr
                 background: #42e1c5
               > a

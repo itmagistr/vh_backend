@@ -15,11 +15,14 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href: "https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" }, 
       { rel: 'stylesheet', href: "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" },
-      { rel: 'preload', as: 'script', href: "https://code.jquery.com/jquery-3.5.1.slim.min.js" },
-      { rel: 'preload', as: 'script', href: "https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" },
-      { rel: 'preload', as: 'script', href: "https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" },
-      { rel: 'preload', as: 'script', href: "https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" },
-      { rel: 'preload', as: 'script', href: "https://kit.fontawesome.com/b17c92d058.js" }
+      { rel: 'stylesheet', href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" }
+    ],
+    script: [
+      { src: "https://code.jquery.com/jquery-3.5.1.slim.min.js" },
+      { src: "https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" },
+      { src: "https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" },
+      { src: "https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" },
+      { src: "https://kit.fontawesome.com/b17c92d058.js" }
     ]
   },
 
@@ -29,6 +32,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    { src: '~/plugins/ymapPlugin.js',  mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -44,17 +48,24 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/i18n'
+    '@nuxtjs/i18n',
+    'cookie-universal-nuxt'
   ],
     i18n: {
-      locales: ['en', 'ru'],
+      locales: [
+        {
+          code: 'en',
+          file: 'en-US.js'
+        },
+        {
+          code: 'ru',
+          file: 'ru-RU.js'
+        },
+      ],
+      langDir: 'assets/locales/',
       defaultLocale: 'ru',
       vueI18n: {
         fallbackLocale: 'en',
-        locales: {
-          en: '~/assets/locales/en.json',
-          ru: '~/assets/locales/ru.json'
-        }
       }
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

@@ -1,20 +1,78 @@
 <template>
-  <main>
-    <TheHeader :resize="false"/>
-    <Nuxt :resize="false"/>
-  </main>
+  <div>
+    <TheHeader :resize="isResize"/>
+    <main>
+      <div class="container">
+        <ModalFutureOk/>
+        <!-- <ModalContact/> -->
+        <ModalImage/>
+        <ModalCallBack/>
+        <ModalLeaveRequest/>
+        <ModalMobileMenu :resize="isResize"/>
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="d-flex flex-column ctm-col-rt col neo-d">
+            <a href="https://www.instagram.com/tohwddent" target="_blank"><button class="social-btn"><i class="fab fa-instagram"></i></button></a>
+            <a href="https://www.youtube.com/channel/UCeyxKBqdLFA79kCTH29RDsQ" target="_blank"><button class="social-btn"><i class="fab fa-youtube"></i></button></a>
+            <a href="https://www.facebook.com/ToHwdDent" target="_blank"><button class="social-btn"><i class="fab fa-facebook-f"></i></button></a>
+            <a href="https://vk.com/tohwddent" target="_blank"><button class="social-btn"><i class="fab fa-vk"></i></button></a>
+          </div>
+          <NuxtChild :resize="isResize" :class="['neo-d', {'col': $route.path !== '/booking'}]"/>
+          <div class="d-flex flex-column ctm-col-lt col neo-d">
+            <button class="social-btn" data-toggle="modal" data-target="#mdl-leave-request"><i class="far fa-comment-alt"></i></button>
+            <button class="social-btn" data-toggle="modal" data-target="#mdl-contacts"><i class="fas fa-map-marker-alt"></i></button>
+            <!--<button class="social-btn"><i class="fas fa-route"></i></button>-->
+            <button class="social-btn" data-toggle="modal" data-target="#mdl-call-back"><i class="fas fa-phone-alt"></i></button>
+            <a href="https://api.whatsapp.com/send?phone=79096952043" target="_blank"><button class="social-btn"><i class="fab fa-whatsapp"></i></button></a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
 </template>
 
 <script>
 export default {
+  // props: { resize: Boolean },
+  data() {
+    return {
+      isResize: false
+    }
+  },
+  head () {
+    return {
+      bodyAttrs: {
+        class: this.$route.path === '/doctors' ? 'chg-doc' : this.$route.path === '/service' ? 'chg-proc' : this.$route.path === '/documents' ? 'documGal' : this.$route.path === '/virtual-tour' ? 'tour' : this.$route.path === '/' ? 'mainP' : this.$route.path === '/booking' ? 'booking' : ''
+      }
+    }
+  },
+  beforeMount() {
+    window.addEventListener('resize', this.onResize);
 
+    if(this.$cookies.get('lang')) {
+      this.locale = this.$cookies.get('lang');
+      this.$i18n.locale = this.$cookies.get('lang');
+    } else {
+      this.$i18n.locale = navigator.language.slice(0,2) || navigator.userLanguage.slice(0,2);
+      this.$cookies.set("lang", this.$i18n.locale);
+    }
+
+    this.onResize();
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.onResize);
+  },
+  methods: {
+    onResize() {
+      this.isResize = document.documentElement.clientWidth <= 1399;
+    },
+  },
 }
 </script>
 
 
 <style lang="sass">
 @import "~/styles/_variables.sass"
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap')
+// @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap')
 
 @font-face
   font-family: "FuturaBookC"
@@ -32,6 +90,9 @@ body
   background-size: cover
 ::-webkit-scrollbar
   display: none
+
+.neo-d
+  align-items: center
 
 .container
   .ctm-col-lt
