@@ -1,17 +1,17 @@
 <template>
     <div class="d-flex flex-column doc">
-        <modalDocCard :selfInfo="selfInfo"/>
+        <modalDocCard :self-info="selfInfo"/>
         <div class="tittle-of-doctor">{{ $t('doctorpage.doc_header') }}</div>
         <div class="filter">
-            <div @click="allFilters" :class="{active: allBtn.st}">
+            <div :class="{active: allBtn.st}" @click="allFilters">
               <img :src="$store.state.apihostImg + '/media/uploads/doctorspec/defaultTeeth.svg'">{{ $t('doctorpage.all') }}
             </div>
-            <div :class="{active: c.st}" v-for="(c, index) in category" :key="index" @click="updCat(index)">
+            <div v-for="(c, index) in category" :key="index" :class="{active: c.st}" @click="updCat(index)">
                 <img :src="c.img"/>{{ c.title }}
             </div>
         </div>
-        <div id="algo" v-on:scroll.passive="scroll">
-            <div class="card-doc" v-for="c in doc" :key="c.uid">
+        <div id="algo" @scroll.passive="scroll">
+            <div v-for="c in doc" :key="c.uid" class="card-doc">
                 <div class="docPhoto">
                   <img :src="$store.state.apihostImg + c.img"/>
                 </div>
@@ -34,8 +34,8 @@
                 <button class="btn" data-toggle="modal" data-target="#mdl-doc-card" @click="updCardModal(c.uid)">{{$t('doctorpage.details')}}</button>
             </div>
         </div>
-       <input v-if="sli.isShow" type="range" min="0" :max="sli.max" value="1" id="slider"
-              v-model.number="sli.cur" @input="slide">
+       <input v-if="sli.isShow" id="slider" v-model.number="sli.cur" type="range" min="0" :max="sli.max"
+              value="1" @input="slide">
     </div>
 </template>
 
@@ -46,8 +46,10 @@ import timeFormat from "@/helpers/timeFormat";
 import modalDocCard from "@/components/ModalDocCard.vue";
 
 export default {
+  components: { modalDocCard, /* StarRating, */ },
+  filters: { currencyFormat, timeFormat },
   layout: 'def',
-  props: ['resize'],
+  props: { resize: Boolean },
   data() {
     return {
       sli: {
@@ -70,17 +72,6 @@ export default {
       locale: this.$i18n.locale,
     }
   },
-  beforeMount() {
-    window.addEventListener('resize', this.checkSlider);
-    this.docList("", this.$store.state.Booking.Date);
-    this.specList();
-  },
-  components: { // StarRating, 
-    modalDocCard,
-  },
-  filters: {
-    currencyFormat, timeFormat
-  },
   computed: {
     vuel() {
       const tmp = [];
@@ -89,6 +80,28 @@ export default {
           tmp.push({code: this.category[i].code})
       return tmp;
     }
+  },
+  watch: {
+    "$i18n.locale": {
+      handler(newLocale, oldLocale) {
+        if (newLocale === oldLocale)
+          return
+        this.locale = newLocale;
+        if (oldLocale !== undefined){
+          this.docList("", this.$store.state.Booking.Date);
+          this.specList();
+        }
+      },
+      immediate: true
+    },
+  },
+  beforeMount() {
+    window.addEventListener('resize', this.checkSlider);
+    this.docList("", this.$store.state.Booking.Date);
+    this.specList();
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.checkSlider);
   },
   methods: {
     exp(v) {
@@ -119,7 +132,8 @@ export default {
       };
       fetch(`${this.$store.state.apihost}${this.$i18n.locale}/vhapi/doctor/list/`, options)
           .then(response => response.json()).then(data => { this.doc = data; })
-          .catch((error) => { console.log(error); this.results = null; })
+          .catch(() => { this.results = null; })
+          // .catch((error) => { console.log(error); this.results = null; })
           .finally(() => {
             this.checkSlider();
             for (let i = 0; i < this.doc.length; i++) {
@@ -142,12 +156,10 @@ export default {
             img = `${this.$store.state.apihost}media/uploads/doctorspec/defaultTeeth.svg`;
           this.category.push({code: buf.code, title: buf.title, img, st: false});
         }
-      }).catch((error) => {
-        console.log(error);
-        this.results = null;
-      }).finally(() => {
-        this.loading = false;
-      });
+      })
+      .catch(() => { this.results = null; })
+      // .catch((error) => { console.log(error); this.results = null; })
+      .finally(() => { this.loading = false; });
     },
     updCat(el) {
       this.category[el].st = !this.category[el].st;
@@ -180,23 +192,6 @@ export default {
         this.sli.isShow = true;
 
       this.sli.max = this.sli.scroll - this.sli.offset;
-    },
-  },
-  beforeDestroy() {
-    window.removeEventListener('resize', this.checkSlider);
-  },
-  watch: {
-    "$i18n.locale": {
-      handler(newLocale, oldLocale) {
-        if (newLocale === oldLocale)
-          return
-        this.locale = newLocale;
-        if (oldLocale !== undefined){
-          this.docList("", this.$store.state.Booking.Date);
-          this.specList();
-        }
-      },
-      immediate: true
     },
   }
 }

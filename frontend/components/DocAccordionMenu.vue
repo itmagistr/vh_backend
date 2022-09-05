@@ -1,18 +1,18 @@
 <template>
   <div>
-    <div class="clip-accordion" @click="show('proc')" :class="[states.proc ? 'active' : '']">
+    <div class="clip-accordion" :class="[states.proc ? 'active' : '']" @click="show('proc')">
       {{ $t('modaldoccard.procedure') }} <i class="fas fa-caret-down"></i>
     </div>
-    <listView class="listproc" v-show="states.proc" :doctorUID="selfInfo.uid"
-              :infoButton="true" :resize="true" :infoBlock="true"/>
-    <div class="clip-accordion" @click="show('photo')" :class="[states.photo ? 'active' : '']">
+    <listView v-show="states.proc" class="listproc" :doctor-uid="selfInfo.uid"
+              :info-button="true" :resize="true" :info-block="true"/>
+    <div class="clip-accordion" :class="[states.photo ? 'active' : '']" @click="show('photo')">
       {{ $t('modaldoccard.photo') }} <i class="fas fa-caret-down"></i>
     </div>
     <Carousel v-show="states.photo" :self-info="selfInfo.uid"/>
-    <div class="clip-accordion" @click="show('social')" :class="[states.social ? 'active' : '']">
+    <div class="clip-accordion" :class="[states.social ? 'active' : '']" @click="show('social')">
       {{ $t('modaldoccard.social') }} <i class="fas fa-caret-down"></i>
     </div>
-    <div class="soc-btn-card" v-show="states.social">
+    <div v-show="states.social" class="soc-btn-card">
       <a :href="selfInfo.insta || '#'" :target="selfInfo.insta !== null ? '_blank': ''">
         <button class="social-btn"><i class="fab fa-instagram"></i></button></a>
       <a :href="selfInfo.youtube || '#'" :target="selfInfo.youtube !== null ? '_blank': ''">
@@ -22,18 +22,14 @@
       <a :href="selfInfo.vk || '#'" :target="selfInfo.vk !== null ? '_blank': ''">
         <button class="social-btn"><i class="fab fa-vk"></i></button></a>
     </div>
-    <div class="clip-accordion" @click="show('cert')" :class="[states.cert ? 'active' : '']">
+    <div class="clip-accordion" :class="[states.cert ? 'active' : '']" @click="show('cert')">
       {{ $t('modaldoccard.certificate') }} <i class="fas fa-caret-down"></i>
     </div>
-    <div class="cert" v-show="states.cert">
-      {{selfInfo.сertificate || null}}
-    </div>
-    <div class="clip-accordion" @click="show('edu')" :class="[states.edu ? 'active' : '']">
+    <div v-show="states.cert" class="cert">{{selfInfo.сertificate || null}}</div>
+    <div class="clip-accordion" :class="[states.edu ? 'active' : '']" @click="show('edu')">
       {{ $t('modaldoccard.education') }} <i class="fas fa-caret-down"></i>
     </div>
-    <div class="edu" v-show="states.edu">
-      {{selfInfo.education || null}}
-    </div>
+    <div v-show="states.edu" class="edu">{{selfInfo.education || null}}</div>
   </div>
 </template>
 
@@ -42,7 +38,8 @@ import Carousel from "@/components/DoctorWorkresCarousel"
 import listView from "@/components/ProcedureListView";
 
 export default {
-  props: ['selfInfo'],
+  components: { Carousel, listView },
+  props: { selfInfo: Object },
   data(){
     return {
       states: {
@@ -53,9 +50,6 @@ export default {
         edu: false
       },
     }
-  },
-  components: {
-    Carousel, listView
   },
   watch: {
     selfInfo: {
@@ -110,7 +104,9 @@ export default {
   > .cert
     display: flex
     margin: 0 1.5rem 1rem
+    white-space: pre-wrap
   > .edu
     display: flex
     margin: 0 1.5rem 3rem
+    white-space: pre-wrap
 </style>

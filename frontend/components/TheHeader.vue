@@ -31,7 +31,7 @@
           <li class="nav-item">
             <div class="search-field">
               <input v-model="q" type="text" class="form-control"
-                     :placeholder="Поиск" @keyup.enter="search">
+                     placeholder="Поиск" @keyup.enter="search">
               <button v-show="q.length !== 0" class="btn close-search-btn" @click="clear">
                 <i class="bi bi-x"></i>
               </button>

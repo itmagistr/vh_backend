@@ -10,14 +10,14 @@
         <ModalLeaveRequest/>
         <ModalMobileMenu :resize="isResize"/>
         <div class="d-flex align-items-center justify-content-between">
-          <div class="d-flex flex-column ctm-col-rt col neo-d">
+          <div class="d-flex flex-column col neo-d">
             <a href="https://www.instagram.com/tohwddent" target="_blank"><button class="social-btn"><i class="fab fa-instagram"></i></button></a>
             <a href="https://www.youtube.com/channel/UCeyxKBqdLFA79kCTH29RDsQ" target="_blank"><button class="social-btn"><i class="fab fa-youtube"></i></button></a>
             <a href="https://www.facebook.com/ToHwdDent" target="_blank"><button class="social-btn"><i class="fab fa-facebook-f"></i></button></a>
             <a href="https://vk.com/tohwddent" target="_blank"><button class="social-btn"><i class="fab fa-vk"></i></button></a>
           </div>
-          <NuxtChild :resize="isResize" :class="['neo-d', {'col': $route.path !== '/booking'}]"/>
-          <div class="d-flex flex-column ctm-col-lt col neo-d">
+          <NuxtChild :resize="isResize" :class="{'col': $route.path !== '/booking'}"/>
+          <div class="d-flex flex-column col neo-d">
             <button class="social-btn" data-toggle="modal" data-target="#mdl-leave-request"><i class="far fa-comment-alt"></i></button>
             <button class="social-btn" data-toggle="modal" data-target="#mdl-contacts"><i class="fas fa-map-marker-alt"></i></button>
             <!--<button class="social-btn"><i class="fas fa-route"></i></button>-->
@@ -41,7 +41,7 @@ export default {
   head () {
     return {
       bodyAttrs: {
-        class: this.$route.path === '/doctors' ? 'chg-doc' : this.$route.path === '/service' ? 'chg-proc' : this.$route.path === '/documents' ? 'documGal' : this.$route.path === '/virtual-tour' ? 'tour' : this.$route.path === '/' ? 'mainP' : this.$route.path === '/booking' ? 'booking' : ''
+        class: this.$route.path === '/doctors' ? 'chg-doc' : this.$route.path === '/service' ? 'chg-proc' : this.$route.path === '/documents' ? 'documGal' : this.$route.path === '/virtual-tour' ? 'tour' : this.$route.path === '/' ? 'mainP' : this.$route.path === '/booking' ? 'booking' : this.$route.path === '/articles' ? 'articles' : ''
       }
     }
   },
